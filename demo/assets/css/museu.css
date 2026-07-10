@@ -925,11 +925,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
+.mf-produto__galeria { position: sticky; top: 7rem; }
+
+/* Mobile: galeria em fluxo normal — sticky + transform de reveal causa
+   sobreposição da coluna de info no iOS Safari */
 @media (max-width: 960px) {
   .mf-produto__grid { grid-template-columns: 1fr; }
+  .mf-produto__galeria { position: static; }
 }
-
-.mf-produto__galeria { position: sticky; top: 7rem; }
 .mf-produto__palco {
   position: relative;
   background: var(--cor-obra, var(--azul));
@@ -1208,6 +1211,28 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   z-index: 200;
 }
 .mf-skip:focus { left: 0; }
+
+/* Seletor das versões de conceito (demo de aprovação) */
+.mf-versoes {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 80;
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  background: var(--preto);
+  color: var(--papel);
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  padding: 0.45rem 0.7rem;
+  border: 1.5px solid rgba(251, 250, 246, 0.25);
+}
+.mf-versoes span { opacity: 0.6; margin-right: 0.45rem; }
+.mf-versoes a { color: var(--papel); text-decoration: none; padding: 0.15rem 0.5rem; }
+.mf-versoes a:hover { background: rgba(251, 250, 246, 0.15); }
+.mf-versoes a[aria-current="true"] { background: var(--amarelo); color: var(--preto); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

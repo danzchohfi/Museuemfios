@@ -1,0 +1,231 @@
+/* ============================================================================
+   MUSEU EM FIOS — VERSÃO 3 · "Do amanhecer à noite"
+   O momento da persona contado só com design e animação: a página atravessa
+   o dia no scroll (manhã ensolarada → pôr do sol → noite), com cenas em
+   line-art no traço do grafismo "fio". Cores mais livres, derivadas da
+   identidade — logo e tipografia intocados.
+============================================================================ */
+
+.v3 { color: var(--preto); background: #fbe9b7; }
+
+/* Header flutuando sobre a primeira cena */
+.v3 .mf-header {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  background: transparent;
+}
+.v3 .mf-header.is-scrolled { box-shadow: none; }
+@media (max-width: 860px) {
+  .v3 .mf-nav { background: var(--amarelo); }
+}
+
+/* ------------------------------------------------------------ céu + astro -- */
+.v3-astro {
+  position: fixed;
+  top: 9vh;
+  left: 62vw;
+  width: clamp(5rem, 9vw, 8rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #f6ce6b;
+  box-shadow: 0 0 80px 30px rgba(246, 206, 107, 0.45);
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+}
+.mf-js .v3-astro { opacity: 1; }
+
+.v3-lua {
+  position: absolute;
+  top: 10vh;
+  right: 10vw;
+  width: clamp(3.5rem, 6vw, 5.5rem);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inset -14px 8px 0 0 var(--papel), 0 0 50px 10px rgba(251, 250, 246, 0.12);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  transform: rotate(-12deg);
+}
+
+.v3-estrelas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background-image:
+    radial-gradient(1.5px 1.5px at 12% 18%, rgba(251,250,246,0.9), transparent 60%),
+    radial-gradient(1px 1px at 28% 34%, rgba(251,250,246,0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 44% 12%, rgba(251,250,246,0.8), transparent 60%),
+    radial-gradient(1px 1px at 61% 28%, rgba(251,250,246,0.6), transparent 60%),
+    radial-gradient(2px 2px at 74% 15%, rgba(251,250,246,0.9), transparent 60%),
+    radial-gradient(1px 1px at 86% 38%, rgba(251,250,246,0.7), transparent 60%),
+    radial-gradient(1.5px 1.5px at 93% 22%, rgba(251,250,246,0.8), transparent 60%),
+    radial-gradient(1px 1px at 52% 44%, rgba(251,250,246,0.5), transparent 60%);
+  animation: v3-cintila 4.5s ease-in-out infinite alternate;
+}
+@keyframes v3-cintila {
+  from { filter: brightness(0.8); }
+  to { filter: brightness(1.25); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v3-estrelas { animation: none; }
+}
+
+/* Relógio do ritual */
+.v3-relogio {
+  position: fixed;
+  top: 6rem;
+  right: 1.2rem;
+  z-index: 70;
+  margin: 0;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.5rem 0.85rem;
+  border: 1.5px solid currentColor;
+  background: rgba(251, 250, 246, 0.25);
+  backdrop-filter: blur(4px);
+  display: none;
+}
+.mf-js .v3-relogio { display: block; }
+@media (max-width: 860px) { .v3-relogio { top: auto; bottom: 1rem; right: 1rem; } }
+
+/* ----------------------------------------------------------------- cenas -- */
+.v3-cena {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  padding: clamp(5rem, 12vh, 9rem) var(--gutter);
+  overflow: clip;
+}
+.v3-cena__grade {
+  width: min(100%, 1440px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+}
+.v3-cena--invertida .v3-cena__grade > :first-child { order: 2; }
+@media (max-width: 900px) {
+  .v3-cena__grade { grid-template-columns: 1fr; }
+  .v3-cena--invertida .v3-cena__grade > :first-child { order: 0; }
+}
+
+/* Fundos: cada cena carrega o próprio gradiente (funciona sem JS);
+   as bordas se fundem com a cena seguinte */
+.v3-cena--manha { background: linear-gradient(180deg, #fbe9b7 0%, #f6ce6b 78%, #f2b96a 100%); }
+.v3-cena--tarde { background: linear-gradient(180deg, #f2b96a 0%, #e08a56 55%, #c4634d 100%); color: var(--preto); }
+.v3-cena--noite { background: linear-gradient(180deg, #c4634d -8%, #232b42 26%, #0e1220 100%); color: var(--papel); }
+
+.v3-cena__quando {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.6rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.v3-cena__quando::before { content: ""; width: 2.25rem; height: 2px; background: currentColor; }
+
+.v3-cena__hora {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(4.5rem, 11vw, 9.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  margin: 0 0 1.2rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--preto);
+}
+.v3-cena--noite .v3-cena__hora { -webkit-text-stroke: 1.5px var(--papel); }
+
+.v3-cena__frase {
+  font-family: var(--f-texto);
+  font-size: clamp(1.6rem, 3.2vw, 2.6rem);
+  line-height: 1.3;
+  margin: 0 0 1rem;
+  max-width: 24ch;
+}
+.v3-cena__apoio { margin: 0 0 2rem; max-width: 44ch; opacity: 0.85; }
+
+/* Cena hero (manhã) — título maior */
+.v3-cena--manha .v3-cena__titulo {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  line-height: 0.95;
+  font-size: clamp(2.8rem, 6.5vw, 5.5rem);
+  margin: 0.6rem 0 1.2rem;
+}
+.v3-descritor { font-style: italic; font-size: 1rem; margin: 0 0 0.4rem; }
+
+/* Line-art no traço do fio */
+.v3-arte { width: 100%; max-width: 34rem; justify-self: center; overflow: visible; }
+.v3-arte path, .v3-arte circle, .v3-arte line, .v3-arte rect {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.v3-arte .fino { stroke-width: 1.2; }
+
+/* Halo do abajur na cena noite */
+.v3-halo {
+  position: absolute;
+  width: 46rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(242, 196, 64, 0.16) 0%, transparent 62%);
+  pointer-events: none;
+}
+
+/* Chip de kit (mesma gramática da v2) */
+.v3-kit {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  border: 1.5px solid currentColor;
+  padding: 0.85rem 1.2rem;
+  max-width: max-content;
+  transition: transform 0.35s var(--transicao), background 0.3s ease;
+}
+.v3-kit:hover { transform: translateY(-3px); background: rgba(251, 250, 246, 0.14); }
+.v3-kit img { width: 3.2rem; height: 3.2rem; object-fit: cover; }
+.v3-kit .info { display: grid; gap: 0.15rem; }
+.v3-kit .tipo {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.v3-kit .nome { font-style: italic; font-size: 1rem; }
+.v3-kit .seta { font-family: var(--f-titulo); margin-left: 0.4rem; }
+
+/* Vitrine e rodapé continuam na noite */
+.v3-fim {
+  position: relative;
+  z-index: 2;
+  background: #0e1220;
+  color: var(--papel);
+}
+.v3-fim .mf-eyebrow { color: var(--amarelo); }
+.v3-fim .mf-link::before { background: var(--papel); }
+.v3-fim .obra-card__cta { background: var(--papel); color: var(--preto); }
+.v3-fim .mf-news { background: transparent; }

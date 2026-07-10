@@ -1,0 +1,245 @@
+/* ============================================================================
+   MUSEU EM FIOS — VERSÃO 2 · "O Ritual"
+   Home cinematográfica vendendo o momento de uso da persona.
+   Preparada para receber o material da sessão de captação (foto/vídeo):
+   os .media-slot marcam exatamente onde cada peça entra.
+============================================================================ */
+
+.v2 {
+  background: #131311;
+  color: var(--papel);
+}
+.v2 ::selection { background: var(--amarelo); color: var(--preto); }
+
+/* Header sobre fundo escuro */
+.v2 .mf-header {
+  background: transparent;
+  position: fixed;
+  inset-inline: 0;
+}
+.v2 .mf-header.is-scrolled {
+  background: rgba(19, 19, 17, 0.92);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 1px 0 rgba(251, 250, 246, 0.25);
+}
+.v2 .mf-nav a::after { background: var(--papel); }
+.v2 .mf-carrinho__count { background: var(--amarelo); color: var(--preto); }
+.v2 .mf-menu-btn span { background: var(--papel); }
+@media (max-width: 860px) {
+  .v2 .mf-nav { background: #131311; }
+}
+
+/* ------------------------------------------------------------ media slot -- */
+/* Onde entra o material da sessão. A legenda em estilo "ficha técnica"
+   identifica a peça prevista no plano de captação. */
+.media-slot {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: #1c1c19;
+}
+.media-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.42) saturate(0.85) contrast(1.05);
+  transition: filter 1.2s ease, transform 8s ease;
+}
+.media-slot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--luz, linear-gradient(160deg, rgba(19,19,17,0.15), rgba(19,19,17,0.75)));
+  mix-blend-mode: multiply;
+}
+.media-slot__legenda {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1rem;
+  z-index: 3;
+  margin: 0;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(251, 250, 246, 0.75);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.media-slot__legenda::before {
+  content: "";
+  width: 1.6rem;
+  height: 1.5px;
+  background: currentColor;
+}
+.media-slot__play {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 5.2rem;
+  height: 5.2rem;
+  z-index: 3;
+  border: 1.5px solid rgba(251, 250, 246, 0.9);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--papel);
+  font-size: 1.3rem;
+  background: rgba(19, 19, 17, 0.25);
+  backdrop-filter: blur(3px);
+  transition: transform 0.4s var(--transicao), background 0.3s ease;
+}
+.media-slot__play:hover { transform: scale(1.08); background: rgba(19,19,17,0.5); }
+
+/* ------------------------------------------------------------------ hero -- */
+.v2-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+}
+.v2-hero .media-slot {
+  position: absolute;
+  inset: 0;
+}
+.v2-hero__conteudo {
+  position: relative;
+  z-index: 4;
+  align-self: center;
+  justify-self: center;
+  text-align: center;
+  padding: 7rem var(--gutter) 6rem;
+  max-width: 60rem;
+}
+.v2-hero__conteudo .mf-eyebrow { color: var(--amarelo); justify-content: center; }
+.v2-hero__conteudo .mf-eyebrow::before { display: none; }
+.v2-hero__titulo {
+  font-family: var(--f-texto);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.5vw, 6rem);
+  line-height: 1.08;
+  margin: 1.2rem 0;
+}
+.v2-hero__titulo em { font-style: italic; }
+.v2-hero__apoio {
+  font-size: clamp(1.02rem, 1.5vw, 1.25rem);
+  opacity: 0.85;
+  max-width: 44ch;
+  margin: 0 auto 2.4rem;
+}
+.v2-hero .media-slot__legenda { left: 50%; transform: translateX(-50%); bottom: 4.6rem; white-space: nowrap; }
+.v2-hero .mf-btn { border-color: var(--papel); }
+
+.v2-hero__seta {
+  position: absolute;
+  bottom: 1.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* -------------------------------------------------------------- momentos -- */
+.v2-momentos { padding-block: var(--secao) 0; }
+.v2-momentos__cab { text-align: center; max-width: 44rem; margin-inline: auto; }
+.v2-momentos__cab .mf-eyebrow { color: var(--amarelo); }
+
+.v2-momento {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  align-items: stretch;
+  margin-top: var(--secao);
+}
+.v2-momento:nth-child(even) .v2-momento__midia { order: 2; }
+.v2-momento__midia { min-height: min(78vh, 42rem); }
+.v2-momento__midia .media-slot { height: 100%; }
+
+.v2-momento__texto {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1.1rem;
+  padding: clamp(2.5rem, 5vw, 5rem);
+}
+.v2-momento__hora {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(4rem, 9vw, 8rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--cor-momento, var(--amarelo));
+  margin: 0;
+}
+.v2-momento__quando {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cor-momento, var(--amarelo));
+  margin: 0;
+}
+.v2-momento__frase {
+  font-family: var(--f-texto);
+  font-size: clamp(1.35rem, 2.4vw, 1.9rem);
+  line-height: 1.4;
+  margin: 0;
+  max-width: 30ch;
+}
+.v2-momento__apoio { margin: 0; opacity: 0.75; max-width: 40ch; }
+.v2-momento__kit {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  text-decoration: none;
+  border: 1.5px solid rgba(251, 250, 246, 0.35);
+  padding: 0.85rem 1.2rem;
+  max-width: max-content;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.v2-momento__kit:hover { border-color: var(--papel); background: rgba(251,250,246,0.06); }
+.v2-momento__kit img { width: 3.2rem; height: 3.2rem; object-fit: cover; }
+.v2-momento__kit .info { display: grid; gap: 0.15rem; }
+.v2-momento__kit .tipo {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+.v2-momento__kit .nome { font-style: italic; font-size: 1rem; }
+.v2-momento__kit .seta { font-family: var(--f-titulo); margin-left: 0.4rem; }
+
+@media (max-width: 900px) {
+  .v2-momento { grid-template-columns: 1fr; }
+  .v2-momento:nth-child(even) .v2-momento__midia { order: 0; }
+  .v2-momento__midia { min-height: 60vh; }
+}
+
+/* --------------------------------------------------------- certificado -- */
+.v2-certificado {
+  margin-top: var(--secao);
+  padding-block: var(--secao);
+  background: var(--amarelo);
+  color: var(--preto);
+  text-align: center;
+  position: relative;
+  overflow: clip;
+}
+.v2-certificado .mf-wrap { max-width: 52rem; display: grid; gap: 1.4rem; justify-items: center; }
+.v2-certificado .mf-serif { font-size: clamp(1.9rem, 4.5vw, 3.4rem); margin: 0; }
+
+/* --------------------------------------------------------------- vitrine -- */
+.v2 .mf-vitrine .mf-eyebrow { color: var(--amarelo); }
+.v2 .mf-vitrine .mf-link::before { background: var(--papel); }
+.v2 .obra-card__cta { background: var(--papel); color: var(--preto); }
