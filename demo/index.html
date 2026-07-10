@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Museu em Fios — Kits de bordado inspirados em grandes obras de arte</title>
+  <meta name="description" content="O Museu em Fios nasce do encontro entre a arte e o gesto. Kits de bordado inspirados em obras de Monet, Klimt e Matisse — aprenda ponto por ponto, com material completo e vídeo aulas.">
+  <link rel="icon" type="image/png" href="assets/img/favicon-amarelo-64.png">
+  <link rel="apple-touch-icon" href="assets/img/favicon-amarelo.png">
+  <link rel="preload" href="assets/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/fraunces-var-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="assets/css/museu.css">
+</head>
+<body>
+  <a class="mf-skip" href="#conteudo">Ir para o conteúdo</a>
+
+  <header class="mf-header">
+    <div class="mf-wrap mf-header__inner">
+      <a class="mf-logo" href="index.html" aria-label="Museu em Fios — página inicial">
+        <img src="assets/img/logo-vertical-preto.svg" alt="Museu em Fios">
+      </a>
+      <nav class="mf-nav" aria-label="Navegação principal">
+        <a href="index.html" aria-current="page">Início</a>
+        <a href="loja.html">Loja</a>
+        <a href="loja.html#digitais">Guias digitais</a>
+        <a href="sobre.html">Sobre nós</a>
+        <a href="index.html#contato">Contato</a>
+      </nav>
+      <div class="mf-header__acoes">
+        <a class="mf-carrinho" href="#" aria-label="Carrinho de compras">
+          Carrinho <span class="mf-carrinho__count">0</span>
+        </a>
+        <button class="mf-menu-btn" aria-expanded="false" aria-label="Abrir menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="conteudo">
+
+    <!-- ============================================================ HERO -->
+    <section class="mf-hero" aria-label="Kits em destaque">
+
+      <article class="mf-hero__slide is-active" data-cor="azul">
+        <p class="mf-hero__intro">
+          Inspirado na icônica obra <em>Femme à l'ombrelle</em> de Claude Monet,
+          este kit transforma a delicadeza e a poesia impressionista do artista
+          em uma experiência criativa através do bordado.
+        </p>
+        <div class="mf-hero__palco">
+          <div class="mf-hero__fio"></div>
+          <div class="mf-hero__obra">
+            <img src="assets/img/obras/monet-femme-ombrelle-sq.jpg" alt="Pintura Femme à l'ombrelle, de Claude Monet: mulher com sombrinha verde em campo florido" fetchpriority="high">
+          </div>
+          <p class="mf-hero__nome mf-display" aria-hidden="true">Monet</p>
+        </div>
+        <div class="mf-hero__rodape">
+          <span></span>
+          <div>
+            <p class="mf-hero__kit">Kit para<br>bordar</p>
+            <a class="mf-link" href="produto.html">Ver o kit</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mf-hero__slide" data-cor="amarelo">
+        <p class="mf-hero__intro">
+          Inspirado na obra <em>Die Umarmung</em> de Gustav Klimt, este kit
+          transforma a riqueza ornamental e o simbolismo do artista em uma
+          experiência criativa através do bordado.
+        </p>
+        <div class="mf-hero__palco">
+          <div class="mf-hero__fio"></div>
+          <div class="mf-hero__obra">
+            <img src="assets/img/obras/klimt-die-umarmung-sq.jpg" alt="Pintura Die Umarmung (O Abraço), de Gustav Klimt: casal abraçado em tons dourados" loading="lazy">
+          </div>
+          <p class="mf-hero__nome mf-display" aria-hidden="true">Klimt</p>
+        </div>
+        <div class="mf-hero__rodape">
+          <span></span>
+          <div>
+            <p class="mf-hero__kit">Kit para<br>bordar</p>
+            <a class="mf-link" href="loja.html">Ver o kit</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="mf-hero__slide" data-cor="verde">
+        <p class="mf-hero__intro">
+          Inspirado na obra <em>Le Pont Japonais</em> de Claude Monet, este kit
+          recria as cores, luzes e texturas do jardim de Giverny — ponto a ponto,
+          em uma interpretação em fios.
+        </p>
+        <div class="mf-hero__palco">
+          <div class="mf-hero__fio"></div>
+          <div class="mf-hero__obra">
+            <img src="assets/img/obras/monet-ponte-japonesa-sq.jpg" alt="Pintura Le Pont Japonais, de Claude Monet: ponte japonesa verde sobre lago de ninfeias" loading="lazy">
+          </div>
+          <p class="mf-hero__nome mf-display" aria-hidden="true">Monet</p>
+        </div>
+        <div class="mf-hero__rodape">
+          <span></span>
+          <div>
+            <p class="mf-hero__kit">Kit para<br>bordar</p>
+            <a class="mf-link" href="loja.html">Ver o kit</a>
+          </div>
+        </div>
+      </article>
+
+      <div class="mf-hero__nav" role="tablist" aria-label="Trocar destaque">
+        <button class="mf-hero__dot is-active" role="tab" aria-label="Destaque 1"><span class="prog"></span></button>
+        <button class="mf-hero__dot" role="tab" aria-label="Destaque 2"><span class="prog"></span></button>
+        <button class="mf-hero__dot" role="tab" aria-label="Destaque 3"><span class="prog"></span></button>
+      </div>
+    </section>
+
+    <!-- ========================================================= MARQUEE -->
+    <div class="mf-marquee" aria-hidden="true">
+      <div class="mf-marquee__trilho">
+        <span>Kit para bordar</span>
+        <span>Curadoria, construção e coleção</span>
+        <span>Frete grátis nos kits</span>
+        <span>Kit para bordar</span>
+        <span>Curadoria, construção e coleção</span>
+        <span>Frete grátis nos kits</span>
+      </div>
+    </div>
+
+    <!-- ======================================================= MANIFESTO -->
+    <section class="mf-manifesto">
+      <div class="mf-manifesto__fio" data-fio></div>
+      <div class="mf-wrap">
+        <p class="mf-eyebrow" data-reveal>Museu em Fios</p>
+        <p class="mf-manifesto__frase mf-serif">
+          O Museu em Fios nasce do encontro entre a arte e o gesto — obras da
+          história da arte traduzidas em linhas e texturas.
+        </p>
+        <p class="mf-manifesto__apoio" data-reveal>
+          Criamos caminhos para quem deseja bordar, aprender e se aproximar da
+          arte de forma íntima e possível, ponto por ponto. Nosso compromisso é
+          com a educação, a arte acessível e o tempo das mãos.
+          <br><br>
+          <a class="mf-link" href="sobre.html">Conheça o projeto</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ========================================================= VITRINE -->
+    <section class="mf-vitrine">
+      <div class="mf-wrap">
+        <div class="mf-vitrine__topo" data-reveal>
+          <div>
+            <p class="mf-eyebrow">A coleção</p>
+            <h2 class="mf-h2">Kits para bordar</h2>
+          </div>
+          <a class="mf-link" href="loja.html">Ver todos os kits</a>
+        </div>
+
+        <div class="mf-grade" data-reveal="grupo">
+          <a class="obra-card" data-cor="azul" data-artista="monet" href="produto.html">
+            <span class="obra-card__selo obra-card__selo--oferta">Oferta</span>
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/obras/monet-femme-ombrelle-sq.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/femme-01.jpg" alt="Kit de bordado Femme à l'ombrelle — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Monet</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                Femme à l'ombrelle
+              </span>
+              <span class="obra-card__preco"><del>R$ 179</del> R$ 149</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+          <a class="obra-card" data-cor="verde" data-artista="monet" href="produto.html">
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/obras/monet-ponte-japonesa-sq.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/le-pont-01.jpg" alt="Kit de bordado Le Pont Japonais — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Monet</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                Le Pont Japonais
+              </span>
+              <span class="obra-card__preco">R$ 179</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+          <a class="obra-card" data-cor="amarelo" data-artista="klimt" href="produto.html">
+            <span class="obra-card__selo">Pré-venda</span>
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/obras/klimt-die-umarmung-sq.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/die-umarmung-01.jpg" alt="Kit de bordado Die Umarmung — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Klimt</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                Die Umarmung
+              </span>
+              <span class="obra-card__preco">R$ 179</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+          <a class="obra-card" data-cor="amarelo" data-artista="klimt" href="produto.html">
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/obras/klimt-der-kuss-sq.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/der-kuss-01.jpg" alt="Kit de bordado Der Kuss — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Klimt</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                Der Kuss
+              </span>
+              <span class="obra-card__preco">R$ 199</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+          <a class="obra-card" data-cor="amarelo" data-artista="klimt" href="produto.html">
+            <span class="obra-card__selo">Para iniciantes</span>
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/obras/klimt-le-chevalier-sq.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/le-chevalier-01.jpg" alt="Kit de bordado Le Chevalier — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Klimt</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                Le Chevalier
+              </span>
+              <span class="obra-card__preco"><del>R$ 199</del> R$ 179</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+          <a class="obra-card" data-cor="papel" data-artista="matisse" href="produto.html">
+            <span class="obra-card__img" data-parallax>
+              <img src="assets/img/produtos/la-gerbe-01.jpg" alt="" loading="lazy">
+              <img class="foto-real" src="assets/img/produtos/la-gerbe-02.jpg" alt="Kit de bordado La Gerbe — foto real do bordado" loading="lazy">
+            </span>
+            <span class="obra-card__fio" data-fio></span>
+            <span class="obra-card__artista" aria-hidden="true">Matisse</span>
+            <span class="obra-card__base">
+              <span class="obra-card__obra">
+                <span class="obra-card__tipo">Kit de bordado</span>
+                La Gerbe
+              </span>
+              <span class="obra-card__preco">R$ 179</span>
+            </span>
+            <span class="obra-card__cta">Ver o kit →</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================== COMO FUNCIONA -->
+    <section class="mf-passos">
+      <div class="mf-wrap">
+        <p class="mf-eyebrow" data-reveal>Como funciona</p>
+        <h2 class="mf-h2" data-reveal>Da parede do museu<br>para as suas mãos</h2>
+        <div class="mf-passos__grade" data-reveal="grupo">
+          <article class="mf-passo">
+            <p class="mf-passo__num">01</p>
+            <h3>Escolha a obra</h3>
+            <p>Uma curadoria de obras da história da arte, traduzidas em riscos
+            de bordado por meio de pesquisa artística constante.</p>
+          </article>
+          <article class="mf-passo">
+            <p class="mf-passo__num">02</p>
+            <h3>Borde ponto a ponto</h3>
+            <p>Material completo e vídeo aulas passo a passo — feito também para
+            quem nunca bordou. O seu tempo, as suas mãos.</p>
+          </article>
+          <article class="mf-passo">
+            <p class="mf-passo__num">03</p>
+            <h3>Emoldure e exponha</h3>
+            <p>Ao final, uma interpretação em fios — única, bordada à mão —
+            pronta para virar o seu próprio museu.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================= KIT -->
+    <section class="mf-kit" id="kit">
+      <div class="mf-wrap">
+        <div class="mf-kit__visual" data-reveal>
+          <div class="mf-kit__fio" data-fio></div>
+          <img src="assets/img/produtos/femme-02.jpg" alt="Conteúdo do kit: tela com risco impresso, meadas de linha, estojo, tesoura e postal da obra" loading="lazy">
+        </div>
+        <div>
+          <p class="mf-eyebrow" data-reveal>O que vem no kit</p>
+          <h2 class="mf-h2" data-reveal>Tudo o que você<br>precisa para começar</h2>
+          <ul class="mf-kit__lista" data-reveal="grupo">
+            <li><span class="num">01</span> Tela de 20x20 com o risco da obra impresso e fixado</li>
+            <li><span class="num">02</span> Meadas Anchor Mouliné na paleta do artista</li>
+            <li><span class="num">03</span> Agulha, estojo de algodão cru e tesoura de arremate</li>
+            <li><span class="num">04</span> Postal da obra original com certificado de autenticidade</li>
+            <li><span class="num">05</span> QR code para o guia de instruções e vídeo aulas</li>
+          </ul>
+          <a class="mf-btn" href="loja.html" data-reveal>Escolher meu kit</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================================== GUIAS -->
+    <section class="mf-vitrine" id="digitais-home">
+      <div class="mf-wrap">
+        <div class="mf-vitrine__topo" data-reveal>
+          <div>
+            <p class="mf-eyebrow">Para bordar do seu jeito</p>
+            <h2 class="mf-h2">Guias digitais</h2>
+          </div>
+          <a class="mf-link" href="loja.html#digitais">Ver todos os guias</a>
+        </div>
+        <div class="mf-grade mf-grade--guias" data-reveal="grupo">
+          <a class="guia-card" data-artista="digital" href="https://www.museuemfios.com/produtos/guia-de-bordado-nympheas-claude-monet-produto-digital/" target="_blank" rel="noopener">
+            <span class="guia-card__img"><img src="assets/img/produtos/nympheas-01.jpg" alt="" loading="lazy"></span>
+            <span class="guia-card__info">
+              <span class="guia-card__tipo">Produto digital</span>
+              <span class="guia-card__nome">Guia de Bordado “Nymphéas” — Monet</span>
+              <span class="guia-card__preco"><del>R$ 39,99</del>R$ 34,99</span>
+            </span>
+          </a>
+          <a class="guia-card" data-artista="digital" href="https://www.museuemfios.com/produtos/guia-de-riscos-monet-jardins-de-giverny-produto-digital/" target="_blank" rel="noopener">
+            <span class="guia-card__img"><img src="assets/img/produtos/giverny-01.jpg" alt="" loading="lazy"></span>
+            <span class="guia-card__info">
+              <span class="guia-card__tipo">Produto digital</span>
+              <span class="guia-card__nome">Guia de Riscos — Monet: Jardins de Giverny</span>
+              <span class="guia-card__preco">R$ 29,99</span>
+            </span>
+          </a>
+          <a class="guia-card" data-artista="digital" href="https://www.museuemfios.com/produtos/guia-de-pontos-monet-pincelada-impressionista-em-fios-produto-digital/" target="_blank" rel="noopener">
+            <span class="guia-card__img"><img src="assets/img/produtos/pincelada-01.jpg" alt="" loading="lazy"></span>
+            <span class="guia-card__info">
+              <span class="guia-card__tipo">Produto digital</span>
+              <span class="guia-card__nome">Guia de Pontos — Monet: Pincelada Impressionista</span>
+              <span class="guia-card__preco">R$ 24,99</span>
+            </span>
+          </a>
+          <a class="guia-card" data-artista="digital" href="https://www.museuemfios.com/produtos/entre-ornamento-e-fio-padroes-de-gustav-klimt-em-bordado-produto-digital/" target="_blank" rel="noopener">
+            <span class="guia-card__img"><img src="assets/img/produtos/ornamento-01.jpg" alt="" loading="lazy"></span>
+            <span class="guia-card__info">
+              <span class="guia-card__tipo">Produto digital</span>
+              <span class="guia-card__nome">Entre Ornamento e Fio — padrões de Gustav Klimt</span>
+              <span class="guia-card__preco">R$ 29,99</span>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= INSTAGRAM -->
+    <section class="mf-insta">
+      <div class="mf-wrap">
+        <div class="mf-vitrine__topo" data-reveal>
+          <div>
+            <p class="mf-eyebrow">Instagram</p>
+            <h2 class="mf-h2">@museuemfios</h2>
+          </div>
+          <a class="mf-link" href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener">Seguir no Instagram</a>
+        </div>
+        <div class="mf-insta__grade" data-reveal="grupo">
+          <a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener" aria-label="Ver o Instagram do Museu em Fios">
+            <img src="assets/img/produtos/le-pont-01.jpg" alt="" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener" aria-label="Ver o Instagram do Museu em Fios">
+            <img src="assets/img/produtos/die-umarmung-01.jpg" alt="" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener" aria-label="Ver o Instagram do Museu em Fios">
+            <img src="assets/img/produtos/femme-02.jpg" alt="" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener" aria-label="Ver o Instagram do Museu em Fios">
+            <img src="assets/img/produtos/der-kuss-01.jpg" alt="" loading="lazy">
+          </a>
+          <a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener" aria-label="Ver o Instagram do Museu em Fios">
+            <img src="assets/img/produtos/ornamento-01.jpg" alt="" loading="lazy">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="mf-news">
+      <div class="mf-wrap">
+        <p class="mf-eyebrow" data-reveal>Newsletter</p>
+        <h2 class="mf-h2" data-reveal>Receba as novas obras<br>em primeira mão</h2>
+        <form data-reveal>
+          <label class="visually-hidden" for="news-email">Seu e-mail</label>
+          <input id="news-email" type="email" placeholder="seu@email.com" autocomplete="email">
+          <button type="submit">Assinar</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="mf-footer" id="contato">
+    <div class="mf-wrap">
+      <a class="mf-footer__logo" href="index.html" aria-label="Museu em Fios">
+        <img src="assets/img/logo-horizontal-branco.svg" alt="Museu em Fios">
+      </a>
+      <div class="mf-footer__cols">
+        <div>
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="index.html">Início</a></li>
+            <li><a href="loja.html">Loja</a></li>
+            <li><a href="loja.html#digitais">Guias digitais</a></li>
+            <li><a href="sobre.html">Sobre nós</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ajuda</h4>
+          <ul>
+            <li><a href="https://www.museuemfios.com/faq/" target="_blank" rel="noopener">Perguntas frequentes</a></li>
+            <li><a href="https://www.museuemfios.com/politica-de-trocas-e-devolucoes/" target="_blank" rel="noopener">Trocas e devoluções</a></li>
+            <li><a href="https://www.museuemfios.com/contato/" target="_blank" rel="noopener">Entrar em contato</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contato</h4>
+          <ul>
+            <li><a href="https://wa.me/5511971147355" target="_blank" rel="noopener">WhatsApp — (11) 97114-7355</a></li>
+            <li><a href="mailto:museuemfios@gmail.com">museuemfios@gmail.com</a></li>
+            <li><a href="https://www.instagram.com/museuemfios/" target="_blank" rel="noopener">Instagram — @museuemfios</a></li>
+            <li><a href="https://www.tiktok.com/@museuemfios" target="_blank" rel="noopener">TikTok — @museuemfios</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Pagamento e envio</h4>
+          <ul>
+            <li>Pix e cartões em até 2x sem juros</li>
+            <li>Frete grátis nos kits — Brasil todo</li>
+          </ul>
+        </div>
+      </div>
+      <div class="mf-footer__base">
+        <span>© 2026 Museu em Fios — curadoria, construção e coleção.</span>
+        <span>Identidade visual: Estúdio Agudo · Site: Vitamina Publicitária</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/vendor/gsap.min.js"></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js"></script>
+  <script src="assets/js/museu.js"></script>
+</body>
+</html>

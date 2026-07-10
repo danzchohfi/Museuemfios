@@ -1,0 +1,573 @@
+{
+  "loja": {
+    "nome": "Museu em Fios",
+    "email": "museuemfios@gmail.com",
+    "whatsapp": "https://wa.me/5511971147355",
+    "cnpj": null,
+    "instagram": "https://instagram.com/museuemfios",
+    "facebook": null,
+    "tiktok": "https://www.tiktok.com/@museuemfios",
+    "twitter": "https://www.twitter.com/museuemfios",
+    "anuncio_topo": null,
+    "pagamentos": [
+      "visa",
+      "mastercard",
+      "amex",
+      "diners",
+      "aura",
+      "bradesco",
+      "elo",
+      "hipercard",
+      "discover",
+      "santander",
+      "pix"
+    ],
+    "selos": [],
+    "plataforma": "Nuvemshop (tema Rio)",
+    "menu": [
+      {
+        "nome": "Início",
+        "url": "/"
+      },
+      {
+        "nome": "Loja",
+        "url": "https://www.museuemfios.com/produtos/",
+        "subitens": [
+          {
+            "nome": "Kits de Bordado",
+            "url": "https://www.museuemfios.com/kits-de-bordado/"
+          }
+        ]
+      },
+      {
+        "nome": "Produtos Digitais",
+        "url": "https://www.museuemfios.com/produtos-digitais/"
+      },
+      {
+        "nome": "Sobre Nós",
+        "url": "https://www.museuemfios.com/quem-somos/"
+      },
+      {
+        "nome": "Blog",
+        "url": "https://www.museuemfios.com/blog1/",
+        "nota": "link retorna 404"
+      },
+      {
+        "nome": "Entrar em Contato",
+        "url": "/contato/"
+      },
+      {
+        "nome": null,
+        "url": "https://www.museuemfios.com/guia-de-bordado-femme-a-lombrelle-mulher-com-sombrinha/",
+        "nota": "item sem rótulo no menu"
+      },
+      {
+        "nome": "Política de Trocas e Devoluções",
+        "url": "https://www.museuemfios.com/politica-de-trocas-e-devolucoes/"
+      },
+      {
+        "nome": "FAQ",
+        "url": "https://www.museuemfios.com/faq/"
+      }
+    ],
+    "footer_links": [
+      {
+        "grupo": "Navegação",
+        "links": [
+          {
+            "nome": "Início",
+            "url": "/"
+          },
+          {
+            "nome": "Loja",
+            "url": "https://www.museuemfios.com/produtos/"
+          },
+          {
+            "nome": "Sobre Nós",
+            "url": "https://www.museuemfios.com/quem-somos/"
+          },
+          {
+            "nome": "Blog",
+            "url": "https://www.museuemfios.com/blog1/"
+          },
+          {
+            "nome": "Entrar em Contato",
+            "url": "/contato/"
+          },
+          {
+            "nome": "Política de Trocas e Devoluções",
+            "url": "https://www.museuemfios.com/politica-de-trocas-e-devolucoes/"
+          },
+          {
+            "nome": "FAQ",
+            "url": "https://www.museuemfios.com/faq/"
+          }
+        ]
+      },
+      {
+        "grupo": "Entre em contato",
+        "links": [
+          {
+            "nome": "museuemfios@gmail.com",
+            "url": "mailto:museuemfios@gmail.com"
+          }
+        ]
+      }
+    ],
+    "home_secoes": [
+      {
+        "tipo": "slider",
+        "titulo": null,
+        "nota": "2 imagens de carrossel (alt: \"Carrossel 1\", \"Carrossel 2\"), sem texto sobreposto"
+      },
+      {
+        "tipo": "produtos_destaque",
+        "titulo": "Kits para Bordado"
+      },
+      {
+        "tipo": "produtos_novos",
+        "titulo": "Produtos Digitais"
+      },
+      {
+        "tipo": "produtos_oferta",
+        "titulo": "Descontos"
+      },
+      {
+        "tipo": "texto",
+        "titulo": "Nossa Essência",
+        "texto": "Museu em Fios nasce do encontro entre arte e gesto. Transformamos obras da história da arte em projetos de bordado acessíveis, assim como desenvolvemos bordados autorais, através de guias e kits que convidam ao fazer sensível. Criamos caminhos para quem deseja bordar, aprender e se aproximar da arte de forma íntima e possível, ponto a ponto. Nosso compromisso é com a educação, com a arte acessível e com o tempo das mãos. Da pintura ao fio. Do museu para você."
+      },
+      {
+        "tipo": "newsletter",
+        "titulo": "Cadastre-se Gratuitamente",
+        "texto": "Se cadastre e veja sempre novidades e novas obras de arte feitas"
+      }
+    ],
+    "etiquetas_produto": [
+      "Frete grátis"
+    ],
+    "whatsapp_numero": "+5511971147355",
+    "whatsapp_widget": {
+      "fonte": "widget Smartarget (WhatsApp Contact Us) carregado no site",
+      "botao": "Alguma pergunta? Pergunte em Whatsapp",
+      "popup": "Tem alguma pergunta? Contacte-nos agora",
+      "mensagem_inicial": "Olá!! Gostaria de comprar o KIT MONET",
+      "nota": "o texto do chat cita o e-mail \"museufios@gmail.com\" (grafia divergente do footer, que usa museuemfios@gmail.com)"
+    }
+  },
+  "categorias": [
+    {
+      "nome": "Kits de Bordado",
+      "url": "https://www.museuemfios.com/kits-de-bordado/",
+      "produtos": 6
+    },
+    {
+      "nome": "Produtos Digitais",
+      "url": "https://www.museuemfios.com/produtos-digitais/",
+      "produtos": 5
+    },
+    {
+      "nome": "Obras Edição Limitada",
+      "url": "https://www.museuemfios.com/obras-edicao-limitada/",
+      "nota": "no sitemap, mas a página retorna Erro 404 (categoria vazia/oculta)"
+    },
+    {
+      "nome": "Obras Únicas",
+      "url": "https://www.museuemfios.com/obras-unicas/",
+      "nota": "no sitemap, mas a página retorna Erro 404 (categoria vazia/oculta)"
+    }
+  ],
+  "produtos": [
+    {
+      "nome": "KIT para Bordado: “Femme à l’ombrelle” (Mulher com Sombrinha) – Claude Monet",
+      "slug": "kit-de-bordado-femme-a-lombrelle-claude-monet",
+      "slug_curto": "femme",
+      "url": "https://www.museuemfios.com/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-001",
+      "preco": 149,
+      "preco_str": "R$149,00",
+      "preco_de": 179,
+      "parcelas": "2x de R$74,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 1,
+      "descricao": "KIT para Bordado: \"Femme à l'ombrelle\" – Claude Monet\n\n🎨 Borde uma obra-prima da história da arte\n\nInspirado na icônica obra Femme à l'ombrelle de Claude Monet, este kit transforma a delicadeza e a poesia impressionista do artista em uma experiência criativa através do bordado. Com cores, luzes e texturas características do universo de Monet, você irá recriar a obra ponto a ponto, explorando a leveza e o movimento que marcaram a pintura impressionista — em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 7 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital passo a passo\n\nO kit inclui acesso a um e-book digital em PDF com:\n\n- Passo a passo completo com fotos detalhadas\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo de Monet\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material digital\n\n- O acesso é feito via QR Code dentro do kit\n\n- Este produto não é um curso online\n\n- Ideal para quem já tem alguma experiência com bordado\n\n🎨 Transforme fios em arte e viva uma experiência inspirada no universo de Claude Monet.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-3-254d6af549ebb7825617776492019937-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/8-5d1908e81c72762bb917708314250179-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/mulher-com-s-a6a9e6d95164de6bcc17708314663156-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/whatsapp-image-2026-02-11-at-2-49-52-pm-7c0c18b519906e708717708341894890-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/femme-01.jpg",
+        "assets/img/produtos/femme-02.jpg",
+        "assets/img/produtos/femme-03.jpg",
+        "assets/img/produtos/femme-04.jpg"
+      ],
+      "artista": "Monet",
+      "obra": "Femme à l'ombrelle"
+    },
+    {
+      "nome": "KIT para Bordado: “Le Pont Japonais” – Claude Monet",
+      "slug": "kit-de-bordado-le-pont-japonais-claude-monet",
+      "slug_curto": "le-pont",
+      "url": "https://www.museuemfios.com/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-002",
+      "preco": 179,
+      "preco_str": "R$179,00",
+      "preco_de": null,
+      "parcelas": "2x de R$89,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 4,
+      "descricao": "KIT para Bordado: \"Le Pont Japonais\" – Claude Monet\n\n🎨 Borde uma obra-prima da história da arte\n\nInspirado na obra Le Pont Japonais de Claude Monet, este kit transforma a serenidade e a poesia impressionista do artista em uma experiência criativa através do bordado. Com cores, luzes e texturas características dos jardins de Giverny, você irá recriar a obra ponto a ponto, explorando a atmosfera íntima e contemplativa da fase mais sensível de Monet em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 10 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital passo a passo\n\nO kit inclui acesso a um e-book digital em PDF com:\n\n- Passo a passo completo com fotos detalhadas\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo de Monet\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material digital\n\n- O acesso é feito via QR Code dentro do kit\n\n- Este produto não é um curso online\n\n- Ideal para quem já tem alguma experiência com bordado\n\n🎨 Transforme fios em arte e viva uma experiência inspirada no universo de Claude Monet.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-c88124b2de12da2f6417776491461044-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/materiales-2cc20ab3801d43b03817703010672071-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-caja-93fc4218643b3467e717703242998219-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-caja-2-1891fa36e1e8df5b0117703243027923-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/le-pont-01.jpg",
+        "assets/img/produtos/le-pont-02.jpg",
+        "assets/img/produtos/le-pont-03.jpg",
+        "assets/img/produtos/le-pont-04.jpg"
+      ],
+      "artista": "Monet",
+      "obra": "Le Pont Japonais"
+    },
+    {
+      "nome": "KIT para Bordado: “Die Umarmung” (O abraço) – Gustav Klimt",
+      "slug": "pre-venda-kit-de-bordado-die-umarmung-gustav-klimt",
+      "slug_curto": "die-umarmung",
+      "url": "https://www.museuemfios.com/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-003",
+      "preco": 179,
+      "preco_str": "R$179,00",
+      "preco_de": null,
+      "parcelas": "2x de R$89,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 3,
+      "descricao": "KIT para Bordado: \"Die Umarmung\" – Gustav Klimt\n\n🧵 Borde uma obra-prima da história da arte\n\nInspirado na obra Die Umarmung de Gustav Klimt, este kit transforma a delicadeza e o simbolismo da arte em uma experiência criativa através do bordado. Com formas envolventes e a riqueza ornamental característica do universo de Klimt, você irá recriar a obra ponto a ponto, explorando texturas, cores e composições — em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 11 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital passo a passo\n\nO kit inclui acesso a um e-book digital em PDF com:\n\n- Passo a passo completo com fotos detalhadas\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo de Klimt\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material digital\n\n- O acesso é feito via QR Code dentro do kit\n\n- Este produto não é um curso online\n\n🧵 Transforme fios em arte e viva uma experiência inspirada no universo de Gustav Klimt.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-4-7100899ae30595494917776491253416-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/148-48305ef3cb695bf6f617732724965074-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/10-63f60fb825f53eaba717732724990889-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/11-ed7738759b0fe2fd8b17732725018609-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/die-umarmung-01.jpg",
+        "assets/img/produtos/die-umarmung-02.jpg",
+        "assets/img/produtos/die-umarmung-03.jpg",
+        "assets/img/produtos/die-umarmung-04.jpg"
+      ],
+      "artista": "Klimt",
+      "obra": "Die Umarmung"
+    },
+    {
+      "nome": "KIT de Bordado: Klimt para quem nunca Bordou – “Le Chevalier” | Material completo + Vídeo aulas",
+      "slug": "kit-de-bordado-klimt-para-quem-nunca-bordou-le-chevalier-material-completo-video-aulas",
+      "slug_curto": "le-chevalier",
+      "url": "https://www.museuemfios.com/produtos/kit-de-bordado-klimt-para-quem-nunca-bordou-le-chevalier-material-completo-video-aulas/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-004",
+      "preco": 179,
+      "preco_str": "R$179,00",
+      "preco_de": 199,
+      "parcelas": "2x de R$89,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 10,
+      "descricao": "KIT de Bordado: \"Le Chevalier\" – Gustav Klimt\n\n🧵 Borde a sua primeira obra-prima\n\nInspirado no painel Le Chevalier, do Friso Stoclet de Gustav Klimt, este kit transforma a riqueza ornamental e simbólica do artista em uma experiência criativa através do bordado. Com formas estruturadas e padrões característicos do universo de Klimt, você irá reconstruir a obra ponto a ponto, explorando texturas, direções e contrastes — em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 5 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital + Videoaulas\n\nO kit inclui acesso a um material digital completo em PDF com:\n\n- Passo a passo fotografado de cada etapa\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo de Klimt\n\n- Videoaulas que acompanham cada etapa do processo\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material\n\n- O acesso é feito via QR Code dentro do kit\n\n🧵 Transforme fios em arte e viva uma experiência inspirada no universo de Gustav Klimt.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-45f0b7f5f2b03b99f217776490753891-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-5e6fbc752c111906d317763193765052-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-3-551a2840a8da94cccb17763193947905-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-4-cbd9c686fd124b5f3f17763193949714-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/le-chevalier-01.jpg",
+        "assets/img/produtos/le-chevalier-02.jpg",
+        "assets/img/produtos/le-chevalier-03.jpg",
+        "assets/img/produtos/le-chevalier-04.jpg"
+      ],
+      "artista": "Klimt",
+      "obra": "Le Chevalier"
+    },
+    {
+      "nome": "KIT para Bordado: “Der Kuss” (O Beijo) - Gustav Klimt",
+      "slug": "kit-de-bordado-der-kuss-gustav-klimt",
+      "slug_curto": "der-kuss",
+      "url": "https://www.museuemfios.com/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-005",
+      "preco": 199,
+      "preco_str": "R$199,00",
+      "preco_de": null,
+      "parcelas": "2x de R$99,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 26,
+      "descricao": "KIT para Bordado: \"Der Kuss\" – Gustav Klimt\n\n🧵 Borde uma obra-prima da história da arte\n\nInspirado na icônica obra Der Kuss de Gustav Klimt, este kit transforma a delicadeza e o simbolismo do artista em uma experiência criativa através do bordado. Com formas envolventes e a riqueza ornamental característica do universo de Klimt, você irá recriar a obra ponto a ponto, explorando texturas, cores e contrastes — em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 10 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital + Videoaulas\n\nO kit inclui acesso a um material digital completo em PDF com:\n\n- Passo a passo fotografado de cada etapa\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo de Klimt\n\n- Videoaulas que acompanham cada etapa do processo\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material\n\n- O acesso é feito via QR Code dentro do kit\n\n🧵 Transforme fios em arte e viva uma experiência inspirada no universo de Gustav Klimt.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/31-4eafb9e0bf6dbff62017781723369381-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/30-0709eb1975c78d52f717781723369244-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/32-cc60d881d16e321d6b17781723374154-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/33-b4c87ea7765b13063d17781723377485-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/der-kuss-01.jpg",
+        "assets/img/produtos/der-kuss-02.jpg",
+        "assets/img/produtos/der-kuss-03.jpg",
+        "assets/img/produtos/der-kuss-04.jpg"
+      ],
+      "artista": "Klimt",
+      "obra": "Der Kuss"
+    },
+    {
+      "nome": "KIT para Bordado: “La Gerbe” - Henri Matisse",
+      "slug": "kit-para-bordado-la-gerbe-henri-matisse-pko6p",
+      "slug_curto": "la-gerbe",
+      "url": "https://www.museuemfios.com/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
+      "categoria": "Kits de Bordado",
+      "sku": "KIT-006",
+      "preco": 179,
+      "preco_str": "R$179,00",
+      "preco_de": null,
+      "parcelas": "2x de R$89,50 sem juros",
+      "parcelas_max": "até 12x no cartão",
+      "disponivel": true,
+      "estoque": 32,
+      "descricao": "KIT para Bordado: \"La Gerbe\" – Henri Matisse\n\n🧵 Borde uma obra-prima da história da arte\n\nInspirado na icônica obra La Gerbe de Henri Matisse, este kit transforma a vivacidade das cores e a liberdade das formas do mestre do fauvismo em uma experiência criativa através do bordado. Com suas célebres colagens e composições botânicas cheias de movimento, você irá recriar a obra ponto a ponto, explorando a energia, os contrastes e a simplicidade genial de Matisse em um processo que vai além da reprodução: é uma interpretação em fios.\n\n✳️ O que vem no kit\n\nTudo o que você precisa para começar a bordar:\n\n- Bastidor com tela e risco impresso da obra\n\n- 7 meadas Anchor Mouliné nas cores do projeto\n\n- Agulha nº 5\n\n- Tesourinha de costura\n\n- Estojo de algodão cru para armazenar os materiais\n\n- Certificado de autenticidade para assinar sua obra final\n\n- Cartão postal exclusivo com QR Code para acesso ao conteúdo digital\n\n✳️ Guia digital\n\nO kit inclui acesso a um material digital completo em PDF com:\n\n- Passo a passo fotografado de cada etapa\n\n- Explicação dos pontos utilizados\n\n- Orientações para finalização da peça\n\n- Conteúdo curatorial sobre a obra e o universo recortado de Matisse\n\nO acesso é feito via QR Code incluído no kit.\n\n✳️ Informações importantes\n\n- Produto físico + digital\n\n- Acesso vitalício ao material\n\n- O acesso é feito via QR Code dentro do kit\n\n🧵 Transforme fios em arte e viva uma experiência inspirada no universo de Henri Matisse.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/15-a53bea8be0e66f7ab517832586388024-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/16-0b620af2e5f6ff198417832586413739-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/17-d67cb05e84a40a455317832586426448-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/18-1d70ef6fe9d893abba17832586436259-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/la-gerbe-01.jpg",
+        "assets/img/produtos/la-gerbe-02.jpg",
+        "assets/img/produtos/la-gerbe-03.jpg",
+        "assets/img/produtos/la-gerbe-04.jpg"
+      ],
+      "artista": "Matisse",
+      "obra": "La Gerbe"
+    },
+    {
+      "nome": "Guia de Bordado “Nymphéas” – Claude Monet (Produto Digital)",
+      "slug": "guia-de-bordado-nympheas-claude-monet-produto-digital",
+      "slug_curto": "nympheas",
+      "url": "https://www.museuemfios.com/produtos/guia-de-bordado-nympheas-claude-monet-produto-digital/",
+      "categoria": "Produtos Digitais",
+      "sku": "Guia-001",
+      "preco": 34.99,
+      "preco_str": "R$34,99",
+      "preco_de": 39.99,
+      "parcelas": "2x de R$17,50 sem juros",
+      "parcelas_max": "até 8x no cartão",
+      "disponivel": true,
+      "estoque": null,
+      "descricao": "🎨Guia de Bordado “Nymphéas” – Claude Monet (PDF)\n\nInspirada em uma das séries mais icônicas de Claude Monet, esta guia foi criada para quem deseja transformar o bordado em uma verdadeira experiência artística.\n\nMais do que um risco, este material conduz você por todo o processo criativo: da compreensão da obra original à escolha de pontos, cores e execução final, traduzindo a atmosfera dos nenúfares de Giverny em fios e textura.\n\nO que você vai encontrar:\n\n • Introdução à obra e ao contexto artístico de Monet\n\n • Orientações sobre materiais e superfície\n\n • Transferência do risco (com passo a passo)\n\n • Risco em tamanho A4\n\n • Imagem de referência e ficha técnica da obra\n\n • Guia de pontos utilizados\n\n • Guia de cores completo (Anchor e DMC)\n\n • Execução detalhada do bordado, passo a passo\n\n • Reflexão final sobre bordar luz, cor e instante\n\nPara quem é:\n\n • Bordadeiras(os) iniciantes a intermediárias(os)\n\n • Quem busca um resultado artístico e decorativo\n\n • Amantes de arte, bordado e processos criativos\n\n📄 Formato: PDF digital\n\n📥 Entrega: download imediato após a compra",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-2-96747cba930db50aca17703243180362-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-3-adec931ccaa3a12c1f17703243206187-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/indice-nenufares-93a30441eecc59d05f17703243222101-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-4-c48e1da2d19a33f69017703243606909-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/nympheas-01.jpg",
+        "assets/img/produtos/nympheas-02.jpg",
+        "assets/img/produtos/nympheas-03.jpg",
+        "assets/img/produtos/nympheas-04.jpg",
+        "assets/img/produtos/nympheas-05.jpg"
+      ],
+      "artista": "Monet",
+      "obra": "Nymphéas"
+    },
+    {
+      "nome": "Guia de Riscos - Monet: Jardins de Giverny (Produto Digital)",
+      "slug": "guia-de-riscos-monet-jardins-de-giverny-produto-digital",
+      "slug_curto": "giverny",
+      "url": "https://www.museuemfios.com/produtos/guia-de-riscos-monet-jardins-de-giverny-produto-digital/",
+      "categoria": "Produtos Digitais",
+      "sku": "Riscos-001",
+      "preco": 29.99,
+      "preco_str": "R$29,99",
+      "preco_de": null,
+      "parcelas": "2x de R$15,00 sem juros",
+      "parcelas_max": "até 7x no cartão",
+      "disponivel": true,
+      "estoque": null,
+      "descricao": "🎨 Guia de Riscos – Monet: Jardins de Giverny (PDF)\n\nTransforme a poesia visual de Claude Monet em bordado.Esta coleção exclusiva reúne 4 riscos inspirados nos icônicos jardins de Giverny, reinterpretados com traços limpos, elegantes e cuidadosamente desenvolvidos para proporcionar uma experiência de bordado artística, prazerosa e acessível tanto para iniciantes quanto para bordadeiras experientes.\n\nDentro do arquivo você encontrará desenhos em alta resolução, prontos para imprimir, além de um guia de impressão com recomendações práticas e uma sugestão de cores que harmoniza com a atmosfera impressionista das obras.\n\nA coleção foi pensada para quem deseja bordar peças sofisticadas, delicadas e com identidade artística, trazendo para o bordado a mesma sensação de luz, calma e movimento que Monet transmitia em suas pinturas.\n\nConteúdo do PDF:• 4 riscos exclusivos e prontos para impressão• Guia de impressão + orientações de uso• Sugestão de cores• Traços artísticos inspirados no estilo impressionista\n\nEntrega do arquivo:Após a confirmação da compra, o PDF será enviado manualmente para o e-mail cadastrado no pedido. O envio é realizado dentro de algumas horas (em horário comercial). Depois, basta baixar e imprimir no tamanho desejado.Caso o arquivo não chegue, é só entrar em contato que reenviamos imediatamente.\n\nUma coleção para quem deseja bordar arte com elegância, cuidado e inspiração. ✨",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/riscos-03956125b02a88dd6c17703184675742-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/riscos-2-21668dcfd98d48584617703245700619-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/riscos-3-ec33a8a00eb9bfae9217703245742639-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/giverny-01.jpg",
+        "assets/img/produtos/giverny-02.jpg",
+        "assets/img/produtos/giverny-03.jpg",
+        "assets/img/produtos/giverny-04.jpg"
+      ],
+      "artista": "Monet",
+      "obra": "Jardins de Giverny"
+    },
+    {
+      "nome": "Guia de Pontos - Monet: Pincelada Impressionista em Fios (Produto Digital)",
+      "slug": "guia-de-pontos-monet-pincelada-impressionista-em-fios-produto-digital",
+      "slug_curto": "pincelada",
+      "url": "https://www.museuemfios.com/produtos/guia-de-pontos-monet-pincelada-impressionista-em-fios-produto-digital/",
+      "categoria": "Produtos Digitais",
+      "sku": "Riscos-002",
+      "preco": 24.99,
+      "preco_str": "R$24,99",
+      "preco_de": null,
+      "parcelas": "2x de R$12,50 sem juros",
+      "parcelas_max": "até 6x no cartão",
+      "disponivel": true,
+      "estoque": null,
+      "descricao": "🎨 Pincelada Impressionista em Fios: Guia de Pontos Inspirados em Monet (PDF)\n\nTransforme a linguagem luminosa e atmosférica de Claude Monet em bordado.\n\nEsta guia exclusiva reúne quatro pontos essenciais, reinterpretados para traduzir em fio a mesma leveza, profundidade e espontaneidade que caracterizam a pincelada impressionista. Cada ponto foi cuidadosamente desenvolvido para oferecer uma experiência artística acessível, prazerosa e enriquecedora tanto para iniciantes quanto para bordadeiras experientes.\n\nDentro do arquivo, você encontrará instruções claras, fotografias em alta resolução, explicações detalhadas de cada técnica e exemplos práticos aplicados a uma obra de Monet. Além disso, o material inclui sugestões de combinações de cores inspiradas em sua paleta original, permitindo que você construa texturas vibrantes e atmosferas que ecoam o universo pictórico do artista.\n\nA guia foi pensada para quem deseja bordar com intenção estética, criando peças sofisticadas e carregadas de expressão, nas quais luz, cor e movimento se revelam através das camadas de fio — assim como Monet fazia com suas camadas de tinta.\n\nConteúdo do PDF:\n\n• Explicação detalhada dos quatro pontos (ponto semente, ponto aleatório, long and short e nó francês)\n\n• Passo a passo com fotos de apoio\n\n• Sugestão de paletas de cores inspiradas na obra de Monet\n\n• Exemplos práticos aplicados a uma composição do artista\n\n• Orientações sobre materiais e superfícies\n\n• Tabela de equivalências Anchor → DMC\n\n• Texto curatorial sobre a relação entre bordado e pincelada impressionista\n\nEntrega do arquivo:\n\nApós a confirmação da compra, o PDF será enviado manualmente para o e-mail cadastrado no pedido. O envio é realizado dentro de algumas horas (em horário comercial). Depois, é só baixar e começar a bordar.\n\nCaso o arquivo não chegue, basta entrar em contato que reenviamos imediatamente.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/guia-de-pontos-f8cc0dfe758128070817703245468757-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/indice-guia-de-pontos-9544997d2a02c400bf17703245485325-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/pincelada-01.jpg",
+        "assets/img/produtos/pincelada-02.jpg",
+        "assets/img/produtos/pincelada-03.jpg"
+      ],
+      "artista": "Monet",
+      "obra": null
+    },
+    {
+      "nome": "Entre Ornamento e fio: padrões de Gustav Klimt em bordado",
+      "slug": "entre-ornamento-e-fio-padroes-de-gustav-klimt-em-bordado",
+      "slug_curto": "ornamento",
+      "url": "https://www.museuemfios.com/produtos/entre-ornamento-e-fio-padroes-de-gustav-klimt-em-bordado/",
+      "categoria": "Produtos Digitais",
+      "sku": "Guia-002",
+      "preco": 29.99,
+      "preco_str": "R$29,99",
+      "preco_de": null,
+      "parcelas": "2x de R$15,00 sem juros",
+      "parcelas_max": "até 7x no cartão",
+      "disponivel": true,
+      "estoque": null,
+      "descricao": "✨ Entre Ornamento e Fio: Padrões de Gustav Klimt em Bordado (Guia digital em PDF)\n\nTransforme o universo ornamental de Gustav Klimt em bordado.\n\nEsta guia exclusiva propõe uma tradução da linguagem visual de Klimt para o fio, explorando as texturas, padrões e estruturas que definem sua obra. A partir de quatro fragmentos selecionados aqui chamados de ornamentos, o material conduz você por diferentes formas de construir superfície, ritmo e composição através do bordado.\n\nCada ornamento foi desenvolvido para oferecer uma experiência artística progressiva, dos exercícios mais simples aos mais elaborados, permitindo que você compreenda não apenas como executar cada ponto, mas como utilizá-lo de forma intencional dentro de uma composição.\n\nAo longo da guia, você encontrará explicações claras, fotografias em alta resolução e orientações que conectam técnica e leitura visual tornando o bordado uma ferramenta de interpretação estética, e não apenas de reprodução.\n\n✳️ Conteúdo do PDF\n\n- Introdução curatorial sobre o universo ornamental de Gustav Klimt\n\n- Apresentação do artista e seu contexto histórico (Secessão Vienense e a relação entre arte e ornamento)\n\n- Seção \"Orientações de percurso\": como utilizar a guia\n\n- Lista de materiais recomendados (linhas Anchor e DMC)\n\n- Dicionário de pontos com acesso a videoclipes demonstrativos\n\n- Quatro ornamentos desenvolvidos a partir de fragmentos de obras de Klimt\n\n- Anatomia de cada ornamento: pontos, cores, fios, nível de dificuldade e lógica do bordado\n\n- Fotografias em alta resolução de cada composição\n\n- Riscos individuais em formato A4\n\n- Risco com os quatro ornamentos reunidos\n\n- Versões ampliadas para prática (15 × 15 cm)\n\n- Referências visuais das obras utilizadas\n\n✳️ Informações importantes\n\n- Produto 100% digital, nenhum material físico será enviado\n\n- Após a confirmação da compra, o PDF será enviado manualmente para o e-mail cadastrado no pedido\n\n- O envio é realizado em até algumas horas, em horário comercial\n\n- Caso não receba o arquivo, basta entrar em contato — reenviamos imediatamente\n\n✨ Uma guia para quem deseja bordar com intenção estética — onde repetição, cor e estrutura se transformam em linguagem, assim como em Klimt.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_3036-e1f3c3a132a8d067be17782033476164-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/2-a3469f9f01885d494217776474589598-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/12-29b8b58b2d86a122a817776474590445-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/17-a6811276cc83a99c7f17776474587272-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/22-84b031a6347e4e7fe617776474593679-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/guia-de-pontos-klimt-0b6714494c1924f71917776475583987-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/ornamento-01.jpg",
+        "assets/img/produtos/ornamento-02.jpg",
+        "assets/img/produtos/ornamento-03.jpg",
+        "assets/img/produtos/ornamento-04.jpg",
+        "assets/img/produtos/ornamento-05.jpg"
+      ],
+      "artista": "Klimt",
+      "obra": null
+    },
+    {
+      "nome": "Guia de Riscos - Art Nouveau: Entre Curvas e Flores (Produto Digital)",
+      "slug": "guia-de-riscos-art-nouveau-entre-curvas-e-flores-produto-digital",
+      "slug_curto": "art-nouveau",
+      "url": "https://www.museuemfios.com/produtos/guia-de-riscos-art-nouveau-entre-curvas-e-flores-produto-digital/",
+      "categoria": "Produtos Digitais",
+      "sku": "Riscos-002",
+      "preco": 24.99,
+      "preco_str": "R$24,99",
+      "preco_de": 29.99,
+      "parcelas": "2x de R$12,50 sem juros",
+      "parcelas_max": "até 6x no cartão",
+      "disponivel": true,
+      "estoque": null,
+      "descricao": "Entre Curvas e Flores\n\nGuia de Riscos – Art Nouveau\n\nTransforme linhas e flores em peças sofisticadas, elegantes e cheias de personalidade.\n\nEntre Curvas e Flores é uma coleção digital exclusiva inspirada no Art Nouveau, criada para quem deseja bordar projetos com acabamento artístico e identidade única mesmo sem anos de experiência.\n\nCom traços fluidos, composição equilibrada e orientação completa, você terá segurança para começar e liberdade para criar.\n\n✨ O que você recebe:\n\n✔ 3 riscos exclusivos em alta resolução✔ Versão A4 + versão circular pronta para bastidor✔ Sugestão de pontos indicada por área (folhas, flores, ramos e detalhes)✔ Paleta de cores harmonizada diretamente no desenho✔ Numeração Anchor + tabela de correspondência com DMC\n\nTudo organizado para que você imprima, transfira e comece a bordar imediatamente.\n\nPara quem é esta guia?\n\n• Para quem quer bordar peças elegantes e diferenciadas• Para quem busca um resultado profissional• Para quem ama estética clássica com toque contemporâneo• Para iniciantes que querem orientação clara• Para bordadeiras experientes que querem novos projetos autorais\n\nEntrega\n\nEnvio manual do PDF para o e-mail cadastrado após confirmação da compra.Se não receber, reenviamos rapidamente.",
+      "variantes": null,
+      "imagens_cdn": [
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-932611554dcc1fcfd017722833480043-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-b4e9eaf4045830ebcd17722833540159-1024-1024.webp",
+        "https://acdn-us.mitiendanube.com/stores/006/671/481/products/whatsapp-image-2026-02-28-at-9-43-17-am-bc2f18a37b7d34e68917722833545762-1024-1024.webp"
+      ],
+      "imagens_locais": [
+        "assets/img/produtos/art-nouveau-01.jpg",
+        "assets/img/produtos/art-nouveau-02.jpg",
+        "assets/img/produtos/art-nouveau-03.jpg"
+      ],
+      "artista": null,
+      "obra": null
+    }
+  ],
+  "paginas": {
+    "quem_somos": "O Museu em Fios é um projeto curatorial, artístico e educativo que traduz o universo da história da arte em linhas e texturas.\n\nCada obra nasce de uma pesquisa artística constante, onde o olhar se transforma em fio, e o fio, em memória.\n\nTodas as peças são únicas e bordadas à mão, resultado de um trabalho que une tempo, contemplação e técnica.\n\nAlém da criação de obras exclusivas, buscamos também difundir conhecimento sobre arte e bordado através de nossos produtos físicos, como os kits, que convidam o público a vivenciar o processo criativo com as próprias mãos.\n\nEstamos sempre atentos a novas possibilidades, conectando tradição e contemporaneidade, e compartilhando nossa paixão por dois mundos que caminham lado a lado: o da arte e o do bordado.\n\nFiquem atentos: novos produtos e criações estão sempre a caminho, prontos para continuar tecendo essa travessia entre arte, história e fio.",
+    "faq": [
+      {
+        "secao": "OS KITS",
+        "pergunta": "Nunca bordei. Posso fazer qualquer kit?",
+        "resposta": "Se você nunca bordou, recomendamos começar pelo kit La Gerbe. Ele apresenta todas as informações básicas, desde como inserir o fio na agulha até as primeiras e últimas etapas da peça. Depois dessa experiência, você já terá segurança para explorar os outros kits."
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Já fiz bordado em ponto cruz. Posso fazer os kits?",
+        "resposta": "Sim. O bordado livre permite mais fluidez e menos rigidez do que o ponto cruz, tornando o processo mais intuitivo e expressivo. É uma ótima forma de expandir sua prática."
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Vou conseguir bordar mesmo sendo iniciante?",
+        "resposta": "Sim. O projeto foi criado justamente para tornar o bordado acessível. Com orientação e prática, qualquer pessoa pode começar."
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Quais são os materiais incluídos no kit?",
+        "resposta": "Cada kit foi cuidadosamente pensado para que você tenha tudo o que precisa em um só lugar.\n\nEle inclui:\n\n- Tela de pintura 20×20 cm com risco impresso\n\n- Fios de bordado (quantidade suficiente para concluir a peça)\n\n- Agulha\n\n- Guia completa com fotos passo a passo e instruções detalhadas\n\n- Embalagem cuidada para proteger e valorizar a experiência"
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Qual é o tamanho da tela do kit?",
+        "resposta": "A tela incluída no kit tem tamanho de 20×20 cm."
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "O cavalete que aparece nas fotos está incluído no kit?",
+        "resposta": "Não. O cavalete não está incluído no kit — ele é produzido por @fa.bordado. Para nossos clientes, oferecemos um cupom especial de 10% de desconto. MUSEUEMFIOS10"
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Os kits incluem vídeo aulas?",
+        "resposta": "Nem todos os kits incluem vídeo aulas. Na imagem principal e na descrição de cada produto indicamos se esse conteúdo está disponível. De qualquer forma, todos os kits contam com uma guia completa com fotos de cada etapa e instruções claras para acompanhar todo o processo."
+      },
+      {
+        "secao": "OS KITS",
+        "pergunta": "Os kits são para presente?",
+        "resposta": "Sim. Se você desejar, podemos embalar seu kit para presente. É só nos avisar no momento da compra."
+      }
+    ],
+    "trocas": "Produtos Físicos (Kits de Bordado)\n\nAceitamos solicitações de troca ou devolução em até 7 dias corridos após o recebimento do pedido.\n\nSão aceitos os seguintes motivos: produto com defeito de fabricação, item incorreto enviado pela loja, embalagem danificada com produto avariado, ou desistência da compra conforme o Art. 49 do Código de Defesa do Consumidor.\n\nPara que a solicitação seja aceita, o produto deve estar sem uso, com embalagem original intacta e todos os materiais do kit presentes (linhas, bastidor, tecido, agulhas, etc.), acompanhado da nota fiscal.\n\nO frete de devolução é por conta da Museu em Fios nos casos de defeito ou erro no envio. Em casos de arrependimento ou desistência, o frete é de responsabilidade do cliente.\n\nProdutos Digitais (Guias em PDF)\n\nPor se tratarem de arquivos digitais com acesso liberado imediatamente após a compra, não são aceitas trocas ou devoluções. Caso o arquivo apresente problema técnico, como link inválido ou arquivo corrompido, o material será reenviado em até 48 horas após o contato.\n\nComo solicitar uma troca ou devolução\n\nEntre em contato pelo e-mail museuemfios@gmail.com dentro do prazo de 7 dias, informando o número do pedido, o motivo da solicitação e uma foto do produto em caso de defeito. Nossa equipe responderá em até 2 dias úteis com as instruções de envio. Após o recebimento e análise do produto, a troca ou reembolso será processado em até 5 dias úteis.",
+    "contato": "- museuemfios@gmail.com\n\n Não preencher este campo:\n\n Nome completo\n\n E-mail\n\n Telefone\n\n Mensagem\n\n Enviar",
+    "guia_femme": "Cada ponto é um gesto de tempo e delicadeza ✨\nBem-vinda ao universo do Museu em Fios 🧵\nAqui você pode mergulhar na história bordada de Femme à l'ombrelle, ler online, sentir o processo e, se quiser, baixar o e-book para tê-lo sempre por perto.\n\n📖 Ler online\n\n⬇️ Baixar e guardar"
+  }
+}
