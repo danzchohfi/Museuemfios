@@ -1,27 +1,34 @@
-{# MUSEU EM FIOS — como funciona (3 passos) #}
+{# MUSEU EM FIOS — as 4 sub-mensagens da Direção de Marca
+   (Autoria · Ritual · Curadoria · Certificado) #}
 
 <section class="mf-passos">
     <div class="mf-wrap">
-        <p class="mf-eyebrow" data-reveal>Como funciona</p>
-        <h2 class="mf-h2" data-reveal>Da parede do museu<br>para as suas mãos</h2>
+        <p class="mf-eyebrow" data-reveal>A experiência</p>
+        <h2 class="mf-h2" data-reveal>Imersão na arte,<br>no seu tempo</h2>
         <div class="mf-passos__grade" data-reveal="grupo">
             <article class="mf-passo">
                 <p class="mf-passo__num">01</p>
-                <h3>Escolha a obra</h3>
-                <p>Uma curadoria de obras da história da arte, traduzidas em riscos
-                de bordado por meio de pesquisa artística constante.</p>
+                <h3>Você não copia. Você interpreta.</h3>
+                <p>O risco vem pronto; a obra que nasce é sua — suas cores, seu
+                ritmo, seu gesto. Autoria, do primeiro ao último ponto.</p>
             </article>
             <article class="mf-passo">
                 <p class="mf-passo__num">02</p>
-                <h3>Borde ponto a ponto</h3>
-                <p>Material completo e vídeo aulas passo a passo — feito também para
-                quem nunca bordou. O seu tempo, as suas mãos.</p>
+                <h3>O seu tempo, sem culpa.</h3>
+                <p>Uma pausa longe das telas: só você, a linha e uma obra que
+                atravessou séculos. Um ritual — não uma obrigação.</p>
             </article>
             <article class="mf-passo">
                 <p class="mf-passo__num">03</p>
-                <h3>Emoldure e exponha</h3>
-                <p>Ao final, uma interpretação em fios — única, bordada à mão —
-                pronta para virar o seu próprio museu.</p>
+                <h3>Aprenda com os grandes mestres.</h3>
+                <p>Cada kit traz a história da obra e do artista — Monet, Klimt,
+                Matisse e os próximos nomes da coleção permanente.</p>
+            </article>
+            <article class="mf-passo">
+                <p class="mf-passo__num">04</p>
+                <h3>Ao final, a obra é sua.</h3>
+                <p>Um certificado simbólico de autenticidade acompanha cada kit —
+                da coleção do museu para a sua parede.</p>
             </article>
         </div>
     </div>

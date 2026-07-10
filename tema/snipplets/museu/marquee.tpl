@@ -1,12 +1,12 @@
-{# MUSEU EM FIOS — faixa marquee (grafismo tipográfico da identidade) #}
+{# MUSEU EM FIOS — faixa marquee com a endline aprovada na Direção de Marca #}
 
 <div class="mf-marquee" aria-hidden="true">
     <div class="mf-marquee__trilho">
-        <span>Kit para bordar</span>
-        <span>Curadoria, construção e coleção</span>
-        <span>Arte ponto a ponto</span>
-        <span>Kit para bordar</span>
-        <span>Curadoria, construção e coleção</span>
-        <span>Arte ponto a ponto</span>
+        <span>Sua hora com a arte</span>
+        <span>Borde um museu</span>
+        <span>Frete grátis nos kits</span>
+        <span>Sua hora com a arte</span>
+        <span>Borde um museu</span>
+        <span>Frete grátis nos kits</span>
     </div>
 </div>

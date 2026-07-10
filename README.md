@@ -40,6 +40,27 @@ nuvemshop theme preview --theme-id <ID>   # 🔗 link compartilhável com o cat�
 Alternativa FTP (LCI / "Personalização avançada" no admin) e o passo a passo
 pós-upload: ver **`tema/README.md`**.
 
+## Direção de Marca (Vitamina) — copy travada
+
+Fonte: entrega navegável dos 4 workshops (Notion · rev. 25/06). Toda edição de
+texto no site/tema deve respeitar:
+
+- **Endline (assinatura pública):** "Sua hora com a arte. Borde um museu."
+- **Descritor de categoria (1ª dobra):** "Releitura autoral de obras icônicas.
+  Imersão na arte, no seu tempo."
+- **Sub-mensagens (4 ângulos):** Autoria "Você não copia. Você interpreta." ·
+  Ritual "O seu tempo, sem culpa." · Curadoria "Aprenda com os grandes
+  mestres." · Certificado "Ao final, a obra é sua."
+- **Voz:** a obra é o rosto · diferenciação por afirmação (nunca negar/
+  comparar) · convida, não dá aula · autora, não copiadora.
+- **Léxico usa:** obra, releitura, autoral, interpretação, imersão, ritual,
+  o seu tempo, sem culpa, grandes mestres, curadoria, "Você conhece esta obra?"
+- **Léxico evita:** florzinha, fofo/fofinho, diminutivos, "hobby de vovó",
+  "terapia", "relaxa que é fácil", cópia/réplica/reprodução, excesso de emoji.
+- **Dispositivos no site:** ficha técnica de catálogo (Autor · Obra · Edição),
+  "Coleção permanente" como nome da vitrine, certificado como prova, seção
+  de iniciantes respondendo "será que eu consigo?".
+
 ## Identidade — tokens principais
 
 | Token | Valor |
