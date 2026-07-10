@@ -171,6 +171,7 @@
       slides.forEach(function (s, j) { s.classList.toggle("is-active", j === atual); });
       dots.forEach(function (d, j) {
         d.classList.toggle("is-active", j === atual);
+        d.setAttribute("aria-pressed", j === atual ? "true" : "false");
         var prog = $(".prog", d);
         if (prog && hasGsap) {
           gsap.killTweensOf(prog);
@@ -206,7 +207,7 @@
 
     function agenda() {
       clearInterval(timer);
-      if (slides.length < 2) return;
+      if (slides.length < 2 || reduced) return;
       timer = setInterval(function () { mostra(atual + 1); }, DURACAO);
     }
 
@@ -215,6 +216,8 @@
     });
     hero.addEventListener("mouseenter", function () { clearInterval(timer); });
     hero.addEventListener("mouseleave", agenda);
+    hero.addEventListener("focusin", function () { clearInterval(timer); });
+    hero.addEventListener("focusout", agenda);
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) clearInterval(timer); else agenda();
     });
@@ -300,8 +303,12 @@
     var palco = $(".mf-produto__palco img");
     $$(".mf-produto__thumbs button").forEach(function (b) {
       b.addEventListener("click", function () {
-        $$(".mf-produto__thumbs button").forEach(function (x) { x.classList.remove("is-active"); });
+        $$(".mf-produto__thumbs button").forEach(function (x) {
+          x.classList.remove("is-active");
+          x.setAttribute("aria-pressed", "false");
+        });
         b.classList.add("is-active");
+        b.setAttribute("aria-pressed", "true");
         if (!palco) return;
         var src = b.getAttribute("data-img");
         if (hasGsap && !reduced) {

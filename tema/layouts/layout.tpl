@@ -186,8 +186,8 @@
            Degrada com segurança: sem JS ou com prefers-reduced-motion o conteúdo
            fica estático e 100% funcional. #}
 
-        <script src="{{ 'js/vendor/gsap.min.js' | static_url }}"></script>
-        <script src="{{ 'js/vendor/ScrollTrigger.min.js' | static_url }}"></script>
+        <script src="{{ 'js/gsap.min.js' | static_url }}"></script>
+        <script src="{{ 'js/ScrollTrigger.min.js' | static_url }}"></script>
         <script src="{{ 'js/museu-motion.js' | static_url }}"></script>
 
     </body>

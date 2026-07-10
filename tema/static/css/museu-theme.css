@@ -382,13 +382,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 0.85rem;
 }
 .mf-hero__dot {
-  width: 2.4rem; height: 2px;
-  background: rgba(29,29,27,0.3);
+  width: 2.4rem;
+  height: 24px;
+  padding: 0;
+  background: none;
   position: relative;
-  overflow: hidden;
+}
+.mf-hero__dot::before {
+  content: "";
+  position: absolute;
+  inset: 11px 0;
+  background: rgba(29,29,27,0.3);
 }
 .mf-hero__dot .prog {
-  position: absolute; inset: 0;
+  position: absolute;
+  inset: 11px 0;
   background: var(--preto);
   transform: scaleX(0);
   transform-origin: left;
@@ -900,6 +908,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .mf-produto__thumbs {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.8rem;
   margin-top: 0.8rem;
 }
@@ -1274,3 +1283,9 @@ h1, h2, h3, .h1, .h2, .h3 {
 
 /* CTA de dúvidas no produto (snipplet museu) */
 .mf-wa svg { width: 18px; height: 18px; }
+
+/* O reset global img{display:block} da demo não pode empilhar os logos
+   de pagamento/envio do rodapé nativo (snipplets/logos-icons.tpl) */
+img.icon-logo, .js-footer img, footer[data-store="footer"] img {
+  display: inline-block;
+}
