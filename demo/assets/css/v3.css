@@ -38,8 +38,8 @@
 
 .v3-lua {
   position: absolute;
-  top: 10vh;
-  right: 10vw;
+  top: 12vh;
+  right: 22vw;
   width: clamp(3.5rem, 6vw, 5.5rem);
   aspect-ratio: 1;
   border-radius: 50%;
