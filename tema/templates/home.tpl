@@ -20,40 +20,46 @@
 {#  **** Features Order ****  #}
 {% set newArray = [] %}
 
-{# Museu em Fios: hero editorial + faixa marquee + manifesto (fixos do tema) #}
+{# Museu em Fios — home no conceito V5 "O Fio" (aprovado):
+   entardecer + meada 3D + manifesto; as seções nativas correm sobre o fundo
+   escuro (.v4-fundo) enquanto o fio-costura (museu-3d.js) atravessa a página.
+   Para VOLTAR ao conceito V1 (editorial claro): troque hero-fio/manifesto-fio
+   por hero.tpl + marquee.tpl + manifesto.tpl, remova o wrapper .v4-fundo e o
+   certificado.tpl, re-inclua passos.tpl + kit.tpl após o container e apague
+   as classes/links condicionais de home no layouts/layout.tpl (ver README). #}
 
-{% include 'snipplets/museu/hero.tpl' %}
-{% include 'snipplets/museu/marquee.tpl' %}
-{% include 'snipplets/museu/manifesto.tpl' %}
+{% include 'snipplets/museu/hero-fio.tpl' %}
+{% include 'snipplets/museu/manifesto-fio.tpl' %}
 
-<div class="js-home-sections-container">
-	{% for i in 0..8 %}
-		{% set section = 'home_order_position_' ~ i %}
-		{% set section_select = attribute(settings, section) %}
+<div class="v4-fundo">
+	<div class="js-home-sections-container">
+		{% for i in 0..8 %}
+			{% set section = 'home_order_position_' ~ i %}
+			{% set section_select = attribute(settings, section) %}
 
-		{% if section_select not in newArray %}
-			{% include 'snipplets/home/home-section-switch.tpl' %}
-			{% set newArray = newArray|merge([section_select]) %}
+			{% if section_select not in newArray %}
+				{% include 'snipplets/home/home-section-switch.tpl' %}
+				{% set newArray = newArray|merge([section_select]) %}
+			{% endif %}
+
+		{% endfor %}
+
+		{#  **** Hidden Sections ****  #}
+		{% if show_component_help %}
+			<div style="display:none">
+				{% for section_select in ['slider', 'products', 'informatives', 'categories', 'welcome', 'video', 'instafeed', 'modules'] %}
+					{% if section_select not in newArray %}
+						{% include 'snipplets/home/home-section-switch.tpl' %}
+					{% endif %}
+				{% endfor %}
+			</div>
 		{% endif %}
+	</div>
 
-	{% endfor %}
+	{# Fecho da narrativa: a faixa do certificado #}
 
-	{#  **** Hidden Sections ****  #}
-	{% if show_component_help %}
-		<div style="display:none">
-			{% for section_select in ['slider', 'products', 'informatives', 'categories', 'welcome', 'video', 'instafeed', 'modules'] %}
-				{% if section_select not in newArray %}
-					{% include 'snipplets/home/home-section-switch.tpl' %}
-				{% endif %}
-			{% endfor %}
-		</div>
-	{% endif %}
+	{% include 'snipplets/museu/certificado.tpl' %}
 </div>
-
-{# Museu em Fios: como funciona + o que vem no kit (fixos do tema) #}
-
-{% include 'snipplets/museu/passos.tpl' %}
-{% include 'snipplets/museu/kit.tpl' %}
 
 {% if settings.home_promotional_popup %}
     {% include 'snipplets/home/home-popup.tpl' %}

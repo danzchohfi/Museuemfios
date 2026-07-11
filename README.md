@@ -9,7 +9,7 @@ obras, e o grafismo de linhas (o "fio") como assinatura.
 
 | Pasta | O que é | Status |
 |---|---|---|
-| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e seções editoriais fixas na home. É o que sobe pra loja via CLI/LCI. | Pronto pra teste em rascunho |
+| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e a **home no conceito V5 "O Fio"** (entardecer + meada 3D + fio-costura, three.js empacotado no próprio tema). É o que sobe pra loja via CLI/LCI. | Pronto pra teste em rascunho |
 | **`demo/`** | Demo estática de aprovação (HTML/CSS/JS puros) publicada no GitHub Pages — usa o catálogo, os preços e as **fotos reais** da loja atual. | No ar |
 | `brand/` | Assets da identidade (logos vetoriais convertidos do manual do Estúdio Agudo). | Referência |
 
