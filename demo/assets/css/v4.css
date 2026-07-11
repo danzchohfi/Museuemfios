@@ -1,0 +1,249 @@
+/* ============================================================================
+   MUSEU EM FIOS — VERSÃO 4 · "O Entardecer"
+   Um só momento, tratado com refinamento: golden hour profunda, a obra
+   flutuando como um quadro em 3D e o fio da marca virando um objeto
+   tridimensional (three.js) que atravessa a cena.
+============================================================================ */
+
+.v4 {
+  background: #191322;
+  color: var(--papel);
+}
+.v4 ::selection { background: var(--amarelo); color: var(--preto); }
+
+/* Header discreto sobre o céu */
+.v4 .mf-header {
+  position: fixed;
+  inset-inline: 0;
+  background: transparent;
+}
+.v4 .mf-header.is-scrolled {
+  background: rgba(25, 19, 34, 0.9);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 1px 0 rgba(251, 250, 246, 0.16);
+}
+.v4 .mf-nav a::after { background: var(--papel); }
+.v4 .mf-carrinho__count { background: var(--amarelo); color: var(--preto); }
+.v4 .mf-menu-btn span { background: var(--papel); }
+@media (max-width: 860px) {
+  .v4 .mf-nav { background: #191322; }
+}
+
+/* ------------------------------------------------------------------ hero -- */
+.v4-hero {
+  position: relative;
+  min-height: 100svh;
+  display: grid;
+  align-items: center;
+  overflow: clip;
+  isolation: isolate;
+  /* céu do entardecer: do índigo ao âmbar, com o brilho do sol no horizonte */
+  background:
+    radial-gradient(58vw 34vh at 50% 96%, rgba(242, 196, 64, 0.5), transparent 65%),
+    radial-gradient(120vw 70vh at 50% 108%, rgba(217, 142, 79, 0.55), transparent 72%),
+    linear-gradient(180deg, #191322 0%, #33203a 34%, #6d3a4c 62%, #b4633f 86%, #d98e4f 100%);
+}
+
+/* horizonte: linha fina que ancora a cena */
+.v4-hero::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: 8.5svh;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(251, 250, 246, 0.4), transparent);
+}
+
+/* canvas do fio 3D (three.js) */
+.v4-fio3d {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* grão de filme por cima de tudo */
+.v4-grao {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.v4-hero__inner {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 7rem);
+  width: 100%;
+  max-width: calc(1360px + 2 * var(--gutter));
+  margin-inline: auto;
+  padding: 8rem var(--gutter) 6rem;
+  min-width: 0;
+}
+.v4-hero__inner > * { min-width: 0; }
+@media (max-width: 900px) {
+  .v4-hero__inner { grid-template-columns: minmax(0, 1fr); padding-block: 7rem 8rem; }
+}
+
+.v4-hero__momento {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 0 0 1.6rem;
+}
+.v4-hero__momento::before { content: ""; width: 2.4rem; height: 1px; background: currentColor; }
+
+.v4-hero__titulo {
+  font-family: var(--f-texto);
+  font-weight: 380;
+  font-size: clamp(3rem, 6.8vw, 6.2rem);
+  line-height: 1.04;
+  letter-spacing: -0.01em;
+  margin: 0 0 1.6rem;
+}
+.v4-hero__titulo em { font-style: italic; }
+
+.v4-hero__apoio {
+  max-width: 40ch;
+  font-size: clamp(1.02rem, 1.4vw, 1.2rem);
+  line-height: 1.7;
+  opacity: 0.86;
+  margin: 0 0 2.6rem;
+}
+
+.v4-hero__acoes { display: flex; flex-wrap: wrap; gap: 1.1rem; align-items: center; }
+.v4-hero__acoes .mf-btn {
+  background: var(--papel);
+  color: var(--preto);
+  border-color: var(--papel);
+}
+.v4-hero__acoes .mf-btn:hover { background: var(--amarelo); border-color: var(--amarelo); }
+.v4-hero__acoes .mf-link { color: var(--papel); }
+
+.v4-descritor {
+  margin: 3rem 0 0;
+  font-style: italic;
+  font-size: 0.95rem;
+  opacity: 0.66;
+}
+
+/* ------------------------------------------------------------- o quadro -- */
+.v4-quadro {
+  position: relative;
+  justify-self: center;
+  width: min(30rem, 82vw);
+  perspective: 1200px;
+}
+.v4-quadro__moldura {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  background: var(--papel);
+  padding: clamp(0.8rem, 1.6vw, 1.3rem);
+  box-shadow:
+    0 60px 90px -30px rgba(10, 6, 16, 0.65),
+    0 25px 40px -20px rgba(10, 6, 16, 0.5);
+}
+.v4-quadro__moldura::after {
+  /* reflexo da luz do entardecer no vidro */
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 42%, rgba(255, 236, 180, 0.18) 50%, transparent 58%);
+  pointer-events: none;
+}
+.v4-quadro img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+
+.v4-quadro__ficha {
+  margin: 1.4rem 0 0;
+  text-align: center;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+.v4-quadro__ficha em {
+  display: block;
+  font-family: var(--f-texto);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 0.98rem;
+  letter-spacing: 0;
+  text-transform: none;
+  margin-top: 0.3rem;
+}
+
+/* selo discreto de scroll */
+.v4-hero__scroll {
+  position: absolute;
+  bottom: 1.6rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* ------------------------------------------------------------ manifesto -- */
+.v4-manifesto {
+  position: relative;
+  z-index: 2;
+  background: #191322;
+  padding-block: var(--secao);
+  text-align: center;
+}
+.v4-manifesto .mf-wrap { max-width: 54rem; display: grid; gap: 1.6rem; justify-items: center; }
+.v4-manifesto__frase {
+  font-family: var(--f-texto);
+  font-size: clamp(1.7rem, 3.6vw, 2.9rem);
+  line-height: 1.35;
+  margin: 0;
+}
+.v4-manifesto__frase em { font-style: italic; color: var(--amarelo); }
+.v4-manifesto__prova {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.6;
+  margin: 0;
+}
+
+/* ---------------------------------------------------------------- resto -- */
+.v4-fundo {
+  position: relative;
+  z-index: 2;
+  background: #191322;
+}
+.v4-fundo .mf-eyebrow { color: var(--amarelo); }
+.v4-fundo .mf-link::before { background: var(--papel); }
+.v4-fundo .obra-card__cta { background: var(--papel); color: var(--preto); }
+.v4-fundo .mf-news { background: transparent; }
+
+.v4-certificado {
+  background: var(--amarelo);
+  color: var(--preto);
+  text-align: center;
+  padding-block: var(--secao);
+}
+.v4-certificado .mf-wrap { max-width: 52rem; display: grid; gap: 1.4rem; justify-items: center; }
+.v4-certificado .mf-serif { font-size: clamp(1.8rem, 4vw, 3.2rem); margin: 0; }
