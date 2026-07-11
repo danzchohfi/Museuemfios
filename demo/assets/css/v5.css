@@ -1,0 +1,159 @@
+/* ============================================================================
+   MUSEU EM FIOS — VERSÃO 5 · "O Fio"
+   Evolução da V4 (mesma golden hour refinada), com o fio do bordado como
+   protagonista: a meada em 3D atravessando o hero, a obra num bastidor,
+   e um fio contínuo que costura a página inteira no scroll — puxado por
+   uma agulha. Carregar depois de v4.css.
+============================================================================ */
+
+/* ------------------------------------------------- fundo contínuo (tecido) */
+/* As seções ficam transparentes para o fio-costura passar por trás do
+   conteúdo; o tecido é um só, do manifesto ao rodapé. */
+.v5 .v4-manifesto,
+.v5 .v4-fundo { background: transparent; }
+.v5 main {
+  position: relative;
+  background: #191322;
+}
+.v5 .v4-hero { z-index: 2; }
+
+/* camada do fio-costura (desenhada por JS no scroll) */
+.v5-costura {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.v5-costura path {
+  fill: none;
+  stroke: var(--amarelo);
+  stroke-width: 2;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(242, 196, 64, 0.35));
+}
+.v5-costura .v5-agulha {
+  fill: var(--papel);
+  stroke: none;
+  filter: drop-shadow(0 2px 6px rgba(10, 6, 16, 0.6));
+}
+
+/* conteúdo acima do fio; faixa amarela continua opaca — o fio "entra no
+   tecido" e ressurge do outro lado */
+.v5 .v4-manifesto .mf-wrap,
+.v5 .v4-fundo section { position: relative; z-index: 1; }
+.v5 .v4-certificado { background: var(--amarelo); }
+
+/* ------------------------------------------------------------ o bastidor -- */
+.v5-bastidor {
+  position: relative;
+  transform-style: preserve-3d;
+  will-change: transform;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: clamp(0.9rem, 1.8vw, 1.4rem);
+  background: linear-gradient(135deg, #c99a63 0%, #a5713f 48%, #8a5a30 100%);
+  box-shadow:
+    inset 0 2px 6px rgba(255, 226, 170, 0.5),
+    inset 0 -3px 8px rgba(60, 34, 12, 0.55),
+    0 60px 90px -30px rgba(10, 6, 16, 0.65),
+    0 25px 40px -20px rgba(10, 6, 16, 0.5);
+}
+.v5-bastidor__tecido {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 3px rgba(60, 34, 12, 0.4);
+}
+.v5-bastidor__tecido img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.v5-bastidor__tecido::after {
+  /* trama do tecido + reflexo da luz do poente */
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background:
+    linear-gradient(115deg, transparent 44%, rgba(255, 236, 180, 0.16) 50%, transparent 56%),
+    repeating-linear-gradient(0deg, rgba(251, 250, 246, 0.05) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgba(251, 250, 246, 0.05) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+
+/* parafuso do bastidor */
+.v5-bastidor__parafuso {
+  position: absolute;
+  top: -1.7rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2.5rem;
+  height: 1.9rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(180deg, #c99a63, #8a5a30);
+  box-shadow: inset 0 2px 3px rgba(255, 226, 170, 0.5), 0 6px 14px rgba(10, 6, 16, 0.45);
+}
+.v5-bastidor__parafuso::before {
+  content: "";
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e9c185, #8a5a30);
+}
+.v5-bastidor__parafuso::after {
+  content: "";
+  position: absolute;
+  inset: 0.55rem 0.6rem;
+  border-radius: 0.2rem;
+  background: rgba(60, 34, 12, 0.35);
+}
+
+/* fio solto saindo do bastidor */
+.v5-bastidor__fio {
+  position: absolute;
+  inset: -12% -14%;
+  pointer-events: none;
+  overflow: visible;
+}
+.v5-bastidor__fio path {
+  fill: none;
+  stroke: var(--amarelo);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+
+/* ---------------------------------------------------------------- ajustes -- */
+.v5 .v4-hero__momento { color: var(--amarelo); }
+.v5 .v4-quadro { perspective: 1200px; }
+.v5 .v4-quadro__ficha { margin-top: 2.2rem; }
+
+/* selo "seis fios" — nota de materialidade sob as ações */
+.v5-meada {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 2.6rem;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.72;
+}
+.v5-meada svg { width: 3.4rem; height: 1rem; overflow: visible; }
+.v5-meada svg path {
+  fill: none;
+  stroke-width: 1.1;
+  stroke-linecap: round;
+}
