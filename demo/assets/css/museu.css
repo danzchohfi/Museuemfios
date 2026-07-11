@@ -301,6 +301,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: background-color 0.9s ease;
 }
 
+/* Visibilidade dos slides 100% via CSS (classe .is-active) — o GSAP anima
+   só os filhos. Evita estados órfãos quando o navegador suspende a aba
+   (overlap de textos visto no iPadOS). */
 .mf-hero__slide {
   grid-area: 1 / 1;
   position: relative;
@@ -309,8 +312,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter);
   opacity: 0;
   visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 }
-.mf-hero__slide.is-active { opacity: 1; visibility: visible; }
+.mf-hero__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease 0.15s;
+}
 
 .mf-hero__descritor {
   position: absolute;
@@ -874,12 +882,42 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding-block: 1.5rem;
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: 1rem 2.5rem;
   justify-content: space-between;
   font-size: 0.86rem;
-  opacity: 0.75;
   font-family: var(--f-titulo);
 }
+.mf-footer__base > span { opacity: 0.75; }
+
+/* Assinatura Vitamina (wordmark tipográfico: Inter Tight, ponto no teal) */
+.mf-credito {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-decoration: none;
+}
+.mf-credito .rotulo {
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.mf-credito .marca {
+  font-family: "Inter Tight", var(--f-titulo);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.05em;
+  color: var(--papel);
+  line-height: 1;
+}
+.mf-credito .marca i {
+  font-style: normal;
+  color: #0b4a48; /* --vp-accent oficial do site da Vitamina */
+}
+.mf-credito:hover .marca { color: #fff; }
+.mf-credito:hover .rotulo { opacity: 0.9; }
 
 /* ========================================================= página interna -- */
 .mf-pagina-cab {

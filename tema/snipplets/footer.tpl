@@ -74,6 +74,11 @@
             </div>
             <div class="col-md-9 copyright text-center text-md-right pt-4 pt-md-0">
                 {{ "Copyright {1} - {2}. Todos los derechos reservados." | translate( (store.business_name ? store.business_name : store.name) ~ (store.business_id ? ' - ' ~ store.business_id : ''), "now" | date('Y') ) }}
+                {# Assinatura Vitamina Publicitária (wordmark tipográfico) #}
+                <a class="mf-credito d-inline-flex mt-2" href="https://vitaminapublicitaria.com.br" target="_blank" rel="noopener" aria-label="Site por Vitamina Publicitária">
+                    <span class="rotulo">Site por</span>
+                    <span class="marca">vitamina<i>.</i></span>
+                </a>
                 {{ component('claim-info', {
 						container_classes: "mt-2",
 						divider_classes: "mx-1 d-none d-md-inline-block",

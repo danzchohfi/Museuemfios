@@ -1,5 +1,7 @@
 /* ============================================================================
-   MUSEU EM FIOS — VERSÃO 4 · "O Entardecer"
+   MUSEU EM FIOS — base "O Entardecer" (usada pela V5 · "O Fio")
+   Obs.: a página V4 foi descartada; este arquivo permanece porque a V5
+   reaproveita as classes .v4-* do hero/manifesto/fundo.
    Um só momento, tratado com refinamento: golden hour profunda, a obra
    flutuando como um quadro em 3D e o fio da marca virando um objeto
    tridimensional (three.js) que atravessa a cena.

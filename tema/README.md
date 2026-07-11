@@ -86,6 +86,25 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
 Nenhum hook `.js-*` do tema base foi alterado — atualizações de comportamento
 da plataforma continuam compatíveis.
 
+## Animações na Nuvemshop — o que está validado
+
+- **GSAP + ScrollTrigger (V1/V3/V5: fio que se desenha, reveals, hero,
+  costura): funciona.** Validação em produção no projeto Alfa Pesca (GSAP
+  rodando na vitrine Nuvemshop sem conflito com o jQuery/carrinho da
+  plataforma). Aqui está ainda mais robusto: os arquivos são servidos do
+  próprio tema (`static/js/gsap.min.js`, via `static_url`) — sem CDN externo.
+  A vitrine não impõe CSP restritiva e nenhum hook `.js-*` da plataforma
+  é tocado.
+- **three.js (o fio 3D das V4/V5): funciona, com um cuidado.** Módulos ES
+  importados do CDN da Nuvemshop poderiam esbarrar em CORS; por isso o fio
+  3D já está empacotado como script clássico em **`static/js/museu-3d.js`**
+  (three 0.185 + cena, IIFE, 576 KB / ~148 KB gzip). Quando o conceito 3D
+  for aprovado, basta incluir no `layout.tpl`:
+  `<script src="{{ 'js/museu-3d.js' | static_url }}" defer></script>`
+  (o arquivo ainda NÃO é referenciado — a home atual usa o conceito V1).
+- **Sempre com rede de segurança**: sem WebGL, sem o arquivo ou com
+  `prefers-reduced-motion`, o site fica estático e 100% funcional.
+
 ## Acessibilidade & motion
 
 - Foco visível em tudo, alvos ≥44px, texto em PT-BR, skip-link.

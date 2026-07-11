@@ -183,26 +183,26 @@
 
       if (!hasGsap || reduced) return;
 
+      /* A troca de slide é do CSS (classe .is-active); o GSAP anima apenas
+         os filhos do slide ativo — nunca a visibilidade do slide em si. */
       var chars = $$(".char", $(".mf-hero__nome", slide) || slide);
       var obra = $(".mf-hero__obra img", slide);
       var intro = $(".mf-hero__intro", slide);
       var rodape = $(".mf-hero__rodape", slide);
       var fio = $(".mf-hero__fio .fio", slide);
 
-      var tl = gsap.timeline();
-      if (anterior && anterior !== slide && !primeira) {
-        tl.to(anterior, { autoAlpha: 0, duration: 0.35, ease: "power1.in" }, 0);
-      }
-      tl.fromTo(slide, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45 }, primeira ? 0 : 0.25);
-      if (obra) tl.fromTo(obra, { scale: 1.12 }, { scale: 1, duration: 1.6, ease: EASE }, "<");
+      gsap.killTweensOf([chars, obra, intro, rodape]);
+
+      var tl = gsap.timeline({ delay: primeira ? 0 : 0.2 });
+      if (obra) tl.fromTo(obra, { scale: 1.12 }, { scale: 1, duration: 1.6, ease: EASE }, 0);
       if (chars.length) {
         tl.fromTo(chars,
           { yPercent: 60, autoAlpha: 0 },
-          { yPercent: 0, autoAlpha: 1, duration: 0.9, ease: EASE, stagger: 0.045 }, "<0.15");
+          { yPercent: 0, autoAlpha: 1, duration: 0.9, ease: EASE, stagger: 0.045 }, 0.15);
       }
       if (fio) drawPaths(fio, { delay: 0.2 });
-      if (intro) tl.fromTo(intro, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, "<0.2");
-      if (rodape) tl.fromTo(rodape, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, "<0.1");
+      if (intro) tl.fromTo(intro, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, 0.3);
+      if (rodape) tl.fromTo(rodape, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, 0.4);
     }
 
     function agenda() {
@@ -219,7 +219,12 @@
     hero.addEventListener("focusin", function () { clearInterval(timer); });
     hero.addEventListener("focusout", agenda);
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) clearInterval(timer); else agenda();
+      if (document.hidden) {
+        clearInterval(timer);
+      } else {
+        mostra(atual);
+        agenda();
+      }
     });
 
     mostra(0, true);
