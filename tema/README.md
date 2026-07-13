@@ -68,8 +68,8 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
    destaque, categorias, vídeo, instafeed…) seguem configuráveis em Layout →
    Personalizar e correm sobre o fundo escuro, com o fio-costura passando
    por trás.
-5. **Obra em destaque do hero**: Femme à l'ombrelle (Monet) no bastidor,
-   apontando pro produto real. Pra trocar, edite
+5. **Produto em destaque do hero**: Der Kuss (Klimt) finalizado — foto real
+   do bordado sobre tela — apontando pro produto. Pra trocar, edite
    `snipplets/museu/hero-fio.tpl` (imagem em `static/images/obras/`, ficha
    e URL do produto).
 
@@ -84,7 +84,7 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
 | `snipplets/museu/*` | `hero-fio`, `manifesto-fio`, `certificado` (home V5) + `hero`, `marquee`, `manifesto`, `passos`, `kit` (conceito V1, guardados) + CTA WhatsApp |
 | `snipplets/footer.tpl` | Crédito "Site por vitamina." com link |
 | `static/css/museu-theme.css` | Skin completa: design system + ponte pros componentes nativos |
-| `static/css/museu-home-fio.css` | Só na home: céu do entardecer, bastidor, costura + ponte escura pros componentes nativos |
+| `static/css/museu-home-fio.css` | Só na home: céu do entardecer, tela do bordado, costura + ponte escura pros componentes nativos |
 | `static/js/museu-motion.js` | Motion GSAP: desenho do "fio", reveals, cursor-linha |
 | `static/js/museu-3d.js` | Só na home: three.js 0.185 + meada 3D + fio-costura, num único IIFE (sem CDN, sem módulos ES) |
 | `static/js/gsap*.js` | GSAP 3.15.0 + ScrollTrigger (licença gratuita GreenSock/Webflow) |
@@ -107,8 +107,8 @@ da plataforma continuam compatíveis.
   IIFE, 576 KB / ~148 KB gzip), carregado com `defer` **só na home** pelo
   `layout.tpl`.
 - **Sempre com rede de segurança**: sem WebGL, sem o arquivo ou com
-  `prefers-reduced-motion`, a home mantém o céu do entardecer em CSS e o
-  bastidor estático — tudo continua legível e 100% funcional.
+  `prefers-reduced-motion`, a home mantém o céu do entardecer em CSS e a
+  tela do bordado estática — tudo continua legível e 100% funcional.
 
 ## Home: voltar do conceito V5 pro V1 (editorial claro)
 

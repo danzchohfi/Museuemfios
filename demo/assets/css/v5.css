@@ -1,7 +1,7 @@
 /* ============================================================================
    MUSEU EM FIOS — VERSÃO 5 · "O Fio"
    Evolução da V4 (mesma golden hour refinada), com o fio do bordado como
-   protagonista: a meada em 3D atravessando o hero, a obra num bastidor,
+   protagonista: a meada em 3D atravessando o hero, o produto finalizado na tela,
    e um fio contínuo que costura a página inteira no scroll — puxado por
    uma agulha. Carregar depois de v4.css.
 ============================================================================ */
@@ -44,93 +44,33 @@
 .v5 .v4-fundo section { position: relative; z-index: 1; }
 .v5 .v4-certificado { background: var(--amarelo); }
 
-/* ------------------------------------------------------------ o bastidor -- */
-.v5-bastidor {
+/* -------------------------------------------------------- a tela bordada -- */
+/* O produto finalizado de verdade: foto real do bordado sobre tela,
+   pendurado na barra de madeira do cavalete. */
+.v5-tela {
   position: relative;
   transform-style: preserve-3d;
   will-change: transform;
   width: 100%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  padding: clamp(0.9rem, 1.8vw, 1.4rem);
-  background: linear-gradient(135deg, #c99a63 0%, #a5713f 48%, #8a5a30 100%);
   box-shadow:
-    inset 0 2px 6px rgba(255, 226, 170, 0.5),
-    inset 0 -3px 8px rgba(60, 34, 12, 0.55),
     0 60px 90px -30px rgba(10, 6, 16, 0.65),
     0 25px 40px -20px rgba(10, 6, 16, 0.5);
 }
-.v5-bastidor__tecido {
-  position: relative;
+.v5-tela img {
+  /* anula o corte quadrado herdado de .v4-quadro img — a foto aparece inteira */
   width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  box-shadow: inset 0 0 0 3px rgba(60, 34, 12, 0.4);
-}
-.v5-bastidor__tecido img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  aspect-ratio: auto;
+  object-fit: unset;
   display: block;
 }
-.v5-bastidor__tecido::after {
-  /* trama do tecido + reflexo da luz do poente */
+.v5-tela::after {
+  /* luz do poente varrendo o tecido */
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 50%;
-  background:
-    linear-gradient(115deg, transparent 44%, rgba(255, 236, 180, 0.16) 50%, transparent 56%),
-    repeating-linear-gradient(0deg, rgba(251, 250, 246, 0.05) 0 1px, transparent 1px 4px),
-    repeating-linear-gradient(90deg, rgba(251, 250, 246, 0.05) 0 1px, transparent 1px 4px);
+  background: linear-gradient(115deg, transparent 44%, rgba(255, 236, 180, 0.14) 50%, transparent 56%);
   pointer-events: none;
-}
-
-/* parafuso do bastidor */
-.v5-bastidor__parafuso {
-  position: absolute;
-  top: -1.7rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 2.5rem;
-  height: 1.9rem;
-  border-radius: 0.5rem;
-  background: linear-gradient(180deg, #c99a63, #8a5a30);
-  box-shadow: inset 0 2px 3px rgba(255, 226, 170, 0.5), 0 6px 14px rgba(10, 6, 16, 0.45);
-}
-.v5-bastidor__parafuso::before {
-  content: "";
-  position: absolute;
-  top: -0.85rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 1rem;
-  height: 1rem;
-  border-radius: 50%;
-  background: radial-gradient(circle at 35% 30%, #e9c185, #8a5a30);
-}
-.v5-bastidor__parafuso::after {
-  content: "";
-  position: absolute;
-  inset: 0.55rem 0.6rem;
-  border-radius: 0.2rem;
-  background: rgba(60, 34, 12, 0.35);
-}
-
-/* fio solto saindo do bastidor */
-.v5-bastidor__fio {
-  position: absolute;
-  inset: -12% -14%;
-  pointer-events: none;
-  overflow: visible;
-}
-.v5-bastidor__fio path {
-  fill: none;
-  stroke: var(--amarelo);
-  stroke-width: 1.6;
-  stroke-linecap: round;
-  opacity: 0.9;
 }
 
 /* ---------------------------------------------------------------- ajustes -- */

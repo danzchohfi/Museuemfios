@@ -5,7 +5,7 @@
    2) O fio-costura: um fio contínuo costura a página no scroll, puxado por
       uma agulha — e "entra no tecido" quando passa sob a faixa amarela.
    Degrada com segurança: sem WebGL/GSAP ou com reduced-motion, ficam o céu
-   em CSS, o bastidor estático e nenhuma costura.
+   em CSS, a tela do bordado estática e nenhuma costura.
 ============================================================================ */
 
 import * as THREE from "./vendor/three.module.min.js";
@@ -15,9 +15,9 @@ import * as THREE from "./vendor/three.module.min.js";
 
   var reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* -------------------------------------------- bastidor com tilt 3D -- */
-  var bastidor = document.querySelector(".v5-bastidor");
-  if (bastidor && !reduced && window.matchMedia("(hover: hover)").matches) {
+  /* ------------------------------------- tela do bordado com tilt 3D -- */
+  var tela = document.querySelector(".v5-tela");
+  if (tela && !reduced && window.matchMedia("(hover: hover)").matches) {
     var aRX = 0, aRY = 0, rx = 0, ry = 0;
     document.addEventListener("mousemove", function (e) {
       aRY = (e.clientX / window.innerWidth - 0.5) * 10;
@@ -26,7 +26,7 @@ import * as THREE from "./vendor/three.module.min.js";
     (function tilt() {
       rx += (aRX - rx) * 0.06;
       ry += (aRY - ry) * 0.06;
-      bastidor.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+      tela.style.transform = "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
       requestAnimationFrame(tilt);
     })();
   }

@@ -1,9 +1,9 @@
 {# MUSEU EM FIOS — hero "O Fio" (conceito V5, aprovado).
    Golden hour + meada de fios em 3D (three.js via static/js/museu-3d.js,
-   carregado só na home pelo layout.tpl) + obra no bastidor de bordado.
-   Copy conforme Direção de Marca (endline, descritor e ficha de catálogo).
-   Sem WebGL/JS ou com prefers-reduced-motion fica o céu em CSS e o bastidor
-   estático — nada quebra. Obra em destaque: Der Kuss (Klimt), produto real.
+   carregado só na home pelo layout.tpl) + o produto finalizado: foto real
+   do bordado sobre tela. Copy conforme Direção de Marca (endline, descritor
+   e ficha de catálogo). Sem WebGL/JS ou com prefers-reduced-motion fica o
+   céu em CSS e a tela estática — nada quebra. Em destaque: Der Kuss (Klimt).
    Para trocar: imagem em static/images/obras/ + ficha + URL do produto. #}
 
 <section class="v4-hero" aria-label="Sua hora com a arte, no entardecer">
@@ -31,16 +31,10 @@
         </div>
 
         <figure class="v4-quadro" data-reveal>
-            <div class="v5-bastidor">
-                <span class="v5-bastidor__parafuso" aria-hidden="true"></span>
-                <div class="v5-bastidor__tecido">
-                    <img src="{{ 'images/obras/klimt-der-kuss-sq.jpg' | static_url }}"
-                         alt="Der Kuss (O Beijo), de Gustav Klimt, no bastidor de bordado, na luz do entardecer"
-                         fetchpriority="high">
-                </div>
-                <svg class="v5-bastidor__fio" viewBox="0 0 200 260" aria-hidden="true">
-                    <path vector-effect="non-scaling-stroke" d="M104 224 q10 14 -4 24 q-14 10 -2 12 q22 4 12 -22 q-6 -14 6 -20"/>
-                </svg>
+            <div class="v5-tela">
+                <img src="{{ 'images/obras/der-kuss-tela.jpg' | static_url }}"
+                     alt="Kit Der Kuss finalizado: o bordado sobre tela, pendurado no cavalete"
+                     fetchpriority="high">
             </div>
             <figcaption class="v4-quadro__ficha">
                 Gustav Klimt
