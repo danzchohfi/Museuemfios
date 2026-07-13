@@ -389,27 +389,6 @@
 .v5 .v4-hero__momento { color: var(--amarelo); }
 .v5 .v4-quadro { perspective: 1200px; }
 .v5 .v4-quadro__ficha { margin-top: 2.2rem; }
-
-/* selo "seis fios" — nota de materialidade sob as ações */
-.v5-meada {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  margin-top: 2.6rem;
-  font-family: var(--f-titulo);
-  font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  opacity: 0.72;
-}
-.v5-meada svg { width: 3.4rem; height: 1rem; overflow: visible; }
-.v5-meada svg path {
-  fill: none;
-  stroke-width: 1.1;
-  stroke-linecap: round;
-}
-
 /* ============================================================================
    PONTE ESCURA — componentes nativos da Nuvemshop sobre o fundo da V5
    Este arquivo (v4.css + v5.css da demo + esta ponte) só carrega na HOME,

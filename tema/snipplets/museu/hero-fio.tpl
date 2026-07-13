@@ -3,8 +3,8 @@
    carregado só na home pelo layout.tpl) + obra no bastidor de bordado.
    Copy conforme Direção de Marca (endline, descritor e ficha de catálogo).
    Sem WebGL/JS ou com prefers-reduced-motion fica o céu em CSS e o bastidor
-   estático — nada quebra. Para trocar a obra em destaque: imagem em
-   static/images/obras/ + ficha + URL do produto. #}
+   estático — nada quebra. Obra em destaque: Der Kuss (Klimt), produto real.
+   Para trocar: imagem em static/images/obras/ + ficha + URL do produto. #}
 
 <section class="v4-hero" aria-label="Sua hora com a arte, no entardecer">
     <div class="v4-fio3d" aria-hidden="true"></div>
@@ -23,20 +23,10 @@
             </p>
             <div class="v4-hero__acoes" data-reveal>
                 <a class="mf-btn" href="/kits-de-bordado/">Escolher minha obra</a>
-                <a class="mf-link" href="/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/">Ver o kit em destaque</a>
+                <a class="mf-link" href="/produtos/kit-de-bordado-der-kuss-gustav-klimt/">Ver o kit em destaque</a>
             </div>
             <p class="v4-descritor" data-reveal>
                 Releitura autoral de obras icônicas. Imersão na arte, no seu tempo.
-            </p>
-            <p class="v5-meada" data-reveal>
-                <svg viewBox="0 0 68 20" aria-hidden="true">
-                    <path d="M2 4  q17 -6 34 0 t30 0" stroke="#f2c440"/>
-                    <path d="M2 7  q17 -6 34 0 t30 0" stroke="#e0a94f"/>
-                    <path d="M2 10 q17 -6 34 0 t30 0" stroke="#9cad4e"/>
-                    <path d="M2 13 q17 -6 34 0 t30 0" stroke="#6a9cc3"/>
-                    <path d="M2 16 q17 -6 34 0 t30 0" stroke="#d98e4f"/>
-                </svg>
-                Meadas Anchor Mouliné na paleta do artista
             </p>
         </div>
 
@@ -44,8 +34,8 @@
             <div class="v5-bastidor">
                 <span class="v5-bastidor__parafuso" aria-hidden="true"></span>
                 <div class="v5-bastidor__tecido">
-                    <img src="{{ 'images/obras/monet-femme-ombrelle-sq.jpg' | static_url }}"
-                         alt="Femme à l'ombrelle, de Claude Monet, no bastidor de bordado, na luz do entardecer"
+                    <img src="{{ 'images/obras/klimt-der-kuss-sq.jpg' | static_url }}"
+                         alt="Der Kuss (O Beijo), de Gustav Klimt, no bastidor de bordado, na luz do entardecer"
                          fetchpriority="high">
                 </div>
                 <svg class="v5-bastidor__fio" viewBox="0 0 200 260" aria-hidden="true">
@@ -53,8 +43,8 @@
                 </svg>
             </div>
             <figcaption class="v4-quadro__ficha">
-                Claude Monet
-                <em>Femme à l'ombrelle, 1886 — Coleção permanente</em>
+                Gustav Klimt
+                <em>Der Kuss, 1908 — Coleção permanente</em>
             </figcaption>
         </figure>
     </div>
