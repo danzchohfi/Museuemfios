@@ -1,4 +1,7 @@
-{# MUSEU EM FIOS — endline + posicionamento público (Direção de Marca) #}
+{# MUSEU EM FIOS — endline + posicionamento público (Direção de Marca),
+   com o vídeo institucional em destaque: player grande, sangrando até a
+   borda esquerda da tela, ocupando o vão do manifesto. Pra trocar o vídeo,
+   ajuste o src do iframe (YouTube em modo nocookie). #}
 
 <section class="mf-manifesto">
     <div class="mf-manifesto__fio" data-fio></div>
@@ -7,6 +10,11 @@
         <p class="mf-manifesto__frase mf-serif">
             Sua hora com a arte. Borde um museu.
         </p>
+    </div>
+    <div class="mf-manifesto__palco">
+        <div class="mf-manifesto__video" data-reveal>
+            <iframe src="https://www.youtube-nocookie.com/embed/h0cK85_GPI0?rel=0" title="Museu em Fios — a sua hora com a arte, à noite" loading="lazy" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
         <p class="mf-manifesto__apoio" data-reveal>
             O Museu em Fios une bordado e história da arte na releitura autoral
             de obras icônicas. Cada kit convida você a aprender com os grandes
