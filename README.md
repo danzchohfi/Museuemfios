@@ -20,11 +20,12 @@ push (URL: **https://danzchohfi.github.io/museuemfios**). Requer Pages
 habilitado com source "GitHub Actions" — o workflow tenta habilitar sozinho na
 primeira execução.
 
-Páginas da demo: `index.html` (home completa, com a seção da noite e o vídeo
-institucional), `loja.html` (vitrine + guias digitais + filtros),
+Páginas da demo: `index.html` (home completa, com o vídeo institucional em
+destaque no manifesto), `loja.html` (vitrine + guias digitais + filtros),
 `produto.html` (PDP do kit Femme à l'ombrelle), `sobre.html` (Quem somos),
 `educativo.html` (blog/recursos educativos — dicas, vídeos avulsos e
-conteúdo gratuito).
+conteúdo gratuito), `faq.html` (perguntas frequentes, com o conteúdo do
+site no ar).
 
 > **Conceito aprovado: V1 ("editorial claro").** O cliente escolheu a versão 1,
 > então o seletor de conceitos e as versões alternativas (V3 e V5) saíram da

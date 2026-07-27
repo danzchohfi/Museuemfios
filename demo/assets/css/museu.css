@@ -516,48 +516,43 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: 44ch;
   margin: 0;
   justify-self: end;
+  align-self: end;
   text-align: left;
 }
 
-/* ================================================================ a noite -- */
-/* O layout "quebra" pra noite: gradiente do papel pro céu noturno e de volta.
-   É o momento de uso do produto — o vídeo institucional mora no escuro. */
-.mf-noite {
-  --ceu: #10131d;
-  background: linear-gradient(
-    180deg,
-    var(--papel) 0%,
-    #434a5c 9%,
-    var(--ceu) 26%,
-    var(--ceu) 78%,
-    #434a5c 93%,
-    var(--papel) 100%
-  );
-  color: var(--papel);
-  padding-block: clamp(8rem, 16vw, 14rem);
-  text-align: center;
-}
-.mf-noite .mf-eyebrow { color: var(--amarelo); }
-.mf-noite .mf-h2 { margin-inline: auto; }
-.mf-noite__apoio {
-  max-width: 52ch;
-  margin: 1.5rem auto 0;
-}
-.mf-noite__video {
+/* O vídeo institucional, grande: sangra até a borda esquerda da tela e ocupa
+   o vão do manifesto; o apoio corre ao lado, alinhado pela base. */
+.mf-manifesto__palco {
   position: relative;
-  max-width: 56rem;
-  margin: 3rem auto 0;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border: 1.5px solid rgba(251, 250, 246, 0.18);
-  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  gap: 2rem clamp(2.5rem, 5vw, 5rem);
+  align-items: end;
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-right: var(--gutter);
 }
-.mf-noite__video iframe {
+.mf-manifesto__video {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--preto);
+  box-shadow: 0 26px 70px rgba(29, 29, 27, 0.3);
+}
+.mf-manifesto__video iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
+}
+@media (max-width: 860px) {
+  .mf-manifesto__palco {
+    grid-template-columns: 1fr;
+    padding-right: 0;
+  }
+  .mf-manifesto__apoio {
+    justify-self: start;
+    padding-inline: var(--gutter);
+  }
 }
 
 /* ================================================================ vitrine -- */
@@ -999,6 +994,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: var(--preto);
   color: var(--papel);
 }
+
+/* ==================================================================== faq -- */
+.mf-faq { padding-block: 1rem var(--secao); }
+.mf-faq .mf-wrap > * { max-width: 50rem; }
+.mf-faq .mf-eyebrow { margin-bottom: 1.2rem; }
+.mf-faq .mf-acordeao summary { gap: 1.5rem; font-size: 1.08rem; text-align: left; }
+.mf-faq .mf-acordeao summary::after { flex-shrink: 0; }
+.mf-faq .mf-acordeao .conteudo { max-width: 62ch; }
+.mf-faq .mf-acordeao .conteudo p { margin: 0 0 0.9rem; }
+.mf-faq .mf-acordeao .conteudo p:last-child { margin-bottom: 0; }
+.mf-faq__cta { margin-top: 2.6rem; font-size: 1.08rem; max-width: 46ch; }
 
 /* ================================================================ produto -- */
 .mf-produto { padding-block: 3rem var(--secao); }
