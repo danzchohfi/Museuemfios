@@ -995,6 +995,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--papel);
 }
 
+/* ==================================================================== faq -- */
+.mf-faq { padding-block: 1rem var(--secao); }
+.mf-faq .mf-wrap > * { max-width: 50rem; }
+.mf-faq .mf-eyebrow { margin-bottom: 1.2rem; }
+.mf-faq .mf-acordeao summary { gap: 1.5rem; font-size: 1.08rem; text-align: left; }
+.mf-faq .mf-acordeao summary::after { flex-shrink: 0; }
+.mf-faq .mf-acordeao .conteudo { max-width: 62ch; }
+.mf-faq .mf-acordeao .conteudo p { margin: 0 0 0.9rem; }
+.mf-faq .mf-acordeao .conteudo p:last-child { margin-bottom: 0; }
+.mf-faq__cta { margin-top: 2.6rem; font-size: 1.08rem; max-width: 46ch; }
+
 /* ================================================================ produto -- */
 .mf-produto { padding-block: 3rem var(--secao); }
 .mf-produto__grid {
