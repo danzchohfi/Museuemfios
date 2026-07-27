@@ -16,7 +16,7 @@ obras, e o grafismo de linhas (o "fio") como assinatura.
 ## Demo de aprovação (GitHub Pages)
 
 O workflow `.github/workflows/demo-pages.yml` publica `demo/` no Pages a cada
-push (URL: **https://danzchohfi.github.io/museuemfios**). Requer Pages
+push (URL: **https://danzchohfi.github.io/Museuemfios**). Requer Pages
 habilitado com source "GitHub Actions" — o workflow tenta habilitar sozinho na
 primeira execução.
 
