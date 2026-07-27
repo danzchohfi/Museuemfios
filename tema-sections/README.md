@@ -33,6 +33,39 @@ npx @tiendanube/cli@2 theme push --theme-id <ID>
 npx @tiendanube/cli@2 theme preview --theme-id <ID>
 ```
 
+## 🚧 O portão: o fork ainda pode não estar liberado
+
+A documentação do CLI diz, sobre instalações de tema:
+
+> *"Coming soon — Forking installations is coming soon… For now, running
+> `tiendanube theme fork` returns a notice that forking isn't enabled yet."*
+
+Isso importa muito, porque **sem fork a instalação só aceita três caminhos no
+push**. Confirmei no código do próprio CLI 2.1.0
+(`theme-api-fork-rules.ts`):
+
+```js
+var NON_FORK_PREFIXES = ["custom/", "templates/"];
+var NON_FORK_EXACT = ["config/settings_data.json"];
+```
+
+Tudo fora disso é **descartado em silêncio** — inclusive `sections/`,
+`blocks/`, `static/` e `settings_schema.json`, que é justamente onde mora a
+nossa identidade.
+
+Ou seja, existem dois cenários:
+
+- **Fork liberado para a loja** → esta pasta entra inteira e a migração se
+  completa: seções autorais, CSS, motion, tudo.
+- **Fork ainda bloqueado** → dá pra enviar só `templates/pages/home.json` +
+  `settings_data.json`, ou seja, remontar a home com as **sections nativas do
+  Ipanema** e as cores/fontes da marca. Fica no ar com a identidade aproximada,
+  sem o hero do fio, o marquee e a noite — que esperam o fork.
+
+Quem responde é a loja: `npx @tiendanube/cli@2 theme fork --theme-id <ID>`.
+O CLI 2.1.0 já traz `fork`/`unfork` implementados e chamando a API, então a
+documentação pode estar defasada — vale testar antes de assumir o pior.
+
 ## O que já está aqui
 
 | Arquivo | Estado |
@@ -44,19 +77,49 @@ npx @tiendanube/cli@2 theme preview --theme-id <ID>
 | `static/fonts/*.woff2` | ✅ Inter + Roboto Serif (variáveis, subset latin). |
 | `static/images/obras/*.jpg` | ✅ As 4 obras usadas no hero e no "sobre". |
 
-## O que falta
+### As 6 seções autorais — prontas
 
-- **As 6 seções autorais** (`sections/`): hero, marquee, manifesto, noite,
-  passos, kit. No legado eram `.tpl` com texto fixo; aqui viram seções
-  **configuráveis no admin** — o hero, em especial, deixa de ter 3 destaques
-  chumbados no código e passa a usar **blocks** repetíveis (obra, ficha, link
-  do produto).
-- **`templates/home.json`** ordenando as seções.
-- **`config/settings_schema.json`** com os tokens da marca (paleta, fontes).
-- **`translations/`** — atenção: a documentação fala em `locales/`, mas a lista
-  de sincronização do CLI aceita **`translations`**. Confirmar na árvore real do
-  Ipanema qual das duas o tema usa.
-- **Reescrever `museu-ponte.css`** contra a marcação do Ipanema.
+No legado eram `.tpl` com texto fixo no código. Aqui todas viram seções
+**editáveis no admin**, e o que era lista chumbada virou **blocks** que a
+cliente adiciona, reordena e reescreve sozinha:
+
+| Section | Blocks | O que a cliente edita sem código |
+|---|---|---|
+| `museu-hero` | `museu-obra` (até 6) | Cada obra em destaque: imagem, cor de fundo, ficha técnica, link do kit. Antes eram 3 destaques chumbados no `.tpl`. |
+| `museu-marquee` | `museu-frase` (até 8) | As frases que rodam na faixa — endline, frete, cupom. |
+| `museu-manifesto` | — | Frase do manifesto, apoio e link. |
+| `museu-noite` | — | Copy do ritual e o **ID do vídeo** no YouTube (só o ID: o embed continua sempre em modo nocookie). |
+| `museu-passos` | `museu-passo` | As sub-mensagens da marca. A numeração (01, 02…) vem da posição — reordenar renumera sozinho. |
+| `museu-kit` | `museu-item-kit` | O que vem no kit, item a item. |
+
+`templates/pages/home.json` já monta a home nessa ordem com toda a copy
+aprovada, e `translations/pt.default.schema.json` traz os rótulos do editor.
+
+**Validação feita aqui:** os 10 blocos `{% schema %}` são JSON válido; as 51
+chaves `t:` usadas existem todas nas traduções; nenhuma referência órfã entre
+`home.json`, `sections/` e `blocks/`; todo block aplica o filtro obrigatório
+`block_attributes`; tags Twig balanceadas; e todo `setting_type` está dentro da
+lista oficial documentada.
+
+## O que falta — e depende de ver o Ipanema por dentro
+
+- **Reescrever `museu-ponte.css`** contra a marcação do Ipanema (154 linhas).
+- **`config/settings_schema.json`** com os tokens da marca. **Não escrevi de
+  propósito:** a documentação mostra só um painel isolado, nunca a raiz do
+  arquivo — não dá pra saber se é array ou objeto. Escrever no chute quebraria
+  o tema inteiro; melhor copiar a estrutura do arquivo real após o `pull`. Os
+  tokens da marca, por ora, vivem como custom properties no `museu-theme.css`,
+  que é autossuficiente.
+- **Como referenciar assets de `static/`** — a maior lacuna: `static_url` está
+  documentado só para o tema legado e **não aparece em nenhuma página do formato
+  novo**. As seções foram escritas evitando o problema (as imagens vêm de
+  `image_picker`, que a cliente sobe pelo admin), mas o CSS/JS no `layout.tpl`
+  vai precisar da sintaxe correta — que se lê direto do `layouts/layout.tpl` do
+  Ipanema.
+- **`translations/` vs `locales/`** — a doc do CLI diz `locales/`, a doc de
+  temas diz `translations/`. Fui de `translations/` com base no código do CLI:
+  a lista de sincronização (`SYNC_PREFIXES`) aceita `translations` e **não tem
+  `locales`** — uma pasta `locales/` nem subiria. Confirmar no `pull`.
 
 ## Aberto — só a loja responde
 

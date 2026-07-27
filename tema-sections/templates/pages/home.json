@@ -1,0 +1,157 @@
+{
+  "sections": {
+    "museu-hero": {
+      "type": "museu-hero",
+      "settings": {
+        "descritor": "Releitura autoral de obras icônicas. Imersão na arte, no seu tempo."
+      },
+      "blocks": {
+        "obra-monet-femme": {
+          "type": "museu-obra",
+          "settings": {
+            "artista_display": "Monet",
+            "cor": "azul",
+            "imagem_alt": "Pintura Femme à l'ombrelle, de Claude Monet",
+            "pergunta": "Você conhece esta obra?",
+            "texto": "<em>Femme à l'ombrelle</em>, Claude Monet, 1886. Neste kit, você aprende com o mestre do impressionismo enquanto cria a sua própria interpretação em fio.",
+            "ficha": "Autor — Claude Monet<br>Obra — Femme à l'ombrelle, 1886",
+            "rotulo_kit": "Kit para<br>bordar",
+            "link": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
+            "link_texto": "Ver o kit"
+          }
+        },
+        "obra-klimt-umarmung": {
+          "type": "museu-obra",
+          "settings": {
+            "artista_display": "Klimt",
+            "cor": "amarelo",
+            "imagem_alt": "Pintura Die Umarmung (O Abraço), de Gustav Klimt",
+            "pergunta": "Você conhece esta obra?",
+            "texto": "<em>Die Umarmung</em>, Gustav Klimt, c. 1908. A riqueza ornamental do mestre vienense, relida ponto a ponto na sua interpretação em fio.",
+            "ficha": "Autor — Gustav Klimt<br>Obra — Die Umarmung, c. 1908",
+            "rotulo_kit": "Kit para<br>bordar",
+            "link": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+            "link_texto": "Ver o kit"
+          }
+        },
+        "obra-monet-pont": {
+          "type": "museu-obra",
+          "settings": {
+            "artista_display": "Monet",
+            "cor": "verde",
+            "imagem_alt": "Pintura Le Pont Japonais, de Claude Monet",
+            "pergunta": "Você conhece esta obra?",
+            "texto": "<em>Le Pont Japonais</em>, Claude Monet, 1899. O jardim de Giverny relido em linhas — cor, luz e movimento na sua interpretação.",
+            "ficha": "Autor — Claude Monet<br>Obra — Le Pont Japonais, 1899",
+            "rotulo_kit": "Kit para<br>bordar",
+            "link": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+            "link_texto": "Ver o kit"
+          }
+        }
+      },
+      "block_order": ["obra-monet-femme", "obra-klimt-umarmung", "obra-monet-pont"]
+    },
+
+    "museu-marquee": {
+      "type": "museu-marquee",
+      "settings": {},
+      "blocks": {
+        "frase-endline": { "type": "museu-frase", "settings": { "texto": "Sua hora com a arte" } },
+        "frase-borde":   { "type": "museu-frase", "settings": { "texto": "Borde um museu" } },
+        "frase-frete":   { "type": "museu-frase", "settings": { "texto": "Frete grátis acima de R$ 300" } },
+        "frase-cupom":   { "type": "museu-frase", "settings": { "texto": "Cupom de primeira compra: PRIMEIROPONTO" } }
+      },
+      "block_order": ["frase-endline", "frase-borde", "frase-frete", "frase-cupom"]
+    },
+
+    "museu-manifesto": {
+      "type": "museu-manifesto",
+      "settings": {
+        "eyebrow": "Museu em Fios",
+        "frase": "Sua hora com a arte. Borde um museu.",
+        "apoio": "<p>O Museu em Fios une bordado e história da arte na releitura autoral de obras icônicas. Cada kit convida você a aprender com os grandes mestres enquanto cria a sua própria interpretação em fio — no seu tempo, sem culpa. Ao final, um certificado simbólico reafirma: a obra é sua.</p><p>Mais de 2.000 obras vendidas desde o lançamento.</p>",
+        "link": "/quem-somos/",
+        "link_texto": "Conheça o projeto"
+      }
+    },
+
+    "museu-noite": {
+      "type": "museu-noite",
+      "settings": {
+        "eyebrow": "O ritual",
+        "titulo": "Quando o dia desacelera,<br>começa a sua hora",
+        "apoio": "<p>As telas se apagam, a casa baixa o volume — e ficam você, a linha e uma obra que atravessou séculos. Aperte o play e veja como é a hora com a arte de quem borda um museu.</p>",
+        "video_id": "Q2dJHg6M9jw",
+        "video_titulo": "Museu em Fios — a sua hora com a arte, à noite"
+      }
+    },
+
+    "museu-passos": {
+      "type": "museu-passos",
+      "settings": {
+        "eyebrow": "A experiência",
+        "titulo": "Imersão na arte,<br>no seu tempo"
+      },
+      "blocks": {
+        "passo-autoria": {
+          "type": "museu-passo",
+          "settings": {
+            "titulo": "Você não copia. Você interpreta.",
+            "texto": "<p>O risco vem pronto; a obra que nasce é sua — suas cores, seu ritmo, seu gesto. Autoria, do primeiro ao último ponto.</p>"
+          }
+        },
+        "passo-ritual": {
+          "type": "museu-passo",
+          "settings": {
+            "titulo": "O seu tempo, sem culpa.",
+            "texto": "<p>Uma pausa longe das telas: só você, a linha e uma obra que atravessou séculos. Um ritual — não uma obrigação.</p>"
+          }
+        },
+        "passo-curadoria": {
+          "type": "museu-passo",
+          "settings": {
+            "titulo": "Aprenda com os grandes mestres.",
+            "texto": "<p>Cada kit traz a história da obra e do artista — Monet, Klimt, Matisse e os próximos nomes da coleção permanente.</p>"
+          }
+        },
+        "passo-certificado": {
+          "type": "museu-passo",
+          "settings": {
+            "titulo": "Ao final, a obra é sua.",
+            "texto": "<p>Um certificado simbólico de autenticidade acompanha cada kit — da coleção do museu para a sua parede.</p>"
+          }
+        }
+      },
+      "block_order": ["passo-autoria", "passo-ritual", "passo-curadoria", "passo-certificado"]
+    },
+
+    "museu-kit": {
+      "type": "museu-kit",
+      "settings": {
+        "eyebrow": "O que vem no kit",
+        "titulo": "Tudo o que você<br>precisa para começar",
+        "imagem_alt": "Detalhe da obra Der Kuss, de Gustav Klimt",
+        "nota": "<p>Travou em algum ponto? A gente destrava com você — guia com foto de cada passo e atendimento direto no WhatsApp.</p>",
+        "link": "/kits-de-bordado/",
+        "link_texto": "Escolher meu kit"
+      },
+      "blocks": {
+        "item-tela":        { "type": "museu-item-kit", "settings": { "texto": "Tela de 20x20 com o risco da obra impresso e fixado" } },
+        "item-meadas":      { "type": "museu-item-kit", "settings": { "texto": "Meadas Anchor Mouliné na paleta do artista" } },
+        "item-agulha":      { "type": "museu-item-kit", "settings": { "texto": "Agulha, estojo de algodão cru e tesoura de arremate" } },
+        "item-certificado": { "type": "museu-item-kit", "settings": { "texto": "Postal da obra original com certificado de autenticidade" } },
+        "item-guia":        { "type": "museu-item-kit", "settings": { "texto": "QR code para o guia passo a passo, detalhado e fotografado etapa por etapa" } }
+      },
+      "block_order": ["item-tela", "item-meadas", "item-agulha", "item-certificado", "item-guia"]
+    }
+  },
+
+  "order": [
+    "museu-hero",
+    "museu-marquee",
+    "museu-manifesto",
+    "museu-noite",
+    "museu-passos",
+    "museu-kit"
+  ]
+}
