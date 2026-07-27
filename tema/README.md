@@ -62,31 +62,29 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
    `../demo/assets/img/favicon-amarelo.png`.
 3. **WhatsApp**: conferir o número da loja em Configurações (alimenta o botão
    flutuante e o CTA "Dúvidas sobre o kit?" no produto).
-4. **Home (conceito V5 · "O Fio" — aprovado)**: o hero do entardecer com a
-   meada 3D, o manifesto e a faixa do certificado são fixos do tema (edição
-   nos snipplets em `snipplets/museu/`). As seções nativas (produtos em
-   destaque, categorias, vídeo, instafeed…) seguem configuráveis em Layout →
-   Personalizar e correm sobre o fundo escuro, com o fio-costura passando
-   por trás.
-5. **Produto em destaque do hero**: Der Kuss (Klimt) finalizado — foto real
-   do bordado sobre tela — apontando pro produto. Pra trocar, edite
-   `snipplets/museu/hero-fio.tpl` (imagem em `static/images/obras/`, ficha
-   e URL do produto).
+4. **Home (conceito V1 · "editorial claro" — aprovado pelo cliente)**: o hero
+   da obra, o marquee da endline, o manifesto, os passos da experiência e o
+   "o que vem no kit" são fixos do tema (edição nos snipplets em
+   `snipplets/museu/`). As seções nativas (produtos em destaque, categorias,
+   vídeo, instafeed…) seguem configuráveis em Layout → Personalizar e entram
+   entre o manifesto e os passos.
+5. **Obras em destaque do hero**: Femme à l'ombrelle (Monet), Die Umarmung
+   (Klimt) e Le Pont Japonais (Monet), cada uma apontando pro produto real.
+   Pra trocar, edite `snipplets/museu/hero.tpl` (imagem em
+   `static/images/obras/`, ficha e URL do produto).
 
 ## O que foi alterado vs. Layout Base
 
 | Arquivo | Mudança |
 |---|---|
 | `config/defaults.txt` | Paleta da identidade + Inter/Fraunces como padrão; header claro |
-| `layouts/layout.tpl` | `museu-theme.css` + GSAP vendorizado + `museu-motion.js`; fontes com peso 900; `<main>` em volta do conteúdo; na home: classes `v4 v5` no body + `museu-home-fio.css` + `museu-3d.js` |
-| `templates/home.tpl` | Home V5: hero "O Fio" + manifesto no topo; seções nativas dentro de `.v4-fundo`; faixa do certificado no fim |
+| `layouts/layout.tpl` | `museu-theme.css` + GSAP vendorizado + `museu-motion.js`; fontes com peso 900; `<main>` em volta do conteúdo |
+| `templates/home.tpl` | Home V1: hero + marquee + manifesto no topo; seções nativas no meio; passos e "o que vem no kit" no fim |
 | `templates/product.tpl` | CTA "Dúvidas sobre o kit?" (WhatsApp) |
-| `snipplets/museu/*` | `hero-fio`, `manifesto-fio`, `certificado` (home V5) + `hero`, `marquee`, `manifesto`, `passos`, `kit` (conceito V1, guardados) + CTA WhatsApp |
+| `snipplets/museu/*` | `hero`, `marquee`, `manifesto`, `passos`, `kit` (home V1) + CTA WhatsApp |
 | `snipplets/footer.tpl` | Crédito "Site por vitamina." com link |
 | `static/css/museu-theme.css` | Skin completa: design system + ponte pros componentes nativos |
-| `static/css/museu-home-fio.css` | Só na home: céu do entardecer, tela do bordado, costura + ponte escura pros componentes nativos |
-| `static/js/museu-motion.js` | Motion GSAP: desenho do "fio", reveals, cursor-linha |
-| `static/js/museu-3d.js` | Só na home: three.js 0.185 + meada 3D + fio-costura, num único IIFE (sem CDN, sem módulos ES) |
+| `static/js/museu-motion.js` | Motion GSAP: desenho do "fio", reveals, cursor-linha, carrossel do hero |
 | `static/js/gsap*.js` | GSAP 3.15.0 + ScrollTrigger (licença gratuita GreenSock/Webflow) |
 
 Nenhum hook `.js-*` do tema base foi alterado — atualizações de comportamento
@@ -94,34 +92,15 @@ da plataforma continuam compatíveis.
 
 ## Animações na Nuvemshop — o que está validado
 
-- **GSAP + ScrollTrigger (fio que se desenha, reveals, costura): funciona.**
-  Validação em produção no projeto Alfa Pesca (GSAP rodando na vitrine
-  Nuvemshop sem conflito com o jQuery/carrinho da plataforma). Aqui está
-  ainda mais robusto: os arquivos são servidos do próprio tema
+- **GSAP + ScrollTrigger (fio que se desenha, reveals, carrossel do hero):
+  funciona.** Validação em produção no projeto Alfa Pesca (GSAP rodando na
+  vitrine Nuvemshop sem conflito com o jQuery/carrinho da plataforma). Aqui
+  está ainda mais robusto: os arquivos são servidos do próprio tema
   (`static/js/gsap.min.js`, via `static_url`) — sem CDN externo. A vitrine
   não impõe CSP restritiva e nenhum hook `.js-*` da plataforma é tocado.
-- **three.js (a meada 3D da home): funciona, com um cuidado já resolvido.**
-  Módulos ES importados do CDN da Nuvemshop poderiam esbarrar em CORS; por
-  isso o 3D vai empacotado como script clássico em
-  **`static/js/museu-3d.js`** (three 0.185 + cena da meada + fio-costura,
-  IIFE, 576 KB / ~148 KB gzip), carregado com `defer` **só na home** pelo
-  `layout.tpl`.
-- **Sempre com rede de segurança**: sem WebGL, sem o arquivo ou com
-  `prefers-reduced-motion`, a home mantém o céu do entardecer em CSS e a
-  tela do bordado estática — tudo continua legível e 100% funcional.
-
-## Home: voltar do conceito V5 pro V1 (editorial claro)
-
-O conceito V1 continua no tema, guardado. Se um dia quiserem trocar:
-
-1. Em `templates/home.tpl`: troque os includes `museu/hero-fio.tpl` +
-   `museu/manifesto-fio.tpl` por `museu/hero.tpl` + `museu/marquee.tpl` +
-   `museu/manifesto.tpl`; remova o wrapper `<div class="v4-fundo">` e o
-   include `museu/certificado.tpl`; re-inclua `museu/passos.tpl` +
-   `museu/kit.tpl` depois do container de seções.
-2. Em `layouts/layout.tpl`: apague os 3 blocos condicionais
-   `{% if template == 'home' %}` (classes `v4 v5` do body, link do
-   `museu-home-fio.css` e script do `museu-3d.js`). O `<main>` pode ficar.
+- **Sempre com rede de segurança**: sem JS ou com `prefers-reduced-motion`,
+  a home fica estática — o hero mostra o primeiro destaque e todo o conteúdo
+  continua legível e 100% funcional.
 
 ## Acessibilidade & motion
 

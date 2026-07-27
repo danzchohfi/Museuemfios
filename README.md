@@ -9,7 +9,7 @@ obras, e o grafismo de linhas (o "fio") como assinatura.
 
 | Pasta | O que é | Status |
 |---|---|---|
-| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e a **home no conceito V5 "O Fio"** (entardecer + meada 3D + fio-costura, three.js empacotado no próprio tema). É o que sobe pra loja via CLI/LCI. | Pronto pra teste em rascunho |
+| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e a **home no conceito V1 "editorial claro"** (o conceito aprovado pelo cliente). É o que sobe pra loja via CLI/LCI. | Pronto pra teste em rascunho |
 | **`demo/`** | Demo estática de aprovação (HTML/CSS/JS puros) publicada no GitHub Pages — usa o catálogo, os preços e as **fotos reais** da loja atual. | No ar |
 | `brand/` | Assets da identidade (logos vetoriais convertidos do manual do Estúdio Agudo). | Referência |
 
@@ -23,6 +23,11 @@ primeira execução.
 Páginas da demo: `index.html` (home completa), `loja.html` (vitrine + guias
 digitais + filtros), `produto.html` (PDP do kit Femme à l'ombrelle),
 `sobre.html` (Quem somos).
+
+> **Conceito aprovado: V1 ("editorial claro").** O cliente escolheu a versão 1,
+> então o seletor de conceitos e as versões alternativas (V3 e V5) saíram da
+> demo e do tema. O histórico do Git guarda tudo, caso alguém precise
+> reconsultar (`git log -- demo/v5`).
 
 ## Subir o tema na loja (sem tocar no que está no ar)
 
