@@ -9,7 +9,7 @@ obras, e o grafismo de linhas (o "fio") como assinatura.
 
 | Pasta | O que é | Status |
 |---|---|---|
-| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e a **home no conceito V1 "editorial claro"** (o conceito aprovado pelo cliente). É o que sobe pra loja via CLI/LCI. | Pronto pra teste em rascunho |
+| **`tema/`** | **Tema Nuvemshop** — fork do Layout Base oficial (mesma base validada no projeto Alfa Pesca) com a identidade nova, motion GSAP e a **home no conceito V1 "editorial claro"** (o conceito aprovado pelo cliente). Formato legado: sobe por FTP, não pelo `theme push`. | Aguardando decisão do caminho de subida |
 | **`demo/`** | Demo estática de aprovação (HTML/CSS/JS puros) publicada no GitHub Pages — usa o catálogo, os preços e as **fotos reais** da loja atual. | No ar |
 | `brand/` | Assets da identidade (logos vetoriais convertidos do manual do Estúdio Agudo). | Referência |
 
@@ -32,21 +32,23 @@ site no ar).
 > demo e do tema. O histórico do Git guarda tudo, caso alguém precise
 > reconsultar (`git log -- demo/v5`).
 
-## Subir o tema na loja (sem tocar no que está no ar)
+## Subir o tema na loja
 
-Fluxo recomendado — CLI oficial, direto num **rascunho** de tema:
+Comece **sempre** por diagnóstico e backup — a Nuvemshop não guarda backup do
+código da loja:
 
 ```bash
-npm install -g @tiendanube/cli     # requer Node 24+
 cd tema
-nuvemshop theme authorize          # login no navegador
-nuvemshop theme list               # anote o ID do layout de teste/rascunho
-nuvemshop theme push --theme-id <ID> --force
-nuvemshop theme preview --theme-id <ID>   # 🔗 link compartilhável com o catálogo real
+npx @tiendanube/cli@2 theme authorize   # requer Node 24.15+
+./diagnostico-loja.sh                   # só leitura: tema no ar e instalações
+./backup-tema-no-ar.sh                  # baixa o tema publicado
 ```
 
-Alternativa FTP (LCI / "Personalização avançada" no admin) e o passo a passo
-pós-upload: ver **`tema/README.md`**.
+> ⚠️ **`nuvemshop theme push` não serve para este tema.** O fluxo de API do CLI
+> 2.x só sincroniza temas no formato novo (sections/Ipanema) e descarta em
+> silêncio a pasta `snipplets/` do formato legado — 130 dos nossos 180 arquivos.
+> O tema subiria quebrado. Os dois caminhos possíveis (FTP legado ou migrar o
+> tema pro formato sections) estão comparados em **`tema/README.md`**.
 
 ## Direção de Marca (Vitamina) — copy travada
 
