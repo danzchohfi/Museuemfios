@@ -5,8 +5,10 @@
         <span>Sua hora com a arte</span>
         <span>Borde um museu</span>
         <span>Frete grátis acima de R$ 300</span>
+        <span>Cupom de primeira compra: PRIMEIROPONTO</span>
         <span>Sua hora com a arte</span>
         <span>Borde um museu</span>
         <span>Frete grátis acima de R$ 300</span>
+        <span>Cupom de primeira compra: PRIMEIROPONTO</span>
     </div>
 </div>

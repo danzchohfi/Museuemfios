@@ -467,7 +467,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   display: flex;
   gap: 3.5rem;
   width: max-content;
-  animation: mf-marquee 28s linear infinite;
+  animation: mf-marquee 36s linear infinite;
 }
 .mf-marquee__trilho span {
   font-family: var(--f-titulo);
