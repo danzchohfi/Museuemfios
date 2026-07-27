@@ -516,42 +516,55 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   max-width: 44ch;
   margin: 0;
   justify-self: end;
-  align-self: end;
   text-align: left;
 }
 
-/* O vídeo institucional, grande: sangra até a borda esquerda da tela e ocupa
-   o vão do manifesto; o apoio corre ao lado, alinhado pela base. */
-.mf-manifesto__palco {
-  position: relative;
-  display: grid;
-  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-  gap: 2rem clamp(2.5rem, 5vw, 5rem);
-  align-items: end;
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  padding-right: var(--gutter);
+/* ================================================================ a noite -- */
+/* O layout "quebra" pra noite: gradiente do papel pro céu noturno e de volta.
+   É o momento de uso do produto — o vídeo institucional mora no escuro. */
+.mf-noite {
+  --ceu: #10131d;
+  background: linear-gradient(
+    180deg,
+    var(--papel) 0%,
+    #434a5c 9%,
+    var(--ceu) 26%,
+    var(--ceu) 78%,
+    #434a5c 93%,
+    var(--papel) 100%
+  );
+  color: var(--papel);
+  padding-block: clamp(8rem, 16vw, 14rem);
+  text-align: center;
 }
-.mf-manifesto__video {
+.mf-noite .mf-eyebrow { color: var(--amarelo); }
+.mf-noite .mf-h2 { margin-inline: auto; }
+.mf-noite__apoio {
+  max-width: 52ch;
+  margin: 1.5rem auto 0;
+}
+/* O player, grande: quase a largura toda do wrap no desktop e sangrando
+   até as bordas da tela no mobile — o tamanho é pedido do cliente. */
+.mf-noite__video {
   position: relative;
+  max-width: 80rem;
+  margin: 3.5rem auto 0;
   aspect-ratio: 16 / 9;
-  background: var(--preto);
-  box-shadow: 0 26px 70px rgba(29, 29, 27, 0.3);
+  background: #000;
+  border: 1.5px solid rgba(251, 250, 246, 0.18);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
 }
-.mf-manifesto__video iframe {
+.mf-noite__video iframe {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   border: 0;
 }
-@media (max-width: 860px) {
-  .mf-manifesto__palco {
-    grid-template-columns: 1fr;
-    padding-right: 0;
-  }
-  .mf-manifesto__apoio {
-    justify-self: start;
-    padding-inline: var(--gutter);
+@media (max-width: 720px) {
+  .mf-noite__video {
+    margin-inline: calc(-1 * var(--gutter));
+    border-inline: 0;
   }
 }
 

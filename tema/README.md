@@ -72,10 +72,9 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
    (Klimt) e Le Pont Japonais (Monet), cada uma apontando pro produto real.
    Pra trocar, edite `snipplets/museu/hero.tpl` (imagem em
    `static/images/obras/`, ficha e URL do produto).
-6. **Vídeo institucional**: em destaque no manifesto da home — player
-   grande, sangrando até a borda esquerda da tela, com o texto de apoio ao
-   lado. Pra trocar o vídeo, edite o `src` do iframe em
-   `snipplets/museu/manifesto.tpl`.
+6. **Vídeo institucional (seção da noite)**: a home quebra pra um gradiente
+   de noite com o vídeo da cliente bordando (YouTube). Pra trocar o vídeo,
+   edite o `src` do iframe em `snipplets/museu/noite.tpl`.
 7. **Educativo (blog/recursos)**: a demo mostra o conceito em
    `educativo.html`. Na loja, o caminho é o **blog nativo** da Nuvemshop —
    os templates `templates/blog.tpl` e `blog-post.tpl` já vêm do Layout Base
@@ -91,7 +90,7 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
 | `layouts/layout.tpl` | `museu-theme.css` + GSAP vendorizado + `museu-motion.js`; fontes com peso 900; `<main>` em volta do conteúdo |
 | `templates/home.tpl` | Home V1: hero + marquee + manifesto no topo; seções nativas no meio; passos e "o que vem no kit" no fim |
 | `templates/product.tpl` | CTA "Dúvidas sobre o kit?" (WhatsApp) |
-| `snipplets/museu/*` | `hero`, `marquee`, `manifesto` (com o vídeo institucional em destaque), `passos`, `kit` (home V1) + CTA WhatsApp |
+| `snipplets/museu/*` | `hero`, `marquee`, `manifesto`, `noite` (vídeo institucional no gradiente da noite), `passos`, `kit` (home V1) + CTA WhatsApp |
 | `snipplets/footer.tpl` | Crédito "Site por vitamina." com link |
 | `static/css/museu-theme.css` | Skin completa: design system + ponte pros componentes nativos |
 | `static/js/museu-motion.js` | Motion GSAP: desenho do "fio", reveals, cursor-linha, carrossel do hero |

@@ -20,8 +20,8 @@ push (URL: **https://danzchohfi.github.io/Museuemfios**). Requer Pages
 habilitado com source "GitHub Actions" — o workflow tenta habilitar sozinho na
 primeira execução.
 
-Páginas da demo: `index.html` (home completa, com o vídeo institucional em
-destaque no manifesto), `loja.html` (vitrine + guias digitais + filtros),
+Páginas da demo: `index.html` (home completa, com a seção da noite e o
+vídeo institucional em player grande), `loja.html` (vitrine + guias digitais + filtros),
 `produto.html` (PDP do kit Femme à l'ombrelle), `sobre.html` (Quem somos),
 `educativo.html` (blog/recursos educativos — dicas, vídeos avulsos e
 conteúdo gratuito), `faq.html` (perguntas frequentes, com o conteúdo do
