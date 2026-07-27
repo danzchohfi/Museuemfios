@@ -14,7 +14,7 @@
             tempo, sem culpa. Ao final, um certificado simbólico reafirma:
             a obra é sua.
             <br><br>
-            Mais de 1.300 obras já bordadas desde o lançamento.
+            Mais de 2.000 obras vendidas desde o lançamento.
             <br><br>
             <a class="mf-link" href="/quem-somos/">Conheça o projeto</a>
         </p>

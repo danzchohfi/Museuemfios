@@ -51,13 +51,6 @@
 
         <link rel="stylesheet" href="{{ 'css/museu-theme.css' | static_url }}">
 
-        {# Home no conceito V5 "O Fio": entardecer + fios 3D + fio-costura.
-           Carrega só na home (o body dela ganha as classes "v4 v5"). #}
-
-        {% if template == 'home' %}
-            <link rel="stylesheet" href="{{ 'css/museu-home-fio.css' | static_url }}">
-        {% endif %}
-
         {# Loads custom CSS added from Advanced Settings on the admin´s theme customization screen #}
 
         <style>
@@ -93,7 +86,7 @@
         {{ component('structured-data') }}
 
     </head>
-    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}{% if template == 'home' %} v4 v5{% endif %}">
+    <body class="{% if customer %}customer-logged-in{% endif %} template-{{ template | replace('.', '-') }}">
         {# Facebook comments on product page #}
 
         {% if template == 'product' %}
@@ -116,7 +109,7 @@
 
         {% snipplet "header/header.tpl" %}
 
-        {# Page content (o <main> é o palco do fio-costura da home — museu-3d.js) #}
+        {# Page content #}
 
         <main class="mf-main">
             {% template_content %}
@@ -198,15 +191,6 @@
         <script src="{{ 'js/gsap.min.js' | static_url }}"></script>
         <script src="{{ 'js/ScrollTrigger.min.js' | static_url }}"></script>
         <script src="{{ 'js/museu-motion.js' | static_url }}"></script>
-
-        {# Home V5 "O Fio": three.js + cena da meada + fio-costura, empacotados
-           num único script clássico (IIFE — sem módulos ES, sem risco de CORS
-           no CDN da Nuvemshop). Sem WebGL ou com prefers-reduced-motion, a
-           home fica estática e 100% funcional. #}
-
-        {% if template == 'home' %}
-            <script src="{{ 'js/museu-3d.js' | static_url }}" defer></script>
-        {% endif %}
 
     </body>
 </html>

@@ -15,10 +15,10 @@
                 <li><span class="num">02</span> Meadas Anchor Mouliné na paleta do artista</li>
                 <li><span class="num">03</span> Agulha, estojo de algodão cru e tesoura de arremate</li>
                 <li><span class="num">04</span> Postal da obra original com certificado de autenticidade</li>
-                <li><span class="num">05</span> QR code para o guia de instruções e vídeo aulas</li>
+                <li><span class="num">05</span> QR code para o guia passo a passo, detalhado e fotografado etapa por etapa</li>
             </ul>
             <p class="mf-kit__nota" data-reveal>Travou em algum ponto? A gente
-            destrava com você — vídeo aulas, guia de instruções e atendimento
+            destrava com você — guia com foto de cada passo e atendimento
             direto no WhatsApp.</p>
             <a class="mf-btn" href="/kits-de-bordado/" data-reveal>Escolher meu kit</a>
         </div>

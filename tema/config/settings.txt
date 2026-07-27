@@ -72,7 +72,6 @@ Tipo de letra
 			"Droid Sans", Sans-serif = Droid Sans
 			"Droid Serif", serif = Droid Serif
 			"Figtree", sans-serif = Figtree
-			"Fraunces", serif = Fraunces
 			"Fredoka One", sans-serif = Fredoka One
 			"Gabarito", sans-serif = Gabarito
 			"Golos Text", sans-serif = Golos Text
@@ -119,6 +118,7 @@ Tipo de letra
 			"Roboto", sans-serif = Roboto
 			"Roboto Condensed", sans-serif = Roboto Condensed
 			"Roboto Mono", sans-serif = Roboto Mono
+			"Roboto Serif", serif = Roboto Serif
 			"Rubik", sans-serif = Rubik
 			"Slabo 27px", serif = Slabo 27px
 			"Sofia Sans Extra Condensed", sans-serif = Sofia Sans Extra Condensed
@@ -155,7 +155,6 @@ Tipo de letra
 			"Droid Sans", Sans-serif = Droid Sans
 			"Droid Serif", serif = Droid Serif
 			"Figtree", sans-serif = Figtree
-			"Fraunces", serif = Fraunces
 			"Fredoka One", sans-serif = Fredoka One
 			"Gabarito", sans-serif = Gabarito
 			"Golos Text", sans-serif = Golos Text
@@ -202,6 +201,7 @@ Tipo de letra
 			"Roboto", sans-serif = Roboto
 			"Roboto Condensed", sans-serif = Roboto Condensed
 			"Roboto Mono", sans-serif = Roboto Mono
+			"Roboto Serif", serif = Roboto Serif
 			"Rubik", sans-serif = Rubik
 			"Slabo 27px", serif = Slabo 27px
 			"Sofia Sans Extra Condensed", sans-serif = Sofia Sans Extra Condensed
