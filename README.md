@@ -2,7 +2,7 @@
 
 Projeto do e-commerce da **Museu em Fios** (museuemfios.com), conduzido pela
 Vitamina Publicitária com a nova identidade visual do **Estúdio Agudo**
-("MUSEU ƎM FIOS"): Inter + Fraunces, paleta amarelo/verde/azul pinçada das
+("MUSEU ƎM FIOS"): Inter + Roboto Serif, paleta amarelo/verde/azul pinçada das
 obras, e o grafismo de linhas (o "fio") como assinatura.
 
 ## Estrutura
@@ -20,9 +20,11 @@ push (URL: **https://danzchohfi.github.io/museuemfios**). Requer Pages
 habilitado com source "GitHub Actions" — o workflow tenta habilitar sozinho na
 primeira execução.
 
-Páginas da demo: `index.html` (home completa), `loja.html` (vitrine + guias
-digitais + filtros), `produto.html` (PDP do kit Femme à l'ombrelle),
-`sobre.html` (Quem somos).
+Páginas da demo: `index.html` (home completa, com a seção da noite e o vídeo
+institucional), `loja.html` (vitrine + guias digitais + filtros),
+`produto.html` (PDP do kit Femme à l'ombrelle), `sobre.html` (Quem somos),
+`educativo.html` (blog/recursos educativos — dicas, vídeos avulsos e
+conteúdo gratuito).
 
 > **Conceito aprovado: V1 ("editorial claro").** O cliente escolheu a versão 1,
 > então o seletor de conceitos e as versões alternativas (V3 e V5) saíram da
@@ -76,7 +78,7 @@ texto no site/tema deve respeitar:
 | Verde (Monet, Pont Japonais) | `#9CAD4E` |
 | Azul (Monet, Femme à l'ombrelle) | `#6A9CC3` |
 | Títulos | Inter (900 no display) |
-| Texto | Fraunces |
+| Texto | Roboto Serif |
 
 Grafismo: duas metades abertas de hexágono em linha 1.5px (geradas em SVG pelo
 JS — `data-fio` — e animadas com "desenho" de traço no scroll).

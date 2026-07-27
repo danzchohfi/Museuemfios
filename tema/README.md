@@ -3,7 +3,7 @@
 Tema da loja **museuemfios.com**, construído sobre o [Layout Base oficial da
 Nuvemshop](https://github.com/TiendaNube/base-theme) (fork da v1.14.0, a mesma
 base validada em produção no projeto Alfa Pesca) com a nova identidade do
-Estúdio Agudo: Inter + Fraunces, paleta amarelo/verde/azul, grafismo de linhas
+Estúdio Agudo: Inter + Roboto Serif, paleta amarelo/verde/azul, grafismo de linhas
 ("fio") e motion GSAP.
 
 Por ser fork do Layout Base, **tudo da plataforma continua funcionando**:
@@ -55,7 +55,7 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
 ## Pós-upload (checklist no admin)
 
 1. **Cores/fontes**: os defaults já vêm certos (preto `#1D1D1B`, papel
-   `#FBFAF6`, amarelo `#F2C440`, Inter títulos + Fraunces texto). Se o tema já
+   `#FBFAF6`, amarelo `#F2C440`, Inter títulos + Roboto Serif texto). Se o tema já
    estava instalado, confira em Layout → Personalizar.
 2. **Logo**: subir o logo vertical preto (SVG/PNG em `../brand/logos/`) em
    Layout → Personalizar → Logo. O favicon amarelo está em
@@ -72,16 +72,25 @@ nuvemshop theme create --title "Museu em Fios — Identidade 2026"
    (Klimt) e Le Pont Japonais (Monet), cada uma apontando pro produto real.
    Pra trocar, edite `snipplets/museu/hero.tpl` (imagem em
    `static/images/obras/`, ficha e URL do produto).
+6. **Vídeo institucional (seção da noite)**: a home quebra pra um gradiente
+   de noite com o vídeo da cliente bordando (YouTube). Pra trocar o vídeo,
+   edite o `src` do iframe em `snipplets/museu/noite.tpl`.
+7. **Educativo (blog/recursos)**: a demo mostra o conceito em
+   `educativo.html`. Na loja, o caminho é o **blog nativo** da Nuvemshop —
+   os templates `templates/blog.tpl` e `blog-post.tpl` já vêm do Layout Base
+   com a skin aplicada. Ative o blog no admin, crie os primeiros posts
+   (dicas, vídeos avulsos, histórias das obras) e adicione "Educativo" ao
+   menu de navegação.
 
 ## O que foi alterado vs. Layout Base
 
 | Arquivo | Mudança |
 |---|---|
-| `config/defaults.txt` | Paleta da identidade + Inter/Fraunces como padrão; header claro |
+| `config/defaults.txt` | Paleta da identidade + Inter/Roboto Serif como padrão; header claro |
 | `layouts/layout.tpl` | `museu-theme.css` + GSAP vendorizado + `museu-motion.js`; fontes com peso 900; `<main>` em volta do conteúdo |
 | `templates/home.tpl` | Home V1: hero + marquee + manifesto no topo; seções nativas no meio; passos e "o que vem no kit" no fim |
 | `templates/product.tpl` | CTA "Dúvidas sobre o kit?" (WhatsApp) |
-| `snipplets/museu/*` | `hero`, `marquee`, `manifesto`, `passos`, `kit` (home V1) + CTA WhatsApp |
+| `snipplets/museu/*` | `hero`, `marquee`, `manifesto`, `noite` (vídeo institucional no gradiente da noite), `passos`, `kit` (home V1) + CTA WhatsApp |
 | `snipplets/footer.tpl` | Crédito "Site por vitamina." com link |
 | `static/css/museu-theme.css` | Skin completa: design system + ponte pros componentes nativos |
 | `static/js/museu-motion.js` | Motion GSAP: desenho do "fio", reveals, cursor-linha, carrossel do hero |

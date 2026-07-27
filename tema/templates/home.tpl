@@ -21,13 +21,15 @@
 {% set newArray = [] %}
 
 {# Museu em Fios — home no conceito V1 "editorial claro" (aprovado pelo cliente):
-   hero da obra + marquee da endline + manifesto abrem a página; as seções
-   nativas (destaques, categorias, vídeo, instafeed…) seguem configuráveis em
-   Layout → Personalizar; a experiência (passos) e o conteúdo do kit fecham. #}
+   hero da obra + marquee da endline + manifesto + a noite (vídeo institucional)
+   abrem a página; as seções nativas (destaques, categorias, vídeo, instafeed…)
+   seguem configuráveis em Layout → Personalizar; a experiência (passos) e o
+   conteúdo do kit fecham. #}
 
 {% include 'snipplets/museu/hero.tpl' %}
 {% include 'snipplets/museu/marquee.tpl' %}
 {% include 'snipplets/museu/manifesto.tpl' %}
+{% include 'snipplets/museu/noite.tpl' %}
 
 <div class="js-home-sections-container">
 	{% for i in 0..8 %}

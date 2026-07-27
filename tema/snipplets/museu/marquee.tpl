@@ -4,9 +4,9 @@
     <div class="mf-marquee__trilho">
         <span>Sua hora com a arte</span>
         <span>Borde um museu</span>
-        <span>Frete grátis nos kits</span>
+        <span>Frete grátis acima de R$ 300</span>
         <span>Sua hora com a arte</span>
         <span>Borde um museu</span>
-        <span>Frete grátis nos kits</span>
+        <span>Frete grátis acima de R$ 300</span>
     </div>
 </div>
