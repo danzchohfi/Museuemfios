@@ -78,10 +78,16 @@ lojas".
 
 ## Passo 2 — os caminhos de subida
 
-### A) CLI 1.2.1 pela API — **recomendado**, é o que funcionou no Alfa
+> **O caminho recomendado não é este arquivo.** Verifiquei o site da Alfa Pesca
+> no ar: aquele projeto subiu **convertido pra sections** (roda
+> `themes/ipanema/`, com seções autorais `alfa-hero`/`alfa-kit-banner`). É o
+> mesmo desenho que já está pronto em `../tema-sections/`. Passo a passo em
+> `../SUBIR-NA-LOJA.md`. O que segue abaixo é o **plano B**: subir este tema
+> legado como está.
 
-Sobe este tema **como está**, sem migrar nada, e entrega o que a gente quer:
-rascunho + link de preview com o catálogo real.
+### A) CLI 1.2.1 pela API — plano B, sobe este tema sem converter nada
+
+Entrega rascunho + link de preview com o catálogo real, sem migrar.
 
 ```bash
 cd tema

@@ -3,23 +3,25 @@
 Reconstrução do tema no **formato sections** da Nuvemshop (tema base
 **Ipanema**).
 
-> **Isto não é mais pré-requisito pra subir o tema.** Descobrimos que o tema
-> legado em **`../tema/`** sobe pela API normalmente com o **CLI 1.2.1** —
-> rascunho e link de preview inclusive. É o caminho recomendado hoje, e foi o
-> que funcionou no Alfa Pesca. Ver `../tema/README.md`.
+> ✅ **Este é o caminho comprovado.** Verifiquei o site da Alfa Pesca no ar
+> (28/07/2026): ela roda `themes/**ipanema**/` — formato sections — com seções
+> autorais `section-alfa-hero` e `section-alfa-kit-banner` convivendo com as
+> nativas, mais um `alfa-theme.css` próprio. Foi assim que a Vitamina subiu
+> aquele projeto, e é o mesmo desenho que está nesta pasta. Passo a passo em
+> `../SUBIR-NA-LOJA.md`.
 
-## Por que migrar mesmo assim
+## Por que migrar
 
-Não é por causa do deploy — é pelo que a cliente ganha:
+1. **É o caminho que já funcionou.** A conversão pra sections foi o que fez a
+   Alfa subir — a tentativa no formato antigo não vingou.
+2. **Autonomia da cliente.** Hoje trocar uma obra do hero, uma frase do marquee
+   ou um item do kit exige mexer no `.tpl` e subir tema. Em sections vira campo
+   no admin: ela adiciona, remove e reordena sozinha.
+3. **Direção da plataforma.** O CLI 2.x já nem sincroniza a pasta `snipplets/`
+   do formato legado.
 
-1. **Autonomia.** Hoje trocar uma obra do hero, uma frase do marquee ou um item
-   do kit exige mexer no `.tpl` e subir tema. Em sections isso vira campo no
-   admin: ela adiciona, remove e reordena sozinha.
-2. **Direção da plataforma.** O formato legado é a geração anterior; o CLI 2.x
-   já nem sincroniza a pasta `snipplets/`. A migração tira o projeto da rota de
-   colisão — hoje ela é uma escolha, adiada demais vira emergência.
-
-Ou seja: **modernização com hora marcada**, não corrida contra o relógio.
+O tema legado em `../tema/` continua íntegro como plano B — e sobe pela API se
+precisar, desde que com o **CLI 1.2.1** (o 2.x descarta `snipplets/`).
 
 ## Como esta migração funciona
 

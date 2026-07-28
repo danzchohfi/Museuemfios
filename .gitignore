@@ -2,3 +2,7 @@
 node_modules/
 tema/.nuvem
 tema/.nube
+
+# Token do CLI da Nuvemshop — NUNCA commitar
+.nuvem
+.nube
