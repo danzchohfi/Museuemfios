@@ -53,6 +53,21 @@ Tudo fora disso é **descartado em silêncio** — inclusive `sections/`,
 `blocks/`, `static/` e `settings_schema.json`, que é justamente onde mora a
 nossa identidade.
 
+E é ainda mais apertado do que essas duas listas sugerem: o push também aplica
+`PUSH_UNSUPPORTED_PREFIXES = ["custom"]`, então `custom/` **não sobe de jeito
+nenhum**. Sem fork, o que realmente passa é só **`templates/**` e
+`config/settings_data.json`**.
+
+> **Precedente do Alfa Pesca (mesma base, mesmo problema).** Conferi o
+> repositório `danzchohfi/alfa-pesca`: mesmo Layout Base legado, mesma pasta
+> `snipplets/`. Rodando o filtro do CLI sobre aquele tema: **40 arquivos
+> subiriam, 129 seriam descartados** — 126 deles a `snipplets/` inteira, alvo
+> de 79 includes em 82 templates. Aquele README também recomenda o
+> `theme push`, e o status lá é "Pronto pra teste em rascunho" — ou seja, o
+> caminho está descrito nos dois projetos, mas **não há registro de ter sido
+> executado com sucesso em nenhum**. O precedente não valida o push: ele
+> repete a mesma armadilha.
+
 Ou seja, existem dois cenários:
 
 - **Fork liberado para a loja** → esta pasta entra inteira e a migração se
