@@ -16,30 +16,51 @@ como este tema pode subir:
 
 | | **Legado ("Layout Base")** | **Sections (base Ipanema)** |
 |---|---|---|
-| Pastas | `config/`, `layouts/`, `snipplets/`, `templates/` (`.tpl`), `static/` | `blocks/`, `sections/`, `snippets/`, `locales/`, `templates/` (`.json`), `config/*.json`, `manifest.json` |
-| Sincroniza por | FTP legado (`nuvemshop theme ftp …`) | API (`nuvemshop theme push/pull/preview`) |
-| Rascunho + link de preview pelo CLI | ❌ | ✅ |
+| Pastas | `config/`, `layouts/`, `snipplets/`, `templates/` (`.tpl`), `static/` | `blocks/`, `sections/`, `snippets/`, `translations/`, `templates/` (`.json`), `config/*.json` |
+| Sobe pela API do CLI | ✅ **com o CLI 1.2.1** · ❌ com o 2.x | ✅ nas duas |
+| Rascunho + link de preview | ✅ (via CLI 1.2.1) | ✅ |
+| Conteúdo editável no admin | só o que o tema base expõe | sections e blocks que a gente define |
 
 **Este tema é do formato legado** (fork do Layout Base v1.14.0), com a pasta
-`snipplets/` — grafia antiga, com dois "p".
+`snipplets/` — grafia antiga, com dois "p". **E ele sobe pela API sem migrar
+nada** — desde que o CLI seja o 1.2.1.
 
-### Por que `nuvemshop theme push` NÃO serve pra este tema
+### ⚠️ O `theme push` funciona — mas só com o CLI **1.x**. Fixe a versão.
 
-O CLI 2.x sincroniza pela API apenas os caminhos `blocks, config, custom,
-layouts, sections, snippets, static, templates, translations, manifest.json`.
-A pasta `snipplets/` **não está nessa lista** e é descartada em silêncio.
-Rodando o filtro do CLI sobre esta pasta: **47 arquivos subiriam e 130 seriam
-ignorados** — todos os 130 da `snipplets/`, alvo de 302 `{% include %}`
-espalhados por 82 templates. O tema subiria quebrado, sem erro aparente.
+O comportamento **mudou entre as versões maiores do CLI**, e é isso que decide
+se este tema sobe inteiro ou pela metade:
 
-Ou seja: o caminho da API exige **migrar o tema pro formato sections** antes.
+| | **CLI 1.2.1** | **CLI 2.x** |
+|---|---|---|
+| Como escolhe os arquivos | **Lista de exclusão**: manda tudo, menos caminhos ocultos (`.git`, `.nuvem`) | **Lista de permissão** (`SYNC_PREFIXES`): só `blocks, config, custom, layouts, sections, snippets, static, templates, translations` |
+| `snipplets/` (dois "p") | ✅ sobe | ❌ **descartada em silêncio** |
+| Onde o filtro age | por arquivo, e **avisa** o que pulou (`Skipped (not forked): …`) | no próprio *walk*: a pasta nem chega a ser lida |
+
+No CLI 1.2.1 o push monta a lista assim:
+
+```js
+directoryFilter: (entry) => !ThemeFtpTools.isExcludedFromThemeUpload(entry.path)
+// e isExcludedFromThemeUpload só rejeita segmentos ocultos (.git, .nuvem)
+```
+
+No 2.x isso virou `shouldSync` sobre `SYNC_PREFIXES`, que **não tem
+`snipplets`**. Rodando o filtro do 2.x sobre esta pasta: **47 arquivos subiriam
+e 130 seriam ignorados** — todos os 130 da `snipplets/`, alvo de 302
+`{% include %}` em 82 templates. O tema subiria quebrado, sem erro aparente.
+
+**Foi assim que o Alfa Pesca subiu**: pelo CLI, quando `@tiendanube/cli` sem
+versão ainda resolvia pra 1.x (o 2.0.0 saiu em 20/05/2026). O mesmo comando
+hoje instala o 2.1.0 e quebra o tema.
+
+> **Regra prática: sempre `@tiendanube/cli@1.2.1`, nunca sem versão.**
+> Um `npm install -g @tiendanube/cli` desavisado hoje traz o 2.x.
 
 ## Passo 1 — diagnóstico e backup (rodar sempre antes)
 
 ```bash
-# Requisito: Node.js 24.15+ (o CLI 2.x não roda em versões menores)
+# Requisito: Node.js 24.15+
 cd tema
-npx @tiendanube/cli@2 theme authorize   # login no navegador
+npx @tiendanube/cli@1.2.1 theme authorize   # login no navegador
 
 ./diagnostico-loja.sh      # só leitura: mostra o tema no ar e as instalações
 ./backup-tema-no-ar.sh     # baixa o tema publicado pra ../backup-tema-no-ar/
@@ -55,17 +76,42 @@ lojas".
 > o profissional tenha o backup dos arquivos originais… nosso time técnico nem
 > sempre vai conseguir recuperar todos eles". O backup é nosso.
 
-## Passo 2 — os dois caminhos de subida
+## Passo 2 — os caminhos de subida
 
-### A) FTP legado — sobe este tema como está
+### A) CLI 1.2.1 pela API — **recomendado**, é o que funcionou no Alfa
+
+Sobe este tema **como está**, sem migrar nada, e entrega o que a gente quer:
+rascunho + link de preview com o catálogo real.
 
 ```bash
 cd tema
-npx @tiendanube/cli@2 theme ftp setup \
+npx @tiendanube/cli@1.2.1 theme list                       # ache o ID do rascunho
+npx @tiendanube/cli@1.2.1 theme push --installation-id <ID> # sobe tudo, inclusive snipplets/
+npx @tiendanube/cli@1.2.1 theme preview-url --installation-id <ID>  # link compartilhável
+npx @tiendanube/cli@1.2.1 theme publish --installation-id <ID>   # só quando aprovado
+npx @tiendanube/cli@1.2.1 theme watch --installation-id <ID>     # opcional: dev ao vivo
+```
+
+**O que observar na saída:** se aparecerem linhas
+`Skipped (not forked): snipplets/…`, a instalação está travada como
+não-forkada — rode `theme fork --installation-id <ID>` e repita o push. O 1.x avisa
+quando pula arquivo; é o 2.x que emudece.
+
+Confira ao final se o número de arquivos enviados bate com o real:
+
+```bash
+find . -type f -not -path "./.*" | wc -l    # ~177 neste tema
+```
+
+### B) FTP legado — plano C, só se o CLI falhar
+
+```bash
+cd tema
+npx @tiendanube/cli@1.2.1 theme ftp setup \
   --ftp-server HOST --ftp-username USUARIO --ftp-password SENHA \
   --store-url https://museuemfios2.lojavirtualnuvem.com.br
-npx @tiendanube/cli@2 theme ftp push     # sobe tudo, inclusive snipplets/
-npx @tiendanube/cli@2 theme ftp watch    # opcional: dev ao vivo
+npx @tiendanube/cli@1.2.1 theme ftp push     # sobe tudo, inclusive snipplets/
+npx @tiendanube/cli@1.2.1 theme ftp watch    # opcional: dev ao vivo
 ```
 
 Credenciais em **Loja online → Layout → Editar o código** (exige plano com
@@ -79,26 +125,16 @@ perdidas** — sem recuperação. Some-se a isso que o FTP alcança o espaço de
 código do layout da loja, não uma instalação de rascunho separada: não é o
 "vejo em rascunho e publico depois" que o fluxo novo oferece.
 
-### B) Migrar pro formato sections — habilita rascunho + preview
+### C) Migrar pro formato sections — o futuro, não uma urgência
 
-Converte este tema pra estrutura nova (`snipplets/` → `snippets/`, templates
-`.tpl` → `.json` + `sections/` e `blocks/`, `config/*.txt` →
-`settings_schema.json`/`settings_data.json`, mais o `manifest.json`). Depois
-disso o fluxo vira o que queremos:
+Em `../tema-sections/` já existe a versão deste tema no formato novo (as 6
+seções autorais viraram sections e blocks editáveis no admin). Com o caminho A
+funcionando, essa migração deixou de ser pré-requisito pra subir e virou o que
+sempre deveria ter sido: **modernização com hora marcada**, feita com o
+Ipanema aberto na frente. Ver `../tema-sections/README.md`.
 
-```bash
-nuvemshop theme create --base-theme ipanema --title "Museu em Fios — Identidade 2026"
-nuvemshop theme fork --theme-id <ID>      # libera todos os arquivos (mão única)
-nuvemshop theme push --theme-id <ID>
-nuvemshop theme preview --theme-id <ID>   # link de pré-visualização
-nuvemshop theme publish --theme-id <ID>   # só quando aprovado
-```
-
-É o caminho alinhado com pra onde a plataforma está indo, mas é **reescrita de
-arquitetura**, não conversão mecânica: a home V1 (hero, marquee, manifesto,
-noite, passos, kit) teria de virar sections/blocks configuráveis. E `fork` é
-**operação de mão única** — dali em diante o tema não recebe mais updates
-automáticos do tema base.
+Vale lembrar que `fork` é **operação de mão única** — dali em diante o tema não
+recebe mais atualizações automáticas do tema base.
 
 > ⚠️ O `authorize` grava o token em `.nuvem` nesta pasta — já está no
 > `.gitignore`, **não commite**. O arquivo é ofuscado, não criptografado.

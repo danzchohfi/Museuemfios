@@ -11,25 +11,43 @@
 # aceita no máximo duas instalações de tema (a publicada + uma), e essa segunda
 # vaga é justamente a que vamos querer pro nosso tema em rascunho.
 #
-# Requisitos: Node.js 24.15+ e `nuvemshop theme authorize` já feito.
-# Uso:  cd tema && ./backup-tema-no-ar.sh
+# A VERSÃO DO CLI IMPORTA: o 1.2.1 baixa e envia a pasta inteira; o 2.x só
+# sincroniza uma lista de pastas que NÃO inclui `snipplets/`. Num backup isso
+# seria pior ainda — a cópia sairia incompleta parecendo completa.
+#
+# Requisitos: Node.js 24.15+ e `theme authorize` já feito.
+# Uso:  cd tema && ./backup-tema-no-ar.sh <ID_DA_INSTALACAO_PUBLICADA>
+#       (o ID sai do `theme list` — é a instalação marcada como publicada)
 set -euo pipefail
 
 DATA="$(date +%Y-%m-%d)"
 RAIZ="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DESTINO="$RAIZ/../backup-tema-no-ar/$DATA"
-CLI="npx @tiendanube/cli@2"
+CLI="npx @tiendanube/cli@1.2.1"
 
-echo "==> Tema publicado hoje:"
+echo "==> Instalações da loja (ache a publicada e anote o ID):"
 $CLI theme list
 
+ID_PUBLICADA="${1:-}"
+if [[ -z "$ID_PUBLICADA" ]]; then
+  cat <<'USO'
+
+    Falta o ID da instalação publicada. Rode de novo passando o ID que
+    aparece na lista acima:
+
+        ./backup-tema-no-ar.sh <ID_DA_INSTALACAO_PUBLICADA>
+
+USO
+  exit 1
+fi
+
 echo
-echo "==> Baixando os arquivos do tema publicado para:"
+echo "==> Baixando os arquivos da instalação $ID_PUBLICADA para:"
 echo "    $DESTINO"
 mkdir -p "$DESTINO"
 cd "$DESTINO"
 
-if $CLI theme pull --published; then
+if $CLI theme pull --installation-id "$ID_PUBLICADA" -y; then
   echo "    Download concluído pelo fluxo de API."
 else
   cat <<'AVISO'
@@ -40,10 +58,10 @@ else
       1. No admin: Loja online → Layout → Editar o código
          (anote servidor, usuário e senha; exige plano com acesso ao código)
       2. Rode, dentro da pasta de destino:
-           npx @tiendanube/cli@2 theme ftp setup \
+           npx @tiendanube/cli@1.2.1 theme ftp setup \
              --ftp-server HOST --ftp-username USUARIO --ftp-password SENHA \
              --store-url https://museuemfios2.lojavirtualnuvem.com.br
-           npx @tiendanube/cli@2 theme ftp pull
+           npx @tiendanube/cli@1.2.1 theme ftp pull
 
     ATENÇÃO: abrir o FTP tem efeitos permanentes na loja — o layout deixa de
     receber as atualizações automáticas da Nuvemshop, a troca de layout fica

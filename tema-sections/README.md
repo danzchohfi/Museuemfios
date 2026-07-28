@@ -1,19 +1,25 @@
 # Museu em Fios — tema no formato sections (em migração)
 
 Reconstrução do tema no **formato sections** da Nuvemshop (tema base
-**Ipanema**), que é o que habilita o fluxo que a gente quer: instalação de
-**rascunho**, **link de pré-visualização** e publicação só na aprovação — tudo
-pelo CLI, sem abrir FTP na loja.
+**Ipanema**).
 
-> A pasta **`../tema/`** (formato legado, funcionando) **continua intacta** e é
-> o plano B. Nada aqui substitui aquilo até a migração estar validada na loja.
+> **Isto não é mais pré-requisito pra subir o tema.** Descobrimos que o tema
+> legado em **`../tema/`** sobe pela API normalmente com o **CLI 1.2.1** —
+> rascunho e link de preview inclusive. É o caminho recomendado hoje, e foi o
+> que funcionou no Alfa Pesca. Ver `../tema/README.md`.
 
-## Por que migrar
+## Por que migrar mesmo assim
 
-O CLI 2.x sincroniza pela API só os caminhos `blocks, config, custom, layouts,
-sections, snippets, static, templates, translations, manifest.json`. O tema
-legado usa `snipplets/` (dois "p"), que **não está na lista**: um `theme push`
-descartaria 130 dos 180 arquivos em silêncio. Detalhes em `../tema/README.md`.
+Não é por causa do deploy — é pelo que a cliente ganha:
+
+1. **Autonomia.** Hoje trocar uma obra do hero, uma frase do marquee ou um item
+   do kit exige mexer no `.tpl` e subir tema. Em sections isso vira campo no
+   admin: ela adiciona, remove e reordena sozinha.
+2. **Direção da plataforma.** O formato legado é a geração anterior; o CLI 2.x
+   já nem sincroniza a pasta `snipplets/`. A migração tira o projeto da rota de
+   colisão — hoje ela é uma escolha, adiada demais vira emergência.
+
+Ou seja: **modernização com hora marcada**, não corrida contra o relógio.
 
 ## Como esta migração funciona
 
