@@ -291,6 +291,21 @@ def main() -> int:
         {"css": bloco_code(f"<style>\n{css}\n</style>")})
     ordem.append("museu-estilo")
 
+    # Se a cliente trocou o vídeo pelo editor, o valor vive no home.json da
+    # loja — preserva o que estiver no build (REGRA: antes de remontar a
+    # home, rode `theme pull` pra trazer edições feitas no editor).
+    video_atual = {"type": "youtube", "id": "Q2dJHg6M9jw"}
+    destino_home = BUILD / "templates" / "pages" / "home.json"
+    if destino_home.exists():
+        try:
+            atual = json.loads(destino_home.read_text(encoding="utf8"))
+            guardado = (atual["sections"]["museu-noite"]["blocks"]["player"]
+                        ["settings"]["video_url"])
+            if guardado:
+                video_atual = guardado
+        except (KeyError, json.JSONDecodeError, TypeError):
+            pass
+
     for nome, seletor in SECOES:
         markup = extrair(html, seletor)
         if nome == "museu-vitrine":
@@ -301,6 +316,29 @@ def main() -> int:
         markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
         if nome == "museu-hero":
             markup = melhorar_hero(markup)
+
+        if nome == "museu-noite":
+            # O player sai do markup e vira o block NATIVO de vídeo do
+            # Ipanema, que dá à cliente um campo de URL no editor ("colar o
+            # link e pronto"). Os três blocks concatenam no DOM: o código
+            # "abre" deixa a <div class="mf-noite__video"> aberta, o block
+            # nativo rende dentro dela, e o "fecha" fecha as tags.
+            m = re.search(r'(.*<div class="mf-noite__video"[^>]*>)(?:.*?)(</div>.*)',
+                          markup, re.S)
+            if m:
+                sections[nome] = secao_custom({
+                    "abre": bloco_code(m.group(1)),
+                    "player": {"type": "video", "settings": {
+                        "video_url": video_atual,
+                        "video_type": "manual",
+                        "show_cover_image": False,
+                        "aspect_ratio": "16by9",
+                    }},
+                    "fecha": bloco_code(m.group(2)),
+                })
+                ordem.append(nome)
+                print(f"  {nome:18} {len(markup):6} bytes   (player nativo, URL editável)")
+                continue
         todas_pendentes += pendentes
         sections[nome] = secao_custom({"markup": bloco_code(markup)})
         ordem.append(nome)
