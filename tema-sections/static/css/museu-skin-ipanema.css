@@ -568,6 +568,38 @@ body.pagina-quem-somos .page-content.user-content {
   margin-right: 0.25rem;
 }
 
+/* ----------------------------------------------------- slogan recorrente -- */
+/* "Sua hora com a arte. Borde um museu." — sob o título das páginas
+   internas e do contato, e em faixa entre o produto e os relacionados. */
+.mf-slogan {
+  font-family: var(--f-texto);
+  font-style: italic;
+  font-size: 1.15rem;
+  margin: 0;
+  padding: 0.25rem var(--gutter-container, 2rem) 0;
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+  width: 100%;
+}
+.mf-slogan strong {
+  font-family: var(--f-titulo);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.mf-slogan--faixa {
+  text-align: center;
+  font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+  padding: 2.75rem var(--gutter-container, 2rem);
+  border-top: 1.5px solid var(--preto);
+  border-bottom: 1.5px solid var(--preto);
+  max-width: none;
+  margin-top: 3rem;
+}
+@media (max-width: 768px) {
+  .mf-slogan { font-size: 1.05rem; }
+}
+
 /* --------------------------------------- vídeo institucional no quem-somos -- */
 /* O bloco vive no template `page` (todas as páginas de conteúdo) e só
    aparece no quem-somos. Escondido não tem caixa — o iframe lazy nem

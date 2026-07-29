@@ -171,6 +171,29 @@ NEWSLETTER = ("Assine e use o cupom PRIMEIROPONTO na primeira compra — "
               "lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail.")
 
 
+# O slogan é a frase-mestra da marca e o Daniel pediu ela recorrente:
+# páginas internas (sob o título), contato e produto (faixa após a compra).
+SLOGAN_PAGINA = ('<p class="mf-slogan">Sua hora com a arte. '
+                 "<strong>Borde um museu.</strong></p>")
+SLOGAN_FAIXA = ('<p class="mf-slogan mf-slogan--faixa">Sua hora com a arte. '
+                "<strong>Borde um museu.</strong></p>")
+
+
+def secao_slogan(codigo: str) -> dict:
+    return {
+        "type": "custom",
+        "settings": {
+            "section_width": "full",
+            "direction": "column",
+            "mobile_direction_enabled": False,
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+        },
+        "blocks": {"slogan": {"type": "code", "settings": {"code": codigo}}},
+    }
+
+
 def ajustar_paginas() -> None:
     """Vídeo institucional da home também no quem-somos (pedido do Daniel).
 
@@ -205,8 +228,20 @@ def ajustar_paginas() -> None:
     }
     if "museu-video" not in page["order"]:
         page["order"].append("museu-video")
+    page["sections"]["museu-slogan"] = secao_slogan(SLOGAN_PAGINA)
+    if "museu-slogan" not in page["order"]:
+        page["order"].insert(page["order"].index("heading") + 1, "museu-slogan")
     p_page.write_text(json.dumps(page, ensure_ascii=False, indent=2), encoding="utf8")
-    print("  page.json: vídeo institucional (visível só no quem-somos)")
+    print("  page.json: vídeo (só quem-somos) + slogan sob o título")
+
+    # contato usa template próprio — slogan lá também
+    p_cont = BUILD / "templates" / "pages" / "contact.json"
+    cont = json.loads(p_cont.read_text(encoding="utf8"))
+    cont["sections"]["museu-slogan"] = secao_slogan(SLOGAN_PAGINA)
+    if "museu-slogan" not in cont["order"]:
+        cont["order"].insert(cont["order"].index("heading") + 1, "museu-slogan")
+    p_cont.write_text(json.dumps(cont, ensure_ascii=False, indent=2), encoding="utf8")
+    print("  contact.json: slogan sob o título")
 
 
 def ajustar_header() -> None:
@@ -275,8 +310,13 @@ def ajustar_produto() -> None:
         ordem.insert(ordem.index("description"), "purchase_info")
         info["block_order"] = ordem
 
+    # faixa do slogan entre o produto e as vitrines de relacionados
+    prod["sections"]["museu-slogan"] = secao_slogan(SLOGAN_FAIXA)
+    if "museu-slogan" not in prod["order"]:
+        prod["order"].insert(prod["order"].index("main_product") + 1, "museu-slogan")
+
     p_prod.write_text(json.dumps(prod, ensure_ascii=False, indent=2), encoding="utf8")
-    print("  product.json: 3º selo, ícones 32px, selos antes da descrição")
+    print("  product.json: 3º selo, ícones 32px, selos antes da descrição, slogan")
 
 
 def main() -> None:

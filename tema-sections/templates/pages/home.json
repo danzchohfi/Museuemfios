@@ -3,7 +3,7 @@
     "museu-hero": {
       "type": "museu-hero",
       "settings": {
-        "descritor": "Releitura autoral de obras icônicas. Imersão na arte, no seu tempo."
+        "descritor": "Sua hora com a arte. Borde um museu."
       },
       "blocks": {
         "obra-monet-femme": {
