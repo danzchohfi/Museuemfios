@@ -76,15 +76,26 @@ CSS_CRITICO = (
 )
 
 # O copyright nativo (escondido pela pele) carregava o CNPJ — ele migra pra cá.
+# Sem "Site por" a pedido do Daniel: só o wordmark da Vitamina.
 ASSINATURA = """<div class="mf-assinatura">
   <div class="mf-assinatura__wrap">
     <span>© 2026 Museu em Fios · CNPJ 47.035.343/0001-55 — Sua hora com a arte. Borde um museu.</span>
-    <a class="mf-credito" href="https://vitaminapublicitaria.com.br" target="_blank" rel="noopener" aria-label="Site por Vitamina Publicitária">
-      <span class="rotulo">Site por</span>
+    <a class="mf-credito" href="https://vitaminapublicitaria.com.br" target="_blank" rel="noopener" aria-label="Vitamina Publicitária">
       <span class="marca">vitamina<i>.</i></span>
     </a>
   </div>
 </div>"""
+
+# Identifica a página no <body> pra pele poder tratar página a página —
+# o tema só marca o TEMPLATE (body.template-page vale pra qualquer página
+# de conteúdo; quem-somos precisa de tratamento próprio).
+ROTEADOR = (
+    "<script>(function(){"
+    "var s=(location.pathname.replace(/\\/+$/,'').split('/').pop()||'home')"
+    ".toLowerCase().replace(/[^a-z0-9-]/g,'');"
+    "document.body.classList.add('pagina-'+(s||'home'));"
+    "})();</script>"
+)
 
 # Conteúdo do rodapé: o footer.json de fábrica vem com o placeholder da
 # Nuvemshop ("tradição há 3 gerações") e DOIS menus apontando pro mesmo
@@ -109,12 +120,15 @@ def ajustar_produto() -> None:
     info = prod["sections"]["main_product"]["blocks"]["product_info"]
     compra = info["blocks"]["purchase_info"]
     compra["settings"]["icon_size"] = 32
+    # "Frete rápido", não "grátis": a loja NÃO tem frete grátis configurado
+    # (data-pricemin="0" no HTML servido, conferido em 29/07/2026). Selo não
+    # pode prometer o que o checkout não cumpre.
     compra["blocks"]["icon_frete"] = {
         "type": "icon-text-item",
         "settings": {
             "icon": "truck",
-            "title": "Frete grátis acima de R$ 300",
-            "description": "Envios para todo o Brasil",
+            "title": "Frete rápido",
+            "description": "Para todo o Brasil",
         },
     }
     if "icon_frete" not in compra["block_order"]:
@@ -173,7 +187,7 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
