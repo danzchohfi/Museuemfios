@@ -120,15 +120,16 @@ def ajustar_produto() -> None:
     info = prod["sections"]["main_product"]["blocks"]["product_info"]
     compra = info["blocks"]["purchase_info"]
     compra["settings"]["icon_size"] = 32
-    # "Frete rápido", não "grátis": a loja NÃO tem frete grátis configurado
-    # (data-pricemin="0" no HTML servido, conferido em 29/07/2026). Selo não
-    # pode prometer o que o checkout não cumpre.
+    # Orientação da cliente (29/07/2026): "frete grátis para pedidos acima de
+    # 300 reais. Envios para todo o Brasil". A regra ainda não aparece
+    # configurada no checkout (data-pricemin="0") — cobrar a ativação no
+    # admin pra promessa e cobrança baterem.
     compra["blocks"]["icon_frete"] = {
         "type": "icon-text-item",
         "settings": {
             "icon": "truck",
-            "title": "Frete rápido",
-            "description": "Para todo o Brasil",
+            "title": "Frete grátis acima de R$ 300",
+            "description": "Envios para todo o Brasil",
         },
     }
     if "icon_frete" not in compra["block_order"]:
