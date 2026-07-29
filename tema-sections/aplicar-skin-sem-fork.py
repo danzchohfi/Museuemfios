@@ -152,16 +152,22 @@ CARRINHO = """<script>(function () {
         enviar.insertAdjacentElement('beforebegin', prog);
       }
       var falta = Math.max(0, min - sub);
-      var texto = prog.querySelector('.mf-frete-progresso__texto');
-      var fio = prog.querySelector('.mf-frete-progresso__fio');
-      if (falta > 0) {
-        prog.classList.remove('is-ganho');
-        texto.innerHTML = 'Faltam <strong>' + reais(falta) + '</strong> para o frete grátis';
-        fio.style.width = Math.min(100, Math.round(sub / min * 100)) + '%';
-      } else {
-        prog.classList.add('is-ganho');
-        texto.innerHTML = '<strong>Frete grátis desbloqueado \\u2733</strong>';
-        fio.style.width = '100%';
+      // Só escreve quando o valor MUDA: escrever innerHTML dispara o
+      // MutationObserver, que chama melhorar de novo — sem esta guarda é
+      // loop infinito e página travada (aconteceu quando o frete ativou).
+      if (prog.dataset.mfFalta !== String(falta)) {
+        prog.dataset.mfFalta = String(falta);
+        var texto = prog.querySelector('.mf-frete-progresso__texto');
+        var fio = prog.querySelector('.mf-frete-progresso__fio');
+        if (falta > 0) {
+          prog.classList.remove('is-ganho');
+          texto.innerHTML = 'Faltam <strong>' + reais(falta) + '</strong> para o frete grátis';
+          fio.style.width = Math.min(100, Math.round(sub / min * 100)) + '%';
+        } else {
+          prog.classList.add('is-ganho');
+          texto.innerHTML = '<strong>Frete grátis desbloqueado \\u2733</strong>';
+          fio.style.width = '100%';
+        }
       }
     } else if (prog) {
       prog.remove();
@@ -188,8 +194,13 @@ CARRINHO = """<script>(function () {
     if (!alvo) return false;
     armado = true;
     if ('MutationObserver' in window) {
-      new MutationObserver(function () { melhorar(); })
-        .observe(alvo, { childList: true, subtree: true });
+      // Debounce: o re-render AJAX do drawer emite rajadas de mutações
+      var agendado = false;
+      new MutationObserver(function () {
+        if (agendado) return;
+        agendado = true;
+        setTimeout(function () { agendado = false; melhorar(); }, 120);
+      }).observe(alvo, { childList: true, subtree: true });
     }
     melhorar();
     return true;
