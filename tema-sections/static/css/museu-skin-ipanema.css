@@ -617,8 +617,8 @@ body.pagina-quem-somos .page-content.user-content {
      sem !important aqui a grade nunca vence e tudo empilha numa coluna */
   display: grid !important;
   grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-  column-gap: 3rem;
-  row-gap: 3rem;
+  column-gap: 3rem !important;
+  row-gap: 3rem !important;
   counter-reset: passo;
 }
 .section-custom[data-section-id="museu-passos"] [data-block-id="eyebrow"],
@@ -674,8 +674,10 @@ body.pagina-quem-somos .page-content.user-content {
 .section-custom[data-section-id="museu-kit"] .custom-section-content {
   display: grid !important;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  column-gap: clamp(2rem, 6vw, 5rem);
-  row-gap: 0.6rem;
+  /* o tema escreve style="gap: 0px" INLINE na seção (custom.tpl usa o setting
+     `gap`), então sem !important as colunas colam uma na outra */
+  column-gap: clamp(2rem, 6vw, 5rem) !important;
+  row-gap: 0.7rem !important;
   align-items: center;
 }
 /* Posições EXPLÍCITAS: `grid-row: 1 / -1` sem grid-template-rows definido
@@ -689,7 +691,17 @@ body.pagina-quem-somos .page-content.user-content {
 .section-custom[data-section-id="museu-kit"] .custom-section-content > [data-block-id="titulo"] { grid-area: 2 / 2; }
 .section-custom[data-section-id="museu-kit"] [data-block-id="lista"]    { grid-area: 3 / 2; }
 .section-custom[data-section-id="museu-kit"] [data-block-id="nota"]     { grid-area: 4 / 2; }
-.section-custom[data-section-id="museu-kit"] [data-block-id="botao"]    { grid-area: 5 / 2; align-self: start; }
+.section-custom[data-section-id="museu-kit"] [data-block-id="botao"] {
+  grid-area: 5 / 2;
+  align-self: start;
+  justify-self: start;
+  margin-top: 0.8rem;
+}
+/* o block vem com .block-fill (100%): o botão da demo é do tamanho do texto */
+.section-custom[data-section-id="museu-kit"] [data-block-id="botao"] .btn {
+  width: auto;
+  padding: 1rem 1.75rem;
+}
 .section-custom[data-section-id="museu-kit"] [data-block-id="visual"] img {
   width: 100%;
   height: auto;
