@@ -568,6 +568,29 @@ body.pagina-quem-somos .page-content.user-content {
   margin-right: 0.25rem;
 }
 
+/* ------------------------------- noite: player como block nativo (home) -- */
+/* A section custom que contém a .mf-noite ganha o fundo preto e o player
+   (block de vídeo, sibling do markup) continua a faixa como se estivesse
+   dentro dela. */
+.section-custom:has(.mf-noite) {
+  background: var(--preto);
+}
+.section-custom:has(.mf-noite) .mf-noite {
+  background: transparent;
+  padding-bottom: 1.25rem;
+}
+.section-custom:has(.mf-noite) .js-video-block,
+.section-custom:has(.mf-noite) [data-block-type="video"] {
+  width: min(100%, 60rem);
+  margin: 0 auto;
+  background: #000;
+}
+.section-custom:has(.mf-noite) {
+  padding-bottom: clamp(3rem, 9vh, 5.5rem);
+  padding-left: var(--gutter-container, 2rem);
+  padding-right: var(--gutter-container, 2rem);
+}
+
 /* -------------------------- manifesto em blocks nativos (piloto editável) -- */
 /* A âncora .mf-alvo-manifesto marca a section custom que substitui o
    markup autoral; os blocks nativos (texto/título/botão) recebem a cara

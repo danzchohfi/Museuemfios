@@ -368,21 +368,25 @@ def main() -> int:
             # link e pronto"). Os três blocks concatenam no DOM: o código
             # "abre" deixa a <div class="mf-noite__video"> aberta, o block
             # nativo rende dentro dela, e o "fecha" fecha as tags.
-            m = re.search(r'(.*<div class="mf-noite__video"[^>]*>)(?:.*?)(</div>.*)',
-                          markup, re.S)
-            if m:
+            # O tema embrulha cada block num contêiner e o parser fecha as
+            # divs no limite do block — deixar a moldura aberta num block e
+            # fechar noutro rende moldura VAZIA (caixa preta órfã) com o
+            # player fora dela. Então: a moldura sai do markup e o block de
+            # vídeo É o player, vestido pela pele via .section-custom:has(.mf-noite).
+            sem_video = re.sub(r'<div class="mf-noite__video"[^>]*>.*?</div>\s*',
+                               '', markup, flags=re.S)
+            if sem_video != markup:
                 sections[nome] = secao_custom({
-                    "abre": bloco_code(m.group(1)),
+                    "markup": bloco_code(sem_video),
                     "player": {"type": "video", "settings": {
                         "video_url": video_atual,
                         "video_type": "manual",
                         "show_cover_image": False,
                         "aspect_ratio": "16by9",
                     }},
-                    "fecha": bloco_code(m.group(2)),
                 })
                 ordem.append(nome)
-                print(f"  {nome:18} {len(markup):6} bytes   (player nativo, URL editável)")
+                print(f"  {nome:18} {len(sem_video):6} bytes   (player nativo, URL editável)")
                 continue
         todas_pendentes += pendentes
         sections[nome] = secao_custom({"markup": bloco_code(markup)})
