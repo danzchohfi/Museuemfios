@@ -97,6 +97,37 @@ ROTEADOR = (
     "})();</script>"
 )
 
+# Barra fixa de compra no produto (só mobile): clona preço + um botão que
+# aciona o comprar original, e só aparece quando o original já rolou pra
+# fora da tela — sem duplicar CTA à vista. Conversão: o comprar nunca fica
+# a mais de um toque.
+BARRA_COMPRA = """<script>(function(){
+  if (!document.body.classList.contains('template-product')) return;
+  if (window.innerWidth > 768) return;
+  var botao = document.querySelector('.buy-button-container .btn-primary');
+  var preco = document.querySelector('.product-price-display');
+  var alvo = document.querySelector('.product-actions') || botao;
+  if (!botao || !alvo) return;
+  var barra = document.createElement('div');
+  barra.className = 'mf-barra-compra';
+  var p = document.createElement('span');
+  p.className = 'mf-barra-compra__preco';
+  p.textContent = preco ? preco.textContent.trim() : '';
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn btn-primary';
+  b.textContent = 'Comprar';
+  b.addEventListener('click', function () { botao.click(); });
+  barra.appendChild(p); barra.appendChild(b);
+  document.body.appendChild(barra);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (en) {
+      var e = en[0];
+      barra.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0);
+    }, { threshold: 0 }).observe(alvo);
+  }
+})();</script>"""
+
 # Conteúdo do rodapé: o footer.json de fábrica vem com o placeholder da
 # Nuvemshop ("tradição há 3 gerações") e DOIS menus apontando pro mesmo
 # menu "navigation" — colunas duplicadas na tela.
@@ -104,7 +135,38 @@ INSTITUCIONAL = (
     "O Museu em Fios une bordado e história da arte na releitura autoral de "
     "obras icônicas. Cada kit é um convite: sua hora com a arte, no seu tempo."
 )
-NEWSLETTER = "Lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail."
+NEWSLETTER = ("Assine e use o cupom PRIMEIROPONTO na primeira compra — "
+              "lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail.")
+
+
+def ajustar_header() -> None:
+    """Liga a barra de anúncio em todas as páginas.
+
+    O marquee com o cupom só roda na home; a barra nativa do header vinha
+    DESLIGADA de fábrica. Ligada em amarelo da marca, ela põe o cupom de
+    primeira compra e o frete grátis na frente de quem cai direto numa
+    página de produto — que é onde o tráfego de anúncio chega.
+    """
+    p_head = BUILD / "templates" / "layout" / "header.json"
+    head = json.loads(p_head.read_text(encoding="utf8"))
+    an = head["sections"]["announcement"]
+    an["disabled"] = False
+    an["settings"].update({
+        "background_color": "#F2C440",
+        "text_color": "#1D1D1B",
+        "section_width": "full",
+    })
+    an["blocks"] = {
+        "cupom": {"type": "announcement", "settings": {
+            "text": "Cupom de primeira compra: PRIMEIROPONTO"}},
+        "frete": {"type": "announcement", "settings": {
+            "text": "Frete grátis acima de R$ 300 — envios para todo o Brasil"}},
+    }
+    an["block_order"] = ["cupom", "frete"]
+    # header na cor de papel da marca, não branco puro
+    head["sections"]["header"]["settings"]["background_color"] = "#FBFAF6"
+    p_head.write_text(json.dumps(head, ensure_ascii=False, indent=2), encoding="utf8")
+    print("  header.json: barra de anúncio ligada (cupom + frete) e fundo papel")
 
 
 def ajustar_produto() -> None:
@@ -188,13 +250,14 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{BARRA_COMPRA}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
     p_footer.write_text(json.dumps(footer, ensure_ascii=False, indent=2), encoding="utf8")
     print(f"  footer.json: conteúdo da marca, logo ({len(logo_svg)} b), pele ({len(skin) / 1024:.0f} KB), assinatura")
 
+    ajustar_header()
     ajustar_produto()
 
 
