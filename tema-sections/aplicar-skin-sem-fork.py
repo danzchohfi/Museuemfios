@@ -179,11 +179,31 @@ CARRINHO = """<script>(function () {
       caixa.appendChild(conf);
     }
   }
-  var alvo = document.getElementById('modal-cart');
-  if (alvo && 'MutationObserver' in window) {
-    new MutationObserver(function () { melhorar(); }).observe(alvo, { childList: true, subtree: true });
+  // O #modal-cart renderiza DEPOIS deste script no body — armar direto
+  // falhava em silêncio. Tenta agora e re-tenta até o drawer existir.
+  var armado = false;
+  function armar() {
+    if (armado) return true;
+    var alvo = document.getElementById('modal-cart');
+    if (!alvo) return false;
+    armado = true;
+    if ('MutationObserver' in window) {
+      new MutationObserver(function () { melhorar(); })
+        .observe(alvo, { childList: true, subtree: true });
+    }
+    melhorar();
+    return true;
   }
-  melhorar();
+  if (!armar()) {
+    document.addEventListener('DOMContentLoaded', armar);
+    window.addEventListener('load', armar);
+    if ('MutationObserver' in window) {
+      var espera = new MutationObserver(function () {
+        if (armar()) espera.disconnect();
+      });
+      espera.observe(document.documentElement, { childList: true, subtree: true });
+    }
+  }
 })();</script>"""
 
 # Sinais pra Meta (desenho da auditoria de CAPI):
