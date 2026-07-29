@@ -75,15 +75,25 @@ CSS_CRITICO = (
     ".btn{font-family:var(--heading-font)}"
 )
 
+# O copyright nativo (escondido pela pele) carregava o CNPJ — ele migra pra cá.
 ASSINATURA = """<div class="mf-assinatura">
   <div class="mf-assinatura__wrap">
-    <span>© 2026 Museu em Fios — Sua hora com a arte. Borde um museu.</span>
+    <span>© 2026 Museu em Fios · CNPJ 47.035.343/0001-55 — Sua hora com a arte. Borde um museu.</span>
     <a class="mf-credito" href="https://vitaminapublicitaria.com.br" target="_blank" rel="noopener" aria-label="Site por Vitamina Publicitária">
       <span class="rotulo">Site por</span>
       <span class="marca">vitamina<i>.</i></span>
     </a>
   </div>
 </div>"""
+
+# Conteúdo do rodapé: o footer.json de fábrica vem com o placeholder da
+# Nuvemshop ("tradição há 3 gerações") e DOIS menus apontando pro mesmo
+# menu "navigation" — colunas duplicadas na tela.
+INSTITUCIONAL = (
+    "O Museu em Fios une bordado e história da arte na releitura autoral de "
+    "obras icônicas. Cada kit é um convite: sua hora com a arte, no seu tempo."
+)
+NEWSLETTER = "Lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail."
 
 
 def main() -> None:
@@ -97,29 +107,51 @@ def main() -> None:
     p_settings.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf8")
     print(f"  settings: {len(AJUSTES)} ajustes + css_code de {len(CSS_CRITICO)} chars")
 
-    # footer.json: pele + assinatura
+    # footer.json: conteúdo da marca no bloco nativo + logo + pele + assinatura
     skin = (RAIZ / "static" / "css" / "museu-skin-ipanema.css").read_text(encoding="utf8")
+    logo_svg = (RAIZ.parent / "demo" / "assets" / "img" / "logo-horizontal-branco.svg").read_text(encoding="utf8")
     p_footer = BUILD / "templates" / "layout" / "footer.json"
     footer = json.loads(p_footer.read_text(encoding="utf8"))
-    footer["sections"]["museu-extra"] = {
-        "type": "custom",
-        "settings": {
-            "section_width": "full",
-            "direction": "column",
-            "mobile_direction_enabled": False,
-            "gap": 0,
-            "vertical_padding": 0,
-            "horizontal_padding": 0,
-        },
-        "blocks": {
-            "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>"}},
-            "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
-        },
-    }
-    if "museu-extra" not in footer["order"]:
-        footer["order"].append("museu-extra")
+
+    blocos = footer["sections"]["footer"]["blocks"]
+    blocos["institutional"]["settings"]["description"] = INSTITUCIONAL
+    if "menu_1" in blocos:
+        blocos["menu_1"]["settings"]["title"] = "Navegação"
+    if "menu_2" in blocos:  # segunda coluna do MESMO menu — fora
+        del blocos["menu_2"]
+        footer["sections"]["footer"]["block_order"] = [
+            b for b in footer["sections"]["footer"]["block_order"] if b != "menu_2"
+        ]
+    if "newsletter" in blocos:
+        blocos["newsletter"]["settings"]["description"] = NEWSLETTER
+
+    def secao_code(blocks):
+        return {
+            "type": "custom",
+            "settings": {
+                "section_width": "full",
+                "direction": "column",
+                "mobile_direction_enabled": False,
+                "gap": 0,
+                "vertical_padding": 0,
+                "horizontal_padding": 0,
+            },
+            "blocks": blocks,
+        }
+
+    # O logo vem ANTES da section footer: as duas faixas são pretas e leem
+    # como um rodapé só, abrindo com a marca — o desenho da demo.
+    footer["sections"]["museu-topo"] = secao_code({
+        "logo": {"type": "code", "settings": {"code":
+            f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
+    })
+    footer["sections"]["museu-extra"] = secao_code({
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>"}},
+        "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
+    })
+    footer["order"] = ["museu-topo", "footer", "museu-extra"]
     p_footer.write_text(json.dumps(footer, ensure_ascii=False, indent=2), encoding="utf8")
-    print(f"  footer.json: pele ({len(skin) / 1024:.0f} KB) + assinatura Vitamina")
+    print(f"  footer.json: conteúdo da marca, logo ({len(logo_svg)} b), pele ({len(skin) / 1024:.0f} KB), assinatura")
 
 
 if __name__ == "__main__":

@@ -211,9 +211,10 @@ h1, h2, h3, .product-name, .footer-menu-title {
   text-underline-offset: 4px;
 }
 
-/* Títulos das colunas: o amarelo da marca, como na demo */
+/* Títulos das colunas: o amarelo da marca, como na demo.
+   ATENÇÃO: .footer-institutional-header CONTÉM a descrição — estilizar o
+   header inteiro vaza o eyebrow pro texto (aconteceu). Só os títulos. */
 .footer-menu-title,
-.footer-institutional-header,
 .footer-newsletter-title {
   font-family: var(--f-titulo) !important;
   font-weight: 700;
@@ -222,11 +223,30 @@ h1, h2, h3, .product-name, .footer-menu-title {
   text-transform: uppercase;
   color: var(--amarelo);
 }
+
+/* O toggle dos menus é um accordion com fundo próprio no Ipanema — some */
+.section-footer .accordion-title,
+.footer-menu-toggle-title {
+  background: transparent !important;
+  padding: 0;
+  border: 0;
+}
+
 .footer-institutional-description,
 .footer-menu-list,
-.footer-newsletter-description {
+.footer-newsletter-description,
+.footer-contact-info-container {
   font-family: var(--f-texto);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--papel);
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
+.footer-institutional-description { opacity: 0.85; max-width: 34ch; }
+
+/* O copyright nativo duplicaria a assinatura — o CNPJ migra pra ela */
+.footer-copyright { display: none; }
 
 .footer-newsletter-form .form-control {
   background: transparent;
@@ -255,6 +275,30 @@ h1, h2, h3, .product-name, .footer-menu-title {
   text-transform: uppercase;
   font-size: 0.78rem;
   opacity: 0.75;
+}
+
+/* Respiro geral e ícones */
+.section-footer .footer-content { padding-top: 3rem; padding-bottom: 2.5rem; }
+.footer-social-container { margin-top: 1.2rem; }
+.footer-social-link svg { width: 22px; height: 22px; }
+.footer-payment-group { opacity: 0.9; }
+
+/* ------------------------------------- logo no topo do rodapé (como na demo) -- */
+/* Section custom ANTES do footer no footer.json; o SVG branco vai inline     */
+.mf-rodape-logo {
+  background: var(--preto);
+  padding: 4.5rem var(--gutter-container, 2rem) 2.5rem;
+}
+.mf-rodape-logo a {
+  display: block;
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+}
+.mf-rodape-logo svg,
+.mf-rodape-logo img {
+  width: min(100%, 44rem);
+  height: auto;
+  display: block;
 }
 
 /* --------------------------------------------- assinatura (após o rodapé) -- */
