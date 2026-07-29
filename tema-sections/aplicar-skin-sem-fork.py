@@ -112,21 +112,51 @@ WHATSAPP = """<script>(function(){
   a.href = 'https://wa.me/5511971147355?text=' + encodeURIComponent(texto);
   a.target = '_blank';
   a.rel = 'noopener';
-  a.addEventListener('click', function () {
-    // Meta: Contact e o padrao certo pra clique de atendimento; o custom
-    // WhatsAppClick permite recorte fino no Gerenciador de Eventos
-    if (window.fbq) {
-      fbq('track', 'Contact', { content_name: nome ? nome.textContent.trim() : '' });
-      fbq('trackCustom', 'WhatsAppClick', { origem: 'pagina-produto' });
-    }
-    if (window.gtag) {
-      gtag('event', 'whatsapp_click', { origem: 'pagina-produto' });
-    }
-  });
+  // O rastreio do clique fica no listener delegado do RASTREIO (cobre este
+  // link E o widget flutuante Smartarget, com 1 disparo por pageview).
   a.innerHTML = '<svg class="icon-inline" aria-hidden="true">' +
     '<use xlink:href="#whatsapp"/></svg>' +
     'D\\u00favidas sobre o kit? Fale com a gente no WhatsApp <i>\\u2733</i>';
   acoes.insertAdjacentElement('afterend', a);
+})();</script>"""
+
+# Sinais pra Meta (desenho da auditoria de CAPI):
+# · WhatsApp -> Contact PADRÃO (entra em público, AEM e otimização), com o
+#   produto no payload e SEM value/currency — valor inventado polui o sinal.
+#   Listener delegado com capture: pega o nosso .mf-wa E o widget Smartarget
+#   (injetado em runtime), exclui o botão de COMPARTILHAR no WhatsApp
+#   (data-network) e dispara 1x por pageview. Sem eventID: é browser-only,
+#   não há espelho de servidor pra deduplicar.
+# · Newsletter -> Lead.
+# · De propósito SEM evento no clique da barra de comprar: o AddToCart
+#   nativo já dispara nesse fluxo com dedup browser+servidor.
+RASTREIO = """<script>(function () {
+  var enviado = false;
+  document.addEventListener('click', function (e) {
+    if (enviado || typeof fbq !== 'function' || !e.target.closest) return;
+    var a = e.target.closest('a,button,[role="button"]');
+    if (!a) return;
+    var href = (a.getAttribute('href') || '').toLowerCase();
+    var cls = ((a.className || '') + ' ' + (a.id || '')).toLowerCase();
+    var whats = href.indexOf('wa.me') > -1 || href.indexOf('api.whatsapp.com') > -1 ||
+                href.indexOf('whatsapp://') === 0 || cls.indexOf('smartarget') > -1;
+    if (!whats || a.getAttribute('data-network') === 'whatsapp') return;
+    enviado = true;
+    var d = { content_category: 'whatsapp' };
+    if (window.LS && LS.product) {
+      d.content_name = LS.product.name;
+      d.content_type = 'product';
+      if (LS.product.selected_variant_id) d.content_ids = [String(LS.product.selected_variant_id)];
+    }
+    fbq('track', 'Contact', d);
+    if (window.gtag) gtag('event', 'whatsapp_click', d);
+  }, true);
+  document.addEventListener('submit', function (e) {
+    if (typeof fbq !== 'function' || !e.target || !e.target.matches) return;
+    if (e.target.matches('.newsletter-form, .footer-newsletter-form, .js-home-newsletter-form, .js-news-form')) {
+      fbq('track', 'Lead', { content_name: 'newsletter' });
+    }
+  }, true);
 })();</script>"""
 
 # Barra fixa de compra no produto (só mobile): clona preço + um botão que
@@ -369,7 +399,7 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}\n{RASTREIO}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
