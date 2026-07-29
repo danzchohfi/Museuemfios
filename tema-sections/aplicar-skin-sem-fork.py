@@ -120,6 +120,72 @@ WHATSAPP = """<script>(function(){
   acoes.insertAdjacentElement('afterend', a);
 })();</script>"""
 
+# Conversão no carrinho, montada por JS (o drawer re-renderiza via AJAX, daí
+# o MutationObserver re-aplicando com guarda de duplicata):
+# · barra de progresso do frete grátis — SÓ aparece quando a regra estiver
+#   ativa no admin (lê o data-pricemin que o tema publica); acende sozinha
+#   no dia em que o Daniel ativar;
+# · lembrete do cupom PRIMEIROPONTO (o campo de cupom só existe no checkout);
+# · linha de confiança compacta com os ícones do próprio sprite.
+CARRINHO = """<script>(function () {
+  function reais(cents) {
+    return 'R$ ' + (cents / 100).toFixed(2).replace('.', ',').replace(/,00$/, '');
+  }
+  function melhorar() {
+    var enviar = document.querySelector('#modal-cart .js-ajax-cart-submit') ||
+                 document.querySelector('.js-ajax-cart-submit');
+    if (!enviar) return;
+    var caixa = enviar.parentElement;
+    if (!caixa) return;
+
+    var minEl = document.querySelector('.js-ship-free-min');
+    var min = minEl ? parseInt(minEl.getAttribute('data-pricemin') || '0', 10) : 0;
+    var subEl = document.querySelector('.js-cart-subtotal');
+    var sub = subEl ? parseInt(subEl.getAttribute('data-priceraw') || '0', 10) : 0;
+    var prog = caixa.querySelector('.mf-frete-progresso');
+    if (min > 0 && sub > 0) {
+      if (!prog) {
+        prog = document.createElement('div');
+        prog.className = 'mf-frete-progresso';
+        prog.innerHTML = '<span class="mf-frete-progresso__texto"></span>' +
+          '<div class="mf-frete-progresso__trilho"><div class="mf-frete-progresso__fio"></div></div>';
+        enviar.insertAdjacentElement('beforebegin', prog);
+      }
+      var falta = Math.max(0, min - sub);
+      var texto = prog.querySelector('.mf-frete-progresso__texto');
+      var fio = prog.querySelector('.mf-frete-progresso__fio');
+      if (falta > 0) {
+        prog.classList.remove('is-ganho');
+        texto.innerHTML = 'Faltam <strong>' + reais(falta) + '</strong> para o frete grátis';
+        fio.style.width = Math.min(100, Math.round(sub / min * 100)) + '%';
+      } else {
+        prog.classList.add('is-ganho');
+        texto.innerHTML = '<strong>Frete grátis desbloqueado \\u2733</strong>';
+        fio.style.width = '100%';
+      }
+    } else if (prog) {
+      prog.remove();
+    }
+
+    if (!caixa.querySelector('.mf-carrinho-cupom')) {
+      var cupom = document.createElement('p');
+      cupom.className = 'mf-carrinho-cupom';
+      cupom.innerHTML = 'Primeira compra? Use o cupom <strong>PRIMEIROPONTO</strong> no pagamento.';
+      caixa.appendChild(cupom);
+      var conf = document.createElement('p');
+      conf.className = 'mf-carrinho-confianca';
+      conf.innerHTML = '<svg class="icon-inline"><use xlink:href="#security"/></svg> Compra segura' +
+        ' \\u00b7 <svg class="icon-inline"><use xlink:href="#returns"/></svg> Devolu\\u00e7\\u00e3o gr\\u00e1tis em 30 dias';
+      caixa.appendChild(conf);
+    }
+  }
+  var alvo = document.getElementById('modal-cart');
+  if (alvo && 'MutationObserver' in window) {
+    new MutationObserver(function () { melhorar(); }).observe(alvo, { childList: true, subtree: true });
+  }
+  melhorar();
+})();</script>"""
+
 # Sinais pra Meta (desenho da auditoria de CAPI):
 # · WhatsApp -> Contact PADRÃO (entra em público, AEM e otimização), com o
 #   produto no payload e SEM value/currency — valor inventado polui o sinal.
@@ -399,7 +465,7 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}\n{RASTREIO}"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}\n{CARRINHO}\n{RASTREIO}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
