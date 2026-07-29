@@ -67,7 +67,7 @@ VITRINE_KITS = {
         "preco": "R$ 189"},
     "klimt-die-umarmung": {
         "href": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
-        "preco": "R$ 199", "selo": "Pré-venda"},
+        "preco": "R$ 199"},  # selo Pré-venda removido a pedido (29/07)
     "klimt-der-kuss": {
         "href": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
         "preco": "R$ 199"},
