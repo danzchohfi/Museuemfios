@@ -151,6 +151,30 @@ def melhorar_hero(markup: str) -> str:
     return markup
 
 
+
+def limpar(texto: str) -> str:
+    """Normaliza espaços do markup da demo, preservando <br> e <em>."""
+    return re.sub(r"\s+", " ", texto).strip()
+
+
+def blocks_preservados(destino, nome_secao, chave):
+    """Devolve a seção do build se ela já está em blocks nativos.
+
+    Serve para não sobrescrever o que a cliente editar no editor: a regra é
+    rodar `theme pull` antes de remontar, e então este guarda o resultado.
+    """
+    if not destino.exists():
+        return None
+    try:
+        atual = json.loads(destino.read_text(encoding="utf8"))
+        secao = atual["sections"][nome_secao]
+        if chave in secao.get("blocks", {}):
+            return secao
+    except (KeyError, json.JSONDecodeError, TypeError):
+        pass
+    return None
+
+
 def extrair(html: str, inicio_re: str) -> str:
     """Recorta um elemento inteiro, casando as tags de abertura e fechamento.
 
@@ -366,6 +390,79 @@ def main() -> int:
                 print(f"  {nome:18}    (blocks nativos editáveis)")
                 continue
 
+        if nome == "museu-passos":
+            if preservado := blocks_preservados(destino_home, nome, "titulo"):
+                sections[nome] = preservado
+                ordem.append(nome)
+                print(f"  {nome:18}    (blocks preservados do build)")
+                continue
+            eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            titulo = re.search(r'class="mf-h2"[^>]*>\s*(.*?)\s*</h2>', markup, re.S)
+            blocos = {
+                "eyebrow": {"type": "text", "settings": {
+                    "text": limpar(eyebrow.group(1)) if eyebrow else "A experiência",
+                    "size": "small"}},
+                "titulo": {"type": "heading", "settings": {
+                    "title": limpar(titulo.group(1)) if titulo else "", "size": "h2"}},
+            }
+            # Cada passo vira um `group` com título e texto — a numeração
+            # 01..NN sai de counter no CSS, então passo novo numera sozinho.
+            for n, art in enumerate(re.finditer(
+                    r'<article class="mf-passo">(.*?)</article>', markup, re.S), start=1):
+                corpo = art.group(1)
+                h3 = re.search(r"<h3>(.*?)</h3>", corpo, re.S)
+                p = re.search(r"<p>(.*?)</p>", corpo, re.S)
+                blocos[f"passo{n}"] = {"type": "group", "settings": {
+                    "direction": "column", "gap": 8,
+                    "vertical_padding": 0, "horizontal_padding": 0,
+                }, "blocks": {
+                    "titulo": {"type": "heading", "settings": {
+                        "title": limpar(h3.group(1)) if h3 else "", "size": "h4"}},
+                    "texto": {"type": "text", "settings": {
+                        "text": f"<p>{limpar(p.group(1))}</p>" if p else ""}},
+                }}
+            sections[nome] = secao_custom(blocos, section_width="page",
+                                          custom_background_color="#1D1D1B")
+            ordem.append(nome)
+            print(f"  {nome:18}    ({len(blocos) - 2} passos em blocks nativos)")
+            continue
+
+        if nome == "museu-kit":
+            if preservado := blocks_preservados(destino_home, nome, "titulo"):
+                sections[nome] = preservado
+                ordem.append(nome)
+                print(f"  {nome:18}    (blocks preservados do build)")
+                continue
+            visual = re.search(r'(<div class="mf-kit__visual".*?</div>\s*</div>)', markup, re.S)
+            eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            titulo = re.search(r'class="mf-h2"[^>]*>\s*(.*?)\s*</h2>', markup, re.S)
+            lista = re.search(r'(<ul class="mf-kit__lista".*?</ul>)', markup, re.S)
+            nota = re.search(r'class="mf-kit__nota"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            botao = re.search(r'<a class="mf-btn" href="([^"]+)"[^>]*>\s*(.*?)\s*</a>', markup, re.S)
+            # A lista virou <ol> editável: os números saem de counter, então a
+            # cliente adiciona/remove item sem renumerar na mão.
+            itens = re.findall(r'<li>.*?</span>\s*(.*?)</li>', lista.group(1), re.S) if lista else []
+            sections[nome] = secao_custom({
+                "visual": bloco_code(visual.group(1) if visual else ""),
+                "eyebrow": {"type": "text", "settings": {
+                    "text": limpar(eyebrow.group(1)) if eyebrow else "O que vem no kit",
+                    "size": "small"}},
+                "titulo": {"type": "heading", "settings": {
+                    "title": limpar(titulo.group(1)) if titulo else "", "size": "h2"}},
+                "lista": {"type": "text", "settings": {
+                    "text": "<ol>" + "".join(f"<li>{limpar(i)}</li>" for i in itens) + "</ol>"}},
+                "nota": {"type": "text", "settings": {
+                    "text": f"<p>{limpar(nota.group(1))}</p>" if nota else ""}},
+                "botao": {"type": "button", "settings": {
+                    "label": limpar(botao.group(2)) if botao else "Escolher meu kit",
+                    "link": (LINKS_GLOBAIS.get(botao.group(1), botao.group(1))
+                             if botao else "/kits-de-bordado/"),
+                    "variant": "primary"}},
+            }, section_width="page", custom_background_color="#F2C440")
+            ordem.append(nome)
+            print(f"  {nome:18}    ({len(itens)} itens do kit em lista editável)")
+            continue
+
         if nome == "museu-noite":
             # O player sai do markup e vira o block NATIVO de vídeo do
             # Ipanema, que dá à cliente um campo de URL no editor ("colar o
@@ -388,7 +485,9 @@ def main() -> int:
                         "show_cover_image": False,
                         "aspect_ratio": "16by9",
                     }},
-                }, custom_background_color="#1D1D1B")
+                })  # fundo: transparent de propósito — o céu da noite é um
+                    # GRADIENTE, e gradiente entra por background-image na
+                    # pele (o inline do setting só toca background-color).
                 ordem.append(nome)
                 print(f"  {nome:18} {len(sem_video):6} bytes   (player nativo, URL editável)")
                 continue

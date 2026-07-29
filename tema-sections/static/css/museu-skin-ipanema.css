@@ -573,17 +573,170 @@ body.pagina-quem-somos .page-content.user-content {
    determinístico (e legível) onde :has() se mostrou frágil. O FUNDO preto
    vem do setting custom_background_color, não daqui: ele é style inline e
    venceria qualquer regra desta folha. */
+/* O céu da noite é um GRADIENTE (papel → azul-escuro → papel), não preto
+   chapado — e ele agora precisa cobrir texto + player, que são irmãos.
+   Entra por background-IMAGE: o style inline do setting só define
+   background-color, então não atropela o gradiente. */
 [data-section-id="museu-noite"] {
-  padding-bottom: clamp(3rem, 9vh, 5.5rem);
+  --ceu: #10131d;
+  background-image: linear-gradient(
+    180deg,
+    var(--papel) 0%,
+    #434a5c 6%,
+    var(--ceu) 18%,
+    var(--ceu) 84%,
+    #434a5c 95%,
+    var(--papel) 100%
+  );
+  color: var(--papel);
+  padding-bottom: clamp(4rem, 10vw, 8rem);
 }
+/* o gradiente sai do .mf-noite pra não repetir em duas camadas */
 [data-section-id="museu-noite"] .mf-noite {
-  background: transparent;
-  padding-bottom: 1.25rem;
+  background: none;
+  padding-bottom: 1.5rem;
 }
+/* moldura do player: a mesma que a .mf-noite__video tinha na demo */
 [data-section-id="museu-noite"] [data-block-type="video"] {
-  width: min(100%, 60rem);
+  width: min(100%, 80rem);
   margin-inline: auto;
   background: #000;
+  border: 1.5px solid rgba(251, 250, 246, 0.18);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
+}
+
+/* -------------------- passos e kit em blocks nativos (editáveis) -- */
+/* Numeração por counter: passo/item novo numera sozinho, sem a cliente
+   precisar renumerar na mão. */
+[data-section-id="museu-passos"] {
+  color: var(--papel);
+  padding-block: clamp(4.5rem, 10vh, 8.5rem);
+}
+[data-section-id="museu-passos"] .custom-section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  column-gap: 3rem;
+  row-gap: 3rem;
+  counter-reset: passo;
+}
+[data-section-id="museu-passos"] [data-block-id="eyebrow"],
+[data-section-id="museu-passos"] [data-block-id="titulo"] {
+  grid-column: 1 / -1;
+}
+[data-section-id="museu-passos"] [data-block-id="eyebrow"] p {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  margin: 0;
+}
+[data-section-id="museu-passos"] [data-block-id="titulo"] h2 {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  margin: 0;
+}
+[data-section-id="museu-passos"] [data-block-type="group"] { counter-increment: passo; }
+[data-section-id="museu-passos"] [data-block-type="group"]::before {
+  content: counter(passo, decimal-leading-zero);
+  display: block;
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(3.4rem, 6vw, 5.2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 0.6rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--papel);
+}
+[data-section-id="museu-passos"] [data-block-type="group"] h4 {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0 0 0.6rem;
+}
+[data-section-id="museu-passos"] [data-block-type="group"] p {
+  font-family: var(--f-texto);
+  margin: 0;
+  opacity: 0.82;
+  max-width: 36ch;
+}
+
+[data-section-id="museu-kit"] { padding-block: clamp(4.5rem, 10vh, 8.5rem); }
+[data-section-id="museu-kit"] .custom-section-content {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  column-gap: clamp(2rem, 6vw, 5rem);
+  row-gap: 0.6rem;
+  align-items: center;
+}
+[data-section-id="museu-kit"] [data-block-id="visual"] {
+  grid-column: 1;
+  grid-row: 1 / -1;
+}
+[data-section-id="museu-kit"] [data-block-id="visual"] img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+[data-section-id="museu-kit"] [data-block-id="eyebrow"] p {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0;
+}
+[data-section-id="museu-kit"] [data-block-id="titulo"] h2 {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  margin: 0.4rem 0 0.8rem;
+}
+[data-section-id="museu-kit"] [data-block-id="lista"] ol {
+  list-style: none;
+  counter-reset: item;
+  margin: 0.5rem 0;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+[data-section-id="museu-kit"] [data-block-id="lista"] li {
+  counter-increment: item;
+  font-family: var(--f-texto);
+  border-bottom: 1px solid rgba(29, 29, 27, 0.25);
+  padding-bottom: 0.85rem;
+  padding-left: 2.4rem;
+  position: relative;
+}
+[data-section-id="museu-kit"] [data-block-id="lista"] li::before {
+  content: counter(item, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: 0.85rem;
+}
+[data-section-id="museu-kit"] [data-block-id="nota"] p {
+  font-family: var(--f-texto);
+  max-width: 46ch;
+  margin: 0 0 1.2rem;
+}
+@media (max-width: 768px) {
+  [data-section-id="museu-kit"] .custom-section-content {
+    grid-template-columns: 1fr;
+  }
+  [data-section-id="museu-kit"] [data-block-id="visual"] {
+    grid-column: 1;
+    grid-row: auto;
+    margin-bottom: 1.5rem;
+  }
 }
 
 /* -------------------------- manifesto em blocks nativos (piloto editável) -- */
