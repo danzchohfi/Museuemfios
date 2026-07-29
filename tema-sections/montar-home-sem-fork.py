@@ -317,6 +317,51 @@ def main() -> int:
         if nome == "museu-hero":
             markup = melhorar_hero(markup)
 
+        if nome == "museu-manifesto":
+            # PILOTO da editabilidade sem fork (aprovado pelo Daniel): o
+            # manifesto vira blocks NATIVOS — a cliente edita a frase, o
+            # apoio e o botão em campos de verdade no editor. O grafismo do
+            # fio segue num code block; a pele estiliza via .mf-alvo-manifesto.
+            # Preservação: se o build já tem a versão em blocks (possível
+            # edição da cliente trazida por `theme pull`), mantém como está.
+            if destino_home.exists():
+                try:
+                    atual = json.loads(destino_home.read_text(encoding="utf8"))
+                    ja = atual["sections"]["museu-manifesto"]["blocks"]
+                    if "frase" in ja:
+                        sections[nome] = atual["sections"]["museu-manifesto"]
+                        ordem.append(nome)
+                        print(f"  {nome:18}    (blocks preservados do build)")
+                        continue
+                except (KeyError, json.JSONDecodeError, TypeError):
+                    pass
+            eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            frase = re.search(r'class="mf-manifesto__frase[^"]*"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            apoio = re.search(r'class="mf-manifesto__apoio"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
+            if frase and apoio:
+                corpo = apoio.group(1)
+                botao = re.search(r'<a class="mf-link" href="([^"]+)"[^>]*>(.*?)</a>', corpo, re.S)
+                corpo = re.sub(r'(<br>\s*)*<a class="mf-link".*?</a>', '', corpo, flags=re.S).strip()
+                corpo = re.sub(r'\s+', ' ', corpo)
+                sections[nome] = secao_custom({
+                    "abre": bloco_code('<span class="mf-alvo-manifesto" hidden></span>'
+                                       '<div class="mf-manifesto__fio" data-fio></div>'),
+                    "eyebrow": {"type": "text", "settings": {
+                        "text": re.sub(r'\s+', ' ', eyebrow.group(1)) if eyebrow else "Museu em Fios",
+                        "size": "small"}},
+                    "frase": {"type": "heading", "settings": {
+                        "title": re.sub(r'\s+', ' ', frase.group(1)), "size": "h2"}},
+                    "apoio": {"type": "text", "settings": {"text": f"<p>{corpo}</p>"}},
+                    "botao": {"type": "button", "settings": {
+                        "label": re.sub(r'\s+', ' ', botao.group(2)) if botao else "Conheça o projeto",
+                        "link": (LINKS_GLOBAIS.get(botao.group(1), botao.group(1))
+                                 if botao else "/quem-somos/"),
+                        "variant": "primary"}},
+                }, alignment="start", section_width="page")
+                ordem.append(nome)
+                print(f"  {nome:18}    (blocks nativos editáveis)")
+                continue
+
         if nome == "museu-noite":
             # O player sai do markup e vira o block NATIVO de vídeo do
             # Ipanema, que dá à cliente um campo de URL no editor ("colar o

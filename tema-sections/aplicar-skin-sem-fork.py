@@ -298,6 +298,72 @@ NEWSLETTER = ("Assine e use o cupom PRIMEIROPONTO na primeira compra — "
               "lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail.")
 
 
+# "Você conhece esta obra?" — a seção editorial da demo, por produto. O
+# texto é POR PRODUTO e sem fork não há campo por produto no template: o
+# conteúdo curado viaja num mapa por handle e o JS escolhe a entrada da
+# página (produto sem entrada: a seção nem aparece). Voz editorial da demo:
+# 1º parágrafo sobre a obra, 2º amarrando ao bordado.
+OBRAS_EDITORIAL = {
+    "kit-de-bordado-le-pont-japonais-claude-monet": {
+        "titulo": "Le Pont Japonais",
+        "p1": ("Pintada por Claude Monet em 1899, a ponte japonesa sobre o "
+               "lago de nenúfares de Giverny é um dos motivos mais amados do "
+               "impressionismo — o jardim que o próprio pintor desenhou e "
+               "retratou por mais de vinte anos."),
+        "p2": ("No bordado, essa vegetação densa vira camadas de pontos: a "
+               "observação se transforma em fio, e o fio em memória. Cada "
+               "interpretação é única, bordada à mão — tempo, contemplação e "
+               "técnica."),
+    },
+    "pre-venda-kit-de-bordado-die-umarmung-gustav-klimt": {
+        "titulo": "Die Umarmung",
+        "p1": ("Desenhada por Gustav Klimt por volta de 1908 como estudo para "
+               "o friso do Palácio Stoclet, Die Umarmung — o abraço — condensa "
+               "o período dourado do artista: ornamento, geometria e afeto na "
+               "mesma superfície."),
+        "p2": ("No bordado, a riqueza ornamental vira textura: espirais e "
+               "campos dourados refeitos ponto a ponto, à mão — tempo, "
+               "contemplação e técnica."),
+    },
+    "kit-de-bordado-der-kuss-gustav-klimt": {
+        "titulo": "Der Kuss",
+        "p1": ("Pintado por Gustav Klimt entre 1907 e 1908, O Beijo é a obra "
+               "máxima do período dourado — o abraço coberto de ouro que virou "
+               "um dos quadros mais reconhecidos do mundo."),
+        "p2": ("No bordado, o dourado vira linha: padrões e mosaicos refeitos "
+               "ponto a ponto. Cada interpretação é única, bordada à mão — "
+               "tempo, contemplação e técnica."),
+    },
+    "kit-para-bordado-la-gerbe-henri-matisse-pko6p": {
+        "titulo": "La Gerbe",
+        "p1": ("Criada por Henri Matisse em 1953, La Gerbe — o feixe — é uma "
+               "das últimas grandes obras do artista: papel recortado em "
+               "formas vivas, quando o mestre trocou o pincel pela tesoura."),
+        "p2": ("No bordado, cada folha recortada vira um campo de pontos "
+               "cheios de cor. Cada interpretação é única, bordada à mão — "
+               "tempo, contemplação e técnica."),
+    },
+}
+
+OBRA_EDITORIAL_BLOCO = (
+    '<section class="mf-obra-editorial" hidden>'
+    '<div class="mf-obra-editorial__wrap">'
+    '<div><p class="mf-obra-editorial__eyebrow">Você conhece esta obra?</p>'
+    '<h2 class="mf-obra-editorial__titulo"></h2></div>'
+    '<div class="mf-obra-editorial__texto"><p class="lead"></p><p class="apoio"></p></div>'
+    "</div></section>"
+    "<script>(function(){"
+    "var DADOS=" + json.dumps(OBRAS_EDITORIAL, ensure_ascii=False) + ";"
+    "var h=(location.pathname.match(/\\/produtos\\/([^\\/]+)/)||[])[1];"
+    "var d=h&&DADOS[h];if(!d)return;"
+    "var s=document.querySelector('.mf-obra-editorial');if(!s)return;"
+    "s.querySelector('.mf-obra-editorial__titulo').textContent=d.titulo;"
+    "s.querySelector('.lead').textContent=d.p1;"
+    "s.querySelector('.apoio').textContent=d.p2;"
+    "s.hidden=false;"
+    "})();</script>"
+)
+
 # O slogan é a frase-mestra da marca e o Daniel pediu ela recorrente:
 # páginas internas (sob o título), contato e produto (faixa após a compra).
 SLOGAN_PAGINA = ('<p class="mf-slogan">Sua hora com a arte. '
@@ -441,6 +507,15 @@ def ajustar_produto() -> None:
     prod["sections"]["museu-slogan"] = secao_slogan(SLOGAN_FAIXA)
     if "museu-slogan" not in prod["order"]:
         prod["order"].insert(prod["order"].index("main_product") + 1, "museu-slogan")
+
+    # "Você conhece esta obra?" logo após o slogan; conteúdo por handle
+    prod["sections"]["museu-obra-editorial"] = secao_slogan(OBRA_EDITORIAL_BLOCO)
+    if "museu-obra-editorial" not in prod["order"]:
+        prod["order"].insert(prod["order"].index("museu-slogan") + 1, "museu-obra-editorial")
+
+    # As vitrines de relacionados falam a língua da demo
+    prod["sections"]["alternative_products"]["blocks"]["alternative_heading"][
+        "settings"]["title"] = "Outras obras"
 
     p_prod.write_text(json.dumps(prod, ensure_ascii=False, indent=2), encoding="utf8")
     print("  product.json: 3º selo, ícones 32px, selos antes da descrição, slogan")
