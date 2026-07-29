@@ -1,10 +1,8 @@
 {
-  "_comentario": "Mapa: arquivo da demo -> URL no CDN da loja. Sem fork, a pasta static/ do tema nao e servida (responde 403), entao toda imagem da home precisa estar hospedada na loja. Preencha as pendentes com a URL que o admin gera ao subir a imagem e rode: python3 montar-home-sem-fork.py",
+  "_comentario": "Mapa: arquivo da demo -> URL no CDN da loja. Sem fork, a pasta static/ do tema nao e servida (403), entao toda imagem da home precisa estar hospedada na loja. As 3 obras do hero foram adicionadas como ultima foto da galeria dos respectivos produtos (via API, 29/07/2026) - igual a demo aprovada, que tambem mostra a obra original como ultimo thumb do produto.",
 
   "femme-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/8-5d1908e81c72762bb917708314250179-1024-1024.jpg",
-
-  "_pendentes": "As 3 obras do hero. Sao recortes quadrados dos quadros, nao existem como foto de produto na loja - por isso precisam ser subidas.",
-  "monet-femme-ombrelle-sq.jpg": "",
-  "klimt-die-umarmung-sq.jpg": "",
-  "monet-ponte-japonesa-sq.jpg": ""
+  "monet-femme-ombrelle-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-1024-1024.jpg",
+  "klimt-die-umarmung-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-1024-1024.jpg",
+  "monet-ponte-japonesa-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.jpg"
 }

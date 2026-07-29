@@ -1,0 +1,308 @@
+/* ============================================================================
+   MUSEU EM FIOS — pele sobre o Ipanema (caminho sem fork)
+   Identidade: Estúdio Agudo · Implementação: Vitamina Publicitária
+
+   Este arquivo veste as PÁGINAS DA PLATAFORMA (produto, categoria, header,
+   footer, carrinho) com a identidade aprovada, mirando as classes reais do
+   Ipanema — extraídas do DOM renderizado da loja, não da documentação.
+
+   Ele viaja num block `code` dentro de templates/layout/footer.json, então
+   vale em TODAS as páginas. As cores e fontes de base entram também pelos
+   settings nativos (config/settings_data.json) — aqui é o refinamento que
+   os settings não alcançam.
+
+   As seções autorais da home têm CSS próprio (museu-theme.css) e não
+   dependem deste arquivo.
+============================================================================ */
+
+/* --------------------------------------------------------------- tokens -- */
+:root {
+  --preto: #1d1d1b;
+  --branco: #ffffff;
+  --papel: #fbfaf6;
+  --amarelo: #f2c440;
+  --cinza: #6f6f6a;
+  --linha: rgba(29, 29, 27, 0.16);
+  --f-titulo: "Inter", -apple-system, sans-serif;
+  --f-texto: "Roboto Serif", Georgia, serif;
+  --transicao: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Realinha os tokens do Ipanema com a marca (reforço dos settings) */
+  --heading-font: var(--f-titulo);
+  --body-font: var(--f-texto);
+  --border-radius: 0;
+  --border-radius-medium: 0;
+  --border-radius-small: 0;
+  --border-radius-smallest: 0;
+}
+
+/* ------------------------------------------------------------ tipografia -- */
+body { font-family: var(--f-texto); }
+
+h1, h2, h3, .product-name, .footer-menu-title {
+  font-family: var(--f-titulo);
+}
+
+/* Botões: Inter, cantos retos, peso 700 — o desenho do .mf-btn da demo */
+.btn {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 0;
+}
+.btn-primary {
+  border: 1.5px solid var(--preto);
+}
+.btn-outline {
+  border-width: 1.5px;
+}
+.form-control {
+  font-family: var(--f-titulo);
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------ cabeçalho -- */
+.section-header,
+[class*="section-header"] {
+  background: var(--papel);
+}
+.section-header a,
+[class*="header-navigation"] a {
+  font-family: var(--f-texto);
+}
+
+/* --------------------------------------------------- página de produto -- */
+/* Migalhas viram o "eyebrow" da série (Monet em Fios · Coleção permanente) */
+.section-main-product .breadcrumbs {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.section-main-product .breadcrumbs a { text-decoration: none; }
+.section-main-product .breadcrumbs .separator { opacity: 0.4; }
+
+.product-sold-count,
+.product-sku {
+  font-family: var(--f-titulo);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+
+/* Título no peso máximo, colado como na demo */
+.js-product-name.product-name {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1;
+  margin: 0.8rem 0 0.6rem;
+}
+
+/* Preço */
+.product-price-display {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+}
+.product-price-compare {
+  font-family: var(--f-titulo);
+  font-weight: 500;
+  opacity: 0.55;
+}
+.product-offer-label {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  background: var(--amarelo);
+  color: var(--preto);
+  border-radius: 0;
+  padding: 0.3rem 0.6rem;
+}
+
+/* "com Pix" ganha o chip amarelo da marca (era a cor de acento genérica) */
+.payment-discount-price-product {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  color: var(--preto);
+  background: var(--amarelo);
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+}
+.product-installment,
+.product-payment-discount,
+.product-stock-alert {
+  font-family: var(--f-texto);
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+.product-payments-link {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+}
+
+/* Quantidade + comprar: bloco firme, cantos retos */
+.product-quantity-input-group .form-quantity {
+  border: 1.5px solid var(--preto);
+  border-radius: 0;
+}
+.form-quantity .form-control { border: 0; font-weight: 700; }
+.form-quantity-icon { border-radius: 0; }
+
+.buy-button-container .btn-primary {
+  font-size: 0.95rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* Calculadora de frete */
+.shipping-calculator .form-control { border: 1.5px solid var(--linha); }
+.shipping-calculator .btn-outline {
+  border: 1.5px solid var(--preto);
+  font-weight: 700;
+}
+.free-shipping-message {
+  font-family: var(--f-texto);
+  font-size: 0.92rem;
+}
+
+/* Descrição: cabeçalho como eyebrow sobre fio preto, texto serifado */
+.product-description-heading {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-top: 1.5px solid var(--preto);
+  padding-top: 1.2rem;
+  margin-top: 2rem;
+}
+.product-description-content {
+  font-family: var(--f-texto);
+  font-size: 1.02rem;
+  line-height: 1.75;
+}
+.product-description-content em { font-style: italic; }
+
+/* ------------------------------------------------- vitrines e cartões -- */
+.section [class*="product-item-name"] { font-family: var(--f-texto); }
+[class*="product-item-price"] { font-family: var(--f-titulo); font-weight: 700; }
+
+/* ---------------------------------------------------------------- rodapé -- */
+.section-footer {
+  background: var(--preto);
+  color: var(--papel);
+}
+.section-footer a,
+.section-footer p,
+.section-footer span,
+.section-footer li {
+  color: var(--papel);
+}
+.section-footer a { opacity: 0.85; text-decoration: none; }
+.section-footer a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Títulos das colunas: o amarelo da marca, como na demo */
+.footer-menu-title,
+.footer-institutional-header,
+.footer-newsletter-title {
+  font-family: var(--f-titulo) !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+.footer-institutional-description,
+.footer-menu-list,
+.footer-newsletter-description {
+  font-family: var(--f-texto);
+}
+
+.footer-newsletter-form .form-control {
+  background: transparent;
+  border: 1.5px solid rgba(251, 250, 246, 0.35);
+  color: var(--papel);
+  border-radius: 0;
+}
+.footer-newsletter-form .form-control::placeholder { color: rgba(251, 250, 246, 0.5); }
+.footer-newsletter-form .btn-outline {
+  border: 1.5px solid var(--papel);
+  color: var(--papel);
+  font-weight: 700;
+}
+.footer-newsletter-form .btn-outline:hover {
+  background: var(--papel);
+  color: var(--preto);
+}
+
+.footer-social-link { color: var(--papel); }
+.footer-secondary-info {
+  border-top: 1px solid rgba(251, 250, 246, 0.2);
+}
+.footer-payment-shipping-label {
+  font-family: var(--f-titulo);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
+/* --------------------------------------------- assinatura (após o rodapé) -- */
+/* O markup vive num block `code` no footer.json, logo abaixo do footer      */
+.mf-assinatura {
+  background: var(--preto);
+  color: var(--papel);
+}
+.mf-assinatura__wrap {
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+  padding: 1.5rem var(--gutter-container, 2rem);
+  border-top: 1px solid rgba(251, 250, 246, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2.5rem;
+  font-family: var(--f-titulo);
+  font-size: 0.86rem;
+}
+.mf-assinatura__wrap > span { opacity: 0.75; }
+
+.mf-credito {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-decoration: none !important;
+  color: var(--papel);
+}
+.mf-credito .rotulo {
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.mf-credito .marca {
+  font-family: "Inter Tight", var(--f-titulo);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--papel);
+}
+.mf-credito .marca i {
+  font-style: normal;
+  color: #0b4a48; /* acento oficial da Vitamina */
+}
+.mf-credito:hover .marca { color: #fff; }
+.mf-credito:hover .rotulo { opacity: 0.9; }
