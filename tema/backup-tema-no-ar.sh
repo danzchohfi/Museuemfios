@@ -26,7 +26,7 @@ DESTINO="$RAIZ/../backup-tema-no-ar/$DATA"
 CLI="npx @tiendanube/cli@1.2.1"
 
 echo "==> Instalações da loja (ache a publicada e anote o ID):"
-$CLI theme list
+$CLI theme installation list
 
 ID_PUBLICADA="${1:-}"
 if [[ -z "$ID_PUBLICADA" ]]; then
@@ -45,10 +45,23 @@ echo
 echo "==> Baixando os arquivos da instalação $ID_PUBLICADA para:"
 echo "    $DESTINO"
 mkdir -p "$DESTINO"
+
+# O CLI procura a credencial na PASTA ATUAL. Como o pull roda dentro da pasta
+# de destino, o `.nube` precisa ir junto — sem isso o comando responde
+# "Store configuration not found" e mesmo assim sai com código 0, produzindo
+# um backup vazio com cara de completo.
+if [[ ! -f "$RAIZ/.nube" ]]; then
+  echo "    Falta o $RAIZ/.nube — rode antes: ./nube-a-partir-do-nuvem.sh" >&2
+  exit 1
+fi
+cp "$RAIZ/.nube" "$DESTINO/.nube"
+chmod 600 "$DESTINO/.nube"
 cd "$DESTINO"
 
+# `theme pull` sai com 0 mesmo quando não baixa nada, então o `if` abaixo não
+# basta: quem decide se o backup vale é a contagem de arquivos, mais adiante.
 if $CLI theme pull --installation-id "$ID_PUBLICADA" -y; then
-  echo "    Download concluído pelo fluxo de API."
+  echo "    Comando de download retornou sucesso — falta conferir o conteúdo."
 else
   cat <<'AVISO'
 
@@ -74,12 +87,34 @@ fi
 
 echo
 echo "==> Conferindo o que veio:"
-find "$DESTINO" -type f | wc -l | xargs echo "    arquivos:"
+rm -f "$DESTINO/.nube"                      # a credencial não fica no backup
+TOTAL=$(find "$DESTINO" -type f | wc -l | tr -d ' ')
+echo "    arquivos: $TOTAL"
 du -sh "$DESTINO" | cut -f1 | xargs echo "    tamanho:"
+
+# Um backup vazio é pior que nenhum: passa a sensação de estar protegido.
+if [[ "$TOTAL" -eq 0 ]]; then
+  cat >&2 <<'VAZIO'
+
+    BACKUP VAZIO — nenhum arquivo baixado.
+
+    O `theme pull` sai com código 0 mesmo quando não baixa nada, então não dá
+    pra confiar no código de saída dele. Causas comuns, em ordem:
+
+      1. A instalação não é `fork`. Sem fork a API não entrega os arquivos.
+         Confira a coluna `fork` no `theme installation list`.
+      2. O tema é `legacy`. O acesso ao código nesse formato é por FTP.
+      3. O `.nube` não chegou na pasta de destino.
+
+    NÃO SIGA para o push enquanto isso não estiver resolvido.
+
+VAZIO
+  exit 1
+fi
 
 cat <<EOF
 
-Backup local pronto em $DESTINO
+Backup local pronto em $DESTINO ($TOTAL arquivos)
 Commite essa pasta pra ter o histórico fora da plataforma:
 
     git add backup-tema-no-ar && git commit -m "Backup do tema no ar ($DATA)"

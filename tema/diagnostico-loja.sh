@@ -15,6 +15,17 @@
 # `snipplets/` — com ele este tema subiria sem 130 arquivos, em silêncio.
 # Por isso a versão está fixada aqui. Nunca rode sem versão.
 #
+# ATENÇÃO AO ARQUIVO DE CREDENCIAL: o `theme authorize` do CLI 2.x grava um
+# `.nuvem` com `{"store_id":…,"access_token":…}` em base64. O 1.2.1 NÃO lê esse
+# arquivo — ele lê um `.nube`, com outro esquema:
+#
+#     {"themeManagement":"api",
+#      "theme-api":{"publicApiToken":"<access_token>","storeId":"<store_id>"}}
+#
+# (base64 ou JSON puro; `storeId` precisa ser STRING). Sem isso o 1.2.1
+# responde "Store configuration not found" ou "Theme API is not active".
+# O script `nube-a-partir-do-nuvem.sh` faz essa conversão.
+#
 # Requisitos: Node.js 24.15+ e `theme authorize` já feito.
 # Uso:  cd tema && ./diagnostico-loja.sh
 set -euo pipefail
@@ -26,14 +37,14 @@ node --version
 
 echo
 echo "==> Instalação vinculada a esta pasta:"
-$CLI theme get-current || true
+$CLI theme installation get-current || true
 
 echo
 echo "==> Temas da loja:"
 echo "    Leia as colunas: prod = está no ar · fork = código liberado"
-echo "    base_theme = tema base · base_theme_type = geração do tema"
-$CLI theme list
+echo "    theme_type = geração do tema (legacy = formato antigo)"
+$CLI theme installation list
 
 echo
 echo "==> Mesma lista em JSON (guarde este bloco, é o retrato de hoje):"
-$CLI theme list --json
+$CLI theme installation list --json
