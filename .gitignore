@@ -6,3 +6,6 @@ tema/.nube
 # Token do CLI da Nuvemshop — NUNCA commitar
 .nuvem
 .nube
+
+# Artefato de build do tema (montado por tema-sections/montar-tema.sh)
+build-tema/
