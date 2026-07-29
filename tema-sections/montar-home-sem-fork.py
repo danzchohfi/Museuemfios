@@ -83,6 +83,63 @@ def trocar_imagens(markup: str, mapa: dict) -> tuple[str, list]:
     return markup, pendentes
 
 
+# A demo navega entre arquivos .html; a loja tem URLs próprias. Sem esta
+# troca os links quebrados vazam pro ar (aconteceu: "Ver o kit" levava a
+# /produto.html, que não existe).
+LINKS_GLOBAIS = {
+    "index.html": "/",
+    "loja.html": "/kits-de-bordado/",
+    "sobre.html": "/quem-somos/",
+}
+
+# `produto.html` aparece três vezes no hero — uma por obra — e o destino
+# certo depende de QUAL obra. A âncora vem depois da imagem no markup, então
+# a imagem `obra-original-…` mais próxima ANTES do href identifica o produto.
+PRODUTO_POR_IMAGEM = {
+    # O produto do Femme existe (id 302470130, handle
+    # kit-de-bordado-femme-a-lombrelle-claude-monet) mas está DESPUBLICADO na
+    # loja (published: false, conferido em 29/07/2026) — a URL dele responde
+    # 404. Até ser publicado, o slide manda pra categoria; depois, é só
+    # devolver "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/"
+    # aqui e remontar.
+    "obra-original-monet-femme-ombrelle": "/kits-de-bordado/",
+    "obra-original-klimt-die-umarmung": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+    "obra-original-monet-ponte-japonesa": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+}
+
+
+def trocar_links(markup: str, com_obras: bool = False) -> tuple[str, list]:
+    """Reescreve a navegação da demo para as URLs reais da loja.
+
+    com_obras: no hero, o alvo do link depende de QUAL obra está ao lado — e
+    a demo não ajuda: só o Femme tinha mockup de produto, então os slides 2 e
+    3 apontavam pra loja.html. Aqui, dentro do hero, produto.html E loja.html
+    viram o produto da obra-original mais próxima ANTES do link (a âncora vem
+    depois da imagem no markup). Sem obra antes — caso do descritor no topo —
+    cai na loja, que é o destino honesto.
+    """
+    if com_obras:
+        def produto_certo(m: re.Match) -> str:
+            antes = markup[: m.start()]
+            ultima = None
+            for chave in PRODUTO_POR_IMAGEM:
+                pos = antes.rfind(chave)
+                if pos >= 0 and (ultima is None or pos > ultima[0]):
+                    ultima = (pos, chave)
+            if ultima:
+                return f'href="{PRODUTO_POR_IMAGEM[ultima[1]]}"'
+            return 'href="/kits-de-bordado/"'
+
+        markup = re.sub(r'href="(?:produto|loja)\.html"', produto_certo, markup)
+
+    for demo, loja in LINKS_GLOBAIS.items():
+        markup = markup.replace(f'href="{demo}"', f'href="{loja}"')
+    markup = markup.replace('href="produto.html"', 'href="/kits-de-bordado/"')
+
+    sobras = sorted(set(re.findall(r'href="([a-z-]+\.html[^"]*)"', markup)))
+    return markup, sobras
+
+
 def bloco_code(codigo: str, largura: str = "fill") -> dict:
     return {"type": "code", "settings": {"code": codigo, "width": largura}}
 
@@ -134,11 +191,13 @@ def main() -> int:
     for nome, seletor in SECOES:
         markup = extrair(html, seletor)
         markup, pendentes = trocar_imagens(markup, mapa)
+        markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
         todas_pendentes += pendentes
         sections[nome] = secao_custom({"markup": bloco_code(markup)})
         ordem.append(nome)
         print(f"  {nome:18} {len(markup):6} bytes"
-              + (f"   IMAGENS PENDENTES: {pendentes}" if pendentes else ""))
+              + (f"   IMAGENS PENDENTES: {pendentes}" if pendentes else "")
+              + (f"   LINKS .html SEM MAPA: {links_sobrando}" if links_sobrando else ""))
 
     # GSAP e ScrollTrigger vêm de CDN porque `static/` não é servido sem fork.
     # O motion só roda depois deles, e só se ambos carregarem — daí a guarda.

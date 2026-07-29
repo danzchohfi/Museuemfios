@@ -96,6 +96,33 @@ INSTITUCIONAL = (
 NEWSLETTER = "Lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail."
 
 
+def ajustar_produto() -> None:
+    """Selos de confiança da página de produto (bloco purchase-info).
+
+    De fábrica vêm dois (devolução, compra segura) com ícone de 24px. Entra o
+    terceiro — o frete grátis acima de R$ 300, que é copy aprovada e argumento
+    de venda — e o ícone sobe pra 32 na origem (o resto do tamanho é a pele,
+    que transforma os três num painel destacado).
+    """
+    p_prod = BUILD / "templates" / "pages" / "product.json"
+    prod = json.loads(p_prod.read_text(encoding="utf8"))
+    info = prod["sections"]["main_product"]["blocks"]["product_info"]
+    compra = info["blocks"]["purchase_info"]
+    compra["settings"]["icon_size"] = 32
+    compra["blocks"]["icon_frete"] = {
+        "type": "icon-text-item",
+        "settings": {
+            "icon": "truck",
+            "title": "Frete grátis acima de R$ 300",
+            "description": "Envios para todo o Brasil",
+        },
+    }
+    if "icon_frete" not in compra["block_order"]:
+        compra["block_order"].append("icon_frete")
+    p_prod.write_text(json.dumps(prod, ensure_ascii=False, indent=2), encoding="utf8")
+    print("  product.json: 3º selo (frete grátis) + ícones em 32px")
+
+
 def main() -> None:
     # settings
     p_settings = BUILD / "config" / "settings_data.json"
@@ -152,6 +179,8 @@ def main() -> None:
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
     p_footer.write_text(json.dumps(footer, ensure_ascii=False, indent=2), encoding="utf8")
     print(f"  footer.json: conteúdo da marca, logo ({len(logo_svg)} b), pele ({len(skin) / 1024:.0f} KB), assinatura")
+
+    ajustar_produto()
 
 
 if __name__ == "__main__":
