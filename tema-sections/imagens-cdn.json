@@ -1,0 +1,10 @@
+{
+  "_comentario": "Mapa: arquivo da demo -> URL no CDN da loja. Sem fork, a pasta static/ do tema nao e servida (responde 403), entao toda imagem da home precisa estar hospedada na loja. Preencha as pendentes com a URL que o admin gera ao subir a imagem e rode: python3 montar-home-sem-fork.py",
+
+  "femme-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/8-5d1908e81c72762bb917708314250179-1024-1024.jpg",
+
+  "_pendentes": "As 3 obras do hero. Sao recortes quadrados dos quadros, nao existem como foto de produto na loja - por isso precisam ser subidas.",
+  "monet-femme-ombrelle-sq.jpg": "",
+  "klimt-die-umarmung-sq.jpg": "",
+  "monet-ponte-japonesa-sq.jpg": ""
+}
