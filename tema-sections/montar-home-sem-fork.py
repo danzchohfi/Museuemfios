@@ -128,9 +128,12 @@ def atualizar_iniciante(markup: str) -> str:
     (o handle antigo ainda diz le-chevalier) e está DESPUBLICADO, então o
     botão manda pra categoria até ser publicado.
     """
-    markup = markup.replace("O kit <em>Le Chevalier</em>, de Gustav Klimt,",
-                            "O kit <em>Nu Bleu II</em>, de Henri Matisse,")
-    markup = markup.replace("Começar pelo Le Chevalier", "Começar pelo kit de iniciante")
+    # o texto da demo quebra linha no meio da frase, então a troca precisa
+    # tolerar espaços/newlines (replace literal não pegava)
+    markup = re.sub(r"O kit\s*<em>Le Chevalier</em>,\s*de Gustav Klimt,",
+                    "O kit <em>Nu Bleu II</em>, de Henri Matisse,", markup)
+    markup = re.sub(r"Começar pelo\s+Le Chevalier", "Começar pelo Nu Bleu II", markup)
+    markup = re.sub(r"Kit Le Chevalier:", "Kit Nu Bleu II:", markup)
     return markup
 
 
