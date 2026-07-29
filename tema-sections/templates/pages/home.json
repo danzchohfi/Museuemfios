@@ -49,21 +49,41 @@
           }
         }
       },
-      "block_order": ["obra-monet-femme", "obra-klimt-umarmung", "obra-monet-pont"]
+      "block_order": [
+        "obra-monet-femme",
+        "obra-klimt-umarmung",
+        "obra-monet-pont"
+      ]
     },
-
     "museu-marquee": {
       "type": "museu-marquee",
       "settings": {},
       "blocks": {
-        "frase-endline": { "type": "museu-frase", "settings": { "texto": "Sua hora com a arte" } },
-        "frase-borde":   { "type": "museu-frase", "settings": { "texto": "Borde um museu" } },
-        "frase-frete":   { "type": "museu-frase", "settings": { "texto": "Frete grátis acima de R$ 300" } },
-        "frase-cupom":   { "type": "museu-frase", "settings": { "texto": "Cupom de primeira compra: PRIMEIROPONTO" } }
+        "frase-endline": {
+          "type": "museu-frase",
+          "settings": {
+            "texto": "Sua hora com a arte"
+          }
+        },
+        "frase-borde": {
+          "type": "museu-frase",
+          "settings": {
+            "texto": "Borde um museu"
+          }
+        },
+        "frase-cupom": {
+          "type": "museu-frase",
+          "settings": {
+            "texto": "Cupom de primeira compra: PRIMEIROPONTO"
+          }
+        }
       },
-      "block_order": ["frase-endline", "frase-borde", "frase-frete", "frase-cupom"]
+      "block_order": [
+        "frase-endline",
+        "frase-borde",
+        "frase-cupom"
+      ]
     },
-
     "museu-manifesto": {
       "type": "museu-manifesto",
       "settings": {
@@ -74,7 +94,6 @@
         "link_texto": "Conheça o projeto"
       }
     },
-
     "museu-noite": {
       "type": "museu-noite",
       "settings": {
@@ -85,7 +104,6 @@
         "video_titulo": "Museu em Fios — a sua hora com a arte, à noite"
       }
     },
-
     "museu-passos": {
       "type": "museu-passos",
       "settings": {
@@ -122,9 +140,13 @@
           }
         }
       },
-      "block_order": ["passo-autoria", "passo-ritual", "passo-curadoria", "passo-certificado"]
+      "block_order": [
+        "passo-autoria",
+        "passo-ritual",
+        "passo-curadoria",
+        "passo-certificado"
+      ]
     },
-
     "museu-kit": {
       "type": "museu-kit",
       "settings": {
@@ -136,16 +158,46 @@
         "link_texto": "Escolher meu kit"
       },
       "blocks": {
-        "item-tela":        { "type": "museu-item-kit", "settings": { "texto": "Tela de 20x20 com o risco da obra impresso e fixado" } },
-        "item-meadas":      { "type": "museu-item-kit", "settings": { "texto": "Meadas Anchor Mouliné na paleta do artista" } },
-        "item-agulha":      { "type": "museu-item-kit", "settings": { "texto": "Agulha, estojo de algodão cru e tesoura de arremate" } },
-        "item-certificado": { "type": "museu-item-kit", "settings": { "texto": "Postal da obra original com certificado de autenticidade" } },
-        "item-guia":        { "type": "museu-item-kit", "settings": { "texto": "QR code para o guia passo a passo, detalhado e fotografado etapa por etapa" } }
+        "item-tela": {
+          "type": "museu-item-kit",
+          "settings": {
+            "texto": "Tela de 20x20 com o risco da obra impresso e fixado"
+          }
+        },
+        "item-meadas": {
+          "type": "museu-item-kit",
+          "settings": {
+            "texto": "Meadas Anchor Mouliné na paleta do artista"
+          }
+        },
+        "item-agulha": {
+          "type": "museu-item-kit",
+          "settings": {
+            "texto": "Agulha, estojo de algodão cru e tesoura de arremate"
+          }
+        },
+        "item-certificado": {
+          "type": "museu-item-kit",
+          "settings": {
+            "texto": "Postal da obra original com certificado de autenticidade"
+          }
+        },
+        "item-guia": {
+          "type": "museu-item-kit",
+          "settings": {
+            "texto": "QR code para o guia passo a passo, detalhado e fotografado etapa por etapa"
+          }
+        }
       },
-      "block_order": ["item-tela", "item-meadas", "item-agulha", "item-certificado", "item-guia"]
+      "block_order": [
+        "item-tela",
+        "item-meadas",
+        "item-agulha",
+        "item-certificado",
+        "item-guia"
+      ]
     }
   },
-
   "order": [
     "museu-hero",
     "museu-marquee",
