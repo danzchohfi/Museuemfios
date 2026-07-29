@@ -65,11 +65,10 @@ SECOES = [
     ("museu-vitrine", r'<section class="mf-vitrine">'),
     ("museu-passos", r'<section class="mf-passos"'),
     ("museu-kit", r'<section class="mf-kit" id="kit"'),
+    ("museu-iniciante", r'<section class="mf-kit mf-kit--claro"'),
     ("museu-digitais", r'<section class="mf-vitrine" id="digitais-home"'),
 ]
-# Fora por decisão: mf-kit--claro (vende o kit de iniciante Le Chevalier/Nu
-# Bleu, que está DESPUBLICADO na loja — seção voltaria a apontar pro nada),
-# mf-insta (grade decorativa, exige mais 6 imagens hospedadas) e mf-news
+# Fora por decisão: mf-insta (grade decorativa, exige mais 6 imagens hospedadas) e mf-news
 # (o rodapé já tem newsletter nativa funcionando, com o cupom).
 
 # Vitrine de kits: a demo traz 6 cards com preços de outra época. Os dados
@@ -119,6 +118,20 @@ def cirurgia_vitrine(markup: str) -> str:
                            parte, flags=re.S)
         out.append(parte)
     return "".join(out)
+
+
+def atualizar_iniciante(markup: str) -> str:
+    """Acerta a seção do kit de iniciante contra o catálogo de hoje.
+
+    A demo foi escrita quando o kit de entrada era o "Le Chevalier", de
+    Klimt. Hoje o produto é "Matisse para quem nunca Bordou — NU BLEU II"
+    (o handle antigo ainda diz le-chevalier) e está DESPUBLICADO, então o
+    botão manda pra categoria até ser publicado.
+    """
+    markup = markup.replace("O kit <em>Le Chevalier</em>, de Gustav Klimt,",
+                            "O kit <em>Nu Bleu II</em>, de Henri Matisse,")
+    markup = markup.replace("Começar pelo Le Chevalier", "Começar pelo kit de iniciante")
+    return markup
 
 
 def melhorar_hero(markup: str) -> str:
@@ -389,6 +402,9 @@ def main() -> int:
         markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
         if nome == "museu-hero":
             markup = melhorar_hero(markup)
+
+        if nome == "museu-iniciante":
+            markup = atualizar_iniciante(markup)
 
         if nome == "museu-manifesto":
             # PILOTO da editabilidade sem fork (aprovado pelo Daniel): o

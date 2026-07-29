@@ -750,23 +750,26 @@ body.pagina-quem-somos .page-content.user-content {
   display: grid;
   gap: 0.85rem;
 }
+/* Fiel à demo: .mf-kit__lista li é flex com gap 0.9rem e baseline — o número
+   ao lado do texto, não afastado por posicionamento absoluto. */
 .section-custom[data-section-id="museu-kit"] [data-block-id="lista"] .text-content li,
 [data-block-id="lista"] li {
   counter-increment: item;
   font-family: var(--f-texto);
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
   border-bottom: 1px solid rgba(29, 29, 27, 0.25);
   padding-bottom: 0.85rem;
-  padding-left: 2.4rem;
-  position: relative;
+  padding-left: 0;
 }
 .section-custom[data-section-id="museu-kit"] [data-block-id="lista"] .text-content li::before,
 [data-block-id="lista"] li::before {
   content: counter(item, decimal-leading-zero);
-  position: absolute;
-  left: 0;
   font-family: var(--f-titulo);
   font-weight: 900;
   font-size: 0.85rem;
+  flex-shrink: 0;
 }
 .section-custom[data-section-id="museu-kit"] [data-block-id="nota"] .text-content,
 [data-block-id="nota"] p {
