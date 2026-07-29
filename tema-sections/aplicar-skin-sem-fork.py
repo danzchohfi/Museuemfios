@@ -160,6 +160,44 @@ NEWSLETTER = ("Assine e use o cupom PRIMEIROPONTO na primeira compra — "
               "lançamentos de coleção e conteúdos sobre arte, direto no seu e-mail.")
 
 
+def ajustar_paginas() -> None:
+    """Vídeo institucional da home também no quem-somos (pedido do Daniel).
+
+    O template `page` serve TODAS as páginas de conteúdo (quem-somos, FAQ,
+    políticas), então o bloco entra escondido por padrão e a pele só o exibe
+    em body.pagina-quem-somos (classe do roteador). O iframe é lazy: em
+    display:none não tem caixa, logo o embed nem carrega nas outras páginas.
+    """
+    p_page = BUILD / "templates" / "pages" / "page.json"
+    page = json.loads(p_page.read_text(encoding="utf8"))
+    video = (
+        '<div class="mf-video-pagina">'
+        '<p class="mf-video-pagina__eyebrow">O ritual</p>'
+        '<div class="mf-video-pagina__quadro">'
+        '<iframe src="https://www.youtube-nocookie.com/embed/Q2dJHg6M9jw?rel=0" '
+        'title="Museu em Fios — a sua hora com a arte, à noite" '
+        'loading="lazy" allowfullscreen '
+        'allow="accelerometer; encrypted-media; picture-in-picture"></iframe>'
+        "</div></div>"
+    )
+    page["sections"]["museu-video"] = {
+        "type": "custom",
+        "settings": {
+            "section_width": "full",
+            "direction": "column",
+            "mobile_direction_enabled": False,
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+        },
+        "blocks": {"video": {"type": "code", "settings": {"code": video}}},
+    }
+    if "museu-video" not in page["order"]:
+        page["order"].append("museu-video")
+    p_page.write_text(json.dumps(page, ensure_ascii=False, indent=2), encoding="utf8")
+    print("  page.json: vídeo institucional (visível só no quem-somos)")
+
+
 def ajustar_header() -> None:
     """Liga a barra de anúncio em todas as páginas.
 
@@ -280,6 +318,7 @@ def main() -> None:
 
     ajustar_header()
     ajustar_produto()
+    ajustar_paginas()
 
 
 if __name__ == "__main__":
