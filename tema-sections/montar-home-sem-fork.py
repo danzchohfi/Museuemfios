@@ -34,12 +34,26 @@ import argparse
 import json
 import pathlib
 import re
+import shutil
+import subprocess
 import sys
+import tempfile
 
 RAIZ = pathlib.Path(__file__).resolve().parent
 REPO = RAIZ.parent
 BUILD = REPO / "build-tema"
 DEMO = REPO / "demo" / "index.html"
+INSTALACAO = "14038757"  # instalação publicada da loja
+
+# Vídeo institucional da noite. É só o PADRÃO de primeira montagem: se a
+# cliente trocar pelo editor, o valor publicado vence (ver home_publicada).
+VIDEO_PADRAO = {
+    "type": "youtube",
+    "id": "U1xtk1YRrBM",
+    # capa: o YouTube serve o frame em alta; sem isto o player abre num
+    # retângulo preto até a pessoa clicar
+    "thumbnail": "https://i.ytimg.com/vi/U1xtk1YRrBM/maxresdefault.jpg",
+}
 
 # As 6 seções da marca, na ordem da home aprovada. O seletor é o elemento de
 # topo de cada uma dentro da demo.
@@ -157,20 +171,43 @@ def limpar(texto: str) -> str:
     return re.sub(r"\s+", " ", texto).strip()
 
 
-def blocks_preservados(destino, nome_secao, chave):
-    """Devolve a seção do build se ela já está em blocks nativos.
+def home_publicada():
+    """Baixa o home.json PUBLICADO na loja.
 
-    Serve para não sobrescrever o que a cliente editar no editor: a regra é
-    rodar `theme pull` antes de remontar, e então este guarda o resultado.
+    A preservação ANTES lia o home.json do build — que este mesmo script
+    acabara de reescrever. Circular: toda remontagem devolvia os valores
+    padrão e apagava o que a cliente tinha editado no editor (aconteceu com
+    o vídeo). A fonte de verdade é a loja, então buscamos de lá.
+
+    Devolve None se o pull falhar; nesse caso o chamador AVISA e usa o
+    padrão, em vez de sobrescrever no escuro.
     """
-    if not destino.exists():
+    nube = REPO / "tema" / ".nube"
+    if not nube.exists():
+        return None
+    with tempfile.TemporaryDirectory() as tmp:
+        destino = pathlib.Path(tmp)
+        shutil.copy(nube, destino / ".nube")
+        try:
+            subprocess.run(
+                ["npx", "@tiendanube/cli@1.2.1", "theme", "pull",
+                 "--installation-id", INSTALACAO, "-y"],
+                cwd=destino, check=True, capture_output=True, timeout=420)
+            return json.loads((destino / "templates" / "pages" / "home.json")
+                              .read_text(encoding="utf8"))
+        except (subprocess.SubprocessError, OSError, json.JSONDecodeError):
+            return None
+
+
+def blocks_preservados(vivo, nome_secao, chave):
+    """Devolve a seção publicada se ela já está em blocks nativos."""
+    if not vivo:
         return None
     try:
-        atual = json.loads(destino.read_text(encoding="utf8"))
-        secao = atual["sections"][nome_secao]
+        secao = vivo["sections"][nome_secao]
         if chave in secao.get("blocks", {}):
             return secao
-    except (KeyError, json.JSONDecodeError, TypeError):
+    except (KeyError, TypeError):
         pass
     return None
 
@@ -322,17 +359,25 @@ def main() -> int:
     # Se a cliente trocou o vídeo pelo editor, o valor vive no home.json da
     # loja — preserva o que estiver no build (REGRA: antes de remontar a
     # home, rode `theme pull` pra trazer edições feitas no editor).
-    video_atual = {"type": "youtube", "id": "Q2dJHg6M9jw"}
+    print("  lendo o que está publicado na loja (pra não sobrescrever edições)…")
+    vivo = home_publicada()
+    if vivo is None:
+        print("  AVISO: não consegui ler a loja — vou usar os padrões do código.")
+        print("         Se a cliente editou algo no editor, confira antes de subir.")
     destino_home = BUILD / "templates" / "pages" / "home.json"
-    if destino_home.exists():
+
+    video_atual = VIDEO_PADRAO
+    if vivo:
         try:
-            atual = json.loads(destino_home.read_text(encoding="utf8"))
-            guardado = (atual["sections"]["museu-noite"]["blocks"]["player"]
+            guardado = (vivo["sections"]["museu-noite"]["blocks"]["player"]
                         ["settings"]["video_url"])
-            if guardado:
+            # a edição da cliente só vence se for OUTRO vídeo (não o antigo
+            # que este script mesmo plantou antes de o padrão ser corrigido)
+            if guardado and guardado.get("id") not in (None, "", "Q2dJHg6M9jw"):
                 video_atual = guardado
-        except (KeyError, json.JSONDecodeError, TypeError):
+        except (KeyError, TypeError):
             pass
+    print(f"  vídeo da noite: {video_atual.get('id')}")
 
     for nome, seletor in SECOES:
         markup = extrair(html, seletor)
@@ -352,17 +397,11 @@ def main() -> int:
             # fio segue num code block; a pele estiliza via .mf-alvo-manifesto.
             # Preservação: se o build já tem a versão em blocks (possível
             # edição da cliente trazida por `theme pull`), mantém como está.
-            if destino_home.exists():
-                try:
-                    atual = json.loads(destino_home.read_text(encoding="utf8"))
-                    ja = atual["sections"]["museu-manifesto"]["blocks"]
-                    if "frase" in ja:
-                        sections[nome] = atual["sections"]["museu-manifesto"]
-                        ordem.append(nome)
-                        print(f"  {nome:18}    (blocks preservados do build)")
-                        continue
-                except (KeyError, json.JSONDecodeError, TypeError):
-                    pass
+            if preservado := blocks_preservados(vivo, nome, "frase"):
+                sections[nome] = preservado
+                ordem.append(nome)
+                print(f"  {nome:18}    (blocks preservados da loja)")
+                continue
             eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
             frase = re.search(r'class="mf-manifesto__frase[^"]*"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
             apoio = re.search(r'class="mf-manifesto__apoio"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
@@ -391,10 +430,10 @@ def main() -> int:
                 continue
 
         if nome == "museu-passos":
-            if preservado := blocks_preservados(destino_home, nome, "titulo"):
+            if preservado := blocks_preservados(vivo, nome, "titulo"):
                 sections[nome] = preservado
                 ordem.append(nome)
-                print(f"  {nome:18}    (blocks preservados do build)")
+                print(f"  {nome:18}    (blocks preservados da loja)")
                 continue
             eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
             titulo = re.search(r'class="mf-h2"[^>]*>\s*(.*?)\s*</h2>', markup, re.S)
@@ -428,10 +467,10 @@ def main() -> int:
             continue
 
         if nome == "museu-kit":
-            if preservado := blocks_preservados(destino_home, nome, "titulo"):
+            if preservado := blocks_preservados(vivo, nome, "titulo"):
                 sections[nome] = preservado
                 ordem.append(nome)
-                print(f"  {nome:18}    (blocks preservados do build)")
+                print(f"  {nome:18}    (blocks preservados da loja)")
                 continue
             visual = re.search(r'(<div class="mf-kit__visual".*?</div>\s*</div>)', markup, re.S)
             eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
