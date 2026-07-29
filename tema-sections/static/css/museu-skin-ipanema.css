@@ -569,43 +569,39 @@ body.pagina-quem-somos .page-content.user-content {
 }
 
 /* ------------------------------- noite: player como block nativo (home) -- */
-/* A section custom que contém a .mf-noite ganha o fundo preto e o player
-   (block de vídeo, sibling do markup) continua a faixa como se estivesse
-   dentro dela. */
-.section-custom:has(.mf-noite) {
-  background: var(--preto);
+/* Escopo por data-section-id — o tema publica o id da seção no DOM, o que é
+   determinístico (e legível) onde :has() se mostrou frágil. O FUNDO preto
+   vem do setting custom_background_color, não daqui: ele é style inline e
+   venceria qualquer regra desta folha. */
+[data-section-id="museu-noite"] {
+  padding-bottom: clamp(3rem, 9vh, 5.5rem);
 }
-.section-custom:has(.mf-noite) .mf-noite {
+[data-section-id="museu-noite"] .mf-noite {
   background: transparent;
   padding-bottom: 1.25rem;
 }
-.section-custom:has(.mf-noite) .js-video-block,
-.section-custom:has(.mf-noite) [data-block-type="video"] {
+[data-section-id="museu-noite"] [data-block-type="video"] {
   width: min(100%, 60rem);
-  margin: 0 auto;
+  margin-inline: auto;
   background: #000;
-}
-.section-custom:has(.mf-noite) {
-  padding-bottom: clamp(3rem, 9vh, 5.5rem);
-  padding-left: var(--gutter-container, 2rem);
-  padding-right: var(--gutter-container, 2rem);
 }
 
 /* -------------------------- manifesto em blocks nativos (piloto editável) -- */
-/* A âncora .mf-alvo-manifesto marca a section custom que substitui o
-   markup autoral; os blocks nativos (texto/título/botão) recebem a cara
-   do manifesto por aqui. */
-.section-custom:has(.mf-alvo-manifesto) {
+/* Escopo por data-section-id + data-block-id: os dois vêm no DOM do tema.
+   (A tentativa anterior com :has() e :first-of-type falhou — :first-of-type
+   olha o TIPO do elemento, e o primeiro div irmão é o code block, então
+   nenhum bloco de texto casava.) */
+[data-section-id="museu-manifesto"] {
   position: relative;
   padding-top: clamp(4.5rem, 10vh, 8.5rem);
   padding-bottom: clamp(4.5rem, 10vh, 8.5rem);
   overflow: clip;
 }
-.section-custom:has(.mf-alvo-manifesto) .custom-section-content {
+[data-section-id="museu-manifesto"] .custom-section-content {
   max-width: 62rem;
   gap: 1.4rem !important;
 }
-.section-custom:has(.mf-alvo-manifesto) [data-block-type="text"]:first-of-type p {
+[data-block-id="eyebrow"] p {
   font-family: var(--f-titulo);
   font-weight: 700;
   font-size: 0.8rem;
@@ -613,7 +609,8 @@ body.pagina-quem-somos .page-content.user-content {
   text-transform: uppercase;
   margin: 0;
 }
-.section-custom:has(.mf-alvo-manifesto) h2 {
+[data-block-id="frase"] h2,
+[data-block-id="frase"] .heading-block {
   font-family: var(--f-texto);
   font-weight: 500;
   font-style: italic;
@@ -622,14 +619,14 @@ body.pagina-quem-somos .page-content.user-content {
   letter-spacing: -0.01em;
   margin: 0;
 }
-.section-custom:has(.mf-alvo-manifesto) [data-block-type="text"]:not(:first-of-type) p {
+[data-block-id="apoio"] p {
   font-family: var(--f-texto);
   font-size: 1.06rem;
   line-height: 1.8;
   max-width: 58ch;
   margin: 0;
 }
-.section-custom:has(.mf-alvo-manifesto) .mf-manifesto__fio {
+[data-section-id="museu-manifesto"] .mf-manifesto__fio {
   position: absolute;
   inset: 0;
   pointer-events: none;

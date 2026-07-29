@@ -244,6 +244,10 @@ def bloco_code(codigo: str, largura: str = "fill") -> dict:
 
 
 def secao_custom(blocks: dict, **ajustes) -> dict:
+    # ATENÇÃO: `custom_background_color` vira STYLE INLINE na section
+    # (custom.tpl), então ele — não o CSS da pele — é quem manda no fundo.
+    # Seção com fundo próprio (a noite é preta) precisa passar a cor AQUI;
+    # tentar pintar pelo CSS perde do inline e a seção sai clara.
     settings = {
         "section_width": "full",
         "direction": "column",
@@ -384,7 +388,7 @@ def main() -> int:
                         "show_cover_image": False,
                         "aspect_ratio": "16by9",
                     }},
-                })
+                }, custom_background_color="#1D1D1B")
                 ordem.append(nome)
                 print(f"  {nome:18} {len(sem_video):6} bytes   (player nativo, URL editável)")
                 continue
