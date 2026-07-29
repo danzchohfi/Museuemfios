@@ -600,9 +600,19 @@ body.pagina-quem-somos .page-content.user-content {
 .section-custom[data-section-id="museu-noite"] [data-block-type="video"] {
   width: min(100%, 80rem);
   margin-inline: auto;
+  margin-top: 3.5rem;  /* .mf-noite__video da demo */
   background: #000;
   border: 1.5px solid rgba(251, 250, 246, 0.18);
   box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
+}
+/* No celular a demo sangra o player até a borda da tela e tira as laterais da
+   moldura. Aqui a largura já bate na borda (a seção é full width); falta só
+   soltar a borda lateral, senão fica um fio de 1,5px rente à tela. */
+@media (max-width: 720px) {
+  .section-custom[data-section-id="museu-noite"] [data-block-type="video"] {
+    border-inline: 0;
+    margin-top: 2.5rem;
+  }
 }
 
 
@@ -835,7 +845,7 @@ body.pagina-quem-somos .page-content.user-content {
 }
 .section-custom[data-section-id="museu-manifesto"] .custom-section-content {
   max-width: 62rem;
-  gap: 1.4rem !important;
+  gap: 2.5rem !important;  /* .mf-manifesto .mf-wrap da demo */
 }
 [data-block-id="eyebrow"] .text-content,
 [data-block-id="eyebrow"] p {
@@ -862,9 +872,14 @@ body.pagina-quem-somos .page-content.user-content {
   font-family: var(--f-texto);
   font-size: 1.06rem;
   line-height: 1.8;
-  max-width: 58ch;
+  max-width: 44ch;  /* medida da .mf-manifesto__apoio da demo */
   margin: 0;
 }
+/* Na demo esse apoio fica encostado à direita da coluna (justify-self: end),
+   com o "Conheça o projeto" como link dentro do próprio parágrafo. Aqui o
+   link virou block de botão nativo (editável pela cliente), irmão do texto —
+   jogar só o texto pra direita separaria os dois. Fica à esquerda, alinhado
+   com o botão. */
 .section-custom[data-section-id="museu-manifesto"] .mf-manifesto__fio {
   position: absolute;
   inset: 0;
