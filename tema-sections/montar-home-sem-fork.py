@@ -228,6 +228,21 @@ def blocks_preservados(vivo, nome_secao, chave):
     return None
 
 
+
+def com_layout(preservado: dict, **ajustes) -> dict:
+    """Mantém os blocks publicados (conteúdo da cliente) e reaplica o layout.
+
+    A preservação inteira congelava também os settings da seção — então uma
+    correção de largura/cor no código nunca chegava ao ar. A divisão certa é:
+    conteúdo (blocks, que a cliente edita) vem da loja; layout (settings da
+    seção) vem daqui.
+    """
+    secao = secao_custom(preservado.get("blocks", {}), **ajustes)
+    if "block_order" in preservado:
+        secao["block_order"] = preservado["block_order"]
+    return secao
+
+
 def extrair(html: str, inicio_re: str) -> str:
     """Recorta um elemento inteiro, casando as tags de abertura e fechamento.
 
@@ -417,7 +432,8 @@ def main() -> int:
             # Preservação: se o build já tem a versão em blocks (possível
             # edição da cliente trazida por `theme pull`), mantém como está.
             if preservado := blocks_preservados(vivo, nome, "frase"):
-                sections[nome] = preservado
+                sections[nome] = com_layout(preservado, alignment="start",
+                                            section_width="full")
                 ordem.append(nome)
                 print(f"  {nome:18}    (blocks preservados da loja)")
                 continue
@@ -443,14 +459,15 @@ def main() -> int:
                         "link": (LINKS_GLOBAIS.get(botao.group(1), botao.group(1))
                                  if botao else "/quem-somos/"),
                         "variant": "primary"}},
-                }, alignment="start", section_width="page")
+                }, alignment="start", section_width="full")
                 ordem.append(nome)
                 print(f"  {nome:18}    (blocks nativos editáveis)")
                 continue
 
         if nome == "museu-passos":
             if preservado := blocks_preservados(vivo, nome, "titulo"):
-                sections[nome] = preservado
+                sections[nome] = com_layout(preservado, section_width="full",
+                                            custom_background_color="#1D1D1B")
                 ordem.append(nome)
                 print(f"  {nome:18}    (blocks preservados da loja)")
                 continue
@@ -479,7 +496,7 @@ def main() -> int:
                     "texto": {"type": "text", "settings": {
                         "text": f"<p>{limpar(p.group(1))}</p>" if p else ""}},
                 }}
-            sections[nome] = secao_custom(blocos, section_width="page",
+            sections[nome] = secao_custom(blocos, section_width="full",
                                           custom_background_color="#1D1D1B")
             ordem.append(nome)
             print(f"  {nome:18}    ({len(blocos) - 2} passos em blocks nativos)")
@@ -496,9 +513,10 @@ def main() -> int:
                     print(f"  {nome:18}    (visual contaminado na loja — remontando)")
                     preservado = None
             if preservado:
-                sections[nome] = preservado
+                sections[nome] = com_layout(preservado, section_width="full",
+                                            custom_background_color="#F2C440")
                 ordem.append(nome)
-                print(f"  {nome:18}    (blocks preservados da loja)")
+                print(f"  {nome:18}    (conteúdo da loja + layout do código)")
                 continue
             # extrair() conta as tags. O regex antigo (`.*?</div>\\s*</div>`)
             # passava do fim do visual e engolia a abertura da coluna de texto,
@@ -529,7 +547,7 @@ def main() -> int:
                     "link": (LINKS_GLOBAIS.get(botao.group(1), botao.group(1))
                              if botao else "/kits-de-bordado/"),
                     "variant": "primary"}},
-            }, section_width="page", custom_background_color="#F2C440")
+            }, section_width="full", custom_background_color="#F2C440")
             ordem.append(nome)
             print(f"  {nome:18}    ({len(itens)} itens do kit em lista editável)")
             continue

@@ -605,6 +605,22 @@ body.pagina-quem-somos .page-content.user-content {
   box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
 }
 
+
+/* ------------------- wrap das seções convertidas (igual ao .mf-wrap) -- */
+/* O `.container` do Ipanema é mais estreito que o .mf-wrap da demo
+   (min(100% - 2*gutter, 1440px)) — por isso a grade dos passos dava 3
+   colunas em vez de 4. As seções convertidas passam a full e recriam o
+   wrap aqui, com o mesmo limite da demo. */
+.section-custom[data-section-id="museu-passos"] .custom-section-content,
+.section-custom[data-section-id="museu-kit"] .custom-section-content {
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
+  margin-inline: auto;
+}
+.section-custom[data-section-id="museu-manifesto"] .custom-section-content {
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 62rem);
+  margin-inline: auto;
+}
+
 /* -------------------- passos e kit em blocks nativos (editáveis) -- */
 /* Numeração por counter: passo/item novo numera sozinho, sem a cliente
    precisar renumerar na mão. */
@@ -1147,3 +1163,40 @@ body.pagina-quem-somos .mf-video-pagina {
 }
 .mf-credito:hover .marca { color: #fff; }
 .mf-credito:hover .rotulo { opacity: 0.9; }
+
+/* --------------------- mobile das seções convertidas (revisão) -- */
+@media (max-width: 768px) {
+  /* wrap mais justo no celular, como o gutter da demo */
+  .section-custom[data-section-id="museu-passos"] .custom-section-content,
+  .section-custom[data-section-id="museu-kit"] .custom-section-content,
+  .section-custom[data-section-id="museu-manifesto"] .custom-section-content {
+    width: calc(100% - 2.5rem);
+  }
+  /* passos: uma coluna, com respiro menor entre eles */
+  .section-custom[data-section-id="museu-passos"] .custom-section-content {
+    grid-template-columns: 1fr !important;
+    row-gap: 2.25rem !important;
+  }
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"]::before {
+    font-size: 3rem;
+    margin-bottom: 0.35rem;
+  }
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"] p,
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"] .text-content {
+    max-width: none;
+  }
+  /* kit e passos: seções mais curtas no celular */
+  .section-custom[data-section-id="museu-passos"],
+  .section-custom[data-section-id="museu-kit"] {
+    padding-block: clamp(3rem, 8vh, 4.5rem);
+  }
+  /* botão do kit em faixa cheia — alvo de dedo */
+  .section-custom[data-section-id="museu-kit"] [data-block-id="botao"] { justify-self: stretch; }
+  .section-custom[data-section-id="museu-kit"] [data-block-id="botao"] .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 56px;
+  }
+  /* iniciante (markup autoral): imagem e texto empilhados com respiro */
+  .mf-kit--claro .mf-wrap { gap: 2rem; }
+}
