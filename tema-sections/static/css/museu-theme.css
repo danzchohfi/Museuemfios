@@ -53,8 +53,8 @@
   --f-texto: "Roboto Serif", Georgia, serif;
 
   /* Ritmo */
-  --gutter: clamp(1.25rem, 4vw, 4rem);
-  --secao: clamp(4.5rem, 10vh, 8.5rem);
+  --mf-gutter: clamp(1.25rem, 4vw, 4rem);
+  --mf-secao: clamp(4.5rem, 10vh, 8.5rem);
 
   --transicao: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -82,7 +82,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 ::selection { background: var(--amarelo); color: var(--preto); }
 
 /* -------------------------------------------------------------- helpers -- */
-.mf-wrap { width: min(100% - 2 * var(--gutter), 1440px); margin-inline: auto; }
+.mf-wrap { width: min(100% - 2 * var(--mf-gutter), 1440px); margin-inline: auto; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; margin: -1px;
   clip-path: inset(50%); overflow: hidden; white-space: nowrap;
@@ -315,7 +315,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  padding: clamp(1.5rem, 4vw, 3.5rem) var(--gutter);
+  padding: clamp(1.5rem, 4vw, 3.5rem) var(--mf-gutter);
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.5s ease, visibility 0s linear 0.5s;
@@ -334,7 +334,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   text-align: center;
   font-style: italic;
   font-size: 0.95rem;
-  padding-inline: var(--gutter);
+  padding-inline: var(--mf-gutter);
   margin: 0;
 }
 
@@ -431,7 +431,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .mf-hero__dot {
   width: 2.4rem;
-  height: 24px;
+  height: 44px;
   padding: 0;
   background: none;
   position: relative;
@@ -439,12 +439,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mf-hero__dot::before {
   content: "";
   position: absolute;
-  inset: 11px 0;
+  inset: 21px 0;
   background: rgba(29,29,27,0.3);
 }
 .mf-hero__dot .prog {
   position: absolute;
-  inset: 11px 0;
+  inset: 21px 0;
   background: var(--preto);
   transform: scaleX(0);
   transform-origin: left;
@@ -458,7 +458,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .mf-hero__descritor { position: static; grid-area: 1 / 1; margin-top: 1.4rem; }
   .mf-hero__slide { grid-area: 2 / 1; }
   .mf-hero__rodape { flex-direction: column; align-items: flex-start; }
-  .mf-hero__nav { position: static; margin: 0.75rem 0 1.5rem; padding-inline: var(--gutter); }
+  .mf-hero__nav { position: static; margin: 0.75rem 0 1.5rem; padding-inline: var(--mf-gutter); }
 }
 
 /* =============================================================== marquee -- */
@@ -497,7 +497,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ============================================================= manifesto -- */
 .mf-manifesto {
   position: relative;
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
   overflow: clip;
 }
 .mf-manifesto__fio {
@@ -569,13 +569,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 @media (max-width: 720px) {
   .mf-noite__video {
-    margin-inline: calc(-1 * var(--gutter));
+    margin-inline: calc(-1 * var(--mf-gutter));
     border-inline: 0;
   }
 }
 
 /* ================================================================ vitrine -- */
-.mf-vitrine { padding-block: var(--secao); }
+.mf-vitrine { padding-block: var(--mf-secao); }
 .mf-vitrine__topo {
   display: flex;
   align-items: flex-end;
@@ -766,7 +766,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mf-passos {
   background: var(--preto);
   color: var(--papel);
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
   position: relative;
   overflow: clip;
 }
@@ -805,7 +805,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ================================================================== kit -- */
 .mf-kit {
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
   background: var(--amarelo);
   position: relative;
   overflow: clip;
@@ -848,7 +848,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ============================================================= instagram -- */
-.mf-insta { padding-block: var(--secao); }
+.mf-insta { padding-block: var(--mf-secao); }
 .mf-insta__grade {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(11rem, 40vw), 1fr));
@@ -872,7 +872,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mf-news {
   background: var(--preto);
   color: var(--papel);
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
 }
 .mf-news .mf-wrap {
   display: grid;
@@ -911,7 +911,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .mf-footer {
   background: var(--preto);
   color: var(--papel);
-  padding-top: var(--secao);
+  padding-top: var(--mf-secao);
   border-top: 1.5px solid var(--preto);
 }
 .mf-footer__logo { display: block; margin-bottom: 4rem; }
@@ -980,7 +980,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ========================================================= página interna -- */
 .mf-pagina-cab {
-  padding: calc(var(--secao) * 0.6) 0 3rem;
+  padding: calc(var(--mf-secao) * 0.6) 0 3rem;
   position: relative;
   overflow: clip;
 }
@@ -1015,7 +1015,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 /* ================================================================ produto -- */
-.mf-produto { padding-block: 3rem var(--secao); }
+.mf-produto { padding-block: 3rem var(--mf-secao); }
 .mf-produto__grid {
   display: grid;
   grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -1199,7 +1199,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .mf-sobre-obra {
-  margin-top: var(--secao);
+  margin-top: var(--mf-secao);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
   gap: clamp(2rem, 5vw, 5rem);
@@ -1265,7 +1265,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: var(--amarelo);
   position: relative;
   overflow: clip;
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
 }
 .mf-sobre-hero .mf-wrap {
   position: relative;
@@ -1285,7 +1285,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   z-index: 2;
 }
 .mf-texto-editorial {
-  padding-block: var(--secao);
+  padding-block: var(--mf-secao);
 }
 .mf-texto-editorial .mf-wrap {
   max-width: 46rem;

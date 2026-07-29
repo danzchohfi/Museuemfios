@@ -115,10 +115,24 @@ def limpar(html, nome_produto):
         if era_primeiro and parecido:
             relatorio.append(f"− removido (repetia o nome): {titulo_puro[:48]}")
             return ""
-        relatorio.append(f"h3: {titulo_puro[:48]}")
-        return f"<h3>{titulo}</h3>"
+        relatorio.append(f"h2: {titulo_puro[:48]}")
+        # h2, não h3: a página só tem o h1 do nome — os títulos da descrição
+        # são o segundo nível de verdade (achado da auditoria de SEO)
+        return f"<h2>{titulo}</h2>"
 
     novo = re.sub(r"<p[^>]*>((?:(?!</p>).)*?)</p>", trata, html, flags=re.S)
+
+    # Segunda passada — faxina do HTML colado do editor:
+    # 1. títulos que a primeira rodada gravou como h3 sobem pra h2
+    novo = novo.replace("<h3>", "<h2>").replace("</h3>", "</h2>")
+    # 2. classes de editor (font-claude-response-body, utilitários colados)
+    novo = re.sub(r"<(p|ul|ol|li|strong|em|h2|span)\s+class=\"[^\"]*\"", r"<\1", novo)
+    # 3. parágrafos vazios (&nbsp;) que criavam vãos espúrios
+    novo = re.sub(r"<p[^>]*>(?:\s|&nbsp;|<br\s*/?>)*</p>\s*", "", novo)
+    # 4. emoji decorativo abrindo parágrafo (a 1ª frase vira meta description
+    #    e og:description — abria com o emoji escapado, lixo no Google)
+    novo = re.sub(r"(<p[^>]*>)\s*(?:[☀-➿️‍\U0001f000-\U0001faff]\s*)+",
+                  r"\1", novo)
     return novo, relatorio
 
 

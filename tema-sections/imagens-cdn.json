@@ -1,8 +1,18 @@
 {
   "_comentario": "Mapa: arquivo da demo -> URL no CDN da loja. Sem fork, a pasta static/ do tema nao e servida (403), entao toda imagem da home precisa estar hospedada na loja. As 3 obras do hero foram adicionadas como ultima foto da galeria dos respectivos produtos (via API, 29/07/2026) - igual a demo aprovada, que tambem mostra a obra original como ultimo thumb do produto.",
-
   "femme-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/8-5d1908e81c72762bb917708314250179-1024-1024.jpg",
   "monet-femme-ombrelle-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-1024-1024.jpg",
   "klimt-die-umarmung-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-1024-1024.jpg",
-  "monet-ponte-japonesa-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.jpg"
+  "monet-ponte-japonesa-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.jpg",
+  "_vitrines": "Fotos dos cards das vitrines (kits e guias) -> foto principal real de cada produto no CDN. Der Kuss usa a foto [1] da galeria porque a capa atual e um PNG de 2,1 MB sem variantes.",
+  "le-pont-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-75f008ea798315577b17848252170319-1024-1024.png",
+  "die-umarmung-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/die-umarmung-1d6b162b2edcc970c317848253147087-1024-1024.png",
+  "der-kuss-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/5-af2223db2cd89b0d4217848251475443-1024-1024.png",
+  "la-gerbe-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/la-gerbe-11a147950ef0a5aa0417848250750683-1024-1024.png",
+  "la-gerbe-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/11-2b4fbaf01617863da017848250750173-1024-1024.png",
+  "nympheas-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-1024-1024.jpg",
+  "giverny-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-1024-1024.jpg",
+  "pincelada-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-1024-1024.jpg",
+  "ornamento-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-1024-1024.jpg",
+  "klimt-der-kuss-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-1024-1024.jpg"
 }

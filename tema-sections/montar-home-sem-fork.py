@@ -48,9 +48,107 @@ SECOES = [
     ("museu-marquee", r'<div class="mf-marquee"'),
     ("museu-manifesto", r'<section class="mf-manifesto"'),
     ("museu-noite", r'<section class="mf-noite"'),
+    ("museu-vitrine", r'<section class="mf-vitrine">'),
     ("museu-passos", r'<section class="mf-passos"'),
     ("museu-kit", r'<section class="mf-kit" id="kit"'),
+    ("museu-digitais", r'<section class="mf-vitrine" id="digitais-home"'),
 ]
+# Fora por decisão: mf-kit--claro (vende o kit de iniciante Le Chevalier/Nu
+# Bleu, que está DESPUBLICADO na loja — seção voltaria a apontar pro nada),
+# mf-insta (grade decorativa, exige mais 6 imagens hospedadas) e mf-news
+# (o rodapé já tem newsletter nativa funcionando, com o cupom).
+
+# Vitrine de kits: a demo traz 6 cards com preços de outra época. Os dados
+# abaixo vieram da API em 29/07/2026 — preço real, link real, e só produto
+# PUBLICADO (femme e le-chevalier caem fora até serem publicados).
+VITRINE_KITS = {
+    "monet-ponte-japonesa": {
+        "href": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+        "preco": "R$ 189"},
+    "klimt-die-umarmung": {
+        "href": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+        "preco": "R$ 199", "selo": "Pré-venda"},
+    "klimt-der-kuss": {
+        "href": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
+        "preco": "R$ 199"},
+    "la-gerbe": {
+        "href": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
+        "preco": "R$ 179"},
+}
+
+
+def cirurgia_vitrine(markup: str) -> str:
+    """Poda e atualiza os cards da vitrine de kits contra o catálogo real."""
+    partes = re.split(r'(<a class="obra-card".*?</a>)', markup, flags=re.S)
+    out = []
+    for parte in partes:
+        if not parte.startswith('<a class="obra-card'):
+            out.append(parte)
+            continue
+        chave = next((k for k in VITRINE_KITS if k in parte), None)
+        if not chave:
+            continue  # produto despublicado ou inexistente: card sai
+        dados = VITRINE_KITS[chave]
+        parte = re.sub(r'href="[^"]*"', f'href="{dados["href"]}"', parte, count=1)
+        parte = re.sub(r'(<span class="obra-card__preco">).*?(</span>)',
+                       rf'\g<1>{dados["preco"]}\g<2>', parte, flags=re.S)
+        if dados.get("selo"):
+            if "obra-card__selo" in parte:
+                parte = re.sub(r'(<span class="obra-card__selo[^"]*">).*?(</span>)',
+                               rf'\g<1>{dados["selo"]}\g<2>', parte, count=1, flags=re.S)
+            else:
+                parte = re.sub(r'(<a class="obra-card"[^>]*>)',
+                               rf'\g<1><span class="obra-card__selo">{dados["selo"]}</span>',
+                               parte, count=1)
+        else:
+            parte = re.sub(r'<span class="obra-card__selo[^"]*">.*?</span>\s*', '',
+                           parte, flags=re.S)
+        out.append(parte)
+    return "".join(out)
+
+
+def melhorar_hero(markup: str) -> str:
+    """Ajustes de SEO e conversão no hero, depois dos links resolvidos.
+
+    - o descritor vira <h2>: o h1 do tema é invisível e a página ficava sem
+      heading com palavra-chave no topo;
+    - as obras ganham width/height + srcset (o CDN da Nuvemshop serve as
+      variantes -320-0/-480-0; sem isso o mobile baixa 1024px fixo);
+    - a imagem da obra vira link pro mesmo destino do "Ver o kit" do slide —
+      antes o único clicável era um link de texto de 15px;
+    - no slide sem produto publicado o rótulo diz a verdade: "Ver a coleção".
+    """
+    markup = re.sub(r'<p class="mf-hero__descritor"(.*?)</p>',
+                    r'<h2 class="mf-hero__descritor"\1</h2>', markup, flags=re.S)
+
+    def com_variantes(m: re.Match) -> str:
+        tag, src = m.group(0), m.group(1)
+        if "obra-original" not in src or "srcset" in tag:
+            return tag
+        base = src.rsplit("-1024-1024.", 1)[0]
+        ext = src.rsplit(".", 1)[-1]
+        srcset = (f"{base}-320-0.{ext} 320w, {base}-480-0.{ext} 480w, {src} 1024w")
+        return tag[:-1] + (f' width="1024" height="1024" srcset="{srcset}"'
+                           ' sizes="(max-width: 768px) 92vw, 40rem">')
+
+    markup = re.sub(r'<img[^>]*src="([^"]+)"[^>]*>', com_variantes, markup)
+
+    palcos = re.split(r'(?=<div class="mf-hero__palco")', markup)
+    for i, chunk in enumerate(palcos):
+        if not chunk.startswith('<div class="mf-hero__palco'):
+            continue
+        destino = re.search(r'href="([^"]+)"', chunk)
+        if destino:
+            chunk = re.sub(
+                r'(<div class="mf-hero__obra">\s*)(<img[^>]+>)',
+                rf'\g<1><a href="{destino.group(1)}" tabindex="-1" aria-hidden="true">\g<2></a>',
+                chunk, count=1)
+        palcos[i] = chunk
+    markup = "".join(palcos)
+
+    markup = re.sub(r'(href="/kits-de-bordado/"[^>]*>)Ver o kit<',
+                    r'\g<1>Ver a coleção<', markup)
+    return markup
 
 
 def extrair(html: str, inicio_re: str) -> str:
@@ -88,6 +186,7 @@ def trocar_imagens(markup: str, mapa: dict) -> tuple[str, list]:
 # /produto.html, que não existe).
 LINKS_GLOBAIS = {
     "index.html": "/",
+    "loja.html#digitais": "/produtos-digitais/",  # antes de loja.html, que é prefixo
     "loja.html": "/kits-de-bordado/",
     "sobre.html": "/quem-somos/",
 }
@@ -178,6 +277,10 @@ def main() -> int:
     html = DEMO.read_text(encoding="utf8")
     css = ((RAIZ / "static/css/museu-theme.css").read_text(encoding="utf8")
            + "\n" + (RAIZ / "static/css/museu-ponte.css").read_text(encoding="utf8"))
+    # Os @font-face apontam pra ../fonts/, que não existe quando o CSS viaja
+    # inline — eram três requests 404 por visita. As fontes chegam pelo
+    # @import do css_code (Inter + Roboto Serif variáveis, com itálico).
+    css = re.sub(r"@font-face\s*\{[^}]*\}\s*", "", css)
     motion = (RAIZ / "static/js/museu-motion.js").read_text(encoding="utf8")
 
     sections, ordem, todas_pendentes = {}, [], []
@@ -190,8 +293,14 @@ def main() -> int:
 
     for nome, seletor in SECOES:
         markup = extrair(html, seletor)
+        if nome == "museu-vitrine":
+            # a poda vem ANTES do mapa de imagens: cards descartados não
+            # geram pendência falsa de imagem
+            markup = cirurgia_vitrine(markup)
         markup, pendentes = trocar_imagens(markup, mapa)
         markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
+        if nome == "museu-hero":
+            markup = melhorar_hero(markup)
         todas_pendentes += pendentes
         sections[nome] = secao_custom({"markup": bloco_code(markup)})
         ordem.append(nome)

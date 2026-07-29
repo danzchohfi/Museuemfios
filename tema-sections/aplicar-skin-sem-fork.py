@@ -112,6 +112,17 @@ WHATSAPP = """<script>(function(){
   a.href = 'https://wa.me/5511971147355?text=' + encodeURIComponent(texto);
   a.target = '_blank';
   a.rel = 'noopener';
+  a.addEventListener('click', function () {
+    // Meta: Contact e o padrao certo pra clique de atendimento; o custom
+    // WhatsAppClick permite recorte fino no Gerenciador de Eventos
+    if (window.fbq) {
+      fbq('track', 'Contact', { content_name: nome ? nome.textContent.trim() : '' });
+      fbq('trackCustom', 'WhatsAppClick', { origem: 'pagina-produto' });
+    }
+    if (window.gtag) {
+      gtag('event', 'whatsapp_click', { origem: 'pagina-produto' });
+    }
+  });
   a.innerHTML = '<svg class="icon-inline" aria-hidden="true">' +
     '<use xlink:href="#whatsapp"/></svg>' +
     'D\\u00favidas sobre o kit? Fale com a gente no WhatsApp <i>\\u2733</i>';
@@ -255,8 +266,17 @@ def ajustar_produto() -> None:
     }
     if "icon_frete" not in compra["block_order"]:
         compra["block_order"].append("icon_frete")
+
+    # Os selos vinham DEPOIS da descrição, no fim da coluna — longe da decisão
+    # de compra. Sobem pra antes da descrição (achado do revisor de UX).
+    ordem = info.get("block_order") or list(info["blocks"].keys())
+    if "purchase_info" in ordem and "description" in ordem:
+        ordem.remove("purchase_info")
+        ordem.insert(ordem.index("description"), "purchase_info")
+        info["block_order"] = ordem
+
     p_prod.write_text(json.dumps(prod, ensure_ascii=False, indent=2), encoding="utf8")
-    print("  product.json: 3º selo (frete grátis) + ícones em 32px")
+    print("  product.json: 3º selo, ícones 32px, selos antes da descrição")
 
 
 def main() -> None:
