@@ -514,6 +514,29 @@ body.pagina-quem-somos .page-content.user-content {
   }
 }
 
+/* ------------------------------------------- WhatsApp na página de produto -- */
+/* Link montado por JS injetado com a pele, logo abaixo do comprar — o
+   desenho do .mf-wa da demo, com o ícone do sprite do próprio tema. */
+.mf-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--preto);
+  text-decoration: none;
+  margin: 1rem 0 0.4rem;
+}
+.mf-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+.mf-wa i {
+  font-style: normal;
+  color: var(--amarelo);
+  font-size: 1.1em;
+  line-height: 1;
+}
+.mf-wa:hover { text-decoration: underline; text-underline-offset: 4px; }
+
 /* ------------------------------------ barra fixa de compra (produto, mobile) -- */
 /* Montada por JS injetado com a pele: aparece quando o botão comprar
    original já rolou pra fora da tela. */

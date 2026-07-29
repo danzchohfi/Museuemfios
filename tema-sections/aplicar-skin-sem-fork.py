@@ -97,6 +97,27 @@ ROTEADOR = (
     "})();</script>"
 )
 
+# WhatsApp logo abaixo do comprar (mobile e desktop), como na demo aprovada.
+# O número é o do rodapé/demo; a mensagem já vai com o nome do produto.
+WHATSAPP = """<script>(function(){
+  if (!document.body.classList.contains('template-product')) return;
+  var acoes = document.querySelector('.product-actions');
+  if (!acoes || document.querySelector('.mf-wa')) return;
+  var nome = document.querySelector('.js-product-name');
+  var texto = 'Ol\\u00e1! Estou vendo o ' +
+    (nome ? nome.textContent.trim() : 'um kit') +
+    ' e queria tirar uma d\\u00favida.';
+  var a = document.createElement('a');
+  a.className = 'mf-wa';
+  a.href = 'https://wa.me/5511971147355?text=' + encodeURIComponent(texto);
+  a.target = '_blank';
+  a.rel = 'noopener';
+  a.innerHTML = '<svg class="icon-inline" aria-hidden="true">' +
+    '<use xlink:href="#whatsapp"/></svg>' +
+    'D\\u00favidas sobre o kit? Fale com a gente no WhatsApp <i>\\u2733</i>';
+  acoes.insertAdjacentElement('afterend', a);
+})();</script>"""
+
 # Barra fixa de compra no produto (só mobile): clona preço + um botão que
 # aciona o comprar original, e só aparece quando o original já rolou pra
 # fora da tela — sem duplicar CTA à vista. Conversão: o comprar nunca fica
@@ -250,7 +271,7 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{BARRA_COMPRA}"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
