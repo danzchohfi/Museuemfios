@@ -467,12 +467,25 @@ def main() -> int:
             continue
 
         if nome == "museu-kit":
-            if preservado := blocks_preservados(vivo, nome, "titulo"):
+            preservado = blocks_preservados(vivo, nome, "titulo")
+            # NÃO preserva versão contaminada: se o markup do visual carrega o
+            # eyebrow, veio da extração antiga (bug abaixo) e precisa refazer
+            if preservado:
+                code_visual = (preservado.get("blocks", {}).get("visual", {})
+                               .get("settings", {}).get("code", ""))
+                if "mf-eyebrow" in code_visual:
+                    print(f"  {nome:18}    (visual contaminado na loja — remontando)")
+                    preservado = None
+            if preservado:
                 sections[nome] = preservado
                 ordem.append(nome)
                 print(f"  {nome:18}    (blocks preservados da loja)")
                 continue
-            visual = re.search(r'(<div class="mf-kit__visual".*?</div>\s*</div>)', markup, re.S)
+            # extrair() conta as tags. O regex antigo (`.*?</div>\\s*</div>`)
+            # passava do fim do visual e engolia a abertura da coluna de texto,
+            # jogando eyebrow/título/lista DENTRO do bloco da imagem — fora da
+            # grade, e o kit virava coluna única.
+            visual_html = extrair(markup, r'<div class="mf-kit__visual"')
             eyebrow = re.search(r'class="mf-eyebrow"[^>]*>\s*(.*?)\s*</p>', markup, re.S)
             titulo = re.search(r'class="mf-h2"[^>]*>\s*(.*?)\s*</h2>', markup, re.S)
             lista = re.search(r'(<ul class="mf-kit__lista".*?</ul>)', markup, re.S)
@@ -482,7 +495,7 @@ def main() -> int:
             # cliente adiciona/remove item sem renumerar na mão.
             itens = re.findall(r'<li>.*?</span>\s*(.*?)</li>', lista.group(1), re.S) if lista else []
             sections[nome] = secao_custom({
-                "visual": bloco_code(visual.group(1) if visual else ""),
+                "visual": bloco_code(visual_html),
                 "eyebrow": {"type": "text", "settings": {
                     "text": limpar(eyebrow.group(1)) if eyebrow else "O que vem no kit",
                     "size": "small"}},
