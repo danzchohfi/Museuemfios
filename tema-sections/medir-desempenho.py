@@ -167,6 +167,17 @@ def main():
         ctx.route("**/*", servir)
         pg = ctx.new_page()
         pg.goto(url, wait_until="load", timeout=120000)
+        # ROLA A PÁGINA ANTES DE SOMAR. Sem isso a conta pega só as imagens
+        # acima da dobra — as outras são `lazy` e nem existem ainda. Foi esse
+        # o erro: eu reportei 897 KB em 6 imagens quando o Lighthouse, que
+        # rola durante a coleta, contava 34 imagens e 10 MB de payload.
+        pg.evaluate("""async () => {
+          const passo = innerHeight * 0.8;
+          for (let y = 0; y < document.documentElement.scrollHeight; y += passo) {
+            scrollTo(0, y); await new Promise(r => setTimeout(r, 250));
+          }
+          scrollTo(0, 0); await new Promise(r => setTimeout(r, 600));
+        }""")
         r = pg.evaluate(NAVEGADOR)
         nav.close()
 
