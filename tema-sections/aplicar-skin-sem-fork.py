@@ -332,7 +332,14 @@ BARRA_COMPRA = """<script>(function(){
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (en) {
       var e = en[0];
-      barra.classList.toggle('is-on', !e.isIntersecting && e.boundingClientRect.top < 0);
+      var ligada = !e.isIntersecting && e.boundingClientRect.top < 0;
+      barra.classList.toggle('is-on', ligada);
+      // A classe no body deixa o CSS empurrar o banner de cookie pra cima da
+      // barra. Sem isso os dois ocupam a mesma faixa, o banner tem z-index
+      // 1000 contra 60 da barra, e o toque em Comprar caía no "Entendi" —
+      // primeiro toque de todo visitante novo não comprava, só fechava o
+      // aviso. Medido no navegador, em toda posição de rolagem.
+      document.body.classList.toggle('mf-com-barra', ligada);
     }, { threshold: 0 }).observe(alvo);
   }
 })();</script>"""

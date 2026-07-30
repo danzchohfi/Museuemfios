@@ -1185,6 +1185,55 @@ body.pagina-quem-somos .mf-video-pagina {
 }
 @media (min-width: 769px) { .mf-barra-compra { display: none !important; } }
 
+/* =========================================================== clique morto -- */
+/* Auditoria no navegador (auditar-cliques.py), os mesmos casos que o Clarity
+   marca como dead click. Um achado era crítico e dois são de alcance geral. */
+
+/* CRÍTICO — o aviso de cookie fica fixo a 16px da base, 50px de altura e
+   z-index 1000; a barra de compra ocupa os últimos 71px com z-index 60. Os
+   dois na mesma faixa: o toque em "Comprar" caía no botão "Entendi". Para
+   todo visitante novo no celular, o primeiro toque no CTA principal não
+   comprava — só fechava o aviso. Medido em toda posição de rolagem.
+   Quando a barra está ligada, o aviso sobe acima dela. */
+body.mf-com-barra .js-notification-cookie-private,
+body.mf-com-barra .js-notification-private {
+  bottom: calc(71px + 1rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* GERAL — fora do "Entendi", o aviso não tem nada clicável, mas a caixa toda
+   engolia o clique: na categoria ele cobria cards de produto e na home o
+   "Ver o kit". Deixa o clique atravessar o que é só texto. */
+.js-notification-cookie-private { pointer-events: none; }
+.js-notification-cookie-private a,
+.js-notification-cookie-private button,
+.js-notification-cookie-private [role="button"] { pointer-events: auto; }
+
+/* GERAL — "Entendi" tinha 41x14px de área de toque. Abaixo de 44px o dedo
+   erra, e errar num aviso que cobre o conteúdo vira clique repetido. */
+.js-notification-cookie-private button,
+.js-notification-cookie-private a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.6rem;
+  margin-block: -0.75rem;   /* cresce a área sem esticar a faixa */
+}
+
+/* Ícones do topo (busca, sacola, menu) tinham 20x21px. Cresce a área de
+   toque sem mexer no desenho: o ícone continua com 20px, a caixa vai a 44px
+   de altura, e a margem negativa devolve o espaço horizontal pro layout. */
+.head-main .header-icon,
+.head-main .search-trigger,
+.head-main .header-utility,
+.head-main .js-modal-open-private {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: 0.4rem;
+  margin-inline: -0.4rem;
+}
+
 /* --------------------------------------------- assinatura (após o rodapé) -- */
 /* O markup vive num block `code` no footer.json, logo abaixo do footer      */
 .mf-assinatura {
