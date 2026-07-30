@@ -556,6 +556,16 @@ def main() -> None:
     p_footer = BUILD / "templates" / "layout" / "footer.json"
     footer = json.loads(p_footer.read_text(encoding="utf8"))
 
+    # Cores do rodapé pelos settings NATIVOS. Sem isso, --footer-foreground
+    # ficava no default claro do tema (#1D1D1B) enquanto a pele pintava o
+    # fundo de preto: tudo que o tema desenha a partir do token saía preto no
+    # preto — o ícone do Instagram e a seta do accordion ficavam INVISÍVEIS,
+    # e o lugar deles lia como vão vazio no rodapé do celular.
+    footer["sections"]["footer"]["settings"].update({
+        "background_color": "#1D1D1B",
+        "text_color": "#FBFAF6",
+    })
+
     blocos = footer["sections"]["footer"]["blocks"]
     blocos["institutional"]["settings"]["description"] = INSTITUCIONAL
     if "menu_1" in blocos:

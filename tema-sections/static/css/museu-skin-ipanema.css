@@ -537,10 +537,12 @@ body.pagina-quem-somos .page-content.user-content {
     padding-bottom: 2rem;
     gap: 2rem;
   }
-  .section-footer .footer-main-info { gap: 1.75rem !important; }
+  /* 1rem entre os blocos: com 1.75 as linhas divisórias ficavam longe do
+     texto e o preto entre elas lia como vão vazio */
+  .section-footer .footer-main-info { gap: 1rem !important; }
   /* o gap nativo de 48px dentro do bloco institucional era o maior vão */
-  .section-footer .footer-contact-info-container { gap: 1rem; }
-  .footer-social-container { margin-top: 0.25rem; }
+  .section-footer .footer-contact-info-container { gap: 0.75rem; }
+  .footer-social-container { margin-top: 0; }
   /* o accordion nativo é full-bleed; a borda precisa de !important porque o
      nativo .section-footer .accordion-container ganha na especificidade */
   .section-footer .footer-menu-accordion {
@@ -548,7 +550,9 @@ body.pagina-quem-somos .page-content.user-content {
     border-top: 1px solid rgba(251, 250, 246, 0.15) !important;
     border-bottom: 0 !important;
   }
-  .footer-menu-toggle-title { padding: 0.95rem 0 !important; }
+  /* 0.7rem mantém o alvo de toque em 44px (19px de texto + 2x11) e aproxima
+     o título das divisórias */
+  .footer-menu-toggle-title { padding: 0.7rem 0 !important; }
   /* a lista aberta vinha com padding lateral de 16px, desalinhada do título */
   .section-footer .footer-menu-accordion-content { padding: 0 0 0.75rem !important; }
   .footer-newsletter-container {
@@ -556,6 +560,26 @@ body.pagina-quem-somos .page-content.user-content {
     padding-top: 1rem;
     border-top: 1px solid rgba(251, 250, 246, 0.15);
   }
+
+  /* ---- fim do rodapé: era aí que ele "passava do ponto" ----------------- */
+  /* Medido no celular (430px): o rodapé fechava em 877px, e o trecho final
+     era quase todo vão — pagamento e envio empilhados, e uma faixa de 41px
+     que, depois de a pele esconder o copyright duplicado, só carrega o selo
+     "powered by" da Nuvemshop (17px). Três linhas quase vazias em preto. */
+  /* Pagamento e envio lado a lado: o envio tem um selo só e ocupava uma
+     faixa inteira sozinho. */
+  .section-footer .footer-payments-shipping-container {
+    flex-direction: row !important;
+    gap: 1rem !important;
+  }
+  .section-footer .footer-payment-group { flex: 1 1 0; min-width: 0; }
+  .section-footer .footer-secondary-info { gap: 1rem; }
+  /* a faixa do selo da Nuvemshop encolhe pro tamanho do que ela mostra */
+  .section-footer .footer-legal-container {
+    padding-block: 0;
+    line-height: 1;
+  }
+  .section-footer .footer-content { padding-bottom: 1rem; }
 }
 
 /* Ícones sociais: alvo de toque de 44px (o svg tinha 22px e nada em volta) */
@@ -1111,7 +1135,10 @@ body.pagina-quem-somos .mf-video-pagina {
 .mf-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
 .mf-wa i {
   font-style: normal;
-  color: var(--amarelo);
+  /* o amarelo da marca sobre o papel dá contraste 1.26 — o separador ficava
+     invisível. É elemento decorativo: tinta clara resolve e não compete com
+     o texto do link. */
+  color: rgba(29, 29, 27, 0.45);
   font-size: 1.1em;
   line-height: 1;
 }
@@ -1168,6 +1195,12 @@ body.pagina-quem-somos .mf-video-pagina {
   font-size: 0.86rem;
 }
 .mf-assinatura__wrap > span { opacity: 0.75; }
+/* Este @media mora DEPOIS da regra base de propósito: a mesma especificidade
+   resolve por ordem no arquivo, e a versão mobile lá no bloco do rodapé (mais
+   acima) estava perdendo pro `padding` do desktop. */
+@media (max-width: 768px) {
+  .mf-assinatura__wrap { padding-block: 1rem; }
+}
 
 .mf-credito {
   display: inline-flex;
