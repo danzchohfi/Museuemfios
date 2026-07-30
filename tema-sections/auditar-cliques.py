@@ -154,6 +154,9 @@ AUDITAR = r"""() => {
   const destinoDe = (x) => { const a = x && x.closest("a[href]"); return a ? a.href : null; };
   for (const el of document.querySelectorAll(INTERATIVO)) {
     if (!visivel(el) || !naTela(el)) continue;
+    // pointer-events: none é DE PROPÓSITO — é assim que uma camada deixa o
+    // clique passar (o aviso de cookie usa isso aqui). Não é clique engolido.
+    if (getComputedStyle(el).pointerEvents === "none") continue;
     const [x, y] = centro(el);
     const emCima = document.elementFromPoint(x, y);
     if (!emCima || emCima === el || el.contains(emCima) || emCima.contains(el)) continue;
