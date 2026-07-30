@@ -95,11 +95,20 @@ AUDITAR = r"""() => {
     return !h || h === "#" || h.startsWith("javascript:");
   };
 
+  // Precisa SUBIR a árvore: um ancestral com opacity 0 apaga tudo abaixo, e
+  // um com pointer-events none tira o subárvore do alcance do ponteiro. Sem
+  // isso o "Mudar CEP" entrou no relatório como morto — ele mora na camada
+  // escondida do calculador de frete (form-swap), que só acende depois de
+  // calcular. Estava fazendo exatamente o que devia.
   const visivel = (el) => {
-    const s = getComputedStyle(el);
-    if (s.display === "none" || s.visibility === "hidden" || +s.opacity === 0) return false;
     const r = el.getBoundingClientRect();
-    return r.width > 4 && r.height > 4;
+    if (r.width <= 4 || r.height <= 4) return false;
+    for (let n = el; n && n !== document.documentElement; n = n.parentElement) {
+      const s = getComputedStyle(n);
+      if (s.display === "none" || s.visibility === "hidden" || +s.opacity === 0
+          || s.pointerEvents === "none") return false;
+    }
+    return true;
   };
 
   const centro = (el) => { const r = el.getBoundingClientRect();
@@ -153,10 +162,10 @@ AUDITAR = r"""() => {
   // em outro lugar (ou em nada).
   const destinoDe = (x) => { const a = x && x.closest("a[href]"); return a ? a.href : null; };
   for (const el of document.querySelectorAll(INTERATIVO)) {
+    // visivel() já descarta pointer-events: none, que é DE PROPÓSITO — é
+    // assim que uma camada deixa o clique passar (o aviso de cookie usa isso
+    // aqui depois do conserto). Não é clique engolido.
     if (!visivel(el) || !naTela(el)) continue;
-    // pointer-events: none é DE PROPÓSITO — é assim que uma camada deixa o
-    // clique passar (o aviso de cookie usa isso aqui). Não é clique engolido.
-    if (getComputedStyle(el).pointerEvents === "none") continue;
     const [x, y] = centro(el);
     const emCima = document.elementFromPoint(x, y);
     if (!emCima || emCima === el || el.contains(emCima) || emCima.contains(el)) continue;
