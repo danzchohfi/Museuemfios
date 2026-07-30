@@ -735,7 +735,17 @@ body.pagina-quem-somos .page-content.user-content {
   max-width: 36ch;
 }
 
-.section-custom[data-section-id="museu-kit"] { padding-block: clamp(4.5rem, 10vh, 8.5rem); }
+.section-custom[data-section-id="museu-kit"] {
+  padding-block: clamp(4.5rem, 10vh, 8.5rem);
+  /* O .mf-kit__fio em volta da foto é `inset: -7% -9%`: ele sai ~15px pra
+     cada lado DE PROPÓSITO. Na demo quem apara é o `overflow: clip` do
+     <section class="mf-kit">, que aqui não existe mais — o kit virou blocks
+     nativos. Sem isso o documento fica 15px mais largo que a tela, a página
+     inteira desloca e sobra uma faixa do fundo na direita no celular. */
+  overflow: clip;
+}
+/* mesma proteção nas outras seções convertidas, como na demo */
+.section-custom[data-section-id="museu-passos"] { overflow: clip; }
 .section-custom[data-section-id="museu-kit"] .custom-section-content {
   display: grid !important;
   /* 1.1fr na coluna da foto, igual à demo (.mf-kit .mf-wrap) */

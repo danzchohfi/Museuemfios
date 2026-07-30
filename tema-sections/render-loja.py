@@ -68,8 +68,12 @@ def servir(rota):
         rota.abort()
 
 
-AUDITAR = r"""() => {
-  const vw = innerWidth, doc = document.documentElement;
+AUDITAR = r"""(larguraTela) => {
+  // ATENÇÃO: usa a largura da TELA pedida, não innerWidth. Quando algo
+  // transborda, o navegador estica o viewport de layout (na home ele foi de
+  // 430 pra 445) — comparar contra innerWidth esconde exatamente o bug que
+  // se quer achar, porque aí a largura do documento sempre "cabe".
+  const vw = larguraTela, doc = document.documentElement;
   const nomeDe = (el) => el.tagName.toLowerCase()
     + (el.id ? "#" + el.id : "")
     + (el.className && el.className.toString().trim()
@@ -137,7 +141,8 @@ AUDITAR = r"""() => {
   }).pop();
   const fimConteudo = ultimo ? Math.round(ultimo.getBoundingClientRect().bottom + scrollY) : null;
 
-  return { viewport: vw, larguraDoc: doc.scrollWidth, alturaDoc: doc.scrollHeight,
+  return { viewport: vw, viewportEsticado: innerWidth,
+           larguraDoc: doc.scrollWidth, alturaDoc: doc.scrollHeight,
            fimConteudo, sobraNoFim: fimConteudo === null ? null : doc.scrollHeight - fimConteudo,
            overflow: overflow.slice(0, 12),
            vazios: vazios.sort((a, b) => b.sobra - a.sobra).slice(0, 8),
@@ -164,10 +169,11 @@ def main():
         pg.evaluate("scrollTo(0, document.documentElement.scrollHeight)")
         pg.wait_for_timeout(6000)
 
-        r = pg.evaluate(AUDITAR)
+        r = pg.evaluate(AUDITAR, TELAS[tela]["viewport"]["width"])
         print(f"\n{url}  [{tela}]")
-        print(f"  documento: {r['larguraDoc']}x{r['alturaDoc']}  (viewport {r['viewport']})"
-              f"   sobra depois do último bloco: {r['sobraNoFim']}px")
+        print(f"  documento: {r['larguraDoc']}x{r['alturaDoc']}  (tela {r['viewport']}"
+              + (f", ESTICADA pra {r['viewportEsticado']}" if r["viewportEsticado"] != r["viewport"] else "")
+              + f")   sobra depois do último bloco: {r['sobraNoFim']}px")
         for titulo, chave, vazio in [
             ("OVERFLOW HORIZONTAL", "overflow", "nenhum elemento passa da largura da tela"),
             ("INVISÍVEL (contraste < 1.8)", "invisiveis", "nada invisível"),

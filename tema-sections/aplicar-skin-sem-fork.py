@@ -23,9 +23,59 @@ Rode DEPOIS do montar-tema.sh. Uso:  python3 aplicar-skin-sem-fork.py
 
 import json
 import pathlib
+import re
 
 RAIZ = pathlib.Path(__file__).resolve().parent
 BUILD = RAIZ.parent / "build-tema"
+
+# O block `code` aceita até 50.000 caracteres por setting — o limite é do
+# tipo custom_code e a API responde HTTP 400 quando passa. A pele com os
+# comentários já bateu nele; por isso ela viaja comprimida e o fonte, que é
+# onde os comentários valem, fica intacto no repositório.
+LIMITE_CODE = 50000
+
+
+def comprimir_css(css: str) -> str:
+    """Tira comentários e espaço supérfluo. Confere que nada se perdeu.
+
+    As strings entre aspas saem de cena antes da compressão: `content: "a, b"`
+    tem vírgula e espaço que SÃO significativos, e o regex que come espaço em
+    volta de pontuação os destruiria sem avisar.
+    """
+    def normalizar(t):
+        """Declarações numa forma que ignora só o espaço insignificante."""
+        t = re.sub(r"/\*.*?\*/", " ", t, flags=re.S)
+        saida = []
+        for d in re.findall(r"[-a-zA-Z]+\s*:[^;{}]+", t):
+            d = " ".join(d.split())
+            d = re.sub(r"\s*([:,])\s*", r"\1", d)
+            saida.append(d)
+        return sorted(saida)
+
+    antes = normalizar(css)
+
+    guardadas: list[str] = []
+
+    def guardar(m):
+        guardadas.append(m.group(0))
+        return f"\x00{len(guardadas) - 1}\x00"
+
+    curto = re.sub(r"\"[^\"\n]*\"|'[^'\n]*'", guardar, css)
+    curto = re.sub(r"/\*.*?\*/", " ", curto, flags=re.S)  # espaço, não vazio:
+    curto = re.sub(r"\s+", " ", curto)                    # comentário separa token
+    curto = re.sub(r"\s*([{};:,>])\s*", r"\1", curto)
+    curto = re.sub(r";}", "}", curto).strip()
+    curto = re.sub(r"\x00(\d+)\x00", lambda m: guardadas[int(m.group(1))], curto)
+
+    depois = normalizar(curto)
+    if antes != depois:
+        raise SystemExit("comprimir_css mudou o CSS — não vou subir isso. "
+                         f"Diferenças: {sorted(set(antes) ^ set(depois))[:4]}")
+    if curto.count("{") != curto.count("}"):
+        raise SystemExit("comprimir_css desbalanceou as chaves")
+    print(f"  pele comprimida: {len(css):,} → {len(curto):,} chars "
+          f"({len(depois)} declarações conferidas)")
+    return curto
 
 if not BUILD.exists():
     raise SystemExit(f"Rode antes: ./montar-tema.sh <ID>  (não achei {BUILD})")
@@ -551,7 +601,8 @@ def main() -> None:
     print(f"  settings: {len(AJUSTES)} ajustes + css_code de {len(CSS_CRITICO)} chars")
 
     # footer.json: conteúdo da marca no bloco nativo + logo + pele + assinatura
-    skin = (RAIZ / "static" / "css" / "museu-skin-ipanema.css").read_text(encoding="utf8")
+    skin = comprimir_css(
+        (RAIZ / "static" / "css" / "museu-skin-ipanema.css").read_text(encoding="utf8"))
     logo_svg = (RAIZ.parent / "demo" / "assets" / "img" / "logo-horizontal-branco.svg").read_text(encoding="utf8")
     p_footer = BUILD / "templates" / "layout" / "footer.json"
     footer = json.loads(p_footer.read_text(encoding="utf8"))
@@ -603,8 +654,22 @@ def main() -> None:
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
+
+    # Falha aqui, com o nome do block, em vez de tomar HTTP 400 no push
+    for secao in ("museu-topo", "museu-extra"):
+        for nome, bloco in footer["sections"][secao]["blocks"].items():
+            tamanho = len(bloco["settings"]["code"])
+            if tamanho > LIMITE_CODE:
+                raise SystemExit(
+                    f'block "{nome}" com {tamanho:,} chars — o setting custom_code '
+                    f"para em {LIMITE_CODE:,}. Divida em dois blocks `code` ou "
+                    "corte CSS morto."
+                )
+
     p_footer.write_text(json.dumps(footer, ensure_ascii=False, indent=2), encoding="utf8")
-    print(f"  footer.json: conteúdo da marca, logo ({len(logo_svg)} b), pele ({len(skin) / 1024:.0f} KB), assinatura")
+    folga = LIMITE_CODE - len(footer["sections"]["museu-extra"]["blocks"]["pele"]["settings"]["code"])
+    print(f"  footer.json: conteúdo da marca, logo ({len(logo_svg)} b), "
+          f"pele ({len(skin) / 1024:.0f} KB, folga de {folga:,} chars no limite), assinatura")
 
     ajustar_header()
     ajustar_produto()
