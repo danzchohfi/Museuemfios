@@ -375,9 +375,13 @@ h1, h2, h3, .product-name, .footer-menu-title {
 /* Quem somos: o hero amarelo da demo — obra do Klimt ao centro, título da
    marca por cima, faixa preta de palavras fechando. A classe pagina-* vem
    do roteador injetado junto com esta pele. */
+/* A obra do cabeçalho em webp de 640px: ela exibe em min(34rem, 78%) =
+   544px no máximo, e o jpg de 1024 pesava 361 KB contra 173 KB aqui. Foi
+   a única imagem do CDN que ficou fora do otimizador do builder, porque
+   ela vive em background-image no CSS, não em <img src>. */
 body.pagina-quem-somos .section-page-header {
   background:
-    url("https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-1024-1024.jpg")
+    url("https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-640-0.webp")
     no-repeat center / min(34rem, 78%),
     var(--amarelo);
   padding: clamp(5rem, 14vh, 9rem) var(--gutter-container, 2rem);
