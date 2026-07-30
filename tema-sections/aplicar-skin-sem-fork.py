@@ -116,9 +116,19 @@ AJUSTES = {
 # e o google_fonts_url do tema só pede 400,700 sem itálico — daí o @import,
 # que precisa ser a primeira regra do bloco de estilo.
 CSS_CRITICO = (
+    # Só os eixos que a folha realmente usa. O pedido anterior trazia `opsz`
+    # (tamanho óptico) nas duas famílias e a faixa de peso 100..900 com
+    # itálico completo: 349 KB de fonte na home do celular, o maior item
+    # isolado da página depois das imagens. Medido arquivo por arquivo nos
+    # subsets latin/latin-ext: 745 KB de catálogo contra 292 KB assim.
+    # Nada abaixo de 400 é usado (os font-weight: 100 do CSS eram a FAIXA
+    # declarada nos @font-face, que nem sobem), Roboto Serif não passa de
+    # 700, e nenhum itálico vem com negrito — daí `1,400` sozinho.
+    # Pesos discretos foram medidos e são PIORES (927 KB em 16 arquivos):
+    # com fonte variável, uma faixa é um arquivo só.
     "@import url('https://fonts.googleapis.com/css2"
-    "?family=Inter:opsz,wght@14..32,100..900"
-    "&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900"
+    "?family=Inter:wght@400..900"
+    "&family=Roboto+Serif:ital,wght@0,400..700;1,400"
     "&display=swap');\n"
     ':root{--heading-font:"Inter",-apple-system,sans-serif;'
     '--body-font:"Roboto Serif",Georgia,serif}\n'

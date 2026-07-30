@@ -589,15 +589,24 @@ def main() -> int:
 
     # GSAP e ScrollTrigger vêm de CDN porque `static/` não é servido sem fork.
     # O motion só roda depois deles, e só se ambos carregarem — daí a guarda.
+    #
+    # `defer` nos dois: sem ele eram 45 KB BLOQUEANDO a primeira pintura, num
+    # script que só serve pra animar no scroll — nada dele é necessário pra
+    # tela aparecer. A guarda passa a rodar no DOMContentLoaded porque script
+    # inline NÃO é adiado: sem isso ele executaria antes do GSAP existir e o
+    # motion ficaria desligado. Script com defer executa antes desse evento,
+    # então a ordem está garantida.
     js = (
-        '<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>\n'
-        '<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>\n'
+        '<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>\n'
+        '<script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>\n'
         "<script>\n"
+        "document.addEventListener('DOMContentLoaded', function () {\n"
         "if (window.gsap && window.ScrollTrigger) {\n"
         f"{motion}\n"
         "} else {\n"
         "  console.warn('Museu em Fios: GSAP não carregou; o motion fica desligado.');\n"
         "}\n"
+        "});\n"
         "</script>"
     )
     sections["museu-motion"] = secao_custom({"js": bloco_code(js)})
