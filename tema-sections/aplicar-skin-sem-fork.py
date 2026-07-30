@@ -14,9 +14,10 @@ pelos três canais que passam sem fork:
      caracteres, então aqui entra o mínimo.
 
   3. templates/layout/footer.json — ganha uma seção `custom` com dois blocks
-     `code`: a pele completa (museu-skin-ipanema.css, sem limite de tamanho)
-     e a assinatura © + Vitamina abaixo do rodapé. O footer.json renderiza em
-     todas as páginas — é o nosso "arquivo global".
+     `code`: a pele completa (museu-skin-ipanema.css) e a assinatura © +
+     Vitamina abaixo do rodapé. O footer.json renderiza em todas as páginas —
+     é o nosso "arquivo global". O setting `code` para em 50.000 caracteres
+     (custom_code), então a pele sobe comprimida — ver comprimir_css.
 
 Rode DEPOIS do montar-tema.sh. Uso:  python3 aplicar-skin-sem-fork.py
 """
@@ -144,6 +145,18 @@ ROTEADOR = (
     "var s=(location.pathname.replace(/\\/+$/,'').split('/').pop()||'home')"
     ".toLowerCase().replace(/[^a-z0-9-]/g,'');"
     "document.body.classList.add('pagina-'+(s||'home'));"
+    "})();</script>"
+)
+
+# PALIATIVO — o item "Blog" do menu aponta pra /blog1/, que responde 404; a
+# página existe em /blog/. Clique morto na navegação principal, encontrado
+# pelo auditar-cliques.py. A API da Nuvemshop não expõe menus (só o admin),
+# então o link é reescrito aqui até a cliente corrigir em Loja online →
+# Menus. Quando corrigir, isto vira no-op e pode sair.
+CONSERTA_MENU = (
+    "<script>(function(){"
+    "document.querySelectorAll('a[href$=\"/blog1/\"],a[href$=\"/blog1\"]')"
+    ".forEach(function(a){a.href=a.href.replace(/\\/blog1\\/?$/,'/blog/');});"
     "})();</script>"
 )
 
@@ -657,7 +670,7 @@ def main() -> None:
             f'<div class="mf-rodape-logo"><a href="/" aria-label="Museu em Fios">{logo_svg}</a></div>'}},
     })
     footer["sections"]["museu-extra"] = secao_code({
-        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{WHATSAPP}\n{BARRA_COMPRA}\n{CARRINHO}\n{RASTREIO}"}},
+        "pele": {"type": "code", "settings": {"code": f"<style>\n{skin}\n</style>\n{ROTEADOR}\n{CONSERTA_MENU}\n{WHATSAPP}\n{BARRA_COMPRA}\n{CARRINHO}\n{RASTREIO}"}},
         "assinatura": {"type": "code", "settings": {"code": ASSINATURA}},
     })
     footer["order"] = ["museu-topo", "footer", "museu-extra"]
