@@ -137,31 +137,62 @@ def atualizar_iniciante(markup: str) -> str:
     return markup
 
 
+# A CDN da Nuvemshop gera variantes por tamanho E em webp — basta pedir a
+# extensão na URL (o header Accept não muda nada). Conferido por HEAD nas 15
+# imagens do mapa: as quatro variantes existem em todas.
+#
+# O PSI apontou "melhorar a entrega de imagens: 8.987 KiB" e LCP de 31,2 s. A
+# causa é que seis das capas foram salvas em PNG: foto 1024x1024 em PNG dá
+# ~2 MB, a mesma em webp dá ~180 KB. Somando as 15: 15,16 MB hoje contra
+# 2,06 MB em -640-0.webp — e o -640-0.webp é MENOR que o arquivo atual em
+# todos os 15 casos, medido um por um.
+#
+# Sem <picture> de fallback de propósito: o próprio tema já serve o logo em
+# .webp sem fallback, ou seja a plataforma assume suporte.
+VARIANTES_IMG = (320, 480, 640)
+
+
+def otimizar_imagens(markup: str, teto: int = 640) -> str:
+    """Troca as imagens do CDN por webp com srcset.
+
+    `teto` é a maior variante oferecida. 640 para os cards, que aparecem em
+    no máximo 390px de tela; o hero vai a 1024 porque é o elemento do LCP e
+    é um por slide. Não incluir a variante maior é deliberado: se ela estiver
+    no srcset, aparelho com DPR 3 escolhe ela e o ganho vai embora.
+    """
+    larguras = [w for w in VARIANTES_IMG if w <= teto]
+
+    def trocar(m: re.Match) -> str:
+        tag, src = m.group(0), m.group(1)
+        if "mitiendanube" not in src or "-1024-1024." not in src or "srcset=" in tag:
+            return tag
+        base = src.rsplit("-1024-1024.", 1)[0]
+        fontes = [f"{base}-{w}-0.webp {w}w" for w in larguras]
+        if teto >= 1024:
+            fontes.append(f"{base}-1024-1024.webp 1024w")
+        principal = (f"{base}-1024-1024.webp" if teto >= 1024
+                     else f"{base}-{larguras[-1]}-0.webp")
+        tag = tag.replace(src, principal)
+        return tag[:-1] + (f' srcset="{", ".join(fontes)}"'
+                           ' sizes="(max-width: 768px) 92vw, 30rem">')
+
+    return re.sub(r'<img[^>]*src="([^"]+)"[^>]*>', trocar, markup)
+
+
 def melhorar_hero(markup: str) -> str:
     """Ajustes de SEO e conversão no hero, depois dos links resolvidos.
 
     - o descritor vira <h2>: o h1 do tema é invisível e a página ficava sem
       heading com palavra-chave no topo;
-    - as obras ganham width/height + srcset (o CDN da Nuvemshop serve as
-      variantes -320-0/-480-0; sem isso o mobile baixa 1024px fixo);
     - a imagem da obra vira link pro mesmo destino do "Ver o kit" do slide —
       antes o único clicável era um link de texto de 15px;
     - no slide sem produto publicado o rótulo diz a verdade: "Ver a coleção".
+
+    As variantes de imagem saíram daqui: agora é otimizar_imagens(), que vale
+    pra TODAS as seções, não só o hero.
     """
     markup = re.sub(r'<p class="mf-hero__descritor"(.*?)</p>',
                     r'<h2 class="mf-hero__descritor"\1</h2>', markup, flags=re.S)
-
-    def com_variantes(m: re.Match) -> str:
-        tag, src = m.group(0), m.group(1)
-        if "obra-original" not in src or "srcset" in tag:
-            return tag
-        base = src.rsplit("-1024-1024.", 1)[0]
-        ext = src.rsplit(".", 1)[-1]
-        srcset = (f"{base}-320-0.{ext} 320w, {base}-480-0.{ext} 480w, {src} 1024w")
-        return tag[:-1] + (f' width="1024" height="1024" srcset="{srcset}"'
-                           ' sizes="(max-width: 768px) 92vw, 40rem">')
-
-    markup = re.sub(r'<img[^>]*src="([^"]+)"[^>]*>', com_variantes, markup)
 
     palcos = re.split(r'(?=<div class="mf-hero__palco")', markup)
     for i, chunk in enumerate(palcos):
@@ -236,8 +267,18 @@ def com_layout(preservado: dict, **ajustes) -> dict:
     correção de largura/cor no código nunca chegava ao ar. A divisão certa é:
     conteúdo (blocks, que a cliente edita) vem da loja; layout (settings da
     seção) vem daqui.
+
+    O otimizador de imagem roda também aqui: o visual do kit vive num block
+    `code` preservado, e sem isso ele ficava de fora — justamente uma capa de
+    2,1 MB em PNG. Como a troca é idempotente (só casa `-1024-1024.` e pula o
+    que já tem srcset), rodar em conteúdo já otimizado não faz nada.
     """
-    secao = secao_custom(preservado.get("blocks", {}), **ajustes)
+    blocks = json.loads(json.dumps(preservado.get("blocks", {})))  # não mexe no original
+    for bloco in blocks.values():
+        code = bloco.get("settings", {}).get("code")
+        if isinstance(code, str) and "mitiendanube" in code:
+            bloco["settings"]["code"] = otimizar_imagens(code)
+    secao = secao_custom(blocks, **ajustes)
     if "block_order" in preservado:
         secao["block_order"] = preservado["block_order"]
     return secao
@@ -418,6 +459,9 @@ def main() -> int:
             markup = cirurgia_vitrine(markup)
         markup, pendentes = trocar_imagens(markup, mapa)
         markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
+        # webp + srcset em toda seção. O hero vai a 1024 porque a obra dele é
+        # o elemento do LCP; o resto para em 640, que já é 2x pro maior card.
+        markup = otimizar_imagens(markup, teto=1024 if nome == "museu-hero" else 640)
         if nome == "museu-hero":
             markup = melhorar_hero(markup)
 
