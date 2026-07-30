@@ -163,12 +163,37 @@ ROTEADOR = (
 # pelo auditar-cliques.py. A API da Nuvemshop não expõe menus (só o admin),
 # então o link é reescrito aqui até a cliente corrigir em Loja online →
 # Menus. Quando corrigir, isto vira no-op e pode sair.
-CONSERTA_MENU = (
-    "<script>(function(){"
-    "document.querySelectorAll('a[href$=\"/blog1/\"],a[href$=\"/blog1\"]')"
-    ".forEach(function(a){a.href=a.href.replace(/\\/blog1\\/?$/,'/blog/');});"
-    "})();</script>"
-)
+CONSERTA_MENU = """<script>(function(){
+  // 1. "Blog" aponta pra /blog1/, que responde 404; a página existe em /blog/.
+  document.querySelectorAll('a[href$="/blog1/"],a[href$="/blog1"]').forEach(function (a) {
+    a.href = a.href.replace(/\\/blog1\\/?$/, '/blog/');
+  });
+
+  // 2. Itens de menu SEM TEXTO. O menu tem três: os dois filhos de "Loja"
+  //    (que apontam pra home) e um apontando pra um produto. Renderizam como
+  //    linha em branco — o submenu de Loja abria uma caixa vazia, que é o
+  //    que a gente via como "texto branco". Não é cor: não há texto.
+  //    Link sem rótulo nunca é intencional, então some até a cliente
+  //    corrigir em Loja online → Menus. Corrigido lá, isto vira no-op.
+  document.querySelectorAll('.nav-list-link, .nav-item > a').forEach(function (a) {
+    if ((a.textContent || '').trim() || a.querySelector('img, svg')) return;
+    var li = a.closest('li') || a;
+    li.style.display = 'none';
+  });
+
+  // 3. Dropdown que ficou sem nenhum filho visível vira caixa vazia ao
+  //    passar o mouse — esconde o painel e a setinha. O "Loja" segue
+  //    clicável, apontando pra /produtos/.
+  document.querySelectorAll('.nav-dropdown').forEach(function (nav) {
+    var vivos = [].slice.call(nav.querySelectorAll('li')).filter(function (li) {
+      return li.style.display !== 'none';
+    });
+    if (vivos.length) return;
+    nav.querySelectorAll('.nav-dropdown-content, .desktop-dropdown-container')
+       .forEach(function (p) { p.style.display = 'none'; });
+    nav.querySelectorAll('svg, .icon-inline').forEach(function (s) { s.style.display = 'none'; });
+  });
+})();</script>"""
 
 # WhatsApp logo abaixo do comprar (mobile e desktop), como na demo aprovada.
 # O número é o do rodapé/demo; a mensagem já vai com o nome do produto.
