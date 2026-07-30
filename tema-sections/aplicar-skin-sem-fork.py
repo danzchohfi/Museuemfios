@@ -462,9 +462,27 @@ def ajustar_header() -> None:
     }
     an["block_order"] = ["cupom", "frete"]
     # header na cor de papel da marca, não branco puro
-    head["sections"]["header"]["settings"]["background_color"] = "#FBFAF6"
+    cab = head["sections"]["header"]
+    cab["settings"]["background_color"] = "#FBFAF6"
+    # Logo bem maior no celular. O default do tema é 30px, e a nossa marca é
+    # um lockup de DUAS linhas ("MUSEU / EM FIOS") — em 30px de altura cada
+    # linha fica com ~13px e a assinatura desaparece ao lado dos ícones.
+    # Vai pelo setting NATIVO (height_mobile, faixa 20–90), então a cliente
+    # segue ajustando no editor. 64px é o limite antes de o lockup competir
+    # por espaço com o menu e os ícones na largura de um iPhone.
+    cab["blocks"]["logo"]["settings"].update({
+        "use_different_mobile_height": True,
+        "height_mobile": 64,
+    })
+    # O respiro lateral de 40px era o que sobrava de espaço pro logo crescer;
+    # no celular vai a 20 e o vertical encurta pra faixa não ficar alta demais.
+    cab["settings"].update({
+        "use_different_mobile_padding": True,
+        "vertical_padding_mobile": 12,
+        "horizontal_padding_mobile": 20,
+    })
     p_head.write_text(json.dumps(head, ensure_ascii=False, indent=2), encoding="utf8")
-    print("  header.json: barra de anúncio ligada (cupom + frete) e fundo papel")
+    print("  header.json: barra de anúncio, fundo papel, logo mobile 64px")
 
 
 def ajustar_produto() -> None:
