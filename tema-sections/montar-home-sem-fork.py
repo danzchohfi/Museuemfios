@@ -147,6 +147,96 @@ def atualizar_iniciante(markup: str) -> str:
     return markup
 
 
+# ------------------------------------------------ vitrine em blocks nativos --
+# A vitrine deixou de ser markup fixo: cada card virou um `group` com um bloco
+# de imagem e um de texto. A cliente adiciona, remove e reordena kit no editor
+# do tema, sem depender da gente — que era o pedido, e o motivo de o Nu Bleu II
+# ter ficado esperando.
+#
+# Por que group + image + text, e não o `category-item` (que tem imagem, texto
+# e link num campo só): testei os dois no ar, e o campo de imagem do
+# category-item não renderiza — o template dele tem um guard interno
+# (`is_image_thumbnail`) que só é verdadeiro dentro da seção de categorias.
+# O bloco `image`, esse aceita URL do CDN e sai com srcset e lazyload.
+#
+# Cada card leva DOIS blocos de imagem: a obra original e a foto do bordado
+# pronto, que aparece no hover — a troca obra → interpretação em fios é a
+# interação assinatura da demo, e ela sobrevive à conversão porque é só
+# opacidade entre dois <img> empilhados.
+#
+# O texto usa as MESMAS classes da demo (.obra-card__*), então as regras de
+# museu-theme.css valem sem cópia: o nome do artista grande sobre a obra, a
+# ficha na base e a barra "Ver o kit →" subindo no hover. O que o skin precisa
+# resolver é só o que a estrutura do tema muda de lugar.
+VITRINE_CARDS = [
+    {"id": "lepont", "artista": "Monet", "obra": "Le Pont Japonais",
+     "preco": "R$ 189", "cor": "#9cad4e",
+     "href": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+     "img": "obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079",
+     "foto": "kit-para-bordar-le-pont-japonais-claude-monet-1-fc3f4d3c752c59d30617854169030794"},
+    {"id": "umarmung", "artista": "Klimt", "obra": "Die Umarmung",
+     "preco": "R$ 199", "cor": "#f2c440",
+     "href": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+     "img": "obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773",
+     "foto": "kit-para-bordar-die-umarmung-o-abraco-gustav-kli-1-ff5f3f301734e7d20b17854169091892"},
+    {"id": "derkuss", "artista": "Klimt", "obra": "Der Kuss",
+     "preco": "R$ 199", "cor": "#f2c440",
+     "href": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
+     "img": "obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558",
+     "foto": "kit-para-bordar-der-kuss-o-beijo-gustav-klimt-2-d16754470d51674d9617854169238369"},
+    {"id": "lagerbe", "artista": "Matisse", "obra": "La Gerbe",
+     "preco": "R$ 179", "cor": "#edeae0",
+     "href": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
+     "img": "obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805",
+     "foto": "kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364"},
+    # Publicado em 30/07 e com a obra subida pela cliente na posição 4.
+    {"id": "nubleu", "artista": "Matisse", "obra": "Nu Bleu II",
+     "preco": "R$ 149", "cor": "#6a9cc3",
+     "href": INICIANTE_URL,
+     "img": "nu-d881b9500f7785b21017855220489403",
+     "foto": "kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819"},
+]
+
+CDN = "https://acdn-us.mitiendanube.com/stores/006/671/481/products/"
+
+
+def vitrine_em_blocks() -> dict:
+    """Monta os blocks da vitrine: um `group` por kit."""
+    blocks = {
+        "topo": bloco_code(
+            '<div class="mf-vitrine__topo">'
+            '<div><p class="mf-eyebrow">Coleção permanente</p>'
+            '<h2 class="mf-h2">Kits para bordar</h2></div>'
+            '<a class="mf-link" href="/kits-de-bordado/">Ver todos os kits</a>'
+            "</div>"),
+    }
+    for c in VITRINE_CARDS:
+        imagem = lambda arquivo: {"type": "image", "settings": {
+            "image": f"{CDN}{arquivo}-640-0.webp",
+            "link": c["href"], "width": "fill"}}
+        blocks[c["id"]] = {
+            "type": "group",
+            "settings": {
+                "direction": "column", "gap": 0,
+                "vertical_padding": 0, "horizontal_padding": 0,
+                "custom_background_color": c["cor"],
+            },
+            "blocks": {
+                "obra": imagem(c["img"]),
+                "foto": imagem(c["foto"]),
+                "ficha": {"type": "text", "settings": {"text":
+                    f'<p class="obra-card__artista">{c["artista"]}</p>'
+                    f'<p class="obra-card__base">'
+                    f'<span class="obra-card__obra">'
+                    f'<span class="obra-card__tipo">Kit de bordado</span>'
+                    f'{c["obra"]}</span>'
+                    f'<span class="obra-card__preco">{c["preco"]}</span></p>'
+                    f'<p class="obra-card__cta">Ver o kit →</p>'}},
+            },
+        }
+    return blocks
+
+
 # A CDN da Nuvemshop gera variantes por tamanho E em webp — basta pedir a
 # extensão na URL (o header Accept não muda nada). Conferido por HEAD nas 15
 # imagens do mapa: as quatro variantes existem em todas.
@@ -256,9 +346,14 @@ def home_publicada():
             return None
 
 
+# Seções que o `--refazer` mandou remontar do código. Vive aqui, e não só no
+# main(), pra valer nos quatro pontos de preservação sem repetir a checagem.
+REFAZER: set[str] = set()
+
+
 def blocks_preservados(vivo, nome_secao, chave):
     """Devolve a seção publicada se ela já está em blocks nativos."""
-    if not vivo:
+    if not vivo or nome_secao in REFAZER:
         return None
     try:
         secao = vivo["sections"][nome_secao]
@@ -409,7 +504,18 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--imagens", default=str(RAIZ / "imagens-cdn.json"),
                     help="JSON {nome-do-arquivo.jpg: url-do-cdn}")
+    # A preservação existe pra não apagar o que a cliente editou no editor —
+    # e por isso ela também congela um erro NOSSO que já subiu. Quando é o
+    # nosso código que precisa vencer, o descarte tem que ser dito em voz alta.
+    # Só use sabendo que os blocks publicados daquela seção vão embora.
+    ap.add_argument("--refazer", default="", metavar="secao,secao",
+                    help="remonta estas seções do código, DESCARTANDO os "
+                         "blocks publicados (ex.: --refazer museu-vitrine)")
     args = ap.parse_args()
+    REFAZER.update(s.strip() for s in args.refazer.split(",") if s.strip())
+    if REFAZER:
+        print(f"  --refazer: {', '.join(sorted(REFAZER))} "
+              "— os blocks publicados destas seções serão DESCARTADOS")
 
     if not BUILD.exists():
         raise SystemExit(f"Rode antes: ./montar-tema.sh <ID>  (não achei {BUILD})")
@@ -462,11 +568,20 @@ def main() -> int:
     print(f"  vídeo da noite: {video_atual.get('id')}")
 
     for nome, seletor in SECOES:
-        markup = extrair(html, seletor)
         if nome == "museu-vitrine":
-            # a poda vem ANTES do mapa de imagens: cards descartados não
-            # geram pendência falsa de imagem
-            markup = cirurgia_vitrine(markup)
+            # Blocks NATIVOS: a cliente adiciona kit sozinha no editor. Preserva
+            # o que estiver publicado (cards que ela tenha criado ou editado) e
+            # só reaplica o layout, como nas outras seções convertidas.
+            if preservado := blocks_preservados(vivo, nome, "topo"):
+                sections[nome] = com_layout(preservado, section_width="full")
+                print(f"  {nome:18}    (cards preservados da loja)")
+            else:
+                sections[nome] = secao_custom(vitrine_em_blocks(), section_width="full")
+                print(f"  {nome:18}    {len(VITRINE_CARDS)} cards em blocks nativos")
+            ordem.append(nome)
+            continue
+
+        markup = extrair(html, seletor)
         markup, pendentes = trocar_imagens(markup, mapa)
         markup, links_sobrando = trocar_links(markup, com_obras=(nome == "museu-hero"))
         # webp + srcset em toda seção. O hero vai a 1024 porque a obra dele é

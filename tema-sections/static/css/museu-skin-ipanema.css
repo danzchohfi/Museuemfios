@@ -1223,6 +1223,101 @@ body.mf-com-barra .js-notification-private {
   margin-block: -0.75rem;   /* cresce a área sem esticar a faixa */
 }
 
+/* ==================================== vitrine de kits em blocks nativos -- */
+/* Os cards viraram `group` (duas imagens + texto) pra cliente poder adicionar
+   kit sozinha pelo editor do tema. O texto usa as classes originais
+   (.obra-card__artista, __base, __tipo, __preco, __cta), então o desenho vem
+   inteiro de museu-theme.css e não é copiado aqui. O que este bloco resolve é
+   só o que a estrutura do tema põe no lugar errado. */
+.section-custom[data-section-id="museu-vitrine"] .custom-section-content {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
+  column-gap: clamp(1.25rem, 2.5vw, 2.25rem) !important;
+  row-gap: clamp(1.25rem, 2.5vw, 2.25rem) !important;
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
+  margin-inline: auto;
+}
+/* o cabeçalho ocupa a linha toda */
+.section-custom[data-section-id="museu-vitrine"] [data-block-id="topo"] {
+  grid-column: 1 / -1;
+}
+/* o card */
+.section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 0 !important;
+  display: block !important;
+}
+/* Os invólucros que o tema põe entre o card e o conteúdo saem do fluxo. Sem
+   isto o <a> da imagem fica dentro de um pai posicionado e só cobre a moldura
+   da obra: a primeira versão media clique MORTO no nome e no preço de 3 dos 5
+   cards. Com `display: contents` o <a>, o nome do artista e a ficha viram
+   filhos diretos do card, que é quem tem `position: relative`. */
+.section-custom[data-section-id="museu-vitrine"] .image-block,
+.section-custom[data-section-id="museu-vitrine"] .text-block,
+.section-custom[data-section-id="museu-vitrine"] .text-content {
+  display: contents;
+}
+/* !important só aqui: o tema escreve o flex do .group-content INLINE, a partir
+   do setting `direction` do group, e inline ganha de qualquer seletor. */
+.section-custom[data-section-id="museu-vitrine"] .group-content {
+  display: contents !important;
+}
+
+/* O <a> de cada imagem É o link do card: cobre os 100%, atrás do texto. */
+.section-custom[data-section-id="museu-vitrine"] .image-block a {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+/* A obra, na mesma moldura da demo (12% do topo, 14% nas laterais).
+   A largura é dita, não deduzida de left+right: <img> é elemento substituído,
+   e aí `width: auto` vale a largura INTRÍNSECA do arquivo, não o que sobra
+   entre os dois lados. Com left/right o navegador pegou os 480px da variante
+   do srcset e a obra vazou 121px pra fora do card. */
+.section-custom[data-section-id="museu-vitrine"] .image-block img {
+  position: absolute;
+  top: 12%;
+  left: 14%;
+  right: auto;
+  bottom: auto;
+  width: 72% !important;   /* 100% − 14% − 14%; o !important é pro .block-fill */
+  height: auto;
+  max-width: none;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+/* o placeholder do lazyload é `inset: 0` — com o <a> valendo o card inteiro,
+   ele viraria um retângulo cinza por cima de tudo */
+.section-custom[data-section-id="museu-vitrine"] .image-block .placeholder {
+  display: none;
+}
+/* a foto do bordado pronto entra no hover, como na demo (obra → fios) */
+.section-custom[data-section-id="museu-vitrine"] [data-block-id="foto"] img {
+  opacity: 0;
+  transition: opacity 0.5s var(--transicao, cubic-bezier(0.16, 1, 0.3, 1));
+}
+.section-custom[data-section-id="museu-vitrine"]
+  [data-block-type="group"]:hover [data-block-id="foto"] img { opacity: 1; }
+
+/* O texto fica ACIMA das imagens (z-index 2, 3 e 4 vêm da demo) e por isso
+   receberia o clique no lugar do <a>. Deixa passar. */
+.section-custom[data-section-id="museu-vitrine"] .obra-card__artista,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__base,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__cta {
+  pointer-events: none;
+  margin: 0;
+}
+/* o hover do CTA na demo é `.obra-card:hover`, e aqui o card é o group */
+.section-custom[data-section-id="museu-vitrine"]
+  [data-block-type="group"]:hover .obra-card__cta { transform: translateY(0); }
+
+.section-custom[data-section-id="museu-vitrine"] .mf-vitrine__topo {
+  margin-bottom: 1rem;
+}
+
 /* Comprar dos cards de listagem. No desktop ele saía com 87x28px dentro de um
    card de 305: fonte de 12px e 4px de respiro vertical, num botão que é o
    fim do funil da página de coleção. Vai pra largura cheia do card e 52px de

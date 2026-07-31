@@ -1,10 +1,32 @@
 # Museu em Fios — o que já está no ar
 
-Atualizado em 30/07/2026.
+Atualizado em 31/07/2026.
 
 ---
 
-## Já resolvido hoje
+## A vitrine da home agora é de vocês
+
+**O Nu Bleu II entrou na vitrine "Kits para bordar"**, com a obra do Matisse, a
+foto do bordado no hover e o preço de R$ 149 — são cinco kits na home.
+
+E, mais importante: **a vitrine deixou de ser código.** Cada kit virou um card
+editável no *Loja online → Temas → Personalizar → Kits para bordar*. Para
+colocar um kit novo:
+
+1. duplique um card que já existe (ou crie um grupo novo);
+2. **cor de fundo** do grupo: é a cor que emoldura a obra;
+3. **primeira imagem**: a obra original;
+4. **segunda imagem**: a foto do bordado pronto — é ela que aparece quando o
+   mouse passa por cima;
+5. nas duas imagens, o **link** vai para a página do kit;
+6. no bloco de texto, o nome do artista, o nome da obra e o preço.
+
+Um aviso sobre o preço: ele é digitado ali, não vem do cadastro do produto.
+Se o preço mudar na loja, o card da home precisa ser atualizado junto.
+
+---
+
+## Já resolvido
 
 **Os dois links que davam erro 404 estão funcionando.** O "Ver todos os kits" e
 o "Ver todos os guias" voltaram a abrir as páginas de coleção. Foi uma falha
@@ -91,12 +113,7 @@ Todos voltaram a aparecer. O rodapé também ficou mais compacto no celular.
 arquivos convertidos vão pra vocês — o upload é pelo painel, em *Produtos →
 produto → adicionar vídeo*, do mesmo jeito que foi feito no La Gerbe.
 
-**2. A foto da obra original do Nu Bleu II.** Os outros kits têm a pintura
-original como última foto da galeria; esse ainda não. É subir pelo painel, em
-*Produtos → Matisse para quem nunca Bordou → adicionar imagem*, e arrastar pra
-última posição.
-
-**3. Três ajustes no painel** que só podem ser feitos por vocês:
+**2. Três ajustes no painel** que só podem ser feitos por vocês:
 
 - **Menu → os dois itens do submenu "Loja"**: dar nome e link (sugestão: *Kits
   de Bordado* e *Produtos Digitais*). Há também um item sem nome apontando para
@@ -109,7 +126,7 @@ original como última foto da galeria; esse ainda não. É subir pelo painel, em
   Escrevemos as 47, uma a uma, olhando cada foto — lista em anexo, é colar em
   *Produtos → produto → clicar na imagem*.
 
-**4. Duas configurações de rastreamento:**
+**3. Duas configurações de rastreamento:**
 
 - o código do Google Tag Manager está com um ID inválido e responde erro a cada
   visita (parece um ID de Google Ads colado no campo errado);

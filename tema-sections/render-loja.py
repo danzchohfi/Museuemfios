@@ -108,12 +108,41 @@ AUDITAR = r"""(larguraTela) => {
     if ((r.right > vw + 2 || r.left < -2) && s.position !== "fixed" && !recortado)
       overflow.push({ el: nomeDe(el).slice(0, 70), esq: Math.round(r.left), dir: Math.round(r.right) });
 
-    if (r.height > 150 && s.position !== "fixed" && el.children.length) {
-      const usada = [...el.children].filter(c => getComputedStyle(c).display !== "none")
-        .reduce((a, c) => a + c.getBoundingClientRect().height, 0);
-      if (r.height - usada > 120)
+    // Vão vazio = altura do bloco menos a faixa vertical que o conteúdo DE
+    // FATO cobre. Três coisas que a versão anterior errava, todas medidas na
+    // vitrine em blocks nativos:
+    //   · somava a altura dos filhos, o que só vale quando eles empilham. Os
+    //     filhos do card são `absolute` e se sobrepõem: a soma acusou 488px de
+    //     vão num card cheio. Agora é união de intervalos.
+    //   · `display: contents` devolve retângulo zero, então o filho "sumia" e
+    //     o pai parecia vazio. Agora desce até quem tem caixa.
+    //   · caixa fora do fluxo não empurra página nenhuma, logo não pode ser a
+    //     causa de um vão — o <a> esticado por cima do card caía aqui.
+    // Elemento com texto próprio também sai: o conteúdo dele é o texto.
+    const temTextoProprio = [...el.childNodes]
+      .some(n => n.nodeType === 3 && n.textContent.trim().length > 1);
+    if (r.height > 150 && ["static", "relative"].includes(s.position)
+        && el.children.length && !temTextoProprio) {
+      const comCaixa = [];
+      const desce = (pai) => { for (const c of pai.children) {
+        const d = getComputedStyle(c).display;
+        if (d === "none") continue;
+        const b = c.getBoundingClientRect();
+        // desce por quem não tem caixa própria: `display: contents` não gera
+        // nenhuma, e um wrapper cujos filhos são todos `absolute` colapsa a 0
+        if (d === "contents" || (b.height === 0 && c.children.length)) desce(c);
+        else comCaixa.push(b); } };
+      desce(el);
+      const faixas = comCaixa.filter(b => b.height > 0)
+        .map(b => [b.top, b.bottom]).sort((a, b) => a[0] - b[0]);
+      let coberta = 0, fim = -Infinity;
+      for (const [ini, termino] of faixas) {
+        coberta += Math.max(0, termino - Math.max(ini, fim));
+        fim = Math.max(fim, termino);
+      }
+      if (r.height - coberta > 120)
         vazios.push({ el: nomeDe(el).slice(0, 70), alt: Math.round(r.height),
-                      sobra: Math.round(r.height - usada), topo: Math.round(r.top + scrollY) });
+                      sobra: Math.round(r.height - coberta), topo: Math.round(r.top + scrollY) });
     }
 
     // texto invisível / ícone invisível: contraste contra o fundo herdado
