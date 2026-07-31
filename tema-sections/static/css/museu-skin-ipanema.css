@@ -1229,17 +1229,28 @@ body.mf-com-barra .js-notification-private {
    (.obra-card__artista, __base, __tipo, __preco, __cta), então o desenho vem
    inteiro de museu-theme.css e não é copiado aqui. O que este bloco resolve é
    só o que a estrutura do tema põe no lugar errado. */
+/* PENDURA DE SALÃO, não grade. Com grade automática, 5 kits numa tela larga
+   caíam em 4 + 1 — um card órfão sozinho na fileira de baixo (reclamação do
+   Daniel, 31/07). A resposta não é ajustar pra 5, porque a cliente vai mexer
+   na quantidade; é um layout que fica intencional com QUALQUER contagem:
+     · no máximo 3 pôsteres por fileira, então eles ficam grandes;
+     · fileira incompleta é CENTRADA (flex, não grid — grid não centra órfão);
+     · cards alternados descem meio passo, como quadros pendurados em alturas
+       diferentes numa parede de salão. 5 vira 3+2 composto; 6 vira 3+3. */
 .section-custom[data-section-id="museu-vitrine"] .custom-section-content {
-  display: grid !important;
-  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));
-  column-gap: clamp(1.25rem, 2.5vw, 2.25rem) !important;
-  row-gap: clamp(1.25rem, 2.5vw, 2.25rem) !important;
+  --vit-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  display: flex !important;
+  flex-flow: row wrap !important;
+  justify-content: center;
+  align-items: flex-start !important;   /* stretch quebraria o 4:5 dos cards */
+  column-gap: var(--vit-gap) !important;
+  row-gap: clamp(1.75rem, 3vw, 2.75rem) !important;
   width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
   margin-inline: auto;
 }
-/* o cabeçalho ocupa a linha toda */
+/* o cabeçalho ocupa a fileira toda */
 .section-custom[data-section-id="museu-vitrine"] [data-block-id="topo"] {
-  grid-column: 1 / -1;
+  flex: 1 1 100%;
 }
 /* o card */
 .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
@@ -1249,6 +1260,26 @@ body.mf-com-barra .js-notification-private {
   isolation: isolate;
   padding: 0 !important;
   display: block !important;
+  flex: 0 0 100%;   /* celular: um pôster por fileira, largura cheia */
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+    /* o -1px segura o arredondamento do calc(): sem ele o último card da
+       fileira pode não caber e despencar pra fileira de baixo */
+    flex-basis: calc((100% - var(--vit-gap)) / 2 - 1px);
+  }
+  /* a pendura: alternados descem. :nth-of-type conta os irmãos div (o topo é
+     o 1º), então os pares são os cards 1, 3, 5… — começa descendo. */
+  .section-custom[data-section-id="museu-vitrine"]
+    [data-block-type="group"]:nth-of-type(even) {
+    margin-top: 2.75rem;
+  }
+}
+@media (min-width: 1100px) {
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+    flex-basis: calc((100% - 2 * var(--vit-gap)) / 3 - 1px);
+  }
 }
 /* Os invólucros que o tema põe entre o card e o conteúdo saem do fluxo. Sem
    isto o <a> da imagem fica dentro de um pai posicionado e só cobre a moldura
