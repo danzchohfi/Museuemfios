@@ -87,18 +87,16 @@ Todos voltaram a aparecer. O rodapé também ficou mais compacto no celular.
 
 ## Precisamos de vocês
 
-**1. O vídeo do YouTube na home.** Hoje está o arquivo que subimos no canal da
-Vitamina. Mandem o link do vídeo no canal de vocês que a gente troca — ou vocês
-mesmas trocam: no editor do tema, na seção do vídeo, é só colar a URL.
+**1. O vídeo das obras prontas nos produtos.** Só o La Gerbe tem vídeo hoje. Os
+arquivos convertidos vão pra vocês — o upload é pelo painel, em *Produtos →
+produto → adicionar vídeo*, do mesmo jeito que foi feito no La Gerbe.
 
-**2. O vídeo das obras prontas nos produtos.** Nenhum dos kits tem vídeo
-cadastrado hoje. Mandem os links, um por produto, e cadastramos.
+**2. A foto da obra original do Nu Bleu II.** Os outros kits têm a pintura
+original como última foto da galeria; esse ainda não. É subir pelo painel, em
+*Produtos → Matisse para quem nunca Bordou → adicionar imagem*, e arrastar pra
+última posição.
 
-**3. A foto da obra original do Nu Bleu II.** Os outros kits têm a pintura
-original como última foto da galeria; esse ainda não. Mandem o arquivo em boa
-resolução.
-
-**4. Três ajustes no painel** que só podem ser feitos por vocês:
+**3. Três ajustes no painel** que só podem ser feitos por vocês:
 
 - **Menu → os dois itens do submenu "Loja"**: dar nome e link (sugestão: *Kits
   de Bordado* e *Produtos Digitais*). Há também um item sem nome apontando para
@@ -111,7 +109,7 @@ resolução.
   Escrevemos as 47, uma a uma, olhando cada foto — lista em anexo, é colar em
   *Produtos → produto → clicar na imagem*.
 
-**5. Duas configurações de rastreamento:**
+**4. Duas configurações de rastreamento:**
 
 - o código do Google Tag Manager está com um ID inválido e responde erro a cada
   visita (parece um ID de Google Ads colado no campo errado);
