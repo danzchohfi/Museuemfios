@@ -1248,8 +1248,9 @@ body.mf-com-barra .js-notification-private {
   width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
   margin-inline: auto;
 }
-/* o cabeçalho ocupa a fileira toda */
-.section-custom[data-section-id="museu-vitrine"] [data-block-id="topo"] {
+/* o cabeçalho ocupa a fileira toda — por TIPO, não por id: vale pro nosso
+   "topo" e pra qualquer bloco de código que a cliente venha a criar */
+.section-custom[data-section-id="museu-vitrine"] [data-block-type="code"] {
   flex: 1 1 100%;
 }
 /* o card */
@@ -1325,8 +1326,14 @@ body.mf-com-barra .js-notification-private {
 .section-custom[data-section-id="museu-vitrine"] .image-block .placeholder {
   display: none;
 }
-/* a foto do bordado pronto fica invisível sobre a obra… */
-.section-custom[data-section-id="museu-vitrine"] [data-block-id="foto"] img {
+/* A foto do bordado fica invisível sobre a obra. A "foto" é a SEGUNDA
+   imagem do card, por posição — não por id de bloco: card duplicado pela
+   cliente no editor nasce com ids novos, e amarrar no id quebraria
+   exatamente o card que ela criar. (nth-of-type conta os div irmãos:
+   imagem, imagem, texto — o 2º div é a segunda imagem. Card com uma
+   imagem só não casa o seletor e mostra a obra parada, sem surpresa.) */
+.section-custom[data-section-id="museu-vitrine"]
+  [data-block-type="group"] [data-block-type="image"]:nth-of-type(2) img {
   opacity: 0;
   transition: opacity 0.5s var(--transicao, cubic-bezier(0.16, 1, 0.3, 1));
 }
@@ -1343,8 +1350,8 @@ body.mf-com-barra .js-notification-private {
    No toque, o iOS gruda o :hover no primeiro tap: o José mandou print do
    card preso no estado revelado. Celular fica na obra, e o toque navega. */
 @media (hover: hover) {
-  .section-custom[data-section-id="museu-vitrine"]
-    [data-block-type="group"]:hover [data-block-id="foto"] img { opacity: 1; }
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"]:hover
+    [data-block-type="image"]:nth-of-type(2) img { opacity: 1; }
   /* o hover do CTA na demo é `.obra-card:hover`, e aqui o card é o group */
   .section-custom[data-section-id="museu-vitrine"]
     [data-block-type="group"]:hover .obra-card__cta { transform: translateY(0); }
