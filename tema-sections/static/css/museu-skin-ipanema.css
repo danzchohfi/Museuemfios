@@ -1325,13 +1325,11 @@ body.mf-com-barra .js-notification-private {
 .section-custom[data-section-id="museu-vitrine"] .image-block .placeholder {
   display: none;
 }
-/* a foto do bordado pronto entra no hover, como na demo (obra → fios) */
+/* a foto do bordado pronto fica invisível sobre a obra… */
 .section-custom[data-section-id="museu-vitrine"] [data-block-id="foto"] img {
   opacity: 0;
   transition: opacity 0.5s var(--transicao, cubic-bezier(0.16, 1, 0.3, 1));
 }
-.section-custom[data-section-id="museu-vitrine"]
-  [data-block-type="group"]:hover [data-block-id="foto"] img { opacity: 1; }
 
 /* O texto fica ACIMA das imagens (z-index 2, 3 e 4 vêm da demo) e por isso
    receberia o clique no lugar do <a>. Deixa passar. */
@@ -1341,9 +1339,23 @@ body.mf-com-barra .js-notification-private {
   pointer-events: none;
   margin: 0;
 }
-/* o hover do CTA na demo é `.obra-card:hover`, e aqui o card é o group */
-.section-custom[data-section-id="museu-vitrine"]
-  [data-block-type="group"]:hover .obra-card__cta { transform: translateY(0); }
+/* …e a revelação (foto + "Ver o kit") só existe onde há hover DE VERDADE.
+   No toque, o iOS gruda o :hover no primeiro tap: o José mandou print do
+   card preso no estado revelado. Celular fica na obra, e o toque navega. */
+@media (hover: hover) {
+  .section-custom[data-section-id="museu-vitrine"]
+    [data-block-type="group"]:hover [data-block-id="foto"] img { opacity: 1; }
+  /* o hover do CTA na demo é `.obra-card:hover`, e aqui o card é o group */
+  .section-custom[data-section-id="museu-vitrine"]
+    [data-block-type="group"]:hover .obra-card__cta { transform: translateY(0); }
+}
+
+/* O nome do artista é SEMPRE preto: ele assina por cima da obra, não do
+   fundo — com o custom_text_color papel dos cards azuis, herdado, ele
+   sumiria sobre obra clara (a La Gerbe é quase branca). */
+.section-custom[data-section-id="museu-vitrine"] .obra-card__artista {
+  color: var(--preto, #141414);
+}
 
 .section-custom[data-section-id="museu-vitrine"] .mf-vitrine__topo {
   margin-bottom: 1rem;

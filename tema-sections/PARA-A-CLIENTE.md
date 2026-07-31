@@ -14,7 +14,9 @@ editável no *Loja online → Temas → Personalizar → Kits para bordar*. Para
 colocar um kit novo:
 
 1. duplique um card que já existe (ou crie um grupo novo);
-2. **cor de fundo** do grupo: é a cor que emoldura a obra;
+2. **cor de fundo** do grupo: é a cor que emoldura a obra — o azul dos kits
+   do Matisse, pedido pela Isabella, é o **#475DCA**; num fundo escuro assim,
+   preencha também a **cor do texto** com o branco-papel **#FBFAF6**;
 3. **primeira imagem**: a obra original;
 4. **segunda imagem**: a foto do bordado pronto — é ela que aparece quando o
    mouse passa por cima;
@@ -27,6 +29,16 @@ Se o preço mudar na loja, o card da home precisa ser atualizado junto.
 ---
 
 ## Já resolvido
+
+**Os kits do Matisse estão no azul que a Isabella mandou.** O tom exato do
+swatch (#475DCA), nos dois cards — La Gerbe e Nu Bleu II — com a ficha em
+branco-papel para ler bem sobre o azul.
+
+**A foto revelada do Der Kuss é a do bordado.** Estava aparecendo a foto da
+caixa do kit; agora, ao passar o mouse, aparece o bordado pronto na mão —
+como nos outros cards. No celular a revelação foi desligada de propósito: em
+iPhone o "passar o mouse" gruda no primeiro toque (era o print do José), então
+lá o card mostra a obra e o toque abre direto a página do kit.
 
 **Os dois links que davam erro 404 estão funcionando.** O "Ver todos os kits" e
 o "Ver todos os guias" voltaram a abrir as páginas de coleção. Foi uma falha

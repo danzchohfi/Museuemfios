@@ -179,19 +179,26 @@ VITRINE_CARDS = [
      "href": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
      "img": "obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773",
      "foto": "kit-para-bordar-die-umarmung-o-abraco-gustav-kli-1-ff5f3f301734e7d20b17854169091892"},
+    # A foto do hover é a CAPA do produto (o bordado na mão), não a "-2-" (a
+    # caixa do kit): o José apontou por print que a revelação mostrava a foto
+    # errada. A capa era o PNG de 2,1 MB sem variantes — depois da troca
+    # in-place pra JPG ela ganhou as variantes do CDN (conferido por HEAD).
     {"id": "derkuss", "artista": "Klimt", "obra": "Der Kuss",
      "preco": "R$ 199", "cor": "#f2c440",
      "href": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
      "img": "obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558",
-     "foto": "kit-para-bordar-der-kuss-o-beijo-gustav-klimt-2-d16754470d51674d9617854169238369"},
+     "foto": "kit-de-bordado-der-kuss-klimt-capa-cf3c808b125ead929a17853487083200"},
+    # O azul dos dois Matisse é o tom que a Isabella mandou por swatch no
+    # WhatsApp (31/07), amostrado do print: #475dca. Preto em cima dele dá
+    # contraste 3,2:1 (reprova); papel dá 5,4:1 — por isso o texto= papel.
     {"id": "lagerbe", "artista": "Matisse", "obra": "La Gerbe",
-     "preco": "R$ 179", "cor": "#edeae0",
+     "preco": "R$ 179", "cor": "#475dca", "texto": "#fbfaf6",
      "href": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
      "img": "obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805",
      "foto": "kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364"},
     # Publicado em 30/07 e com a obra subida pela cliente na posição 4.
     {"id": "nubleu", "artista": "Matisse", "obra": "Nu Bleu II",
-     "preco": "R$ 149", "cor": "#6a9cc3",
+     "preco": "R$ 149", "cor": "#475dca", "texto": "#fbfaf6",
      "href": INICIANTE_URL,
      "img": "nu-d881b9500f7785b21017855220489403",
      "foto": "kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819"},
@@ -214,13 +221,18 @@ def vitrine_em_blocks() -> dict:
         imagem = lambda arquivo: {"type": "image", "settings": {
             "image": f"{CDN}{arquivo}-640-0.webp",
             "link": c["href"], "width": "fill"}}
+        estilo = {
+            "direction": "column", "gap": 0,
+            "vertical_padding": 0, "horizontal_padding": 0,
+            "custom_background_color": c["cor"],
+        }
+        if c.get("texto"):
+            # fundo escuro pede ficha clara; o nome do artista fica preto
+            # via CSS, porque ele está sobre a obra, não sobre o fundo
+            estilo["custom_text_color"] = c["texto"]
         blocks[c["id"]] = {
             "type": "group",
-            "settings": {
-                "direction": "column", "gap": 0,
-                "vertical_padding": 0, "horizontal_padding": 0,
-                "custom_background_color": c["cor"],
-            },
+            "settings": estilo,
             "blocks": {
                 "obra": imagem(c["img"]),
                 "foto": imagem(c["foto"]),
