@@ -279,8 +279,17 @@ def main():
             print(f"   title ({len(t):2}) {t}")
             print(f"   desc  ({len(dsc):3}) {dsc[:96]}…")
             if not ver:
-                req("PUT", f"categories/{c['id']}",
-                    {"seo_title": {"pt": t}, "seo_description": {"pt": dsc}})
+                # MANDA name E handle JUNTO, sempre. O PUT de categoria zera
+                # os campos multi-idioma que não vêm no corpo: mandando só o
+                # SEO, "Kits de Bordado" ficou com name="" e handle="", e
+                # /kits-de-bordado/ virou 404 no ar. (O PUT de produto NÃO se
+                # comporta assim — os 11 produtos passaram intactos.)
+                req("PUT", f"categories/{c['id']}", {
+                    "name": {"pt": nome},
+                    "handle": {"pt": texto(c.get("handle"))},
+                    "seo_title": {"pt": t},
+                    "seo_description": {"pt": dsc},
+                })
 
     gera_lista_alt(prods)
     print("\n(conferência, nada gravado)" if ver else "\ngravado.")

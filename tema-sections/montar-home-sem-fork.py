@@ -120,13 +120,22 @@ def cirurgia_vitrine(markup: str) -> str:
     return "".join(out)
 
 
+# Handle do kit de entrada. Guarda o nome antigo (le-chevalier) de quando o
+# produto era o Klimt — trocar o handle quebraria link já indexado.
+INICIANTE_URL = ("/produtos/kit-de-bordado-klimt-para-quem-nunca-bordou-"
+                 "le-chevalier-material-completo-video-aulas/")
+
+
 def atualizar_iniciante(markup: str) -> str:
     """Acerta a seção do kit de iniciante contra o catálogo de hoje.
 
     A demo foi escrita quando o kit de entrada era o "Le Chevalier", de
-    Klimt. Hoje o produto é "Matisse para quem nunca Bordou — NU BLEU II"
-    (o handle antigo ainda diz le-chevalier) e está DESPUBLICADO, então o
-    botão manda pra categoria até ser publicado.
+    Klimt. Hoje o produto é "Matisse para quem nunca Bordou — NU BLEU II".
+    Publicado em 30/07/2026, então o botão passa a apontar pro produto — até
+    aqui ele mandava pra categoria, porque o produto estava oculto.
+
+    O handle guarda o nome antigo (le-chevalier) porque trocá-lo quebraria
+    qualquer link já indexado; é cosmético na URL e não vale o risco.
     """
     # o texto da demo quebra linha no meio da frase, então a troca precisa
     # tolerar espaços/newlines (replace literal não pegava)
@@ -134,6 +143,7 @@ def atualizar_iniciante(markup: str) -> str:
                     "O kit <em>Nu Bleu II</em>, de Henri Matisse,", markup)
     markup = re.sub(r"Começar pelo\s+Le Chevalier", "Começar pelo Nu Bleu II", markup)
     markup = re.sub(r"Kit Le Chevalier:", "Kit Nu Bleu II:", markup)
+    markup = markup.replace('href="/kits-de-bordado/"', f'href="{INICIANTE_URL}"')
     return markup
 
 
