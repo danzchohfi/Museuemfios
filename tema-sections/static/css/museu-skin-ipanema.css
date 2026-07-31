@@ -1223,6 +1223,22 @@ body.mf-com-barra .js-notification-private {
   margin-block: -0.75rem;   /* cresce a área sem esticar a faixa */
 }
 
+/* Comprar dos cards de listagem. No desktop ele saía com 87x28px dentro de um
+   card de 305: fonte de 12px e 4px de respiro vertical, num botão que é o
+   fim do funil da página de coleção. Vai pra largura cheia do card e 52px de
+   altura, no mesmo corpo do Comprar da página de produto.
+   Escopo na grade de listagem de propósito — `.js-addtocart` sozinho pegaria
+   também o botão principal da página de produto, que já está dimensionado. */
+.js-product-table .js-addtocart,
+.product-item .js-addtocart,
+[class*="product-item"] .js-addtocart {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.9rem 1.25rem;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
 /* Ícones do topo (busca, sacola, menu) tinham 20x21px. Cresce a área de
    toque sem mexer no desenho: o ícone continua com 20px, a caixa vai a 44px
    de altura, e a margem negativa devolve o espaço horizontal pro layout. */
