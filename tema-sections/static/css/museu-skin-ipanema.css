@@ -1,0 +1,1498 @@
+/* ============================================================================
+   MUSEU EM FIOS — pele sobre o Ipanema (caminho sem fork)
+   Identidade: Estúdio Agudo · Implementação: Vitamina Publicitária
+
+   Este arquivo veste as PÁGINAS DA PLATAFORMA (produto, categoria, header,
+   footer, carrinho) com a identidade aprovada, mirando as classes reais do
+   Ipanema — extraídas do DOM renderizado da loja, não da documentação.
+
+   Ele viaja num block `code` dentro de templates/layout/footer.json, então
+   vale em TODAS as páginas. As cores e fontes de base entram também pelos
+   settings nativos (config/settings_data.json) — aqui é o refinamento que
+   os settings não alcançam.
+
+   As seções autorais da home têm CSS próprio (museu-theme.css) e não
+   dependem deste arquivo.
+============================================================================ */
+
+/* --------------------------------------------------------------- tokens -- */
+:root {
+  --preto: #1d1d1b;
+  --branco: #ffffff;
+  --papel: #fbfaf6;
+  --amarelo: #f2c440;
+  --cinza: #6f6f6a;
+  --linha: rgba(29, 29, 27, 0.16);
+  --f-titulo: "Inter", -apple-system, sans-serif;
+  --f-texto: "Roboto Serif", Georgia, serif;
+  --transicao: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Realinha os tokens do Ipanema com a marca (reforço dos settings) */
+  --heading-font: var(--f-titulo);
+  --body-font: var(--f-texto);
+  --border-radius: 0;
+  --border-radius-medium: 0;
+  --border-radius-small: 0;
+  --border-radius-smallest: 0;
+}
+
+/* ------------------------------------------------------------ tipografia -- */
+body { font-family: var(--f-texto); }
+
+h1, h2, h3, .product-name, .footer-menu-title {
+  font-family: var(--f-titulo);
+}
+
+/* Botões: Inter, cantos retos, peso 700 — o desenho do .mf-btn da demo */
+.btn {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  border-radius: 0;
+}
+.btn-primary {
+  border: 1.5px solid var(--preto);
+}
+.btn-outline {
+  border-width: 1.5px;
+}
+.form-control {
+  font-family: var(--f-titulo);
+  border-radius: 0;
+}
+
+/* ------------------------------------------------------------ cabeçalho -- */
+.section-header,
+[class*="section-header"] {
+  background: var(--papel);
+}
+.section-header a,
+[class*="header-navigation"] a {
+  font-family: var(--f-texto);
+}
+
+/* --------------------------------------------------- página de produto -- */
+/* Migalhas viram o "eyebrow" da série (Monet em Fios · Coleção permanente) */
+.section-main-product .breadcrumbs {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+.section-main-product .breadcrumbs a { text-decoration: none; }
+.section-main-product .breadcrumbs .separator { opacity: 0.4; }
+
+.product-sold-count,
+.product-sku {
+  font-family: var(--f-titulo);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  opacity: 0.6;
+}
+
+/* Título no peso máximo, colado como na demo */
+.js-product-name.product-name {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  font-size: clamp(2.1rem, 4vw, 3.2rem);
+  line-height: 1;
+  margin: 0.8rem 0 0.6rem;
+}
+
+/* Preço */
+.product-price-display {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: -0.02em;
+}
+.product-price-compare {
+  font-family: var(--f-titulo);
+  font-weight: 500;
+  opacity: 0.55;
+}
+.product-offer-label {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  background: var(--amarelo);
+  color: var(--preto);
+  border-radius: 0;
+  padding: 0.3rem 0.6rem;
+}
+
+/* "com Pix" ganha o chip amarelo da marca (era a cor de acento genérica) */
+.payment-discount-price-product {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  color: var(--preto);
+  background: var(--amarelo);
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+}
+.product-installment,
+.product-payment-discount,
+.product-stock-alert {
+  font-family: var(--f-texto);
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+/* "5% de desconto"/"frete grátis" usavam a cor de acento — que é o próprio
+   preto do texto. Chip amarelo, como os outros destaques da marca. */
+.product-payment-discount .text-accent,
+.product-free-shipping .text-accent {
+  background: var(--amarelo);
+  color: var(--preto);
+  padding: 0.1rem 0.4rem;
+  font-weight: 700;
+}
+/* Etiqueta primária nasceria branca sobre amarelo (settings da plataforma) */
+:root { --label-primary-foreground: #1d1d1b; }
+.product-payments-link {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+}
+
+/* Quantidade + comprar: bloco firme, cantos retos */
+.product-quantity-input-group .form-quantity {
+  border: 1.5px solid var(--preto);
+  border-radius: 0;
+}
+.form-quantity .form-control { border: 0; font-weight: 700; }
+.form-quantity-icon { border-radius: 0; }
+
+.buy-button-container .btn-primary {
+  font-size: 0.95rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  width: 100%;
+}
+
+/* ------------------------------------------------------ revisão mobile -- */
+@media (max-width: 768px) {
+  /* Comprar grande de verdade: quantidade em cima, botão em faixa cheia */
+  .product-actions.grid { grid-template-columns: 1fr !important; }
+  .buy-button-container .btn-primary {
+    min-height: 60px;
+    font-size: 1.08rem;
+    letter-spacing: 0.03em;
+  }
+  .form-quantity-container { justify-self: start; }
+
+  /* Comprar dos cartões de vitrine: era um botão de mouse, vira alvo de dedo */
+  .btn-small.cart {
+    width: 100%;
+    padding: 0.85rem 1.2rem;
+    font-size: 0.95rem;
+  }
+
+  /* Migalhas longas quebram linha sem empurrar o layout — e a última
+     migalha (o nome do produto) some: duplicava o H1 logo abaixo dela
+     em caixa alta, ocupando 2-3 linhas */
+  .section-main-product .breadcrumbs {
+    flex-wrap: wrap;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+  }
+  .section-main-product .breadcrumbs .crumb.active,
+  .section-main-product .breadcrumbs .separator:has(+ .crumb.active) {
+    display: none;
+  }
+
+  /* Nome do card em 3 linhas: em 2, cortava justamente a obra/artista */
+  .product-item-name,
+  [class*="product-item-name"] {
+    -webkit-line-clamp: 3;
+  }
+
+  /* Selos: um tico menores pra não dominar a tela */
+  .product-purchase-info .icon-text-item-icon {
+    width: 52px !important;
+    min-width: 52px !important;
+    height: 52px;
+  }
+
+  /* Títulos de seção (vitrines, similares) sem estourar */
+  h2 { letter-spacing: -0.02em; }
+}
+
+/* Calculadora de frete */
+.shipping-calculator .form-control { border: 1.5px solid var(--linha); }
+.shipping-calculator .btn-outline {
+  border: 1.5px solid var(--preto);
+  font-weight: 700;
+}
+.free-shipping-message {
+  font-family: var(--f-texto);
+  font-size: 0.92rem;
+}
+
+/* Descrição: cabeçalho como eyebrow sobre fio preto, texto serifado.
+   O HTML por baixo foi normalizado pelo limpar-descricoes.py (títulos são
+   <h3> de verdade, sem emoji) — aqui entra só a régua tipográfica. */
+.product-description-heading {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-top: 1.5px solid var(--preto);
+  padding-top: 1.2rem;
+  margin-top: 2rem;
+}
+.product-description-content {
+  font-family: var(--f-texto);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  max-width: 68ch;
+}
+.product-description-content p { margin: 0 0 1.15em; }
+.product-description-content h2,
+.product-description-content h3,
+.product-description-content h4 {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  margin: 2em 0 0.7em;
+}
+.product-description-content h2 { font-size: 1.5rem; }
+.product-description-content h3 { font-size: 1.32rem; }
+.product-description-content h4 { font-size: 1.1rem; }
+.product-description-content h2:first-child,
+.product-description-content h3:first-child { margin-top: 0.3em; }
+/* Listas no corpo do texto — vinham MAIORES que o parágrafo, e com o
+   marcador herdado gigante */
+.product-description-content ul,
+.product-description-content ol {
+  font-size: 1em !important;
+  margin: 0 0 1.4em;
+  padding-left: 1.4rem !important;
+}
+.product-description-content li {
+  font-size: 1.02rem !important;
+  line-height: 1.65;
+  margin: 0 0 0.5em !important;
+  padding-left: 0.2rem;
+}
+.product-description-content li::marker { color: var(--amarelo); }
+.product-description-content strong { font-weight: 700; }
+.product-description-content em { font-style: italic; }
+
+/* ------------------------------------------ selos de confiança (produto) -- */
+/* Referência do cliente: painel da Alfa Pesca. Aqui na linguagem da casa:
+   placa de museu — moldura preta 1.5px, cantos retos, ícone em azulejo
+   amarelo. Os tamanhos inline do tema (24/32px) caem por !important. */
+.product-purchase-info {
+  border: 1.5px solid var(--preto);
+  background: var(--branco);
+  gap: 0 !important;
+  margin-top: 1.5rem;
+}
+.product-purchase-info .icon-text-item-horizontal {
+  align-items: center;
+  gap: 1.1rem;
+  padding: 1.15rem 1.25rem;
+  border-top: 1px solid var(--linha);
+}
+.product-purchase-info .icon-text-item-horizontal:first-child { border-top: 0; }
+.product-purchase-info .icon-text-item-icon {
+  width: 58px !important;
+  min-width: 58px !important;
+  height: 58px;
+  background: var(--amarelo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product-purchase-info .icon-text-item-icon svg {
+  width: 28px !important;
+  height: 28px !important;
+}
+.product-purchase-info .icon-text-item-title {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  font-size: 1.08rem;
+  letter-spacing: -0.01em;
+}
+.product-purchase-info .icon-text-item-description {
+  font-family: var(--f-texto);
+  font-size: 0.95rem !important;
+  opacity: 0.8;
+}
+
+/* ------------------------------------------------- vitrines e cartões -- */
+.section [class*="product-item-name"] { font-family: var(--f-texto); }
+[class*="product-item-price"] { font-family: var(--f-titulo); font-weight: 700; }
+
+/* ------------------------------------------------------ páginas internas -- */
+/* Quem somos, FAQ, políticas — o template `page` do Ipanema entrega H1 cru
+   sobre fundo branco. A régua: migalhas como eyebrow, título no peso da
+   marca, texto serifado com medida de leitura. */
+.template-page .breadcrumbs {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+.template-page .breadcrumbs a { text-decoration: none; }
+.page-header-title {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  font-size: clamp(2.6rem, 6vw, 4.5rem);
+  line-height: 0.98;
+  margin: 0.4em 0 0.5em;
+}
+.page-content.user-content {
+  font-family: var(--f-texto);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  max-width: 68ch;
+}
+.page-content.user-content p { margin: 0 0 1.2em; }
+.page-content.user-content h2,
+.page-content.user-content h3 {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  margin: 2em 0 0.7em;
+}
+.page-content.user-content h2 { font-size: 1.6rem; }
+.page-content.user-content h3 { font-size: 1.3rem; }
+.page-content.user-content ul,
+.page-content.user-content ol { margin: 0 0 1.4em; padding-left: 1.4rem; }
+.page-content.user-content li { margin-bottom: 0.5em; line-height: 1.7; }
+.page-content.user-content li::marker { color: var(--amarelo); }
+.section-main-page { padding-bottom: 4rem; }
+
+/* Quem somos: o hero amarelo da demo — obra do Klimt ao centro, título da
+   marca por cima, faixa preta de palavras fechando. A classe pagina-* vem
+   do roteador injetado junto com esta pele. */
+/* A obra do cabeçalho em webp de 640px: ela exibe em min(34rem, 78%) =
+   544px no máximo, e o jpg de 1024 pesava 361 KB contra 173 KB aqui. Foi
+   a única imagem do CDN que ficou fora do otimizador do builder, porque
+   ela vive em background-image no CSS, não em <img src>. */
+body.pagina-quem-somos .section-page-header {
+  background:
+    url("https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-640-0.webp")
+    no-repeat center / min(34rem, 78%),
+    var(--amarelo);
+  padding: clamp(5rem, 14vh, 9rem) var(--gutter-container, 2rem);
+  text-align: center;
+}
+body.pagina-quem-somos .section-page-header .breadcrumbs { display: none; }
+body.pagina-quem-somos .page-header-title {
+  font-size: clamp(3.2rem, 9vw, 6.5rem);
+  margin: 0;
+}
+body.pagina-quem-somos .section-page-header::after {
+  content: "Construção ✳ Coleção ✳ Curadoria ✳ Construção ✳ Coleção ✳ Curadoria";
+  display: block;
+  margin: clamp(4rem, 12vh, 7rem) calc(-1 * var(--gutter-container, 2rem))
+    calc(-1 * clamp(5rem, 14vh, 9rem));
+  padding: 0.9rem 1rem;
+  background: var(--preto);
+  color: var(--papel);
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+}
+body.pagina-quem-somos .page-content.user-content {
+  margin-top: 3rem;
+}
+/* Em tela estreita a faixa cortava as palavras nas bordas (nowrap) —
+   conteúdo curto e corpo menor resolvem sem estourar largura */
+@media (max-width: 820px) {
+  body.pagina-quem-somos .section-page-header::after {
+    content: "Construção ✳ Coleção ✳ Curadoria";
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ---------------------------------------------------------------- rodapé -- */
+.section-footer {
+  background: var(--preto);
+  color: var(--papel);
+}
+.section-footer a,
+.section-footer p,
+.section-footer span,
+.section-footer li {
+  color: var(--papel);
+}
+.section-footer a { opacity: 0.85; text-decoration: none; }
+.section-footer a:hover {
+  opacity: 1;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* Títulos das colunas: o amarelo da marca, como na demo.
+   ATENÇÃO: .footer-institutional-header CONTÉM a descrição — estilizar o
+   header inteiro vaza o eyebrow pro texto (aconteceu). Só os títulos. */
+.footer-menu-title,
+.footer-newsletter-title {
+  font-family: var(--f-titulo) !important;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+}
+
+/* O toggle dos menus é um accordion com fundo próprio no Ipanema — some */
+.section-footer .accordion-title,
+.footer-menu-toggle-title {
+  background: transparent !important;
+  padding: 0;
+  border: 0;
+}
+
+.footer-institutional-description,
+.footer-menu-list,
+.footer-newsletter-description,
+.footer-contact-info-container {
+  font-family: var(--f-texto);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--papel);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+.footer-institutional-description { opacity: 0.85; max-width: 34ch; }
+
+/* O copyright nativo duplicaria a assinatura — o CNPJ migra pra ela */
+.footer-copyright { display: none; }
+
+.footer-newsletter-form .form-control {
+  background: transparent;
+  border: 1.5px solid rgba(251, 250, 246, 0.35);
+  color: var(--papel);
+  border-radius: 0;
+}
+.footer-newsletter-form .form-control::placeholder { color: rgba(251, 250, 246, 0.5); }
+.footer-newsletter-form .btn-outline {
+  border: 1.5px solid var(--papel);
+  color: var(--papel);
+  font-weight: 700;
+}
+.footer-newsletter-form .btn-outline:hover {
+  background: var(--papel);
+  color: var(--preto);
+}
+
+.footer-social-link { color: var(--papel); }
+/* Sem fio aqui: a linha solta sobre o vão preto lia como bug (print do
+   Daniel). A separação fica por conta do respiro; o único fio do rodapé é
+   o da assinatura, no fim. */
+.footer-secondary-info { border-top: 0 !important; }
+.footer-payment-shipping-label {
+  font-family: var(--f-titulo);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.78rem;
+  opacity: 0.75;
+}
+
+/* Respiro geral e ícones */
+.section-footer .footer-content { padding-top: 3rem; padding-bottom: 2.5rem; }
+.footer-social-container { margin-top: 1.2rem; }
+.footer-social-link svg { width: 22px; height: 22px; }
+.footer-payment-group { opacity: 0.9; }
+
+/* ------------------------------------- logo no topo do rodapé (como na demo) -- */
+/* Section custom ANTES do footer no footer.json; o SVG branco vai inline     */
+.mf-rodape-logo {
+  background: var(--preto);
+  padding: 4.5rem var(--gutter-container, 2rem) 2.5rem;
+}
+.mf-rodape-logo a {
+  display: block;
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+}
+.mf-rodape-logo svg,
+.mf-rodape-logo img {
+  width: min(100%, 44rem);
+  height: auto;
+  display: block;
+}
+
+/* Rodapé no mobile: o accordion nativo é full-bleed (margem negativa) e a
+   pele tinha zerado o padding do título junto com o fundo — "NAVEGAÇÃO"
+   encostava na borda da tela. E os vãos verticais eram de desktop. */
+@media (max-width: 768px) {
+  .mf-rodape-logo { padding: 2.25rem var(--gutter-container, 1.25rem) 0.75rem; }
+  .section-footer .js-hide-footer-while-scrolling { padding-top: 0 !important; }
+  .section-footer .footer-content {
+    padding-top: 1.25rem;
+    padding-bottom: 2rem;
+    gap: 2rem;
+  }
+  /* 1rem entre os blocos: com 1.75 as linhas divisórias ficavam longe do
+     texto e o preto entre elas lia como vão vazio */
+  .section-footer .footer-main-info { gap: 1rem !important; }
+  /* o gap nativo de 48px dentro do bloco institucional era o maior vão */
+  .section-footer .footer-contact-info-container { gap: 0.75rem; }
+  .footer-social-container { margin-top: 0; }
+  /* o accordion nativo é full-bleed; a borda precisa de !important porque o
+     nativo .section-footer .accordion-container ganha na especificidade */
+  .section-footer .footer-menu-accordion {
+    margin-inline: 0 !important;
+    border-top: 1px solid rgba(251, 250, 246, 0.15) !important;
+    border-bottom: 0 !important;
+  }
+  /* 0.7rem mantém o alvo de toque em 44px (19px de texto + 2x11) e aproxima
+     o título das divisórias */
+  .footer-menu-toggle-title { padding: 0.7rem 0 !important; }
+  /* a lista aberta vinha com padding lateral de 16px, desalinhada do título */
+  .section-footer .footer-menu-accordion-content { padding: 0 0 0.75rem !important; }
+  .footer-newsletter-container {
+    margin-top: 0.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(251, 250, 246, 0.15);
+  }
+
+  /* ---- fim do rodapé: era aí que ele "passava do ponto" ----------------- */
+  /* Medido no celular (430px): o rodapé fechava em 877px, e o trecho final
+     era quase todo vão — pagamento e envio empilhados, e uma faixa de 41px
+     que, depois de a pele esconder o copyright duplicado, só carrega o selo
+     "powered by" da Nuvemshop (17px). Três linhas quase vazias em preto. */
+  /* Pagamento e envio lado a lado: o envio tem um selo só e ocupava uma
+     faixa inteira sozinho. */
+  .section-footer .footer-payments-shipping-container {
+    flex-direction: row !important;
+    gap: 1rem !important;
+  }
+  .section-footer .footer-payment-group { flex: 1 1 0; min-width: 0; }
+  .section-footer .footer-secondary-info { gap: 1rem; }
+  /* a faixa do selo da Nuvemshop encolhe pro tamanho do que ela mostra */
+  .section-footer .footer-legal-container {
+    padding-block: 0;
+    line-height: 1;
+  }
+  .section-footer .footer-content { padding-bottom: 1rem; }
+}
+
+/* Ícones sociais: alvo de toque de 44px (o svg tinha 22px e nada em volta) */
+.footer-social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  margin-right: 0.25rem;
+}
+
+/* ------------------------------- noite: player como block nativo (home) -- */
+/* Escopo por data-section-id — o tema publica o id da seção no DOM, o que é
+   determinístico (e legível) onde :has() se mostrou frágil. O FUNDO preto
+   vem do setting custom_background_color, não daqui: ele é style inline e
+   venceria qualquer regra desta folha. */
+/* O céu da noite é um GRADIENTE (papel → azul-escuro → papel), não preto
+   chapado — e ele agora precisa cobrir texto + player, que são irmãos.
+   Entra por background-IMAGE: o style inline do setting só define
+   background-color, então não atropela o gradiente. */
+.section-custom[data-section-id="museu-noite"] {
+  --ceu: #10131d;
+  background-image: linear-gradient(
+    180deg,
+    var(--papel) 0%,
+    #434a5c 6%,
+    var(--ceu) 18%,
+    var(--ceu) 84%,
+    #434a5c 95%,
+    var(--papel) 100%
+  );
+  color: var(--papel);
+  padding-bottom: clamp(4rem, 10vw, 8rem);
+}
+/* o gradiente sai do .mf-noite pra não repetir em duas camadas */
+.section-custom[data-section-id="museu-noite"] .mf-noite {
+  background: none;
+  padding-bottom: 1.5rem;
+}
+/* moldura do player: a mesma que a .mf-noite__video tinha na demo */
+.section-custom[data-section-id="museu-noite"] [data-block-type="video"] {
+  width: min(100%, 80rem);
+  margin-inline: auto;
+  margin-top: 3.5rem;  /* .mf-noite__video da demo */
+  background: #000;
+  border: 1.5px solid rgba(251, 250, 246, 0.18);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);
+}
+/* No celular a demo sangra o player até a borda da tela e tira as laterais da
+   moldura. Aqui a largura já bate na borda (a seção é full width); falta só
+   soltar a borda lateral, senão fica um fio de 1,5px rente à tela. */
+@media (max-width: 720px) {
+  .section-custom[data-section-id="museu-noite"] [data-block-type="video"] {
+    border-inline: 0;
+    margin-top: 2.5rem;
+  }
+}
+
+
+/* ------------------- wrap das seções convertidas (igual ao .mf-wrap) -- */
+/* O `.container` do Ipanema é mais estreito que o .mf-wrap da demo
+   (min(100% - 2*gutter, 1440px)) — por isso a grade dos passos dava 3
+   colunas em vez de 4. As seções convertidas passam a full e recriam o
+   wrap aqui, com o mesmo limite da demo. */
+.section-custom[data-section-id="museu-passos"] .custom-section-content,
+.section-custom[data-section-id="museu-kit"] .custom-section-content {
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
+  margin-inline: auto;
+}
+.section-custom[data-section-id="museu-manifesto"] .custom-section-content {
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 62rem);
+  margin-inline: auto;
+}
+
+/* -------------------- passos e kit em blocks nativos (editáveis) -- */
+/* Numeração por counter: passo/item novo numera sozinho, sem a cliente
+   precisar renumerar na mão. */
+.section-custom[data-section-id="museu-passos"] {
+  color: var(--papel);
+  padding-block: clamp(4.5rem, 10vh, 8.5rem);
+}
+.section-custom[data-section-id="museu-passos"] .custom-section-content {
+  /* o tema aplica .d-flex/.flex-column com !important no HTML da seção —
+     sem !important aqui a grade nunca vence e tudo empilha numa coluna */
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+  column-gap: 3rem !important;
+  row-gap: 3rem !important;
+  counter-reset: passo;
+}
+.section-custom[data-section-id="museu-passos"] [data-block-id="eyebrow"],
+.section-custom[data-section-id="museu-passos"] [data-block-id="titulo"] {
+  grid-column: 1 / -1;
+}
+.section-custom[data-section-id="museu-passos"] [data-block-id="eyebrow"] .text-content,
+[data-block-id="eyebrow"] p {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  margin: 0;
+}
+.section-custom[data-section-id="museu-passos"] .custom-section-content > [data-block-id="titulo"] {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  /* demo: .mf-h2 margin-bottom 1.5rem + .mf-passos__grade margin-top 4rem.
+     Aqui o vão do título pra grade é margem + row-gap (3rem) = 5.5rem. */
+  margin: 0 0 2.5rem;
+}
+.section-custom[data-section-id="museu-passos"] [data-block-type="group"] {
+  counter-increment: passo;
+  /* O fio amarelo curto no alto de cada passo (.mf-passo::before na demo).
+     Vai por background-image porque o ::before já carrega o número e o tema
+     escreve background-color inline no group block — background-image passa. */
+  padding-top: 2.2rem;
+  background-image: linear-gradient(var(--amarelo), var(--amarelo));
+  background-repeat: no-repeat;
+  background-size: 3.5rem 2px;
+  background-position: left top;
+}
+.section-custom[data-section-id="museu-passos"] [data-block-type="group"]::before {
+  content: counter(passo, decimal-leading-zero);
+  display: block;
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(3.4rem, 6vw, 5.2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  margin-bottom: 1rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--papel);
+}
+/* O group block vem com style="gap: 8px" inline; a demo controla o ritmo pela
+   margem do h3, então zera o gap e usa as margens da demo. */
+.section-custom[data-section-id="museu-passos"] .group-content { gap: 0 !important; }
+.section-custom[data-section-id="museu-passos"] .group-content > [data-block-type="heading"] {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
+}
+.section-custom[data-section-id="museu-passos"] [data-block-type="group"] .text-content,
+.section-custom[data-section-id="museu-passos"] [data-block-type="group"] p {
+  font-family: var(--f-texto);
+  margin: 0;
+  opacity: 0.82;
+  max-width: 36ch;
+}
+
+.section-custom[data-section-id="museu-kit"] {
+  padding-block: clamp(4.5rem, 10vh, 8.5rem);
+  /* O .mf-kit__fio em volta da foto é `inset: -7% -9%`: ele sai ~15px pra
+     cada lado DE PROPÓSITO. Na demo quem apara é o `overflow: clip` do
+     <section class="mf-kit">, que aqui não existe mais — o kit virou blocks
+     nativos. Sem isso o documento fica 15px mais largo que a tela, a página
+     inteira desloca e sobra uma faixa do fundo na direita no celular. */
+  overflow: clip;
+}
+/* mesma proteção nas outras seções convertidas, como na demo */
+.section-custom[data-section-id="museu-passos"] { overflow: clip; }
+.section-custom[data-section-id="museu-kit"] .custom-section-content {
+  display: grid !important;
+  /* 1.1fr na coluna da foto, igual à demo (.mf-kit .mf-wrap) */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  /* o tema escreve style="gap: 0px" INLINE na seção (custom.tpl usa o setting
+     `gap`), então sem !important as colunas colam uma na outra */
+  column-gap: clamp(2rem, 6vw, 6rem) !important;
+  /* row-gap zerado: na demo a coluna de texto é fluxo normal e o ritmo vem da
+     margem de cada elemento — o gap somava por cima e esticava tudo */
+  row-gap: 0 !important;
+  align-items: center;
+}
+/* Posições EXPLÍCITAS: `grid-row: 1 / -1` sem grid-template-rows definido
+   resolve pra uma linha só (o -1 aponta pra última linha EXPLÍCITA, que não
+   existe), e a grade desandava pra coluna única. */
+.section-custom[data-section-id="museu-kit"] .custom-section-content {
+  grid-template-rows: repeat(5, auto);
+}
+.section-custom[data-section-id="museu-kit"] [data-block-id="visual"]   { grid-area: 1 / 1 / 6 / 2; }
+.section-custom[data-section-id="museu-kit"] [data-block-id="eyebrow"]  { grid-area: 1 / 2; }
+.section-custom[data-section-id="museu-kit"] .custom-section-content > [data-block-id="titulo"] { grid-area: 2 / 2; }
+.section-custom[data-section-id="museu-kit"] [data-block-id="lista"]    { grid-area: 3 / 2; }
+.section-custom[data-section-id="museu-kit"] [data-block-id="nota"]     { grid-area: 4 / 2; }
+.section-custom[data-section-id="museu-kit"] [data-block-id="botao"] {
+  grid-area: 5 / 2;
+  align-self: start;
+  justify-self: start;
+}
+/* o block vem com .block-fill (100%): o botão da demo é do tamanho do texto */
+.section-custom[data-section-id="museu-kit"] [data-block-id="botao"] .btn {
+  width: auto;
+  padding: 1rem 1.75rem;
+}
+.section-custom[data-section-id="museu-kit"] [data-block-id="visual"] img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Fio curto antes do texto: o .mf-eyebrow da demo desenha por ::before.
+   Vale pros eyebrows em block (manifesto, passos, kit) — o markup nativo
+   não tem a classe .mf-eyebrow, então a regra mora aqui. */
+[data-block-id="eyebrow"] .text-content {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+[data-block-id="eyebrow"] .text-content::before {
+  content: "";
+  width: 2.25rem;
+  height: 2px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.section-custom[data-section-id="museu-kit"] [data-block-id="eyebrow"] .text-content,
+[data-block-id="eyebrow"] p {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  margin: 0;
+}
+.section-custom[data-section-id="museu-kit"] .custom-section-content > [data-block-id="titulo"] {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: clamp(2.1rem, 4.6vw, 3.9rem);
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+  /* topo: a margem natural do <p> do eyebrow na demo; base: .mf-h2 = 1.5rem */
+  margin: 0.75rem 0 1.5rem;
+}
+.section-custom[data-section-id="museu-kit"] [data-block-id="lista"] .text-content ol,
+[data-block-id="lista"] ol {
+  list-style: none;
+  counter-reset: item;
+  margin: 2rem 0;  /* .mf-kit__lista da demo */
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+}
+/* Fiel à demo: .mf-kit__lista li é flex com gap 0.9rem e baseline — o número
+   ao lado do texto, não afastado por posicionamento absoluto. */
+.section-custom[data-section-id="museu-kit"] [data-block-id="lista"] .text-content li,
+[data-block-id="lista"] li {
+  counter-increment: item;
+  font-family: var(--f-texto);
+  display: flex;
+  gap: 0.9rem;
+  align-items: baseline;
+  border-bottom: 1px solid rgba(29, 29, 27, 0.25);
+  padding-bottom: 0.85rem;
+  padding-left: 0;
+}
+.section-custom[data-section-id="museu-kit"] [data-block-id="lista"] .text-content li::before,
+[data-block-id="lista"] li::before {
+  content: counter(item, decimal-leading-zero);
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+.section-custom[data-section-id="museu-kit"] [data-block-id="nota"] .text-content,
+[data-block-id="nota"] p {
+  font-family: var(--f-texto);
+  max-width: 46ch;
+  margin: 0 0 2rem;  /* .mf-kit__nota da demo */
+}
+/* 860px, não 768: é onde a demo empilha o kit (.mf-kit .mf-wrap). Entre 769 e
+   860 as duas colunas ficavam apertadas aqui e já estavam empilhadas lá. */
+@media (max-width: 860px) {
+  .section-custom[data-section-id="museu-kit"] .custom-section-content {
+    grid-template-columns: 1fr !important;
+  }
+  .section-custom[data-section-id="museu-kit"] .custom-section-content { grid-template-rows: none; }
+  .section-custom[data-section-id="museu-kit"] .custom-section-content > * { grid-area: auto !important; }
+  .section-custom[data-section-id="museu-kit"] [data-block-id="visual"] { margin-bottom: 1.5rem; }
+}
+
+/* -------------------------- manifesto em blocks nativos (piloto editável) -- */
+/* Escopo por data-section-id + data-block-id: os dois vêm no DOM do tema.
+   (A tentativa anterior com :has() e :first-of-type falhou — :first-of-type
+   olha o TIPO do elemento, e o primeiro div irmão é o code block, então
+   nenhum bloco de texto casava.) */
+.section-custom[data-section-id="museu-manifesto"] {
+  position: relative;
+  padding-top: clamp(4.5rem, 10vh, 8.5rem);
+  padding-bottom: clamp(4.5rem, 10vh, 8.5rem);
+  overflow: clip;
+}
+.section-custom[data-section-id="museu-manifesto"] .custom-section-content {
+  max-width: 62rem;
+  gap: 2.5rem !important;  /* .mf-manifesto .mf-wrap da demo */
+}
+[data-block-id="eyebrow"] .text-content,
+[data-block-id="eyebrow"] p {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0;
+}
+/* O heading block É o próprio elemento com data-block-id — não existe <h2>
+   dentro dele. Mirar " h2" nunca casava, e a frase saía no Inter 900 do
+   tema em vez da serifada da demo (.mf-manifesto__frase + .mf-serif). */
+.heading-block[data-block-id="frase"] {
+  font-family: var(--f-texto) !important;
+  font-weight: 400;
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
+  line-height: 1.25;
+  letter-spacing: 0;
+  margin: 0;
+}
+[data-block-id="apoio"] .text-content,
+[data-block-id="apoio"] p {
+  font-family: var(--f-texto);
+  font-size: 1.06rem;
+  line-height: 1.8;
+  max-width: 44ch;  /* medida da .mf-manifesto__apoio da demo */
+  margin: 0;
+}
+/* Na demo esse apoio fica encostado à direita da coluna (justify-self: end),
+   com o "Conheça o projeto" como link dentro do próprio parágrafo. Aqui o
+   link virou block de botão nativo (editável pela cliente), irmão do texto —
+   jogar só o texto pra direita separaria os dois. Fica à esquerda, alinhado
+   com o botão. */
+.section-custom[data-section-id="museu-manifesto"] .mf-manifesto__fio {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* ------------------------------------- "Você conhece esta obra?" (produto) -- */
+.mf-obra-editorial {
+  background: var(--papel);
+  padding: clamp(3.5rem, 9vh, 6rem) var(--gutter-container, 2rem);
+}
+.mf-obra-editorial__wrap {
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: 2.5rem 4rem;
+  align-items: start;
+}
+.mf-obra-editorial__eyebrow {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin: 0 0 0.8rem;
+}
+.mf-obra-editorial__eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 2.2rem;
+  height: 2px;
+  background: var(--preto);
+  vertical-align: middle;
+  margin-right: 0.7rem;
+}
+.mf-obra-editorial__titulo {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  font-size: clamp(2.6rem, 5.5vw, 4.5rem);
+  line-height: 0.98;
+  margin: 0;
+}
+.mf-obra-editorial__texto .lead {
+  font-family: var(--f-texto);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  line-height: 1.55;
+  margin: 0 0 1.2em;
+}
+.mf-obra-editorial__texto .apoio {
+  font-family: var(--f-texto);
+  font-size: 1.02rem;
+  line-height: 1.75;
+  opacity: 0.85;
+  margin: 0;
+}
+@media (max-width: 768px) {
+  .mf-obra-editorial__wrap { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* ------------------------------------------------------ carrinho (drawer) -- */
+#modal-cart .modal-header {
+  background: var(--papel);
+  border-bottom: 1.5px solid var(--preto);
+}
+#modal-cart .modal-title {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+}
+#modal-cart .form-quantity,
+.section-main-cart .form-quantity {
+  border: 1.5px solid var(--preto);
+  border-radius: 0;
+}
+.cart-totals-row { font-family: var(--f-texto); }
+.cart-totals-total {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  letter-spacing: -0.01em;
+}
+.js-cart-total { font-size: 1.5rem; }
+/* "Ou R$X com Nuvem Pago" no chip amarelo, como o Pix do produto */
+.payment-discount-price-cart {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  background: var(--amarelo);
+  color: var(--preto);
+  display: inline-block;
+  padding: 0.1rem 0.45rem;
+}
+.js-ajax-cart-submit {
+  min-height: 56px;
+  font-size: 1.02rem;
+}
+
+/* Barra de frete grátis (montada por JS; só aparece com a regra ativa) */
+.mf-frete-progresso {
+  font-family: var(--f-texto);
+  font-size: 0.92rem;
+  margin: 0.9rem 0;
+}
+.mf-frete-progresso strong { font-family: var(--f-titulo); font-weight: 800; }
+.mf-frete-progresso__trilho {
+  height: 6px;
+  background: var(--linha);
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+.mf-frete-progresso__fio {
+  height: 100%;
+  background: var(--amarelo);
+  border-right: 2px solid var(--preto);
+  transition: width 0.4s var(--transicao);
+}
+.mf-frete-progresso.is-ganho { color: var(--preto); }
+.mf-frete-progresso.is-ganho .mf-frete-progresso__fio { border-right: 0; }
+
+/* Cupom + confiança no pé do drawer */
+.mf-carrinho-cupom {
+  font-family: var(--f-texto);
+  font-size: 0.9rem;
+  text-align: center;
+  margin: 0.9rem 0 0.2rem;
+  opacity: 0.85;
+}
+.mf-carrinho-cupom strong {
+  font-family: var(--f-titulo);
+  font-weight: 800;
+  background: var(--amarelo);
+  padding: 0.05rem 0.4rem;
+}
+.mf-carrinho-confianca {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+  margin: 0.6rem 0 0.3rem;
+}
+.mf-carrinho-confianca svg { width: 16px; height: 16px; }
+
+/* ----------------------------------------------------- slogan recorrente -- */
+/* "Sua hora com a arte. Borde um museu." — sob o título das páginas
+   internas e do contato, e em faixa entre o produto e os relacionados. */
+.mf-slogan {
+  font-family: var(--f-texto);
+  font-style: italic;
+  font-size: 1.15rem;
+  margin: 0;
+  padding: 0.25rem var(--gutter-container, 2rem) 0;
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+  width: 100%;
+}
+.mf-slogan strong {
+  font-family: var(--f-titulo);
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+.mf-slogan--faixa {
+  text-align: center;
+  font-size: clamp(1.25rem, 2.6vw, 1.7rem);
+  padding: 2.75rem var(--gutter-container, 2rem);
+  border-top: 1.5px solid var(--preto);
+  border-bottom: 1.5px solid var(--preto);
+  max-width: none;
+  margin-top: 3rem;
+}
+@media (max-width: 768px) {
+  .mf-slogan { font-size: 1.05rem; }
+}
+
+/* --------------------------------------- vídeo institucional no quem-somos -- */
+/* O bloco vive no template `page` (todas as páginas de conteúdo) e só
+   aparece no quem-somos. Escondido não tem caixa — o iframe lazy nem
+   carrega nas outras. Faixa preta antes do rodapé, como a noite da home. */
+.mf-video-pagina { display: none; }
+body.pagina-quem-somos .mf-video-pagina {
+  display: block;
+  background: var(--preto);
+  padding: clamp(3rem, 9vh, 5.5rem) var(--gutter-container, 2rem);
+  margin-top: 4rem;
+}
+.mf-video-pagina__eyebrow {
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amarelo);
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+.mf-video-pagina__quadro {
+  max-width: 60rem;
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
+.mf-video-pagina__quadro iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* ------------------------------------------- WhatsApp na página de produto -- */
+/* Link montado por JS injetado com a pele, logo abaixo do comprar — o
+   desenho do .mf-wa da demo, com o ícone do sprite do próprio tema. */
+.mf-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--f-titulo);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--preto);
+  text-decoration: none;
+  margin: 1rem 0 0.4rem;
+}
+.mf-wa svg { width: 20px; height: 20px; flex-shrink: 0; }
+.mf-wa i {
+  font-style: normal;
+  /* o amarelo da marca sobre o papel dá contraste 1.26 — o separador ficava
+     invisível. É elemento decorativo: tinta clara resolve e não compete com
+     o texto do link. */
+  color: rgba(29, 29, 27, 0.45);
+  font-size: 1.1em;
+  line-height: 1;
+}
+.mf-wa:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+/* ------------------------------------ barra fixa de compra (produto, mobile) -- */
+/* Montada por JS injetado com a pele: aparece quando o botão comprar
+   original já rolou pra fora da tela. */
+.mf-barra-compra {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 60;
+  display: none;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.6rem 0.9rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  background: var(--papel);
+  border-top: 1.5px solid var(--preto);
+  box-shadow: 0 -10px 30px rgba(29, 29, 27, 0.12);
+}
+.mf-barra-compra.is-on { display: flex; }
+.mf-barra-compra__preco {
+  font-family: var(--f-titulo);
+  font-weight: 900;
+  font-size: 1.15rem;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+.mf-barra-compra .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 0.95rem 1rem;
+  font-size: 1rem;
+}
+@media (min-width: 769px) { .mf-barra-compra { display: none !important; } }
+
+/* =========================================================== clique morto -- */
+/* Auditoria no navegador (auditar-cliques.py), os mesmos casos que o Clarity
+   marca como dead click. Um achado era crítico e dois são de alcance geral. */
+
+/* CRÍTICO — o aviso de cookie fica fixo a 16px da base, 50px de altura e
+   z-index 1000; a barra de compra ocupa os últimos 71px com z-index 60. Os
+   dois na mesma faixa: o toque em "Comprar" caía no botão "Entendi". Para
+   todo visitante novo no celular, o primeiro toque no CTA principal não
+   comprava — só fechava o aviso. Medido em toda posição de rolagem.
+   Quando a barra está ligada, o aviso sobe acima dela. */
+body.mf-com-barra .js-notification-cookie-private,
+body.mf-com-barra .js-notification-private {
+  bottom: calc(71px + 1rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+/* GERAL — fora do "Entendi", o aviso não tem nada clicável, mas a caixa toda
+   engolia o clique: na categoria ele cobria cards de produto e na home o
+   "Ver o kit". Deixa o clique atravessar o que é só texto. */
+.js-notification-cookie-private { pointer-events: none; }
+.js-notification-cookie-private a,
+.js-notification-cookie-private button,
+.js-notification-cookie-private [role="button"] { pointer-events: auto; }
+
+/* GERAL — "Entendi" tinha 41x14px de área de toque. Abaixo de 44px o dedo
+   erra, e errar num aviso que cobre o conteúdo vira clique repetido. */
+.js-notification-cookie-private button,
+.js-notification-cookie-private a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 0.6rem;
+  margin-block: -0.75rem;   /* cresce a área sem esticar a faixa */
+}
+
+/* ==================================== vitrine de kits em blocks nativos -- */
+/* Os cards viraram `group` (duas imagens + texto) pra cliente poder adicionar
+   kit sozinha pelo editor do tema. O texto usa as classes originais
+   (.obra-card__artista, __base, __tipo, __preco, __cta), então o desenho vem
+   inteiro de museu-theme.css e não é copiado aqui. O que este bloco resolve é
+   só o que a estrutura do tema põe no lugar errado. */
+/* PENDURA DE SALÃO, não grade. Com grade automática, 5 kits numa tela larga
+   caíam em 4 + 1 — um card órfão sozinho na fileira de baixo (reclamação do
+   Daniel, 31/07). A resposta não é ajustar pra 5, porque a cliente vai mexer
+   na quantidade; é um layout que fica intencional com QUALQUER contagem:
+     · no máximo 3 pôsteres por fileira, então eles ficam grandes;
+     · fileira incompleta é CENTRADA (flex, não grid — grid não centra órfão);
+     · cards alternados descem meio passo, como quadros pendurados em alturas
+       diferentes numa parede de salão. 5 vira 3+2 composto; 6 vira 3+3. */
+.section-custom[data-section-id="museu-vitrine"] .custom-section-content {
+  --vit-gap: clamp(1.25rem, 2.5vw, 2.25rem);
+  display: flex !important;
+  flex-flow: row wrap !important;
+  justify-content: center;
+  align-items: flex-start !important;   /* stretch quebraria o 4:5 dos cards */
+  column-gap: var(--vit-gap) !important;
+  row-gap: clamp(1.75rem, 3vw, 2.75rem) !important;
+  width: min(100% - 2 * clamp(1.25rem, 4vw, 4rem), 1440px);
+  margin-inline: auto;
+}
+/* o cabeçalho ocupa a fileira toda — por TIPO, não por id: vale pro nosso
+   "topo" e pra qualquer bloco de código que a cliente venha a criar */
+.section-custom[data-section-id="museu-vitrine"] [data-block-type="code"] {
+  flex: 1 1 100%;
+}
+/* o card */
+.section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  isolation: isolate;
+  padding: 0 !important;
+  display: block !important;
+  flex: 0 0 100%;   /* celular: um pôster por fileira, largura cheia */
+  min-width: 0;
+}
+@media (min-width: 720px) {
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+    /* o -1px segura o arredondamento do calc(): sem ele o último card da
+       fileira pode não caber e despencar pra fileira de baixo */
+    flex-basis: calc((100% - var(--vit-gap)) / 2 - 1px);
+  }
+  /* a pendura: alternados descem. :nth-of-type conta os irmãos div (o topo é
+     o 1º), então os pares são os cards 1, 3, 5… — começa descendo. */
+  .section-custom[data-section-id="museu-vitrine"]
+    [data-block-type="group"]:nth-of-type(even) {
+    margin-top: 2.75rem;
+  }
+}
+@media (min-width: 1100px) {
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"] {
+    flex-basis: calc((100% - 2 * var(--vit-gap)) / 3 - 1px);
+  }
+}
+/* Os invólucros que o tema põe entre o card e o conteúdo saem do fluxo. Sem
+   isto o <a> da imagem fica dentro de um pai posicionado e só cobre a moldura
+   da obra: a primeira versão media clique MORTO no nome e no preço de 3 dos 5
+   cards. Com `display: contents` o <a>, o nome do artista e a ficha viram
+   filhos diretos do card, que é quem tem `position: relative`. */
+.section-custom[data-section-id="museu-vitrine"] .image-block,
+.section-custom[data-section-id="museu-vitrine"] .text-block,
+.section-custom[data-section-id="museu-vitrine"] .text-content {
+  display: contents;
+}
+/* !important só aqui: o tema escreve o flex do .group-content INLINE, a partir
+   do setting `direction` do group, e inline ganha de qualquer seletor. */
+.section-custom[data-section-id="museu-vitrine"] .group-content {
+  display: contents !important;
+}
+
+/* O <a> de cada imagem É o link do card: cobre os 100%, atrás do texto. */
+.section-custom[data-section-id="museu-vitrine"] .image-block a {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+/* A obra, na mesma moldura da demo (12% do topo, 14% nas laterais).
+   A largura é dita, não deduzida de left+right: <img> é elemento substituído,
+   e aí `width: auto` vale a largura INTRÍNSECA do arquivo, não o que sobra
+   entre os dois lados. Com left/right o navegador pegou os 480px da variante
+   do srcset e a obra vazou 121px pra fora do card. */
+.section-custom[data-section-id="museu-vitrine"] .image-block img {
+  position: absolute;
+  top: 12%;
+  left: 14%;
+  right: auto;
+  bottom: auto;
+  width: 72% !important;   /* 100% − 14% − 14%; o !important é pro .block-fill */
+  height: auto;
+  max-width: none;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+/* o placeholder do lazyload é `inset: 0` — com o <a> valendo o card inteiro,
+   ele viraria um retângulo cinza por cima de tudo */
+.section-custom[data-section-id="museu-vitrine"] .image-block .placeholder {
+  display: none;
+}
+/* A foto do bordado fica invisível sobre a obra. A "foto" é a SEGUNDA
+   imagem do card, por posição — não por id de bloco: card duplicado pela
+   cliente no editor nasce com ids novos, e amarrar no id quebraria
+   exatamente o card que ela criar. (nth-of-type conta os div irmãos:
+   imagem, imagem, texto — o 2º div é a segunda imagem. Card com uma
+   imagem só não casa o seletor e mostra a obra parada, sem surpresa.) */
+.section-custom[data-section-id="museu-vitrine"]
+  [data-block-type="group"] [data-block-type="image"]:nth-of-type(2) img {
+  opacity: 0;
+  transition: opacity 0.5s var(--transicao, cubic-bezier(0.16, 1, 0.3, 1));
+}
+
+/* O texto fica ACIMA das imagens (z-index 2, 3 e 4 vêm da demo) e por isso
+   receberia o clique no lugar do <a>. Deixa passar. */
+.section-custom[data-section-id="museu-vitrine"] .obra-card__artista,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__base,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__selo,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__cta {
+  pointer-events: none;
+  margin: 0;
+}
+/* …e a revelação (foto + "Ver o kit") só existe onde há hover DE VERDADE.
+   No toque, o iOS gruda o :hover no primeiro tap: o José mandou print do
+   card preso no estado revelado. Celular fica na obra, e o toque navega. */
+@media (hover: hover) {
+  .section-custom[data-section-id="museu-vitrine"] [data-block-type="group"]:hover
+    [data-block-type="image"]:nth-of-type(2) img { opacity: 1; }
+  /* o hover do CTA na demo é `.obra-card:hover`, e aqui o card é o group */
+  .section-custom[data-section-id="museu-vitrine"]
+    [data-block-type="group"]:hover .obra-card__cta { transform: translateY(0); }
+}
+
+/* O nome do artista é SEMPRE preto: ele assina por cima da obra, não do
+   fundo — com o custom_text_color papel dos cards azuis, herdado, ele
+   sumiria sobre obra clara (a La Gerbe é quase branca). */
+.section-custom[data-section-id="museu-vitrine"] .obra-card__artista {
+  color: var(--preto, #141414);
+}
+
+.section-custom[data-section-id="museu-vitrine"] .mf-vitrine__topo {
+  margin-bottom: 1rem;
+}
+
+/* Comprar dos cards de listagem. No desktop ele saía com 87x28px dentro de um
+   card de 305: fonte de 12px e 4px de respiro vertical, num botão que é o
+   fim do funil da página de coleção. Vai pra largura cheia do card e 52px de
+   altura, no mesmo corpo do Comprar da página de produto.
+   Escopo na grade de listagem de propósito — `.js-addtocart` sozinho pegaria
+   também o botão principal da página de produto, que já está dimensionado. */
+.js-product-table .js-addtocart,
+.product-item .js-addtocart,
+[class*="product-item"] .js-addtocart {
+  width: 100%;
+  min-height: 52px;
+  padding: 0.9rem 1.25rem;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+}
+
+/* Ícones do topo (busca, sacola, menu) tinham 20x21px. Cresce a área de
+   toque sem mexer no desenho: o ícone continua com 20px, a caixa vai a 44px
+   de altura, e a margem negativa devolve o espaço horizontal pro layout. */
+.head-main .header-icon,
+.head-main .search-trigger,
+.head-main .header-utility,
+.head-main .js-modal-open-private {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding-inline: 0.4rem;
+  margin-inline: -0.4rem;
+}
+
+/* --------------------------------------------- assinatura (após o rodapé) -- */
+/* O markup vive num block `code` no footer.json, logo abaixo do footer      */
+.mf-assinatura {
+  background: var(--preto);
+  color: var(--papel);
+}
+.mf-assinatura__wrap {
+  max-width: var(--page-width, 1200px);
+  margin-inline: auto;
+  padding: 1.5rem var(--gutter-container, 2rem);
+  border-top: 1px solid rgba(251, 250, 246, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem 2.5rem;
+  font-family: var(--f-titulo);
+  font-size: 0.86rem;
+}
+.mf-assinatura__wrap > span { opacity: 0.75; }
+/* Este @media mora DEPOIS da regra base de propósito: a mesma especificidade
+   resolve por ordem no arquivo, e a versão mobile lá no bloco do rodapé (mais
+   acima) estava perdendo pro `padding` do desktop. */
+@media (max-width: 768px) {
+  .mf-assinatura__wrap { padding-block: 1rem; }
+}
+
+.mf-credito {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  text-decoration: none !important;
+  color: var(--papel);
+}
+.mf-credito .rotulo {
+  font-weight: 400;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+.mf-credito .marca {
+  font-family: "Inter Tight", var(--f-titulo);
+  font-weight: 800;
+  font-size: 1.2rem;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--papel);
+}
+.mf-credito .marca i {
+  font-style: normal;
+  /* o teal oficial (#0b4a48) some sobre o preto — versão clareada só aqui */
+  color: #2fa79e;
+}
+.mf-credito:hover .marca { color: #fff; }
+.mf-credito:hover .rotulo { opacity: 0.9; }
+
+/* --------------------- mobile das seções convertidas (revisão) -- */
+@media (max-width: 768px) {
+  /* wrap mais justo no celular, como o gutter da demo */
+  .section-custom[data-section-id="museu-passos"] .custom-section-content,
+  .section-custom[data-section-id="museu-kit"] .custom-section-content,
+  .section-custom[data-section-id="museu-manifesto"] .custom-section-content {
+    width: calc(100% - 2.5rem);
+  }
+  /* passos: uma coluna, com respiro menor entre eles */
+  .section-custom[data-section-id="museu-passos"] .custom-section-content {
+    grid-template-columns: 1fr !important;
+    row-gap: 2.25rem !important;
+  }
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"]::before {
+    font-size: 3rem;
+    margin-bottom: 0.35rem;
+  }
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"] p,
+  .section-custom[data-section-id="museu-passos"] [data-block-type="group"] .text-content {
+    max-width: none;
+  }
+  /* kit e passos: seções mais curtas no celular */
+  .section-custom[data-section-id="museu-passos"],
+  .section-custom[data-section-id="museu-kit"] {
+    padding-block: clamp(3rem, 8vh, 4.5rem);
+  }
+  /* botão do kit em faixa cheia — alvo de dedo */
+  .section-custom[data-section-id="museu-kit"] [data-block-id="botao"] { justify-self: stretch; }
+  .section-custom[data-section-id="museu-kit"] [data-block-id="botao"] .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 56px;
+  }
+}
+/* iniciante (markup autoral): a demo empilha .mf-kit .mf-wrap a 860px — o
+   respiro entre foto e texto acompanha o mesmo ponto. */
+@media (max-width: 860px) {
+  .mf-kit--claro .mf-wrap { gap: 2rem; }
+}

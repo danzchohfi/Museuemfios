@@ -1,0 +1,22 @@
+{
+  "_comentario": "Mapa: arquivo da demo -> URL no CDN da loja. Sem fork, a pasta static/ do tema nao e servida (403), entao toda imagem da home precisa estar hospedada na loja. As 3 obras do hero foram adicionadas como ultima foto da galeria dos respectivos produtos (via API, 29/07/2026) - igual a demo aprovada, que tambem mostra a obra original como ultimo thumb do produto.",
+  "femme-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-le-pont-japonais-claude-monet-2-4be1b582792d22d79717854169050362-1024-1024.jpg",
+  "monet-femme-ombrelle-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-1024-1024.jpg",
+  "klimt-die-umarmung-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-1024-1024.jpg",
+  "monet-ponte-japonesa-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.jpg",
+  "_vitrines": "Fotos dos cards das vitrines (kits e guias) -> foto principal real de cada produto no CDN. Der Kuss usa a foto [1] da galeria porque a capa atual e um PNG de 2,1 MB sem variantes.",
+  "le-pont-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-le-pont-japonais-claude-monet-1-fc3f4d3c752c59d30617854169030794-1024-1024.jpg",
+  "die-umarmung-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-die-umarmung-o-abraco-gustav-kli-1-ff5f3f301734e7d20b17854169091892-1024-1024.jpg",
+  "der-kuss-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-der-kuss-o-beijo-gustav-klimt-2-d16754470d51674d9617854169238369-1024-1024.jpg",
+  "la-gerbe-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805-1024-1024.jpg",
+  "la-gerbe-02.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364-1024-1024.jpg",
+  "nympheas-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-1024-1024.jpg",
+  "giverny-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-1024-1024.jpg",
+  "pincelada-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-1024-1024.jpg",
+  "ornamento-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-1024-1024.jpg",
+  "klimt-der-kuss-sq.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-1024-1024.jpg",
+  "_comentario_kit": "femme-02 (secao O QUE VEM NO KIT da home): trocada a foto-diagrama com setas pela caixa aberta do Le Pont (pedido do Daniel, 29/07). Alternativas prontas: umarmung [1] 8-346a75... (madeira, Klimt) ou femme [3] whatsapp-image... (QR na mao).",
+  "le-chevalier-01.jpg": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-1024-1024.jpg",
+  "_iniciante": "le-chevalier-01 = capa do kit de iniciante. O produto trocou: hoje e \"Matisse para quem nunca Bordou - NU BLEU II\" (handle antigo ainda diz le-chevalier/klimt), e segue DESPUBLICADO.",
+  "_troca_png_jpg": "30/07/2026: as 19 imagens de produto que estavam em PNG foram substituidas por JPG via API (PUT com attachment, no lugar: mesmo id e mesma posicao). Originais em backup-imagens/originais. O webp que a CDN gera de fonte JPEG e ~14% menor que de PNG, medido antes/depois na mesma imagem."
+}

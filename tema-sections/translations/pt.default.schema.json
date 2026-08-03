@@ -1,0 +1,63 @@
+{
+  "names": {
+    "museu_hero": "Museu — hero da obra",
+    "museu_obra": "Obra em destaque",
+    "museu_marquee": "Museu — faixa que roda",
+    "museu_frase": "Frase da faixa",
+    "museu_manifesto": "Museu — manifesto",
+    "museu_noite": "Museu — a noite (vídeo)",
+    "museu_passos": "Museu — a experiência",
+    "museu_passo": "Passo da experiência",
+    "museu_kit": "Museu — o que vem no kit",
+    "museu_item_kit": "Item do kit",
+    "museu_a_obra": "A obra",
+    "museu_textos": "Textos",
+    "museu_chamada": "Chamada",
+    "museu_video": "Vídeo"
+  },
+  "settings": {
+    "museu_descritor": "Descritor de categoria (1ª dobra)",
+    "museu_eyebrow": "Rótulo acima do título",
+    "museu_titulo": "Título",
+    "museu_texto": "Texto",
+    "museu_apoio": "Texto de apoio",
+    "museu_nota": "Observação",
+    "museu_imagem_obra": "Imagem da obra",
+    "museu_imagem_alt": "Descrição da imagem (acessibilidade)",
+    "museu_artista_display": "Nome do artista (marca d'água)",
+    "museu_cor": "Cor de fundo do destaque",
+    "museu_pergunta": "Pergunta de abertura",
+    "museu_texto_obra": "Apresentação da obra",
+    "museu_ficha": "Ficha técnica (Autor / Obra)",
+    "museu_rotulo_kit": "Rótulo do kit",
+    "museu_link_kit": "Link do kit",
+    "museu_link": "Link",
+    "museu_link_texto": "Texto do link",
+    "museu_frase_texto": "Frase",
+    "museu_frase_manifesto": "Frase do manifesto",
+    "museu_video_id": "ID do vídeo no YouTube",
+    "museu_video_titulo": "Título do vídeo (acessibilidade)"
+  },
+  "options": {
+    "museu_azul": "Azul",
+    "museu_amarelo": "Amarelo",
+    "museu_verde": "Verde"
+  },
+  "defaults": {
+    "museu_descritor": "Sua hora com a arte. Borde um museu.",
+    "museu_endline": "Sua hora com a arte. Borde um museu.",
+    "museu_marca": "Museu em Fios",
+    "museu_pergunta": "Você conhece esta obra?",
+    "museu_rotulo_kit": "Kit para<br>bordar",
+    "museu_ver_kit": "Ver o kit",
+    "museu_conheca": "Conheça o projeto",
+    "museu_ritual": "O ritual",
+    "museu_experiencia": "A experiência",
+    "museu_o_que_vem": "O que vem no kit",
+    "museu_escolher_kit": "Escolher meu kit",
+    "museu_video_titulo": "Museu em Fios — a sua hora com a arte, à noite"
+  },
+  "categories": {
+    "museu": "Museu em Fios"
+  }
+}

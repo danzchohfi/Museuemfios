@@ -9,48 +9,149 @@ Estúdio Agudo: Inter + Roboto Serif, paleta amarelo/verde/azul, grafismo de lin
 Por ser fork do Layout Base, **tudo da plataforma continua funcionando**:
 carrinho AJAX, variantes, frete, contas de cliente, blog, busca e checkout.
 
-## Como testar SEM mexer na loja no ar (CLI — recomendado)
+## ⚠️ Antes de subir: duas gerações de tema na Nuvemshop
+
+A Nuvemshop tem hoje **duas arquiteturas de tema convivendo**, e isso decide
+como este tema pode subir:
+
+| | **Legado ("Layout Base")** | **Sections (base Ipanema)** |
+|---|---|---|
+| Pastas | `config/`, `layouts/`, `snipplets/`, `templates/` (`.tpl`), `static/` | `blocks/`, `sections/`, `snippets/`, `translations/`, `templates/` (`.json`), `config/*.json` |
+| Sobe pela API do CLI | ✅ **com o CLI 1.2.1** · ❌ com o 2.x | ✅ nas duas |
+| Rascunho + link de preview | ✅ (via CLI 1.2.1) | ✅ |
+| Conteúdo editável no admin | só o que o tema base expõe | sections e blocks que a gente define |
+
+**Este tema é do formato legado** (fork do Layout Base v1.14.0), com a pasta
+`snipplets/` — grafia antiga, com dois "p". **E ele sobe pela API sem migrar
+nada** — desde que o CLI seja o 1.2.1.
+
+### ⚠️ O `theme push` funciona — mas só com o CLI **1.x**. Fixe a versão.
+
+O comportamento **mudou entre as versões maiores do CLI**, e é isso que decide
+se este tema sobe inteiro ou pela metade:
+
+| | **CLI 1.2.1** | **CLI 2.x** |
+|---|---|---|
+| Como escolhe os arquivos | **Lista de exclusão**: manda tudo, menos caminhos ocultos (`.git`, `.nuvem`) | **Lista de permissão** (`SYNC_PREFIXES`): só `blocks, config, custom, layouts, sections, snippets, static, templates, translations` |
+| `snipplets/` (dois "p") | ✅ sobe | ❌ **descartada em silêncio** |
+| Onde o filtro age | por arquivo, e **avisa** o que pulou (`Skipped (not forked): …`) | no próprio *walk*: a pasta nem chega a ser lida |
+
+No CLI 1.2.1 o push monta a lista assim:
+
+```js
+directoryFilter: (entry) => !ThemeFtpTools.isExcludedFromThemeUpload(entry.path)
+// e isExcludedFromThemeUpload só rejeita segmentos ocultos (.git, .nuvem)
+```
+
+No 2.x isso virou `shouldSync` sobre `SYNC_PREFIXES`, que **não tem
+`snipplets`**. Rodando o filtro do 2.x sobre esta pasta: **47 arquivos subiriam
+e 130 seriam ignorados** — todos os 130 da `snipplets/`, alvo de 302
+`{% include %}` em 82 templates. O tema subiria quebrado, sem erro aparente.
+
+**Foi assim que o Alfa Pesca subiu**: pelo CLI, quando `@tiendanube/cli` sem
+versão ainda resolvia pra 1.x (o 2.0.0 saiu em 20/05/2026). O mesmo comando
+hoje instala o 2.1.0 e quebra o tema.
+
+> **Regra prática: sempre `@tiendanube/cli@1.2.1`, nunca sem versão.**
+> Um `npm install -g @tiendanube/cli` desavisado hoje traz o 2.x.
+
+## Passo 1 — diagnóstico e backup (rodar sempre antes)
 
 ```bash
-# 1. Requisito: Node.js 24+. Instale o CLI oficial:
-npm install -g @tiendanube/cli
-
-# 2. Na pasta deste tema:
+# Requisito: Node.js 24.15+
 cd tema
-nuvemshop theme authorize        # abre o navegador; faça login na loja
+npx @tiendanube/cli@1.2.1 theme authorize   # login no navegador
 
-# 3. Descubra o ID do seu layout de teste (rascunho):
-nuvemshop theme list
-
-# 4. Suba este tema pro rascunho (NÃO toca no que está no ar):
-nuvemshop theme push --theme-id <ID_DO_RASCUNHO> --force
-
-# 5. Gere o link de pré-visualização COMPARTILHÁVEL (manda pro cliente):
-nuvemshop theme preview --theme-id <ID_DO_RASCUNHO>
+./diagnostico-loja.sh      # só leitura: mostra o tema no ar e as instalações
+./backup-tema-no-ar.sh     # baixa o tema publicado pra ../backup-tema-no-ar/
 ```
 
-Extras úteis:
+O diagnóstico responde o que falta pra decidir o caminho: qual tema está no ar,
+quantas instalações existem (**a loja aceita no máximo 2**: a publicada + uma
+de rascunho) e se a loja já recebeu o tema base novo (Ipanema) — cujo rollout,
+segundo a própria documentação, "pode ainda não estar disponível para todas as
+lojas".
+
+> A Nuvemshop **não guarda backup do código** pra gente: "é super importante que
+> o profissional tenha o backup dos arquivos originais… nosso time técnico nem
+> sempre vai conseguir recuperar todos eles". O backup é nosso.
+
+## Passo 2 — os caminhos de subida
+
+> **O caminho recomendado não é este arquivo.** Verifiquei o site da Alfa Pesca
+> no ar: aquele projeto subiu **convertido pra sections** (roda
+> `themes/ipanema/`, com seções autorais `alfa-hero`/`alfa-kit-banner`). É o
+> mesmo desenho que já está pronto em `../tema-sections/`. Passo a passo em
+> `../SUBIR-NA-LOJA.md`. O que segue abaixo é o **plano B**: subir este tema
+> legado como está.
+
+### A) CLI 1.2.1 pela API — plano B, sobe este tema sem converter nada
+
+Entrega rascunho + link de preview com o catálogo real, sem migrar.
 
 ```bash
-nuvemshop theme watch --theme-id <ID>    # dev ao vivo: salva arquivo → recarrega a loja
-nuvemshop theme publish --theme-id <ID>  # quando aprovado, publica o rascunho
-nuvemshop theme fork --theme-id <ID>     # destrava rascunho que não aceita push
-nuvemshop theme create --title "Museu em Fios — Identidade 2026"
+cd tema
+npx @tiendanube/cli@1.2.1 theme list                       # ache o ID do rascunho
+npx @tiendanube/cli@1.2.1 theme push --installation-id <ID> # sobe tudo, inclusive snipplets/
+npx @tiendanube/cli@1.2.1 theme preview-url --installation-id <ID>  # link compartilhável
+npx @tiendanube/cli@1.2.1 theme publish --installation-id <ID>   # só quando aprovado
+npx @tiendanube/cli@1.2.1 theme watch --installation-id <ID>     # opcional: dev ao vivo
 ```
+
+**O que observar na saída:** se aparecerem linhas
+`Skipped (not forked): snipplets/…`, a instalação está travada como
+não-forkada — rode `theme fork --installation-id <ID>` e repita o push. O 1.x avisa
+quando pula arquivo; é o 2.x que emudece.
+
+Confira ao final se o número de arquivos enviados bate com o real:
+
+```bash
+find . -type f -not -path "./.*" | wc -l    # ~177 neste tema
+```
+
+### B) FTP legado — plano C, só se o CLI falhar
+
+```bash
+cd tema
+npx @tiendanube/cli@1.2.1 theme ftp setup \
+  --ftp-server HOST --ftp-username USUARIO --ftp-password SENHA \
+  --store-url https://museuemfios2.lojavirtualnuvem.com.br
+npx @tiendanube/cli@1.2.1 theme ftp push     # sobe tudo, inclusive snipplets/
+npx @tiendanube/cli@1.2.1 theme ftp watch    # opcional: dev ao vivo
+```
+
+Credenciais em **Loja online → Layout → Editar o código** (exige plano com
+acesso ao código-fonte). Diferente do fluxo de API, o FTP envia a pasta inteira
+— só ignora arquivos ocultos (`.nuvem`, `.git`).
+
+**O preço, documentado pela Nuvemshop:** com o FTP aberto o layout **deixa de
+receber as atualizações automáticas**, a **troca de layout fica bloqueada**
+enquanto estiver aberto, e ao **fechar o FTP todas as alterações no código são
+perdidas** — sem recuperação. Some-se a isso que o FTP alcança o espaço de
+código do layout da loja, não uma instalação de rascunho separada: não é o
+"vejo em rascunho e publico depois" que o fluxo novo oferece.
+
+### C) Migrar pro formato sections — o futuro, não uma urgência
+
+Em `../tema-sections/` já existe a versão deste tema no formato novo (as 6
+seções autorais viraram sections e blocks editáveis no admin). Com o caminho A
+funcionando, essa migração deixou de ser pré-requisito pra subir e virou o que
+sempre deveria ter sido: **modernização com hora marcada**, feita com o
+Ipanema aberto na frente. Ver `../tema-sections/README.md`.
+
+Vale lembrar que `fork` é **operação de mão única** — dali em diante o tema não
+recebe mais atualizações automáticas do tema base.
 
 > ⚠️ O `authorize` grava o token em `.nuvem` nesta pasta — já está no
-> `.gitignore`, **não commite**.
+> `.gitignore`, **não commite**. O arquivo é ofuscado, não criptografado.
 
-## Alternativa: FTP / LCI (só alcança o tema publicado)
+### Pontos ainda em aberto (confirmar na prática)
 
-1. No admin: **Loja online → Layout → Editar o código / Personalização
-   avançada** (precisa do plano com edição de código). Anote host/usuário/senha.
-2. Envie o **conteúdo** desta pasta — `config/`, `layouts/`, `snipplets/`,
-   `static/`, `templates/` — pra raiz do FTP (FileZilla em **modo binário**).
-3. A Nuvemshop compila em ~1 min. Teste em aba anônima.
-
-> Dica: prefira sempre o fluxo de **rascunho via CLI** pra não mexer na loja
-> no ar até a aprovação.
+- **O link do `theme preview` é compartilhável?** As fontes oficiais se
+  contradizem: a documentação diz que "a pré-visualização é visível apenas para
+  você", o README do CLI no GitHub diz "shareable". Testar em aba anônima antes
+  de mandar pro cliente.
+- **A loja já tem Ipanema?** Só o `theme list` do diagnóstico responde.
 
 ## Pós-upload (checklist no admin)
 
