@@ -1342,6 +1342,7 @@ body.mf-com-barra .js-notification-private {
    receberia o clique no lugar do <a>. Deixa passar. */
 .section-custom[data-section-id="museu-vitrine"] .obra-card__artista,
 .section-custom[data-section-id="museu-vitrine"] .obra-card__base,
+.section-custom[data-section-id="museu-vitrine"] .obra-card__selo,
 .section-custom[data-section-id="museu-vitrine"] .obra-card__cta {
   pointer-events: none;
   margin: 0;

@@ -197,8 +197,11 @@ VITRINE_CARDS = [
      "img": "obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805",
      "foto": "kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364"},
     # Publicado em 30/07 e com a obra subida pela cliente na posição 4.
+    # O selo é o obra-card__selo da demo (o mesmo do "Pré-venda") — pedido
+    # da cliente em 31/07: marcar o kit de entrada na home.
     {"id": "nubleu", "artista": "Matisse", "obra": "Nu Bleu II",
      "preco": "R$ 149", "cor": "#475dca", "texto": "#fbfaf6",
+     "selo": "Iniciante",
      "href": INICIANTE_URL,
      "img": "nu-d881b9500f7785b21017855220489403",
      "foto": "kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819"},
@@ -237,7 +240,9 @@ def vitrine_em_blocks() -> dict:
                 "obra": imagem(c["img"]),
                 "foto": imagem(c["foto"]),
                 "ficha": {"type": "text", "settings": {"text":
-                    f'<p class="obra-card__artista">{c["artista"]}</p>'
+                    (f'<p class="obra-card__selo">{c["selo"]}</p>'
+                     if c.get("selo") else "")
+                    + f'<p class="obra-card__artista">{c["artista"]}</p>'
                     f'<p class="obra-card__base">'
                     f'<span class="obra-card__obra">'
                     f'<span class="obra-card__tipo">Kit de bordado</span>'

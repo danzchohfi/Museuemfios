@@ -26,6 +26,10 @@ colocar um kit novo:
 Um aviso sobre o preço: ele é digitado ali, não vem do cadastro do produto.
 Se o preço mudar na loja, o card da home precisa ser atualizado junto.
 
+**A etiqueta "INICIANTE"** no card do Nu Bleu II é a primeira linha do bloco
+de texto do card. A palavra é editável ali mesmo (pode virar "Oferta",
+"Pré-venda"…), e apagar a linha remove a etiqueta.
+
 ---
 
 ## Já resolvido
