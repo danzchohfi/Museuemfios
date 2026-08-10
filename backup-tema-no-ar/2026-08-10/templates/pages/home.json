@@ -1,0 +1,609 @@
+{
+  "sections": {
+    "museu-estilo": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "css": {
+          "type": "code",
+          "settings": {
+            "code": "<style>\n/* ============================================================================\n   MUSEU EM FIOS — design system (formato sections)\n   Identidade: Estúdio Agudo · Implementação: Vitamina Publicitária\n\n   Este arquivo é o nosso: tokens, tipografia e todos os componentes autorais\n   (.mf-*, .obra-card, .guia-card, o grafismo do fio). Não depende de classe\n   nenhuma do tema base — atravessa a migração inteiro.\n\n   A reestilização dos componentes DA PLATAFORMA (grade, botões, header,\n   footer, produto) mora em museu-ponte.css, que é o arquivo a refazer\n   contra as classes do Ipanema.\n============================================================================ */\n/* Fontes self-hosted (variáveis, subset latin — cobre PT-BR).\n   Licença: SIL Open Font License. */\n:root {\n  /* Cores base */\n  --preto: #1d1d1b;\n  --branco: #ffffff;\n  --papel: #fbfaf6;\n\n  /* Cores auxiliares (pinçadas das obras) */\n  --amarelo: #f2c440;   /* Klimt — Der Kuss */\n  --verde: #9cad4e;     /* Monet — Le Pont Japonais */\n  --azul: #6a9cc3;      /* Monet — Femme à l'ombrelle */\n\n  --cinza: #6f6f6a;\n  --linha: rgba(29, 29, 27, 0.16);\n\n  /* Tipografia */\n  --f-titulo: \"Inter\", -apple-system, sans-serif;\n  --f-texto: \"Roboto Serif\", Georgia, serif;\n\n  /* Ritmo */\n  --mf-gutter: clamp(1.25rem, 4vw, 4rem);\n  --mf-secao: clamp(4.5rem, 10vh, 8.5rem);\n\n  --transicao: cubic-bezier(0.22, 1, 0.36, 1);\n}\n\n/* ---------------------------------------------------------------- reset -- */\n*, *::before, *::after { box-sizing: border-box; }\nhtml { scroll-behavior: smooth; }\n@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }\n\nbody {\n  margin: 0;\n  background: var(--papel);\n  color: var(--preto);\n  font-family: var(--f-texto);\n  font-size: 1.0625rem;\n  line-height: 1.68;\n  -webkit-font-smoothing: antialiased;\n  text-rendering: optimizeLegibility;\n}\n\nimg { max-width: 100%; display: block; height: auto; }\na { color: inherit; }\nbutton { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }\n\n::selection { background: var(--amarelo); color: var(--preto); }\n\n/* -------------------------------------------------------------- helpers -- */\n.mf-wrap { width: min(100% - 2 * var(--mf-gutter), 1440px); margin-inline: auto; }\n.visually-hidden {\n  position: absolute; width: 1px; height: 1px; margin: -1px;\n  clip-path: inset(50%); overflow: hidden; white-space: nowrap;\n}\n\n/* Tipos */\n.mf-eyebrow {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.78rem;\n  letter-spacing: 0.16em;\n  text-transform: uppercase;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.75rem;\n}\n.mf-eyebrow::before {\n  content: \"\";\n  width: 2.25rem; height: 2px;\n  background: currentColor;\n}\n\n.mf-display {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  letter-spacing: -0.035em;\n  line-height: 0.92;\n  text-transform: none;\n  margin: 0;\n}\n\n.mf-h2 {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: clamp(2.1rem, 4.6vw, 3.9rem);\n  letter-spacing: -0.03em;\n  line-height: 1.02;\n  margin: 0 0 1.5rem;\n}\n\n.mf-serif {\n  font-family: var(--f-texto);\n  font-weight: 400;\n  font-size: clamp(1.35rem, 2.6vw, 2.1rem);\n  line-height: 1.35;\n}\n\n.mf-italic { font-style: italic; }\n\n/* Botões */\n.mf-btn {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.95rem;\n  letter-spacing: 0.02em;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.65rem;\n  padding: 1rem 1.75rem;\n  background: var(--preto);\n  color: var(--branco);\n  text-decoration: none;\n  border: 1.5px solid var(--preto);\n  position: relative;\n  overflow: hidden;\n  transition: color 0.35s var(--transicao);\n}\n.mf-btn::after { content: \"→\"; transition: transform 0.35s var(--transicao); }\n.mf-btn:hover::after, .mf-btn:focus-visible::after { transform: translateX(0.3rem); }\n.mf-btn--claro { background: transparent; color: var(--preto); }\n.mf-btn--claro:hover { background: var(--preto); color: var(--branco); }\n.mf-btn--branco { background: var(--branco); color: var(--preto); border-color: var(--branco); }\n\n.mf-link {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.95rem;\n  text-decoration: none;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n  position: relative;\n  padding-bottom: 0.3rem;\n}\n.mf-link::before {\n  content: \"\";\n  position: absolute;\n  left: 0; bottom: 0;\n  width: 100%; height: 1.5px;\n  background: currentColor;\n  transform-origin: left;\n  transition: transform 0.4s var(--transicao);\n}\n.mf-link:hover::before { transform: scaleX(0.55); }\n.mf-link::after { content: \"→\"; }\n\n:focus-visible {\n  outline: 2.5px solid var(--preto);\n  outline-offset: 3px;\n}\n\n/* Grafismo: fio/linha hexagonal do manual */\n.fio { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }\n.fio path {\n  fill: none;\n  stroke: var(--preto);\n  stroke-width: 1.5px;\n}\n.fio--branco path { stroke: var(--branco); }\n\n/* Reveals (JS marca como pronto; sem JS tudo fica visível) */\n.mf-js .mf-reveal { opacity: 0; }\n.mf-js .mf-reveal.is-in { opacity: 1; }\n\n/* ================================================================ header -- */\n.mf-header {\n  position: sticky;\n  top: 0;\n  z-index: 60;\n  background: var(--papel);\n  transition: box-shadow 0.3s ease;\n}\n.mf-header.is-scrolled { box-shadow: 0 1px 0 var(--preto); }\n\n.mf-header__inner {\n  display: flex;\n  align-items: center;\n  justify-content: space-between;\n  gap: 2rem;\n  padding-block: 1.1rem;\n  transition: padding 0.3s ease;\n}\n.mf-header.is-scrolled .mf-header__inner { padding-block: 0.7rem; }\n\n.mf-logo { display: inline-flex; text-decoration: none; }\n.mf-logo img, .mf-logo svg { height: 54px; width: auto; transition: height 0.3s ease; }\n.mf-header.is-scrolled .mf-logo img, .mf-header.is-scrolled .mf-logo svg { height: 42px; }\n\n.mf-nav { display: flex; align-items: center; gap: clamp(1.25rem, 2.5vw, 2.5rem); }\n.mf-nav a {\n  font-family: var(--f-texto);\n  font-size: 1.04rem;\n  text-decoration: none;\n  position: relative;\n  padding-bottom: 0.2rem;\n}\n.mf-nav a::after {\n  content: \"\";\n  position: absolute;\n  left: 0; bottom: 0;\n  width: 100%; height: 1.5px;\n  background: var(--preto);\n  transform: scaleX(0);\n  transform-origin: left;\n  transition: transform 0.35s var(--transicao);\n}\n.mf-nav a:hover::after, .mf-nav a[aria-current=\"page\"]::after { transform: scaleX(1); }\n\n.mf-header__acoes { display: flex; align-items: center; gap: 1.4rem; }\n.mf-carrinho {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.92rem;\n  text-decoration: none;\n  display: inline-flex;\n  align-items: center;\n  gap: 0.5rem;\n}\n.mf-carrinho__count {\n  display: inline-grid;\n  place-items: center;\n  min-width: 1.5rem; height: 1.5rem;\n  padding-inline: 0.3rem;\n  background: var(--amarelo);\n  border-radius: 50%;\n  font-size: 0.8rem;\n}\n\n.mf-menu-btn { display: none; }\n\n@media (max-width: 860px) {\n  .mf-nav {\n    position: fixed;\n    inset: 0;\n    background: var(--amarelo);\n    flex-direction: column;\n    justify-content: center;\n    gap: 1.6rem;\n    font-size: 1.5rem;\n    transform: translateY(-102%);\n    visibility: hidden;\n    transition: transform 0.5s var(--transicao), visibility 0s 0.5s;\n    z-index: 70;\n  }\n  .mf-nav.is-open { visibility: visible; transition: transform 0.5s var(--transicao); }\n  .mf-nav a { font-size: 1.7rem; }\n  .mf-nav.is-open { transform: translateY(0); }\n  .mf-menu-btn {\n    display: inline-flex;\n    flex-direction: column;\n    gap: 5px;\n    z-index: 80;\n    padding: 0.4rem 0;\n  }\n  .mf-menu-btn span {\n    width: 26px; height: 2px;\n    background: var(--preto);\n    transition: transform 0.3s ease, opacity 0.3s ease;\n  }\n  .mf-menu-btn[aria-expanded=\"true\"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }\n  .mf-menu-btn[aria-expanded=\"true\"] span:nth-child(2) { opacity: 0; }\n  .mf-menu-btn[aria-expanded=\"true\"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }\n}\n\n/* ================================================================== hero -- */\n.mf-hero {\n  position: relative;\n  min-height: min(92vh, 60rem);\n  display: grid;\n  overflow: clip;\n  background: var(--cor-hero, var(--azul));\n  transition: background-color 0.9s ease;\n}\n\n/* Visibilidade dos slides 100% via CSS (classe .is-active) — o GSAP anima\n   só os filhos. Evita estados órfãos quando o navegador suspende a aba\n   (overlap de textos visto no iPadOS). */\n.mf-hero__slide {\n  grid-area: 1 / 1;\n  position: relative;\n  display: grid;\n  grid-template-rows: auto 1fr auto;\n  padding: clamp(1.5rem, 4vw, 3.5rem) var(--mf-gutter);\n  opacity: 0;\n  visibility: hidden;\n  transition: opacity 0.5s ease, visibility 0s linear 0.5s;\n}\n.mf-hero__slide.is-active {\n  opacity: 1;\n  visibility: visible;\n  transition: opacity 0.5s ease 0.15s;\n}\n\n.mf-hero__descritor {\n  position: absolute;\n  top: 1.1rem;\n  inset-inline: 0;\n  z-index: 6;\n  text-align: center;\n  font-style: italic;\n  font-size: 0.95rem;\n  padding-inline: var(--mf-gutter);\n  margin: 0;\n}\n\n.mf-hero__intro {\n  max-width: 36ch;\n  font-size: clamp(1rem, 1.4vw, 1.2rem);\n  line-height: 1.55;\n  margin: 1.4rem 0 0;\n  justify-self: start;\n}\n.mf-hero__intro .pergunta {\n  display: block;\n  font-family: var(--f-titulo);\n  font-style: normal;\n  font-weight: 700;\n  font-size: 0.8rem;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  margin-bottom: 0.5rem;\n}\n\n.mf-hero__ficha {\n  margin: 0;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.76rem;\n  letter-spacing: 0.13em;\n  text-transform: uppercase;\n  line-height: 1.8;\n  align-self: flex-end;\n}\n\n.mf-hero__palco {\n  position: relative;\n  display: grid;\n  place-items: center;\n  padding-block: 1rem;\n}\n.mf-hero__obra {\n  position: relative;\n  width: min(46vh, 78vw, 30rem);\n  aspect-ratio: 1;\n  overflow: hidden;\n}\n.mf-hero__obra img { width: 100%; height: 100%; object-fit: cover; }\n\n.mf-hero__fio {\n  position: absolute;\n  left: 50%; top: 50%;\n  transform: translate(-50%, -50%);\n  width: min(66vh, 96vw, 46rem);\n  aspect-ratio: 1.3;\n}\n\n.mf-hero__nome {\n  position: absolute;\n  inset-inline: 0;\n  top: 50%;\n  transform: translateY(-50%);\n  text-align: center;\n  font-size: clamp(4.5rem, 17vw, 15rem);\n  pointer-events: none;\n  z-index: 2;\n}\n.mf-hero__nome .char { display: inline-block; }\n\n.mf-hero__rodape {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  gap: 2rem;\n}\n.mf-hero__kit {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: clamp(1.6rem, 3.2vw, 2.6rem);\n  letter-spacing: -0.03em;\n  line-height: 0.95;\n  margin: 0 0 0.75rem;\n}\n\n.mf-hero__nav {\n  position: absolute;\n  bottom: clamp(1.2rem, 3vw, 2.4rem);\n  left: 50%;\n  transform: translateX(-50%);\n  display: flex;\n  align-items: center;\n  gap: 0.9rem;\n  z-index: 5;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.85rem;\n}\n.mf-hero__dot {\n  width: 2.4rem;\n  height: 44px;\n  padding: 0;\n  background: none;\n  position: relative;\n}\n.mf-hero__dot::before {\n  content: \"\";\n  position: absolute;\n  inset: 21px 0;\n  background: rgba(29,29,27,0.3);\n}\n.mf-hero__dot .prog {\n  position: absolute;\n  inset: 21px 0;\n  background: var(--preto);\n  transform: scaleX(0);\n  transform-origin: left;\n}\n.mf-hero__dot.is-active .prog { transform: scaleX(1); }\n\n@media (max-width: 860px) {\n  .mf-hero { min-height: 88vh; grid-template-rows: auto 1fr; }\n  /* No celular o descritor quebra em 2-3 linhas: sai do absoluto e entra no\n     fluxo do grid (linha própria acima do slide) pra nunca cobrir o intro. */\n  .mf-hero__descritor { position: static; grid-area: 1 / 1; margin-top: 1.4rem; }\n  .mf-hero__slide { grid-area: 2 / 1; }\n  .mf-hero__rodape { flex-direction: column; align-items: flex-start; }\n  .mf-hero__nav { position: static; margin: 0.75rem 0 1.5rem; padding-inline: var(--mf-gutter); }\n}\n\n/* =============================================================== marquee -- */\n.mf-marquee {\n  background: var(--preto);\n  color: var(--papel);\n  overflow: hidden;\n  padding-block: 0.9rem;\n  border-block: 1.5px solid var(--preto);\n}\n.mf-marquee__trilho {\n  display: flex;\n  gap: 3.5rem;\n  width: max-content;\n  animation: mf-marquee 36s linear infinite;\n}\n.mf-marquee__trilho span {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: 1.05rem;\n  letter-spacing: 0.04em;\n  text-transform: uppercase;\n  white-space: nowrap;\n  display: inline-flex;\n  align-items: center;\n  gap: 3.5rem;\n}\n.mf-marquee__trilho span::after { content: \"✳\"; font-weight: 400; }\n@keyframes mf-marquee {\n  to { transform: translateX(-50%); }\n}\n@media (prefers-reduced-motion: reduce) {\n  .mf-marquee__trilho { animation: none; }\n}\n\n/* ============================================================= manifesto -- */\n.mf-manifesto {\n  position: relative;\n  padding-block: var(--mf-secao);\n  overflow: clip;\n}\n.mf-manifesto__fio {\n  position: absolute;\n  inset: -18% -6%;\n  opacity: 0.6;\n}\n.mf-manifesto .mf-wrap {\n  position: relative;\n  display: grid;\n  gap: 2.5rem;\n  max-width: 62rem;\n}\n.mf-manifesto__frase {\n  margin: 0;\n  font-size: clamp(1.8rem, 4vw, 3.4rem);\n  line-height: 1.25;\n  font-weight: 400;\n}\n.mf-manifesto__frase .palavra { display: inline-block; }\n.mf-manifesto__apoio {\n  max-width: 44ch;\n  margin: 0;\n  justify-self: end;\n  text-align: left;\n}\n\n/* ================================================================ a noite -- */\n/* O layout \"quebra\" pra noite: gradiente do papel pro céu noturno e de volta.\n   É o momento de uso do produto — o vídeo institucional mora no escuro. */\n.mf-noite {\n  --ceu: #10131d;\n  background: linear-gradient(\n    180deg,\n    var(--papel) 0%,\n    #434a5c 9%,\n    var(--ceu) 26%,\n    var(--ceu) 78%,\n    #434a5c 93%,\n    var(--papel) 100%\n  );\n  color: var(--papel);\n  padding-block: clamp(8rem, 16vw, 14rem);\n  text-align: center;\n}\n.mf-noite .mf-eyebrow { color: var(--amarelo); }\n.mf-noite .mf-h2 { margin-inline: auto; }\n.mf-noite__apoio {\n  max-width: 52ch;\n  margin: 1.5rem auto 0;\n}\n/* O player, grande: quase a largura toda do wrap no desktop e sangrando\n   até as bordas da tela no mobile — o tamanho é pedido do cliente. */\n.mf-noite__video {\n  position: relative;\n  max-width: 80rem;\n  margin: 3.5rem auto 0;\n  aspect-ratio: 16 / 9;\n  background: #000;\n  border: 1.5px solid rgba(251, 250, 246, 0.18);\n  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.55);\n}\n.mf-noite__video iframe {\n  position: absolute;\n  inset: 0;\n  width: 100%;\n  height: 100%;\n  border: 0;\n}\n@media (max-width: 720px) {\n  .mf-noite__video {\n    margin-inline: calc(-1 * var(--mf-gutter));\n    border-inline: 0;\n  }\n}\n\n/* ================================================================ vitrine -- */\n.mf-vitrine { padding-block: var(--mf-secao); }\n.mf-vitrine__topo {\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  gap: 2rem;\n  margin-bottom: 3rem;\n}\n\n.mf-grade {\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(min(20rem, 100%), 1fr));\n  gap: clamp(1.25rem, 2.5vw, 2.25rem);\n}\n\n.obra-card {\n  position: relative;\n  display: block;\n  text-decoration: none;\n  background: var(--cor-card, var(--azul));\n  aspect-ratio: 4 / 5;\n  overflow: hidden;\n  isolation: isolate;\n}\n.obra-card[data-cor=\"amarelo\"] { --cor-card: var(--amarelo); }\n.obra-card[data-cor=\"verde\"] { --cor-card: var(--verde); }\n.obra-card[data-cor=\"azul\"] { --cor-card: var(--azul); }\n.obra-card[data-cor=\"papel\"] { --cor-card: #edeae0; }\n\n.obra-card__img {\n  position: absolute;\n  inset: 12% 14% auto;\n  aspect-ratio: 1;\n  overflow: hidden;\n}\n.obra-card__img img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  transition: transform 0.7s var(--transicao);\n}\n.obra-card:hover .obra-card__img img { transform: scale(1.05); }\n\n/* Foto real do kit bordado: revelada no hover (obra → interpretação em fios) */\n.obra-card__img .foto-real {\n  position: absolute;\n  inset: 0;\n  opacity: 0;\n  transition: opacity 0.5s var(--transicao), transform 0.7s var(--transicao);\n}\n.obra-card:hover .obra-card__img .foto-real,\n.obra-card:focus-visible .obra-card__img .foto-real { opacity: 1; }\n\n.obra-card__fio { position: absolute; inset: 6% 5%; opacity: 0; transition: opacity 0.4s ease; }\n.obra-card:hover .obra-card__fio { opacity: 1; }\n\n.obra-card__artista {\n  position: absolute;\n  inset-inline: 0;\n  top: 46%;\n  z-index: 2;\n  text-align: center;\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  letter-spacing: -0.04em;\n  line-height: 1;\n  font-size: clamp(3rem, 7.5vw, 4.6rem);\n  margin: 0;\n}\n\n.obra-card__base {\n  position: absolute;\n  inset-inline: 0;\n  bottom: 0;\n  padding: 1.25rem 1.4rem;\n  display: flex;\n  align-items: flex-end;\n  justify-content: space-between;\n  gap: 1rem;\n  z-index: 3;\n}\n.obra-card__obra {\n  margin: 0;\n  font-style: italic;\n  font-size: 1.05rem;\n  line-height: 1.3;\n}\n.obra-card__tipo {\n  display: block;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-style: normal;\n  font-size: 0.78rem;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  margin-bottom: 0.3rem;\n}\n.obra-card__preco {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 1rem;\n  text-align: right;\n  white-space: nowrap;\n}\n.obra-card__preco del {\n  display: block;\n  font-weight: 400;\n  font-size: 0.82rem;\n  opacity: 0.6;\n}\n.obra-card__cta {\n  position: absolute;\n  inset-inline: 0;\n  bottom: 0;\n  z-index: 4;\n  background: var(--preto);\n  color: var(--papel);\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.92rem;\n  text-align: center;\n  padding: 0.9rem;\n  transform: translateY(101%);\n  transition: transform 0.45s var(--transicao);\n}\n.obra-card:hover .obra-card__cta,\n.obra-card:focus-visible .obra-card__cta { transform: translateY(0); }\n\n.obra-card--breve .obra-card__img { filter: grayscale(0.85); opacity: 0.75; }\n.obra-card__selo {\n  position: absolute;\n  top: 1.1rem; left: 1.1rem;\n  z-index: 5;\n  background: var(--preto);\n  color: var(--papel);\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.72rem;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  padding: 0.35rem 0.7rem;\n}\n.obra-card__selo--oferta { background: var(--branco); color: var(--preto); }\n\n/* Guias digitais */\n.mf-grade--guias {\n  grid-template-columns: repeat(auto-fill, minmax(min(14rem, 100%), 1fr));\n}\n.guia-card {\n  display: block;\n  text-decoration: none;\n  border: 1.5px solid var(--linha);\n  background: var(--branco);\n  transition: border-color 0.3s ease, transform 0.4s var(--transicao);\n}\n.guia-card:hover { border-color: var(--preto); transform: translateY(-4px); }\n.guia-card__img { display: block; aspect-ratio: 1; overflow: hidden; background: #f1efe8; }\n.guia-card__img img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  transition: transform 0.6s var(--transicao);\n}\n.guia-card:hover .guia-card__img img { transform: scale(1.05); }\n.guia-card__info { display: block; padding: 1.1rem 1.2rem 1.3rem; }\n.guia-card__tipo {\n  display: block;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.72rem;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  color: var(--cinza);\n  margin-bottom: 0.4rem;\n}\n.guia-card__nome {\n  display: block;\n  margin: 0 0 0.6rem;\n  font-style: italic;\n  font-size: 1.02rem;\n  line-height: 1.35;\n}\n.guia-card__preco {\n  display: block;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n}\n.guia-card__preco del { font-weight: 400; opacity: 0.55; margin-right: 0.5rem; }\n\n/* ========================================================== como funciona -- */\n.mf-passos {\n  background: var(--preto);\n  color: var(--papel);\n  padding-block: var(--mf-secao);\n  position: relative;\n  overflow: clip;\n}\n.mf-passos .mf-eyebrow { color: var(--amarelo); }\n.mf-passos__grade {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));\n  gap: 3rem;\n  margin-top: 4rem;\n}\n.mf-passo { position: relative; padding-top: 2.2rem; }\n.mf-passo::before {\n  content: \"\";\n  position: absolute;\n  top: 0; left: 0;\n  width: 3.5rem; height: 2px;\n  background: var(--amarelo);\n}\n.mf-passo__num {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: clamp(3.4rem, 6vw, 5.2rem);\n  line-height: 1;\n  letter-spacing: -0.04em;\n  margin: 0 0 1rem;\n  color: transparent;\n  -webkit-text-stroke: 1.5px var(--papel);\n}\n.mf-passo h3 {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 1.3rem;\n  margin: 0 0 0.75rem;\n}\n.mf-passo p { margin: 0; opacity: 0.82; max-width: 36ch; }\n\n/* ================================================================== kit -- */\n.mf-kit {\n  padding-block: var(--mf-secao);\n  background: var(--amarelo);\n  position: relative;\n  overflow: clip;\n}\n.mf-kit--claro { background: var(--papel); }\n.mf-kit__nota {\n  margin: 0 0 2rem;\n  max-width: 46ch;\n}\n.mf-kit .mf-wrap {\n  display: grid;\n  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);\n  gap: clamp(2rem, 6vw, 6rem);\n  align-items: center;\n}\n.mf-kit__visual { position: relative; }\n.mf-kit__visual img { width: 100%; aspect-ratio: 1; object-fit: cover; }\n.mf-kit__fio { position: absolute; inset: -7% -9%; }\n.mf-kit__lista {\n  list-style: none;\n  margin: 2rem 0;\n  padding: 0;\n  display: grid;\n  gap: 0.85rem;\n}\n.mf-kit__lista li {\n  display: flex;\n  gap: 0.9rem;\n  align-items: baseline;\n  border-bottom: 1px solid rgba(29,29,27,0.25);\n  padding-bottom: 0.85rem;\n}\n.mf-kit__lista .num {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: 0.85rem;\n}\n@media (max-width: 860px) {\n  .mf-kit .mf-wrap { grid-template-columns: 1fr; }\n}\n\n/* ============================================================= instagram -- */\n.mf-insta { padding-block: var(--mf-secao); }\n.mf-insta__grade {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 40vw), 1fr));\n  gap: 1rem;\n  margin-top: 2.5rem;\n}\n.mf-insta__grade a {\n  position: relative;\n  aspect-ratio: 1;\n  overflow: hidden;\n  display: block;\n}\n.mf-insta__grade img {\n  width: 100%; height: 100%;\n  object-fit: cover;\n  transition: transform 0.6s var(--transicao);\n}\n.mf-insta__grade a:hover img { transform: scale(1.06); }\n\n/* ============================================================ newsletter -- */\n.mf-news {\n  background: var(--preto);\n  color: var(--papel);\n  padding-block: var(--mf-secao);\n}\n.mf-news .mf-wrap {\n  display: grid;\n  gap: 2rem;\n  max-width: 56rem;\n  text-align: center;\n  justify-items: center;\n}\n.mf-news form {\n  display: flex;\n  width: min(100%, 34rem);\n  border-bottom: 2px solid var(--papel);\n}\n.mf-news input {\n  flex: 1;\n  background: none;\n  border: 0;\n  color: var(--papel);\n  font-family: var(--f-texto);\n  font-size: 1.1rem;\n  padding: 0.9rem 0;\n  outline: none;\n}\n.mf-news input::placeholder { color: rgba(251,250,246,0.55); }\n.mf-news__apoio { margin: 0; opacity: 0.8; max-width: 42ch; }\n.mf-news button {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  letter-spacing: 0.06em;\n  text-transform: uppercase;\n  font-size: 0.85rem;\n}\n.mf-news button:hover { color: var(--amarelo); }\n\n/* ================================================================ footer -- */\n.mf-footer {\n  background: var(--preto);\n  color: var(--papel);\n  padding-top: var(--mf-secao);\n  border-top: 1.5px solid var(--preto);\n}\n.mf-footer__logo { display: block; margin-bottom: 4rem; }\n.mf-footer__logo img, .mf-footer__logo svg { width: min(100%, 44rem); height: auto; }\n\n.mf-footer__cols {\n  display: grid;\n  grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr));\n  gap: 2.5rem;\n  padding-bottom: 4rem;\n}\n.mf-footer h4 {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.8rem;\n  letter-spacing: 0.16em;\n  text-transform: uppercase;\n  margin: 0 0 1.2rem;\n  color: var(--amarelo);\n}\n.mf-footer ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.7rem; }\n.mf-footer a { text-decoration: none; opacity: 0.85; }\n.mf-footer a:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }\n\n.mf-footer__base {\n  border-top: 1px solid rgba(251,250,246,0.2);\n  padding-block: 1.5rem;\n  display: flex;\n  flex-wrap: wrap;\n  align-items: center;\n  gap: 1rem 2.5rem;\n  justify-content: space-between;\n  font-size: 0.86rem;\n  font-family: var(--f-titulo);\n}\n.mf-footer__base > span { opacity: 0.75; }\n\n/* Assinatura Vitamina (wordmark tipográfico: Inter Tight, ponto no teal) */\n.mf-credito {\n  display: inline-flex;\n  align-items: baseline;\n  gap: 0.6rem;\n  text-decoration: none;\n}\n.mf-credito .rotulo {\n  font-weight: 400;\n  font-size: 0.78rem;\n  letter-spacing: 0.14em;\n  text-transform: uppercase;\n  opacity: 0.6;\n}\n.mf-credito .marca {\n  font-family: \"Inter Tight\", var(--f-titulo);\n  font-weight: 800;\n  font-size: 1.2rem;\n  letter-spacing: -0.05em;\n  color: var(--papel);\n  line-height: 1;\n}\n.mf-credito .marca i {\n  font-style: normal;\n  color: #0b4a48; /* --vp-accent oficial do site da Vitamina */\n}\n.mf-credito:hover .marca { color: #fff; }\n.mf-credito:hover .rotulo { opacity: 0.9; }\n\n/* ========================================================= página interna -- */\n.mf-pagina-cab {\n  padding: calc(var(--mf-secao) * 0.6) 0 3rem;\n  position: relative;\n  overflow: clip;\n}\n.mf-pagina-cab h1 {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  letter-spacing: -0.035em;\n  font-size: clamp(2.6rem, 7vw, 5.5rem);\n  line-height: 0.95;\n  margin: 0.5rem 0 0;\n}\n\n/* Filtros da loja */\n.mf-filtros {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.75rem;\n  margin: 2.5rem 0 3rem;\n}\n.mf-filtro {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.9rem;\n  padding: 0.6rem 1.3rem;\n  border: 1.5px solid var(--preto);\n  background: transparent;\n  transition: background 0.25s ease, color 0.25s ease;\n}\n.mf-filtro[aria-pressed=\"true\"], .mf-filtro:hover {\n  background: var(--preto);\n  color: var(--papel);\n}\n\n/* ================================================================ produto -- */\n.mf-produto { padding-block: 3rem var(--mf-secao); }\n.mf-produto__grid {\n  display: grid;\n  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);\n  gap: clamp(2rem, 5vw, 5rem);\n  align-items: start;\n}\n.mf-produto__galeria { position: sticky; top: 7rem; }\n\n/* Mobile: galeria em fluxo normal — sticky + transform de reveal causa\n   sobreposição da coluna de info no iOS Safari */\n@media (max-width: 960px) {\n  .mf-produto__grid { grid-template-columns: 1fr; }\n  .mf-produto__galeria { position: static; }\n}\n.mf-produto__palco {\n  position: relative;\n  background: var(--cor-obra, var(--azul));\n  padding: clamp(2rem, 5vw, 4rem);\n}\n.mf-produto__palco .fio-alvo,\n.fio-alvo {\n  position: absolute;\n  inset: 4% 3%;\n  pointer-events: none;\n}\n.mf-produto__palco img {\n  width: 100%;\n  aspect-ratio: 1;\n  object-fit: cover;\n}\n.mf-produto__thumbs {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.8rem;\n  margin-top: 0.8rem;\n}\n.mf-produto__thumbs button {\n  width: 5rem;\n  aspect-ratio: 1;\n  padding: 0;\n  border: 1.5px solid transparent;\n  overflow: hidden;\n}\n.mf-produto__thumbs button.is-active { border-color: var(--preto); }\n.mf-produto__thumbs img { width: 100%; height: 100%; object-fit: cover; }\n\n.mf-produto__serie {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.8rem;\n  letter-spacing: 0.18em;\n  text-transform: uppercase;\n}\n.mf-produto__titulo {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  letter-spacing: -0.03em;\n  font-size: clamp(2.1rem, 4vw, 3.2rem);\n  line-height: 1;\n  margin: 0.8rem 0 0.4rem;\n}\n.mf-produto__obra {\n  font-style: italic;\n  font-size: 1.35rem;\n  margin: 0 0 1.8rem;\n}\n\n.mf-preco { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 0.4rem; }\n.mf-preco__atual {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: 2.2rem;\n  letter-spacing: -0.02em;\n}\n.mf-preco__antigo { font-size: 1.15rem; opacity: 0.55; }\n.mf-preco__selo {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.78rem;\n  background: var(--amarelo);\n  padding: 0.3rem 0.6rem;\n  letter-spacing: 0.08em;\n}\n.mf-parcelas { font-size: 0.95rem; opacity: 0.75; margin: 0 0 2rem; }\n\n.mf-compra { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }\n.mf-qtd {\n  display: inline-flex;\n  align-items: center;\n  border: 1.5px solid var(--preto);\n}\n.mf-qtd button {\n  width: 3rem; height: 3.4rem;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 1.2rem;\n}\n.mf-qtd input {\n  width: 3rem;\n  text-align: center;\n  border: 0;\n  background: none;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 1rem;\n}\n.mf-compra .mf-btn { flex: 1; justify-content: center; min-width: 14rem; }\n\n.mf-wa {\n  display: inline-flex;\n  align-items: center;\n  gap: 0.6rem;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.92rem;\n  text-decoration: none;\n  margin: 0.8rem 0 2.2rem;\n}\n.mf-wa:hover { text-decoration: underline; text-underline-offset: 4px; }\n\n.mf-acordeao { border-top: 1.5px solid var(--preto); }\n.mf-acordeao details { border-bottom: 1.5px solid var(--preto); }\n.mf-acordeao summary {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 1.02rem;\n  padding: 1.2rem 0;\n  cursor: pointer;\n  list-style: none;\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n}\n.mf-acordeao summary::-webkit-details-marker { display: none; }\n.mf-acordeao summary::after {\n  content: \"+\";\n  font-size: 1.4rem;\n  font-weight: 400;\n  transition: transform 0.3s ease;\n}\n.mf-acordeao details[open] summary::after { transform: rotate(45deg); }\n.mf-acordeao .conteudo { padding: 0 0 1.4rem; max-width: 60ch; }\n.mf-acordeao ul { margin: 0; padding-left: 1.2rem; }\n\n/* Ficha técnica de catálogo (direção \"museu editorial\") */\n.mf-ficha {\n  margin: 2rem 0 0.5rem;\n  border-top: 1.5px solid var(--preto);\n}\n.mf-ficha > p {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.78rem;\n  letter-spacing: 0.16em;\n  text-transform: uppercase;\n  margin: 1rem 0 0.4rem;\n}\n.mf-ficha div {\n  display: flex;\n  justify-content: space-between;\n  gap: 1.5rem;\n  border-bottom: 1px solid var(--linha);\n  padding: 0.6rem 0;\n  font-size: 0.98rem;\n}\n.mf-ficha dt {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.76rem;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  align-self: center;\n  white-space: nowrap;\n}\n.mf-ficha dd { margin: 0; font-style: italic; text-align: right; }\n\n.mf-pagina-cab__apoio {\n  max-width: 52ch;\n  margin: 1.2rem 0 0;\n  font-size: 1.1rem;\n}\n\n.mf-sobre-obra {\n  margin-top: var(--mf-secao);\n  display: grid;\n  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);\n  gap: clamp(2rem, 5vw, 5rem);\n  padding-top: 3rem;\n  border-top: 1.5px solid var(--preto);\n}\n@media (max-width: 860px) {\n  .mf-sobre-obra { grid-template-columns: 1fr; }\n}\n\n/* ============================================================== notifica -- */\n.mf-toast {\n  position: fixed;\n  bottom: 1.5rem;\n  right: 1.5rem;\n  z-index: 90;\n  background: var(--preto);\n  color: var(--papel);\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.95rem;\n  padding: 1.1rem 1.5rem;\n  display: flex;\n  align-items: center;\n  gap: 1rem;\n  transform: translateY(150%);\n  transition: transform 0.45s var(--transicao);\n  max-width: min(92vw, 26rem);\n}\n.mf-toast.is-on { transform: translateY(0); }\n.mf-toast a { color: var(--amarelo); }\n\n/* ================================================================ cursor -- */\n@media (hover: hover) and (pointer: fine) {\n  .mf-cursor {\n    position: fixed;\n    top: 0; left: 0;\n    z-index: 100;\n    pointer-events: none;\n    width: 10px; height: 10px;\n    border-radius: 50%;\n    background: var(--preto);\n    transform: translate(-50%, -50%);\n    transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;\n    mix-blend-mode: exclusion;\n    background: #fff;\n  }\n  .mf-cursor.is-link { width: 26px; height: 26px; }\n  .mf-fio-canvas {\n    position: fixed;\n    inset: 0;\n    z-index: 99;\n    pointer-events: none;\n    mix-blend-mode: exclusion;\n  }\n}\n@media (hover: none), (pointer: coarse) {\n  .mf-cursor, .mf-fio-canvas { display: none; }\n}\n\n/* =============================================================== sobre-nós -- */\n.mf-sobre-hero {\n  background: var(--amarelo);\n  position: relative;\n  overflow: clip;\n  padding-block: var(--mf-secao);\n}\n.mf-sobre-hero .mf-wrap {\n  position: relative;\n  display: grid;\n  place-items: center;\n  min-height: 46vh;\n}\n.mf-sobre-hero img {\n  width: min(30rem, 70vw);\n  aspect-ratio: 1;\n  object-fit: cover;\n}\n.mf-sobre-hero .mf-display {\n  position: absolute;\n  font-size: clamp(3rem, 11vw, 9.5rem);\n  text-align: center;\n  z-index: 2;\n}\n.mf-texto-editorial {\n  padding-block: var(--mf-secao);\n}\n.mf-texto-editorial .mf-wrap {\n  max-width: 46rem;\n  display: grid;\n  gap: 1.6rem;\n}\n.mf-texto-editorial p { margin: 0; font-size: 1.18rem; }\n.mf-texto-editorial p:first-of-type { font-size: 1.5rem; line-height: 1.5; }\n\n/* ============================================================ acessórios -- */\n.mf-skip {\n  position: absolute;\n  left: -100vw;\n  top: 0;\n  background: var(--amarelo);\n  color: var(--preto);\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  padding: 0.8rem 1.2rem;\n  z-index: 200;\n}\n.mf-skip:focus { left: 0; }\n\n@media (prefers-reduced-motion: reduce) {\n  *, *::before, *::after {\n    animation-duration: 0.01ms !important;\n    animation-iteration-count: 1 !important;\n    transition-duration: 0.01ms !important;\n  }\n}\n\n/* Player nativo do Ipanema dentro da noite (block de vídeo com URL editável\n   no editor) — ocupa a moldura como o iframe antigo */\n.mf-noite__video .js-video-block,\n.mf-noite__video .video-block {\n  width: 100%;\n}\n\n/* ============================================================================\n   MUSEU EM FIOS — ponte com os componentes da plataforma\n\n   ⚠️  ARQUIVO A REFAZER NA MIGRAÇÃO.\n   As regras abaixo miram as classes do Layout Base legado (.btn, .item-product,\n   .grid-row, .js-price-display, .head-main, .js-footer…). O Ipanema tem outra\n   marcação, então elas ficam aqui como REFERÊNCIA do efeito visual pretendido:\n   ao abrir o Ipanema, reescrever cada bloco mirando as classes equivalentes.\n\n   Nada aqui deve tocar hooks .js-* de comportamento — só aparência.\n============================================================================ */\n/* Tipografia geral (as famílias vêm de settings: Inter títulos / Roboto Serif texto) */\nh1, h2, h3, .h1, .h2, .h3 {\n  font-weight: 900;\n  letter-spacing: -0.03em;\n}\n\n/* Botões nativos */\n.btn {\n  border-radius: 0;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  letter-spacing: 0.02em;\n  text-transform: none;\n}\n.btn-primary, input.btn-primary {\n  background: var(--preto);\n  border: 1.5px solid var(--preto);\n  color: var(--branco);\n  transition: background 0.3s ease, color 0.3s ease;\n}\n.btn-primary:hover, .btn-primary:focus, input.btn-primary:hover {\n  background: var(--amarelo);\n  border-color: var(--preto);\n  color: var(--preto);\n}\n.btn-default {\n  border-radius: 0;\n  border: 1.5px solid var(--preto);\n  color: var(--preto);\n  background: transparent;\n}\n.btn-default:hover { background: var(--preto); color: var(--branco); }\n\n/* Header */\n.head-main {\n  background: var(--papel);\n  box-shadow: none;\n  border-bottom: 1px solid var(--linha);\n}\n.head-main a:hover { opacity: 0.75; }\n\n/* Grade de produtos: cartões editoriais com as cores auxiliares */\n.item-product {\n  border-radius: 0;\n  box-shadow: none;\n  border: 1.5px solid transparent;\n  transition: border-color 0.3s ease, transform 0.4s var(--transicao);\n  background: transparent;\n}\n.item-product:hover {\n  border-color: var(--preto);\n  transform: translateY(-4px);\n}\n.item-product .item-image {\n  border-radius: 0;\n  background: var(--azul);\n}\n.grid-row .grid-item:nth-child(3n + 2) .item-image { background: var(--verde); }\n.grid-row .grid-item:nth-child(3n) .item-image { background: var(--amarelo); }\n.item-product img { border-radius: 0; }\n.item-name {\n  font-family: var(--f-texto);\n  font-style: italic;\n  font-size: 1.05rem;\n  line-height: 1.35;\n}\n.js-price-display, .item-price {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n}\n.price-compare { opacity: 0.55; }\n\n/* Selos/etiquetas (oferta, sem estoque) */\n.label, .badge {\n  border-radius: 0;\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  font-size: 0.72rem;\n  letter-spacing: 0.12em;\n  text-transform: uppercase;\n  background: var(--preto);\n  color: var(--papel);\n}\n.label-accent, .label-primary { background: var(--preto); color: var(--papel); }\n\n/* Página de produto */\n.section-single-product h1 {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  letter-spacing: -0.03em;\n  line-height: 1.02;\n}\n#single-product .js-price-display {\n  font-family: var(--f-titulo);\n  font-weight: 900;\n  font-size: 2rem;\n  letter-spacing: -0.02em;\n}\n.product-description {\n  font-family: var(--f-texto);\n  font-size: 1.08rem;\n  line-height: 1.7;\n}\n.product-description h2 { font-size: 1.4rem; }\n\n/* Formulários */\n.form-control, .form-select {\n  border-radius: 0;\n  border: 1.5px solid rgba(29, 29, 27, 0.35);\n  font-family: var(--f-texto);\n}\n.form-control:focus, .form-select:focus, textarea.form-control:focus {\n  border-color: var(--preto);\n  box-shadow: none;\n}\n\n/* Footer nativo */\n.js-footer, footer[data-store=\"footer\"] {\n  background: var(--preto);\n  color: var(--papel);\n}\n.js-footer a, footer[data-store=\"footer\"] a { color: var(--papel); }\n.js-footer a:hover, footer[data-store=\"footer\"] a:hover { color: var(--amarelo); }\n.js-footer .footer-title, footer[data-store=\"footer\"] .footer-title {\n  font-family: var(--f-titulo);\n  font-weight: 700;\n  letter-spacing: 0.16em;\n  text-transform: uppercase;\n  font-size: 0.8rem;\n  color: var(--amarelo);\n}\n\n/* Notificação de carrinho e modais */\n.notification, .modal { border-radius: 0; }\n\n/* CTA de dúvidas no produto (snipplet museu) */\n.mf-wa svg { width: 18px; height: 18px; }\n\n/* O reset global img{display:block} da demo não pode empilhar os logos\n   de pagamento/envio do rodapé nativo (snipplets/logos-icons.tpl) */\nimg.icon-logo, .js-footer img, footer[data-store=\"footer\"] img {\n  display: inline-block;\n}\n\n</style>",
+            "width": "fill"
+          }
+        }
+      }
+    },
+    "museu-hero": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "markup": {
+          "type": "code",
+          "settings": {
+            "code": "<section class=\"mf-hero\" aria-label=\"Kits em destaque\">\n      <h2 class=\"mf-hero__descritor\">Sua hora com a arte. Borde um museu.</h2>\n\n      <article class=\"mf-hero__slide is-active\" data-cor=\"azul\">\n        <p class=\"mf-hero__intro\">\n          <span class=\"pergunta\">Você conhece esta obra?</span>\n          <em>Femme à l'ombrelle</em>, Claude Monet, 1886. Neste kit, você\n          aprende com o mestre do impressionismo enquanto cria a sua própria\n          interpretação em fio.\n        </p>\n        <div class=\"mf-hero__palco\">\n          <div class=\"mf-hero__fio\"></div>\n          <div class=\"mf-hero__obra\">\n            <a href=\"/kits-de-bordado/\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-1024-1024.webp\" alt=\"Pintura Femme à l'ombrelle, de Claude Monet: mulher com sombrinha verde em campo florido\" fetchpriority=\"high\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-640-0.webp 640w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197-1024-1024.webp 1024w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></a>\n          </div>\n          <p class=\"mf-hero__nome mf-display\" aria-hidden=\"true\">Monet</p>\n        </div>\n        <div class=\"mf-hero__rodape\">\n          <p class=\"mf-hero__ficha\">Autor — Claude Monet<br>Obra — Femme à l'ombrelle, 1886</p>\n          <div>\n            <p class=\"mf-hero__kit\">Kit para<br>bordar</p>\n            <a class=\"mf-link\" href=\"/kits-de-bordado/\">Ver a coleção</a>\n          </div>\n        </div>\n      </article>\n\n      <article class=\"mf-hero__slide\" data-cor=\"amarelo\">\n        <p class=\"mf-hero__intro\">\n          <span class=\"pergunta\">Você conhece esta obra?</span>\n          <em>Die Umarmung</em>, Gustav Klimt, c. 1908. A riqueza ornamental do\n          mestre vienense, relida ponto a ponto na sua interpretação em fio.\n        </p>\n        <div class=\"mf-hero__palco\">\n          <div class=\"mf-hero__fio\"></div>\n          <div class=\"mf-hero__obra\">\n            <a href=\"/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-1024-1024.webp\" alt=\"Pintura Die Umarmung (O Abraço), de Gustav Klimt: casal abraçado em tons dourados\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-640-0.webp 640w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-1024-1024.webp 1024w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></a>\n          </div>\n          <p class=\"mf-hero__nome mf-display\" aria-hidden=\"true\">Klimt</p>\n        </div>\n        <div class=\"mf-hero__rodape\">\n          <p class=\"mf-hero__ficha\">Autor — Gustav Klimt<br>Obra — Die Umarmung, c. 1908</p>\n          <div>\n            <p class=\"mf-hero__kit\">Kit para<br>bordar</p>\n            <a class=\"mf-link\" href=\"/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/\">Ver o kit</a>\n          </div>\n        </div>\n      </article>\n\n      <article class=\"mf-hero__slide\" data-cor=\"verde\">\n        <p class=\"mf-hero__intro\">\n          <span class=\"pergunta\">Você conhece esta obra?</span>\n          <em>Le Pont Japonais</em>, Claude Monet, 1899. O jardim de Giverny\n          relido em linhas — cor, luz e movimento na sua interpretação.\n        </p>\n        <div class=\"mf-hero__palco\">\n          <div class=\"mf-hero__fio\"></div>\n          <div class=\"mf-hero__obra\">\n            <a href=\"/produtos/kit-de-bordado-le-pont-japonais-claude-monet/\" tabindex=\"-1\" aria-hidden=\"true\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.webp\" alt=\"Pintura Le Pont Japonais, de Claude Monet: ponte japonesa verde sobre lago de ninfeias\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-640-0.webp 640w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-1024-1024.webp 1024w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></a>\n          </div>\n          <p class=\"mf-hero__nome mf-display\" aria-hidden=\"true\">Monet</p>\n        </div>\n        <div class=\"mf-hero__rodape\">\n          <p class=\"mf-hero__ficha\">Autor — Claude Monet<br>Obra — Le Pont Japonais, 1899</p>\n          <div>\n            <p class=\"mf-hero__kit\">Kit para<br>bordar</p>\n            <a class=\"mf-link\" href=\"/produtos/kit-de-bordado-le-pont-japonais-claude-monet/\">Ver o kit</a>\n          </div>\n        </div>\n      </article>\n\n      <div class=\"mf-hero__nav\" role=\"group\" aria-label=\"Trocar destaque\">\n        <button class=\"mf-hero__dot is-active\" aria-pressed=\"true\" aria-label=\"Destaque 1\"><span class=\"prog\"></span></button>\n        <button class=\"mf-hero__dot\" aria-pressed=\"false\" aria-label=\"Destaque 2\"><span class=\"prog\"></span></button>\n        <button class=\"mf-hero__dot\" aria-pressed=\"false\" aria-label=\"Destaque 3\"><span class=\"prog\"></span></button>\n      </div>\n    </section>",
+            "width": "fill"
+          }
+        }
+      }
+    },
+    "museu-marquee": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "markup": {
+          "type": "code",
+          "settings": {
+            "code": "<div class=\"mf-marquee\" aria-hidden=\"true\">\n      <div class=\"mf-marquee__trilho\">\n        <span>Sua hora com a arte</span>\n        <span>Borde um museu</span>\n        <span>Frete grátis acima de R$ 300</span>\n        <span>Cupom de primeira compra: PRIMEIROPONTO</span>\n        <span>Sua hora com a arte</span>\n        <span>Borde um museu</span>\n        <span>Frete grátis acima de R$ 300</span>\n        <span>Cupom de primeira compra: PRIMEIROPONTO</span>\n      </div>\n    </div>",
+            "width": "fill"
+          }
+        }
+      }
+    },
+    "museu-manifesto": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "abre": {
+          "type": "code",
+          "settings": {
+            "code": "<span class=\"mf-alvo-manifesto\" hidden></span><div class=\"mf-manifesto__fio\" data-fio></div>",
+            "width": "fill"
+          }
+        },
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "Museu em Fios",
+            "size": "small"
+          }
+        },
+        "frase": {
+          "type": "heading",
+          "settings": {
+            "title": "Sua hora com a arte. Borde um museu.",
+            "size": "h2"
+          }
+        },
+        "apoio": {
+          "type": "text",
+          "settings": {
+            "text": "<p>O Museu em Fios une bordado e história da arte na releitura autoral de obras icônicas. Cada kit convida você a aprender com os grandes mestres enquanto cria a sua própria interpretação em fio — no seu tempo, sem culpa. Ao final, um certificado simbólico reafirma: a obra é sua. <br><br> Mais de 2.000 obras vendidas desde o lançamento.</p>"
+          }
+        },
+        "botao": {
+          "type": "button",
+          "settings": {
+            "label": "Conheça o projeto",
+            "link": "/quem-somos/",
+            "variant": "primary"
+          }
+        }
+      }
+    },
+    "museu-noite": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "markup": {
+          "type": "code",
+          "settings": {
+            "code": "<section class=\"mf-noite\">\n      <div class=\"mf-wrap\">\n        <p class=\"mf-eyebrow\" data-reveal>O ritual</p>\n        <h2 class=\"mf-h2\" data-reveal>Quando o dia desacelera,<br>começa a sua hora</h2>\n        <p class=\"mf-noite__apoio\" data-reveal>\n          As telas se apagam, a casa baixa o volume — e ficam você, a linha e\n          uma obra que atravessou séculos. Aperte o play e veja como é a hora\n          com a arte de quem borda um museu.\n        </p>\n        </div>\n    </section>",
+            "width": "fill"
+          }
+        },
+        "player": {
+          "type": "video",
+          "settings": {
+            "video_url": {
+              "type": "youtube",
+              "id": "U1xtk1YRrBM",
+              "thumbnail": "https://i.ytimg.com/vi/U1xtk1YRrBM/maxresdefault.jpg"
+            },
+            "video_type": "manual",
+            "show_cover_image": false,
+            "aspect_ratio": "16by9"
+          }
+        }
+      }
+    },
+    "museu-vitrine": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "topo": {
+          "type": "code",
+          "settings": {
+            "code": "<div class=\"mf-vitrine__topo\"><div><p class=\"mf-eyebrow\">Coleção permanente</p><h2 class=\"mf-h2\">Kits para bordar</h2></div><a class=\"mf-link\" href=\"/kits-de-bordado/\">Ver todos os kits</a></div>",
+            "width": "fill"
+          }
+        },
+        "lepont": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+            "custom_background_color": "#9cad4e"
+          },
+          "blocks": {
+            "obra": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-monet-ponte-japonesa-sq-e171a6d2007d0cab3817853430576079-640-0.webp",
+                "link": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+                "width": "fill"
+              }
+            },
+            "foto": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-le-pont-japonais-claude-monet-1-fc3f4d3c752c59d30617854169030794-640-0.webp",
+                "link": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
+                "width": "fill"
+              }
+            },
+            "ficha": {
+              "type": "text",
+              "settings": {
+                "text": "<p class=\"obra-card__artista\">Monet</p><p class=\"obra-card__base\"><span class=\"obra-card__obra\"><span class=\"obra-card__tipo\">Kit de bordado</span>Le Pont Japonais</span><span class=\"obra-card__preco\">R$ 189</span></p><p class=\"obra-card__cta\">Ver o kit →</p>"
+              }
+            }
+          }
+        },
+        "umarmung": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+            "custom_background_color": "#f2c440"
+          },
+          "blocks": {
+            "obra": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-die-umarmung-sq-4a49c88016c9e7f85a17853430557773-640-0.webp",
+                "link": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+                "width": "fill"
+              }
+            },
+            "foto": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-die-umarmung-o-abraco-gustav-kli-1-ff5f3f301734e7d20b17854169091892-640-0.webp",
+                "link": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
+                "width": "fill"
+              }
+            },
+            "ficha": {
+              "type": "text",
+              "settings": {
+                "text": "<p class=\"obra-card__artista\">Klimt</p><p class=\"obra-card__base\"><span class=\"obra-card__obra\"><span class=\"obra-card__tipo\">Kit de bordado</span>Die Umarmung</span><span class=\"obra-card__preco\">R$ 199</span></p><p class=\"obra-card__cta\">Ver o kit →</p>"
+              }
+            }
+          }
+        },
+        "derkuss": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+            "custom_background_color": "#f2c440"
+          },
+          "blocks": {
+            "obra": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-klimt-der-kuss-sq-1320433b3fa77518ee17853455183558-640-0.webp",
+                "link": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
+                "width": "fill"
+              }
+            },
+            "foto": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-de-bordado-der-kuss-klimt-capa-cf3c808b125ead929a17853487083200-640-0.webp",
+                "link": "/produtos/kit-de-bordado-der-kuss-gustav-klimt/",
+                "width": "fill"
+              }
+            },
+            "ficha": {
+              "type": "text",
+              "settings": {
+                "text": "<p class=\"obra-card__artista\">Klimt</p><p class=\"obra-card__base\"><span class=\"obra-card__obra\"><span class=\"obra-card__tipo\">Kit de bordado</span>Der Kuss</span><span class=\"obra-card__preco\">R$ 199</span></p><p class=\"obra-card__cta\">Ver o kit →</p>"
+              }
+            }
+          }
+        },
+        "lagerbe": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+            "custom_background_color": "#475dca",
+            "custom_text_color": "#fbfaf6"
+          },
+          "blocks": {
+            "obra": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805-640-0.webp",
+                "link": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
+                "width": "fill"
+              }
+            },
+            "foto": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364-640-0.webp",
+                "link": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
+                "width": "fill"
+              }
+            },
+            "ficha": {
+              "type": "text",
+              "settings": {
+                "text": "<p class=\"obra-card__artista\">Matisse</p><p class=\"obra-card__base\"><span class=\"obra-card__obra\"><span class=\"obra-card__tipo\">Kit de bordado</span>La Gerbe</span><span class=\"obra-card__preco\">R$ 179</span></p><p class=\"obra-card__cta\">Ver o kit →</p>"
+              }
+            }
+          }
+        },
+        "nubleu": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 0,
+            "vertical_padding": 0,
+            "horizontal_padding": 0,
+            "custom_background_color": "#475dca",
+            "custom_text_color": "#fbfaf6"
+          },
+          "blocks": {
+            "obra": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/nu-d881b9500f7785b21017855220489403-640-0.webp",
+                "link": "/produtos/kit-de-bordado-klimt-para-quem-nunca-bordou-le-chevalier-material-completo-video-aulas/",
+                "width": "fill"
+              }
+            },
+            "foto": {
+              "type": "image",
+              "settings": {
+                "image": "https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-640-0.webp",
+                "link": "/produtos/kit-de-bordado-klimt-para-quem-nunca-bordou-le-chevalier-material-completo-video-aulas/",
+                "width": "fill"
+              }
+            },
+            "ficha": {
+              "type": "text",
+              "settings": {
+                "text": "<p class=\"obra-card__selo\">Iniciante</p><p class=\"obra-card__artista\">Matisse</p><p class=\"obra-card__base\"><span class=\"obra-card__obra\"><span class=\"obra-card__tipo\">Kit de bordado</span>Nu Bleu II</span><span class=\"obra-card__preco\">R$ 149</span></p><p class=\"obra-card__cta\">Ver o kit →</p>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "museu-passos": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "#1D1D1B"
+      },
+      "blocks": {
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "A experiência",
+            "size": "small"
+          }
+        },
+        "titulo": {
+          "type": "heading",
+          "settings": {
+            "title": "Imersão na arte,<br>no seu tempo",
+            "size": "h2"
+          }
+        },
+        "passo1": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 8,
+            "vertical_padding": 0,
+            "horizontal_padding": 0
+          },
+          "blocks": {
+            "titulo": {
+              "type": "heading",
+              "settings": {
+                "title": "Você não copia. Você interpreta.",
+                "size": "h4"
+              }
+            },
+            "texto": {
+              "type": "text",
+              "settings": {
+                "text": "<p>O risco vem pronto; a obra que nasce é sua — suas cores, seu ritmo, seu gesto. Autoria, do primeiro ao último ponto.</p>"
+              }
+            }
+          }
+        },
+        "passo2": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 8,
+            "vertical_padding": 0,
+            "horizontal_padding": 0
+          },
+          "blocks": {
+            "titulo": {
+              "type": "heading",
+              "settings": {
+                "title": "O seu tempo, sem culpa.",
+                "size": "h4"
+              }
+            },
+            "texto": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Uma pausa longe das telas: só você, a linha e uma obra que atravessou séculos. Um ritual — não uma obrigação.</p>"
+              }
+            }
+          }
+        },
+        "passo3": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 8,
+            "vertical_padding": 0,
+            "horizontal_padding": 0
+          },
+          "blocks": {
+            "titulo": {
+              "type": "heading",
+              "settings": {
+                "title": "Aprenda com os grandes mestres.",
+                "size": "h4"
+              }
+            },
+            "texto": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Cada kit traz a história da obra e do artista — Monet, Klimt, Matisse e os próximos nomes da coleção permanente.</p>"
+              }
+            }
+          }
+        },
+        "passo4": {
+          "type": "group",
+          "settings": {
+            "direction": "column",
+            "gap": 8,
+            "vertical_padding": 0,
+            "horizontal_padding": 0
+          },
+          "blocks": {
+            "titulo": {
+              "type": "heading",
+              "settings": {
+                "title": "Ao final, a obra é sua.",
+                "size": "h4"
+              }
+            },
+            "texto": {
+              "type": "text",
+              "settings": {
+                "text": "<p>Um certificado simbólico de autenticidade acompanha cada kit — da coleção do museu para a sua parede.</p>"
+              }
+            }
+          }
+        }
+      }
+    },
+    "museu-kit": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "#F2C440"
+      },
+      "blocks": {
+        "visual": {
+          "type": "code",
+          "settings": {
+            "code": "<div class=\"mf-kit__visual\" data-reveal>\n          <div class=\"mf-kit__fio\" data-fio></div>\n          <img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-d139d944eb6fb6121917848252169429-640-0.webp\" alt=\"Conteúdo do kit: tela com risco impresso, meadas de linha, estojo, tesoura e postal da obra\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-d139d944eb6fb6121917848252169429-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-d139d944eb6fb6121917848252169429-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/le-pont-2-d139d944eb6fb6121917848252169429-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\">\n        </div>",
+            "width": "fill"
+          }
+        },
+        "eyebrow": {
+          "type": "text",
+          "settings": {
+            "text": "O que vem no kit",
+            "size": "small"
+          }
+        },
+        "titulo": {
+          "type": "heading",
+          "settings": {
+            "title": "Tudo o que você<br>precisa para começar",
+            "size": "h2"
+          }
+        },
+        "lista": {
+          "type": "text",
+          "settings": {
+            "text": "<ol><li>Tela de 20x20 com o risco da obra impresso e fixado</li><li>Meadas Anchor Mouliné na paleta do artista</li><li>Agulha, estojo de algodão cru e tesoura de arremate</li><li>Postal da obra original com certificado de autenticidade</li><li>QR code para o guia passo a passo, detalhado e fotografado etapa por etapa</li></ol>"
+          }
+        },
+        "nota": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Travou em algum ponto? A gente destrava com você — guia com foto de cada passo e atendimento direto no WhatsApp.</p>"
+          }
+        },
+        "botao": {
+          "type": "button",
+          "settings": {
+            "label": "Escolher meu kit",
+            "link": "/kits-de-bordado/",
+            "variant": "primary"
+          }
+        }
+      }
+    },
+    "museu-iniciante": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "markup": {
+          "type": "code",
+          "settings": {
+            "code": "<section class=\"mf-kit mf-kit--claro\">\n      <div class=\"mf-wrap\">\n        <div class=\"mf-kit__visual\" data-reveal>\n          <div class=\"mf-kit__fio\" data-fio></div>\n          <img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-640-0.webp\" alt=\"Kit Nu Bleu II: bordado colorido de Klimt no cavalete, com guia passo a passo fotografado\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\">\n        </div>\n        <div>\n          <p class=\"mf-eyebrow\" data-reveal>Nunca bordou?</p>\n          <h2 class=\"mf-h2\" data-reveal>A sua primeira obra<br>começa aqui</h2>\n          <p data-reveal>\n            Metade de quem chega ao Museu em Fios nunca tinha bordado. O kit <em>Nu Bleu II</em>, de Henri Matisse, foi desenhado para a\n            primeira obra: material completo e um guia passo a passo detalhado,\n            com foto de cada etapa, dando apoio do primeiro ao último\n            ponto — no seu tempo, sem culpa.\n          </p>\n          <p data-reveal style=\"margin-bottom: 2rem;\">\n            <a class=\"mf-link\" href=\"https://wa.me/5511971147355\" target=\"_blank\" rel=\"noopener\">E se eu travar? Fale com a gente</a>\n          </p>\n          <a class=\"mf-btn\" href=\"/produtos/kit-de-bordado-klimt-para-quem-nunca-bordou-le-chevalier-material-completo-video-aulas/\" data-reveal>Começar pelo Nu Bleu II</a>\n        </div>\n      </div>\n    </section>",
+            "width": "fill"
+          }
+        }
+      }
+    },
+    "museu-digitais": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "markup": {
+          "type": "code",
+          "settings": {
+            "code": "<section class=\"mf-vitrine\" id=\"digitais-home\">\n      <div class=\"mf-wrap\">\n        <div class=\"mf-vitrine__topo\" data-reveal>\n          <div>\n            <p class=\"mf-eyebrow\">Para bordar do seu jeito</p>\n            <h2 class=\"mf-h2\">Guias digitais</h2>\n          </div>\n          <a class=\"mf-link\" href=\"/produtos-digitais/\">Ver todos os guias</a>\n        </div>\n        <div class=\"mf-grade mf-grade--guias\" data-reveal=\"grupo\">\n          <a class=\"guia-card\" data-artista=\"digital\" href=\"https://www.museuemfios.com/produtos/guia-de-bordado-nympheas-claude-monet-produto-digital/\" target=\"_blank\" rel=\"noopener\">\n            <span class=\"guia-card__img\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-640-0.webp\" alt=\"\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/nenufares-1-4ac4097420274a220f17703243160803-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></span>\n            <span class=\"guia-card__info\">\n              <span class=\"guia-card__tipo\">Produto digital</span>\n              <span class=\"guia-card__nome\">Guia de Bordado “Nymphéas” — Monet</span>\n              <span class=\"guia-card__preco\"><del>R$ 39,99</del>R$ 34,99</span>\n            </span>\n          </a>\n          <a class=\"guia-card\" data-artista=\"digital\" href=\"https://www.museuemfios.com/produtos/guia-de-riscos-monet-jardins-de-giverny-produto-digital/\" target=\"_blank\" rel=\"noopener\">\n            <span class=\"guia-card__img\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-640-0.webp\" alt=\"\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/jardins-de-giverny-a0b33d268459b779f717703011709896-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></span>\n            <span class=\"guia-card__info\">\n              <span class=\"guia-card__tipo\">Produto digital</span>\n              <span class=\"guia-card__nome\">Guia de Riscos — Monet: Jardins de Giverny</span>\n              <span class=\"guia-card__preco\">R$ 29,99</span>\n            </span>\n          </a>\n          <a class=\"guia-card\" data-artista=\"digital\" href=\"https://www.museuemfios.com/produtos/guia-de-pontos-monet-pincelada-impressionista-em-fios-produto-digital/\" target=\"_blank\" rel=\"noopener\">\n            <span class=\"guia-card__img\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-640-0.webp\" alt=\"\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/pincelada-impressionista-em-fios-6d622075b9d3ea4f9217703011382686-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></span>\n            <span class=\"guia-card__info\">\n              <span class=\"guia-card__tipo\">Produto digital</span>\n              <span class=\"guia-card__nome\">Guia de Pontos — Monet: Pincelada Impressionista</span>\n              <span class=\"guia-card__preco\">R$ 24,99</span>\n            </span>\n          </a>\n          <a class=\"guia-card\" data-artista=\"digital\" href=\"https://www.museuemfios.com/produtos/entre-ornamento-e-fio-padroes-de-gustav-klimt-em-bordado-produto-digital/\" target=\"_blank\" rel=\"noopener\">\n            <span class=\"guia-card__img\"><img src=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-640-0.webp\" alt=\"\" loading=\"lazy\" srcset=\"https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-320-0.webp 320w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-480-0.webp 480w, https://acdn-us.mitiendanube.com/stores/006/671/481/products/img_4385-b9d4eb2aae0a39b42a17781749509675-640-0.webp 640w\" sizes=\"(max-width: 768px) 92vw, 30rem\"></span>\n            <span class=\"guia-card__info\">\n              <span class=\"guia-card__tipo\">Produto digital</span>\n              <span class=\"guia-card__nome\">Entre Ornamento e Fio — padrões de Gustav Klimt</span>\n              <span class=\"guia-card__preco\">R$ 29,99</span>\n            </span>\n          </a>\n        </div>\n      </div>\n    </section>",
+            "width": "fill"
+          }
+        }
+      }
+    },
+    "museu-motion": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "alignment": "start",
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0,
+        "custom_background_color": "transparent"
+      },
+      "blocks": {
+        "js": {
+          "type": "code",
+          "settings": {
+            "code": "<script defer src=\"https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js\"></script>\n<script defer src=\"https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js\"></script>\n<script>\ndocument.addEventListener('DOMContentLoaded', function () {\nif (window.gsap && window.ScrollTrigger) {\n/* ============================================================================\n   MUSEU EM FIOS — camada de interação e motion\n   Tema Nuvemshop — GSAP + ScrollTrigger (vendorizados). Degrada com segurança:\n   sem JS ou com prefers-reduced-motion o conteúdo fica 100% visível e usável.\n============================================================================ */\n\n(function () {\n  \"use strict\";\n\n  var reduced = window.matchMedia(\"(prefers-reduced-motion: reduce)\").matches;\n  var hasGsap = typeof window.gsap !== \"undefined\";\n  var gsap = window.gsap;\n  if (hasGsap && window.ScrollTrigger) gsap.registerPlugin(window.ScrollTrigger);\n\n  var EASE = \"power3.out\";\n\n  /* ------------------------------------------------------------ utils -- */\n\n  function $(sel, ctx) { return (ctx || document).querySelector(sel); }\n  function $$(sel, ctx) { return Array.prototype.slice.call((ctx || document).querySelectorAll(sel)); }\n\n  /* Divide um texto em <span class=\"char\"> preservando acessibilidade */\n  function splitChars(el) {\n    var text = el.textContent;\n    el.setAttribute(\"aria-label\", text);\n    el.textContent = \"\";\n    text.split(\"\").forEach(function (ch) {\n      var s = document.createElement(\"span\");\n      s.className = \"char\";\n      s.setAttribute(\"aria-hidden\", \"true\");\n      s.textContent = ch === \" \" ? \" \" : ch;\n      el.appendChild(s);\n    });\n    return $$(\".char\", el);\n  }\n\n  function splitWords(el) {\n    var text = el.textContent.trim();\n    el.setAttribute(\"aria-label\", text);\n    el.textContent = \"\";\n    text.split(/\\s+/).forEach(function (w, i) {\n      var s = document.createElement(\"span\");\n      s.className = \"palavra\";\n      s.setAttribute(\"aria-hidden\", \"true\");\n      s.textContent = w;\n      el.appendChild(s);\n      el.appendChild(document.createTextNode(\" \"));\n    });\n    return $$(\".palavra\", el);\n  }\n\n  /* Grafismo do manual: duas metades abertas de hexágono alongado.\n     Gerado em coordenadas de pixel do container para o traço e o\n     \"desenho\" da linha (dashoffset) ficarem exatos. */\n  function fioPaths(w, h) {\n    return [\n      \"M \" + 0.60 * w + \" \" + 0.02 * h + \" L \" + 0.96 * w + \" \" + 0.28 * h + \" L \" + 0.96 * w + \" \" + 0.78 * h,\n      \"M \" + 0.04 * w + \" \" + 0.22 * h + \" L \" + 0.04 * w + \" \" + 0.72 * h + \" L \" + 0.40 * w + \" \" + 0.98 * h\n    ];\n  }\n\n  function injectFio(el) {\n    var w = el.clientWidth || 300;\n    var h = el.clientHeight || 300;\n    var svg = document.createElementNS(\"http://www.w3.org/2000/svg\", \"svg\");\n    svg.setAttribute(\"class\", \"fio\" + (el.getAttribute(\"data-fio\") === \"branco\" ? \" fio--branco\" : \"\"));\n    svg.setAttribute(\"viewBox\", \"0 0 \" + w + \" \" + h);\n    svg.setAttribute(\"preserveAspectRatio\", \"none\");\n    svg.setAttribute(\"aria-hidden\", \"true\");\n    fioPaths(w, h).forEach(function (d) {\n      var p = document.createElementNS(\"http://www.w3.org/2000/svg\", \"path\");\n      p.setAttribute(\"d\", d);\n      svg.appendChild(p);\n    });\n    el.appendChild(svg);\n    return svg;\n  }\n\n  /* Prepara um path para \"desenhar\" (dashoffset) */\n  function drawPaths(svg, opts) {\n    if (!hasGsap) return;\n    var paths = $$(\"path\", svg);\n    paths.forEach(function (p) {\n      var len = p.getTotalLength();\n      p.style.strokeDasharray = len;\n      p.style.strokeDashoffset = reduced ? 0 : len;\n    });\n    if (reduced) return;\n    gsap.to(paths, Object.assign({\n      strokeDashoffset: 0,\n      duration: 1.4,\n      ease: \"power2.inOut\",\n      stagger: 0.15\n    }, opts || {}));\n  }\n\n  /* ----------------------------------------------------------- header -- */\n\n  function initHeader() {\n    var header = $(\".mf-header\");\n    if (!header) return;\n    var update = function () {\n      header.classList.toggle(\"is-scrolled\", window.scrollY > 24);\n    };\n    window.addEventListener(\"scroll\", update, { passive: true });\n    update();\n\n    var btn = $(\".mf-menu-btn\");\n    var nav = $(\".mf-nav\");\n    if (btn && nav) {\n      btn.addEventListener(\"click\", function () {\n        var open = nav.classList.toggle(\"is-open\");\n        btn.setAttribute(\"aria-expanded\", open ? \"true\" : \"false\");\n        document.documentElement.style.overflow = open ? \"hidden\" : \"\";\n      });\n      $$(\"a\", nav).forEach(function (a) {\n        a.addEventListener(\"click\", function () {\n          nav.classList.remove(\"is-open\");\n          btn.setAttribute(\"aria-expanded\", \"false\");\n          document.documentElement.style.overflow = \"\";\n        });\n      });\n    }\n  }\n\n  /* --------------------------------------------------------- carrinho -- */\n\n  /* Carrinho: o fluxo real é do Layout Base (ajax_cart). Aqui só o CTA\n     de WhatsApp do produto, com a mensagem pré-preenchida. */\n\n  function initWhatsApp() {\n    $$(\".js-museu-wa\").forEach(function (a) {\n      a.addEventListener(\"click\", function (e) {\n        var msg = a.getAttribute(\"data-message\");\n        var base = a.getAttribute(\"href\");\n        if (!msg || !base) return;\n        e.preventDefault();\n        var sep = base.indexOf(\"?\") === -1 ? \"?\" : \"&\";\n        window.open(base + sep + \"text=\" + encodeURIComponent(msg), \"_blank\", \"noopener\");\n      });\n    });\n  }\n\n  /* ------------------------------------------------------------- hero -- */\n\n  function initHero() {\n    var hero = $(\".mf-hero\");\n    if (!hero) return;\n    var slides = $$(\".mf-hero__slide\", hero);\n    if (!slides.length) return;\n    var dots = $$(\".mf-hero__dot\", hero);\n    var atual = 0;\n    var timer = null;\n    var DURACAO = 6500;\n\n    /* Prepara nomes e fios */\n    slides.forEach(function (slide) {\n      var nome = $(\".mf-hero__nome\", slide);\n      if (nome && hasGsap && !reduced) splitChars(nome);\n      var alvoFio = $(\".mf-hero__fio\", slide);\n      if (alvoFio) injectFio(alvoFio);\n    });\n\n    function mostra(i, primeira) {\n      var anterior = slides[atual];\n      atual = (i + slides.length) % slides.length;\n      var slide = slides[atual];\n\n      hero.style.setProperty(\"--cor-hero\", \"var(--\" + (slide.getAttribute(\"data-cor\") || \"azul\") + \")\");\n\n      slides.forEach(function (s, j) { s.classList.toggle(\"is-active\", j === atual); });\n      dots.forEach(function (d, j) {\n        d.classList.toggle(\"is-active\", j === atual);\n        d.setAttribute(\"aria-pressed\", j === atual ? \"true\" : \"false\");\n        var prog = $(\".prog\", d);\n        if (prog && hasGsap) {\n          gsap.killTweensOf(prog);\n          gsap.set(prog, { scaleX: j === atual ? 0 : 0, transformOrigin: \"left\" });\n          if (j === atual && !reduced) gsap.to(prog, { scaleX: 1, duration: DURACAO / 1000, ease: \"none\" });\n          if (j === atual && reduced) gsap.set(prog, { scaleX: 1 });\n        }\n      });\n\n      if (!hasGsap || reduced) return;\n\n      /* A troca de slide é do CSS (classe .is-active); o GSAP anima apenas\n         os filhos do slide ativo — nunca a visibilidade do slide em si. */\n      var chars = $$(\".char\", $(\".mf-hero__nome\", slide) || slide);\n      var obra = $(\".mf-hero__obra img\", slide);\n      var intro = $(\".mf-hero__intro\", slide);\n      var rodape = $(\".mf-hero__rodape\", slide);\n      var fio = $(\".mf-hero__fio .fio\", slide);\n\n      gsap.killTweensOf([chars, obra, intro, rodape]);\n\n      var tl = gsap.timeline({ delay: primeira ? 0 : 0.2 });\n      if (obra) tl.fromTo(obra, { scale: 1.12 }, { scale: 1, duration: 1.6, ease: EASE }, 0);\n      if (chars.length) {\n        tl.fromTo(chars,\n          { yPercent: 60, autoAlpha: 0 },\n          { yPercent: 0, autoAlpha: 1, duration: 0.9, ease: EASE, stagger: 0.045 }, 0.15);\n      }\n      if (fio) drawPaths(fio, { delay: 0.2 });\n      if (intro) tl.fromTo(intro, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, 0.3);\n      if (rodape) tl.fromTo(rodape, { y: 24, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7, ease: EASE }, 0.4);\n    }\n\n    function agenda() {\n      clearInterval(timer);\n      if (slides.length < 2 || reduced) return;\n      timer = setInterval(function () { mostra(atual + 1); }, DURACAO);\n    }\n\n    dots.forEach(function (d, j) {\n      d.addEventListener(\"click\", function () { mostra(j); agenda(); });\n    });\n    hero.addEventListener(\"mouseenter\", function () { clearInterval(timer); });\n    hero.addEventListener(\"mouseleave\", agenda);\n    hero.addEventListener(\"focusin\", function () { clearInterval(timer); });\n    hero.addEventListener(\"focusout\", agenda);\n    document.addEventListener(\"visibilitychange\", function () {\n      if (document.hidden) {\n        clearInterval(timer);\n      } else {\n        mostra(atual);\n        agenda();\n      }\n    });\n\n    mostra(0, true);\n    agenda();\n  }\n\n  /* ---------------------------------------------------------- reveals -- */\n\n  function initReveals() {\n    if (!hasGsap || !window.ScrollTrigger) return;\n\n    $$(\"[data-reveal]\").forEach(function (el) {\n      el.classList.add(\"mf-reveal\");\n      var alvos = el.getAttribute(\"data-reveal\") === \"grupo\" ? Array.prototype.slice.call(el.children) : [el];\n      gsap.fromTo(alvos,\n        reduced ? { autoAlpha: 0 } : { autoAlpha: 0, y: 34 },\n        {\n          autoAlpha: 1,\n          y: 0,\n          duration: reduced ? 0.2 : 0.85,\n          ease: EASE,\n          stagger: reduced ? 0 : 0.09,\n          scrollTrigger: { trigger: el, start: \"top 86%\", once: true },\n          onStart: function () { el.classList.add(\"is-in\"); }\n        });\n    });\n\n    /* Fios que se desenham ao entrar na tela */\n    $$(\"[data-fio]\").forEach(function (el) {\n      if ($(\".fio\", el)) return; /* hero já injetou */\n      var svg = injectFio(el);\n      if (reduced) return;\n      window.ScrollTrigger.create({\n        trigger: el,\n        start: \"top 82%\",\n        once: true,\n        onEnter: function () { drawPaths(svg); }\n      });\n    });\n\n    /* Manifesto: palavras sobem uma a uma */\n    var frase = $(\".mf-manifesto__frase\");\n    if (frase && !reduced) {\n      var palavras = splitWords(frase);\n      gsap.fromTo(palavras,\n        { yPercent: 110, autoAlpha: 0 },\n        {\n          yPercent: 0, autoAlpha: 1,\n          duration: 0.7, ease: EASE, stagger: 0.035,\n          scrollTrigger: { trigger: frase, start: \"top 80%\", once: true }\n        });\n    }\n\n    /* Parallax sutil nas obras dos cards e seções */\n    if (!reduced) {\n      $$(\"[data-parallax] img\").forEach(function (img) {\n        gsap.fromTo(img, { yPercent: -6 }, {\n          yPercent: 6,\n          ease: \"none\",\n          scrollTrigger: { trigger: img, scrub: 0.6 }\n        });\n      });\n    }\n  }\n\n  /* ---------------------------------------------------------- produto -- */\n\n  function initProduto() {\n    var qtd = $(\".mf-qtd\");\n    if (qtd) {\n      var input = $(\"input\", qtd);\n      $$(\"button\", qtd).forEach(function (b) {\n        b.addEventListener(\"click\", function () {\n          var v = parseInt(input.value, 10) || 1;\n          v += b.getAttribute(\"data-passo\") === \"-\" ? -1 : 1;\n          input.value = Math.max(1, Math.min(99, v));\n        });\n      });\n    }\n\n    var palco = $(\".mf-produto__palco img\");\n    $$(\".mf-produto__thumbs button\").forEach(function (b) {\n      b.addEventListener(\"click\", function () {\n        $$(\".mf-produto__thumbs button\").forEach(function (x) {\n          x.classList.remove(\"is-active\");\n          x.setAttribute(\"aria-pressed\", \"false\");\n        });\n        b.classList.add(\"is-active\");\n        b.setAttribute(\"aria-pressed\", \"true\");\n        if (!palco) return;\n        var src = b.getAttribute(\"data-img\");\n        if (hasGsap && !reduced) {\n          gsap.to(palco, {\n            autoAlpha: 0, duration: 0.18, onComplete: function () {\n              palco.src = src;\n              gsap.fromTo(palco, { autoAlpha: 0, scale: 1.04 }, { autoAlpha: 1, scale: 1, duration: 0.5, ease: EASE });\n            }\n          });\n        } else {\n          palco.src = src;\n        }\n      });\n    });\n  }\n\n  /* ------------------------------------------------------------ loja -- */\n\n  function initFiltros() {\n    var botoes = $$(\".mf-filtro\");\n    if (!botoes.length) return;\n    var cards = $$(\"[data-artista]\");\n    botoes.forEach(function (b) {\n      b.addEventListener(\"click\", function () {\n        botoes.forEach(function (x) { x.setAttribute(\"aria-pressed\", \"false\"); });\n        b.setAttribute(\"aria-pressed\", \"true\");\n        var alvo = b.getAttribute(\"data-filtro\");\n        cards.forEach(function (c) {\n          var mostra = alvo === \"todos\" || c.getAttribute(\"data-artista\") === alvo;\n          c.style.display = mostra ? \"\" : \"none\";\n        });\n        if (window.ScrollTrigger) window.ScrollTrigger.refresh();\n      });\n    });\n  }\n\n  /* ------------------------------------------------- cursor com fio -- */\n\n  function initCursor() {\n    if (reduced) return;\n    if (!window.matchMedia(\"(hover: hover) and (pointer: fine)\").matches) return;\n\n    var dot = document.createElement(\"div\");\n    dot.className = \"mf-cursor\";\n    document.body.appendChild(dot);\n\n    var canvas = document.createElement(\"canvas\");\n    canvas.className = \"mf-fio-canvas\";\n    document.body.appendChild(canvas);\n    var ctx = canvas.getContext(\"2d\");\n\n    function resize() {\n      canvas.width = window.innerWidth * devicePixelRatio;\n      canvas.height = window.innerHeight * devicePixelRatio;\n      ctx.setTransform(devicePixelRatio, 0, 0, devicePixelRatio, 0, 0);\n    }\n    resize();\n    window.addEventListener(\"resize\", resize);\n\n    var alvoX = -100, alvoY = -100, x = -100, y = -100;\n    var pontos = [];\n    var MAX = 32;\n\n    document.addEventListener(\"mousemove\", function (e) {\n      alvoX = e.clientX; alvoY = e.clientY;\n    });\n\n    document.addEventListener(\"mouseover\", function (e) {\n      dot.classList.toggle(\"is-link\", !!e.target.closest(\"a, button, [role='button'], summary\"));\n    });\n\n    function frame() {\n      x += (alvoX - x) * 0.22;\n      y += (alvoY - y) * 0.22;\n      dot.style.transform = \"translate(\" + x + \"px,\" + y + \"px) translate(-50%,-50%)\";\n\n      pontos.push({ x: x, y: y });\n      if (pontos.length > MAX) pontos.shift();\n\n      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);\n      if (pontos.length > 2) {\n        ctx.beginPath();\n        ctx.moveTo(pontos[0].x, pontos[0].y);\n        for (var i = 1; i < pontos.length - 1; i++) {\n          var mx = (pontos[i].x + pontos[i + 1].x) / 2;\n          var my = (pontos[i].y + pontos[i + 1].y) / 2;\n          ctx.quadraticCurveTo(pontos[i].x, pontos[i].y, mx, my);\n        }\n        ctx.strokeStyle = \"rgba(255,255,255,0.9)\";\n        ctx.lineWidth = 1.2;\n        ctx.stroke();\n      }\n      requestAnimationFrame(frame);\n    }\n    requestAnimationFrame(frame);\n  }\n\n  /* ------------------------------------------------------------- boot -- */\n\n  function init() {\n    if (hasGsap) document.documentElement.classList.add(\"mf-js\");\n    initHeader();\n    initWhatsApp();\n    initHero();\n    initReveals();\n    initProduto();\n    initFiltros();\n    initCursor();\n  }\n\n  if (document.readyState === \"loading\") {\n    document.addEventListener(\"DOMContentLoaded\", init);\n  } else {\n    init();\n  }\n})();\n\n} else {\n  console.warn('Museu em Fios: GSAP não carregou; o motion fica desligado.');\n}\n});\n</script>",
+            "width": "fill"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "museu-estilo",
+    "museu-hero",
+    "museu-marquee",
+    "museu-manifesto",
+    "museu-noite",
+    "museu-vitrine",
+    "museu-passos",
+    "museu-kit",
+    "museu-iniciante",
+    "museu-digitais",
+    "museu-motion"
+  ]
+}
