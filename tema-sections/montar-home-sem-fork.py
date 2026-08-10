@@ -301,9 +301,11 @@ def melhorar_hero(markup: str) -> str:
 
     - o descritor vira <h2>: o h1 do tema é invisível e a página ficava sem
       heading com palavra-chave no topo;
-    - a imagem da obra vira link pro mesmo destino do "Ver o kit" do slide —
+    - a imagem da obra vira link pro mesmo destino do "Acessar kit" do slide —
       antes o único clicável era um link de texto de 15px;
     - no slide sem produto publicado o rótulo diz a verdade: "Ver a coleção".
+      Com os três produtos publicados isso não pega hoje; fica pro dia em que
+      entrar obra nova antes do kit dela.
 
     As variantes de imagem saíram daqui: agora é otimizar_imagens(), que vale
     pra TODAS as seções, não só o hero.
@@ -324,7 +326,7 @@ def melhorar_hero(markup: str) -> str:
         palcos[i] = chunk
     markup = "".join(palcos)
 
-    markup = re.sub(r'(href="/kits-de-bordado/"[^>]*>)Ver o kit<',
+    markup = re.sub(r'(href="/kits-de-bordado/"[^>]*>)Acessar kit<',
                     r'\g<1>Ver a coleção<', markup)
     return markup
 
@@ -450,13 +452,11 @@ LINKS_GLOBAIS = {
 # certo depende de QUAL obra. A âncora vem depois da imagem no markup, então
 # a imagem `obra-original-…` mais próxima ANTES do href identifica o produto.
 PRODUTO_POR_IMAGEM = {
-    # O produto do Femme existe (id 302470130, handle
-    # kit-de-bordado-femme-a-lombrelle-claude-monet) mas está DESPUBLICADO na
-    # loja (published: false, conferido em 29/07/2026) — a URL dele responde
-    # 404. Até ser publicado, o slide manda pra categoria; depois, é só
-    # devolver "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/"
-    # aqui e remontar.
-    "obra-original-monet-femme-ombrelle": "/kits-de-bordado/",
+    # O Femme (id 302470130) foi PUBLICADO — conferido em 10/08/2026, a URL
+    # responde produto com preço e estoque. Enquanto estava despublicado o
+    # slide mandava pra categoria; agora vai pro produto, que é o pedido do
+    # Daniel: a obra do hero abre o kit dela, não a loja inteira.
+    "obra-original-monet-femme-ombrelle": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
     "obra-original-klimt-die-umarmung": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
     "obra-original-monet-ponte-japonesa": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
 }

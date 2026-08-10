@@ -25,7 +25,7 @@
             <p class="mf-hero__ficha">Autor — Claude Monet<br>Obra — Femme à l'ombrelle, 1886</p>
             <div>
                 <p class="mf-hero__kit">Kit para<br>bordar</p>
-                <a class="mf-link" href="/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/">Ver o kit</a>
+                <a class="mf-link" href="/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/">Acessar kit</a>
             </div>
         </div>
     </article>
@@ -47,7 +47,7 @@
             <p class="mf-hero__ficha">Autor — Gustav Klimt<br>Obra — Die Umarmung, c. 1908</p>
             <div>
                 <p class="mf-hero__kit">Kit para<br>bordar</p>
-                <a class="mf-link" href="/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/">Ver o kit</a>
+                <a class="mf-link" href="/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/">Acessar kit</a>
             </div>
         </div>
     </article>
@@ -69,7 +69,7 @@
             <p class="mf-hero__ficha">Autor — Claude Monet<br>Obra — Le Pont Japonais, 1899</p>
             <div>
                 <p class="mf-hero__kit">Kit para<br>bordar</p>
-                <a class="mf-link" href="/produtos/kit-de-bordado-le-pont-japonais-claude-monet/">Ver o kit</a>
+                <a class="mf-link" href="/produtos/kit-de-bordado-le-pont-japonais-claude-monet/">Acessar kit</a>
             </div>
         </div>
     </article>
