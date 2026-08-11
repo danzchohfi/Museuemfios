@@ -207,14 +207,17 @@ VITRINE_CARDS = [
      "href": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
      "img": "obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805",
      "foto": "kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364"},
-    # Publicado em 30/07 e com a obra subida pela cliente na posição 4.
     # O selo é o obra-card__selo da demo (o mesmo do "Pré-venda") — pedido
     # da cliente em 31/07: marcar o kit de entrada na home.
+    # A obra era a foto crua da cliente (pôster com margem de papel, 1018x1280,
+    # única fora do padrão sq) — o Daniel apontou em 11/08. Recortada a área
+    # da pintura, quadrada, e SUBSTITUÍDA na pos4 da galeria (mesmo id; bytes
+    # originais em backup-imagem-nubleu-obra.json + scratchpad).
     {"id": "nubleu", "artista": "Matisse", "obra": "Nu Bleu II",
      "preco": "R$ 149", "cor": "#475dca", "texto": "#fbfaf6",
      "selo": "Iniciante",
      "href": INICIANTE_URL,
-     "img": "nu-d881b9500f7785b21017855220489403",
+     "img": "obra-original-matisse-nu-bleu-ii-sq-6f732580cb091c2e7117864442416896",
      "foto": "kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819"},
 ]
 
