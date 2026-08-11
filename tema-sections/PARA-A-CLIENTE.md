@@ -34,6 +34,13 @@ de texto do card. A palavra é editável ali mesmo (pode virar "Oferta",
 
 ## Já resolvido
 
+**O Femme à l'ombrelle abriu a vitrine da home.** Com o kit publicado, o card
+entrou como primeiro dos seis — obra do Monet, foto do bordado no hover e
+R$ 189 — e o destaque dele no topo da página também passou a abrir o produto.
+Um detalhe pra quem for subir foto: as três fotos novas desse produto vieram
+com nome de arquivo "le-pont" (engano de exportação) e em PNG — funcionam,
+mas o PNG pesa ~10x mais que o JPG na página do produto.
+
 **Os kits do Matisse estão no azul que a Isabella mandou.** O tom exato do
 swatch (#475DCA), nos dois cards — La Gerbe e Nu Bleu II — com a ficha em
 branco-papel para ler bem sobre o azul.

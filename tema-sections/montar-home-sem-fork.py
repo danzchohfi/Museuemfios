@@ -169,6 +169,17 @@ def atualizar_iniciante(markup: str) -> str:
 # ficha na base e a barra "Ver o kit →" subindo no hover. O que o skin precisa
 # resolver é só o que a estrutura do tema muda de lugar.
 VITRINE_CARDS = [
+    # Primeiro por pedido do Daniel (11/08): o kit voltou ao catálogo e abre a
+    # vitrine. A cor é o --azul que a demo reservou pra ele (#6a9cc3) — o azul
+    # forte #475dca ficou sendo a assinatura dos Matisse. A foto do bordado é
+    # a pos1 da galeria nova, que subiu com NOME de "le-pont" por engano de
+    # exportação, mas É a mulher com sombrinha bordada (conferido no pixel);
+    # o webp 640 dela responde 200 mesmo com o original em PNG.
+    {"id": "femme", "artista": "Monet", "obra": "Femme à l'ombrelle",
+     "preco": "R$ 189", "cor": "#6a9cc3",
+     "href": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
+     "img": "obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197",
+     "foto": "le-pont-a6f163a7fa8542229217858582167772"},
     {"id": "lepont", "artista": "Monet", "obra": "Le Pont Japonais",
      "preco": "R$ 189", "cor": "#9cad4e",
      "href": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
