@@ -1,0 +1,200 @@
+{
+  "sections": {
+    "main_product": {
+      "type": "main-product",
+      "blocks": {
+        "product_media": {
+          "type": "product-media",
+          "settings": {
+            "show_thumbnails": true,
+            "thumbnail_position": "left"
+          }
+        },
+        "product_info": {
+          "type": "product-info",
+          "settings": {
+            "gap": 40,
+            "vertical_padding": 8,
+            "horizontal_padding": 0
+          },
+          "blocks": {
+            "description": {
+              "type": "description",
+              "settings": {
+                "show_title": true,
+                "show_social": true
+              }
+            },
+            "purchase_info": {
+              "type": "purchase-info",
+              "settings": {
+                "icon_size": 32,
+                "title_size": "paragraph",
+                "description_size": "paragraph_small",
+                "gap": 24
+              },
+              "blocks": {
+                "icon_returns": {
+                  "type": "icon-text-item",
+                  "settings": {
+                    "icon": "returns",
+                    "title": "Devoluções grátis",
+                    "description": "Até 30 dias após a compra"
+                  }
+                },
+                "icon_security": {
+                  "type": "icon-text-item",
+                  "settings": {
+                    "icon": "security",
+                    "title": "Compra segura",
+                    "description": "Seus dados protegidos"
+                  }
+                },
+                "icon_frete": {
+                  "type": "icon-text-item",
+                  "settings": {
+                    "icon": "truck",
+                    "title": "Frete grátis acima de R$ 300",
+                    "description": "Envios para todo o Brasil"
+                  }
+                }
+              },
+              "block_order": [
+                "icon_returns",
+                "icon_security",
+                "icon_frete"
+              ]
+            }
+          },
+          "block_order": [
+            "purchase_info",
+            "description"
+          ]
+        }
+      },
+      "block_order": [
+        "product_media",
+        "product_info"
+      ]
+    },
+    "complementary_products": {
+      "type": "related-products",
+      "settings": {
+        "_custom_name": "Produtos complementares",
+        "products_source": "complementary",
+        "section_width": "page",
+        "gap": 32,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "complementary_heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Para comprar com esse produto",
+            "size": "h2"
+          }
+        },
+        "complementary_products_block": {
+          "type": "product-recommendations",
+          "settings": {
+            "columns": "4",
+            "columns_mobile": "2"
+          }
+        }
+      },
+      "block_order": [
+        "complementary_heading",
+        "complementary_products_block"
+      ]
+    },
+    "alternative_products": {
+      "type": "related-products",
+      "settings": {
+        "_custom_name": "Produtos alternativos",
+        "products_source": "alternative",
+        "section_width": "page",
+        "gap": 32,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "alternative_heading": {
+          "type": "heading",
+          "settings": {
+            "title": "Outras obras",
+            "size": "h2"
+          }
+        },
+        "alternative_products_block": {
+          "type": "product-recommendations",
+          "settings": {
+            "columns": "4",
+            "columns_mobile": "2"
+          }
+        }
+      },
+      "block_order": [
+        "alternative_heading",
+        "alternative_products_block"
+      ]
+    },
+    "product_description": {
+      "type": "product-description",
+      "disabled": true,
+      "settings": {
+        "show_title": true,
+        "show_social": true,
+        "section_width": "page",
+        "vertical_padding": 8,
+        "horizontal_padding": 0
+      }
+    },
+    "museu-slogan": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "slogan": {
+          "type": "code",
+          "settings": {
+            "code": "<p class=\"mf-slogan mf-slogan--faixa\">Sua hora com a arte. <strong>Borde um museu.</strong></p>"
+          }
+        }
+      }
+    },
+    "museu-obra-editorial": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "slogan": {
+          "type": "code",
+          "settings": {
+            "code": "<section class=\"mf-obra-editorial\" hidden><div class=\"mf-obra-editorial__wrap\"><div><p class=\"mf-obra-editorial__eyebrow\">Você conhece esta obra?</p><h2 class=\"mf-obra-editorial__titulo\"></h2></div><div class=\"mf-obra-editorial__texto\"><p class=\"lead\"></p><p class=\"apoio\"></p></div></div></section><script>(function(){var DADOS={\"kit-de-bordado-le-pont-japonais-claude-monet\": {\"titulo\": \"Le Pont Japonais\", \"p1\": \"Pintada por Claude Monet em 1899, a ponte japonesa sobre o lago de nenúfares de Giverny é um dos motivos mais amados do impressionismo — o jardim que o próprio pintor desenhou e retratou por mais de vinte anos.\", \"p2\": \"No bordado, essa vegetação densa vira camadas de pontos: a observação se transforma em fio, e o fio em memória. Cada interpretação é única, bordada à mão — tempo, contemplação e técnica.\"}, \"pre-venda-kit-de-bordado-die-umarmung-gustav-klimt\": {\"titulo\": \"Die Umarmung\", \"p1\": \"Desenhada por Gustav Klimt por volta de 1908 como estudo para o friso do Palácio Stoclet, Die Umarmung — o abraço — condensa o período dourado do artista: ornamento, geometria e afeto na mesma superfície.\", \"p2\": \"No bordado, a riqueza ornamental vira textura: espirais e campos dourados refeitos ponto a ponto, à mão — tempo, contemplação e técnica.\"}, \"kit-de-bordado-der-kuss-gustav-klimt\": {\"titulo\": \"Der Kuss\", \"p1\": \"Pintado por Gustav Klimt entre 1907 e 1908, O Beijo é a obra máxima do período dourado — o abraço coberto de ouro que virou um dos quadros mais reconhecidos do mundo.\", \"p2\": \"No bordado, o dourado vira linha: padrões e mosaicos refeitos ponto a ponto. Cada interpretação é única, bordada à mão — tempo, contemplação e técnica.\"}, \"kit-para-bordado-la-gerbe-henri-matisse-pko6p\": {\"titulo\": \"La Gerbe\", \"p1\": \"Criada por Henri Matisse em 1953, La Gerbe — o feixe — é uma das últimas grandes obras do artista: papel recortado em formas vivas, quando o mestre trocou o pincel pela tesoura.\", \"p2\": \"No bordado, cada folha recortada vira um campo de pontos cheios de cor. Cada interpretação é única, bordada à mão — tempo, contemplação e técnica.\"}};var h=(location.pathname.match(/\\/produtos\\/([^\\/]+)/)||[])[1];var d=h&&DADOS[h];if(!d)return;var s=document.querySelector('.mf-obra-editorial');if(!s)return;s.querySelector('.mf-obra-editorial__titulo').textContent=d.titulo;s.querySelector('.lead').textContent=d.p1;s.querySelector('.apoio').textContent=d.p2;s.hidden=false;})();</script>"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "main_product",
+    "museu-slogan",
+    "museu-obra-editorial",
+    "product_description",
+    "complementary_products",
+    "alternative_products"
+  ]
+}

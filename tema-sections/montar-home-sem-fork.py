@@ -466,10 +466,13 @@ LINKS_GLOBAIS = {
 # certo depende de QUAL obra. A âncora vem depois da imagem no markup, então
 # a imagem `obra-original-…` mais próxima ANTES do href identifica o produto.
 PRODUTO_POR_IMAGEM = {
-    # O Femme (id 302470130) foi PUBLICADO — conferido em 10/08/2026, a URL
-    # responde produto com preço e estoque. Enquanto estava despublicado o
-    # slide mandava pra categoria; agora vai pro produto, que é o pedido do
-    # Daniel: a obra do hero abre o kit dela, não a loja inteira.
+    # O Renoir (id 361045247) entrou no lugar do Femme no primeiro slide, a
+    # pedido da Isabella (18/08). O handle tem o sufixo -1p296 que a Nuvemshop
+    # gerou; conferido no ar antes de entrar aqui.
+    "obra-original-renoir-danse-bougival":
+        "/produtos/kit-para-bordar-danse-a-bougival-pierre-auguste-renoir-1p296/",
+    # O Femme saiu do hero mas o mapa fica: ele segue na vitrine, e a chave
+    # volta a valer se a obra dele reaparecer em algum slide.
     "obra-original-monet-femme-ombrelle": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
     "obra-original-klimt-die-umarmung": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
     "obra-original-monet-ponte-japonesa": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
