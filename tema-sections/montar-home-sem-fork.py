@@ -169,6 +169,18 @@ def atualizar_iniciante(markup: str) -> str:
 # ficha na base e a barra "Ver o kit →" subindo no hover. O que o skin precisa
 # resolver é só o que a estrutura do tema muda de lugar.
 VITRINE_CARDS = [
+    # PRIMEIRO por pedido do Daniel (18/08): "no início da coleção
+    # permanente", no mesmo dia em que o Renoir abriu o hero — os dois
+    # concordam em qual kit vem primeiro. Turquesa = o mesmo #2e8c9c do
+    # hero. A foto do hover é a pos1 da galeria —
+    # de novo um produto com as fotos batizadas "le-pont" por engano de
+    # exportação (é a 3ª vez; vale um aviso à cliente), mas o PIXEL é o
+    # bordado do casal dançando, conferido visualmente.
+    {"id": "renoir", "artista": "Renoir", "obra": "Danse à Bougival",
+     "preco": "R$ 199", "cor": "#2e8c9c",
+     "href": "/produtos/kit-para-bordar-danse-a-bougival-pierre-auguste-renoir-1p296/",
+     "img": "obra-original-renoir-danse-bougival-sq-2cc89860d13c110f3917870663946388",
+     "foto": "le-pont-46d81ae0e3623b39f417868192948981"},
     # Primeiro por pedido do Daniel (11/08): o kit voltou ao catálogo e abre a
     # vitrine. A cor é o --azul que a demo reservou pra ele (#6a9cc3) — o azul
     # forte #475dca ficou sendo a assinatura dos Matisse. A foto do bordado é
