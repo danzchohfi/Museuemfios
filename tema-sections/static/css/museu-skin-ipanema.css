@@ -1223,6 +1223,29 @@ body.mf-com-barra .js-notification-private {
   margin-block: -0.75rem;   /* cresce a área sem esticar a faixa */
 }
 
+/* GERAL — card de produto nas páginas de coleção (/kits-de-bordado/,
+   /produtos-digitais/, e o carrossel "Outras obras" da própria PDP): o link
+   nativo do Ipanema (`.js-product-item-image-link-private`) existe no HTML
+   com o href certo, mas fica vazio de conteúdo — a foto e o título são
+   irmãos dele, não filhos — e o navegador colapsa um <a> vazio pra 0×0.
+   A navegação real dependia só de um script que arma o clique DEPOIS que a
+   página carrega; num toque rápido ou numa conexão lenta, o script podia
+   não ter terminado ainda, e o clique não ia a lugar nenhum — medido: 1 em
+   3 tentativas, mesmo card, mesmo método (06/09).
+   O conserto é o mesmo link esticado já usado nos cards da vitrine da
+   home: o pai (`.js-product-item-image-container-private`) já é
+   `position: relative` nativamente, então só precisa o link cobrir os
+   100% dele. Com o <a> por cima, o clique volta a ser nativo — não depende
+   mais de script nenhum ter terminado de carregar. Testado ao vivo antes
+   de subir: a troca de foto no hover (obra → bordado) continua igual, e o
+   clique passou a navegar de forma consistente. */
+.js-product-item-image-link-private {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: block;
+}
+
 /* ==================================== vitrine de kits em blocks nativos -- */
 /* Os cards viraram `group` (duas imagens + texto) pra cliente poder adicionar
    kit sozinha pelo editor do tema. O texto usa as classes originais
