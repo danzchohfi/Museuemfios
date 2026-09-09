@@ -1,0 +1,55 @@
+{
+  "sections": {
+    "heading": {
+      "type": "page-header"
+    },
+    "page_content": {
+      "type": "main-page",
+      "settings": []
+    },
+    "museu-video": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "video": {
+          "type": "code",
+          "settings": {
+            "code": "<div class=\"mf-video-pagina\"><p class=\"mf-video-pagina__eyebrow\">O ritual</p><div class=\"mf-video-pagina__quadro\"><iframe src=\"https://www.youtube-nocookie.com/embed/Q2dJHg6M9jw?rel=0\" title=\"Museu em Fios — a sua hora com a arte, à noite\" loading=\"lazy\" allowfullscreen allow=\"accelerometer; encrypted-media; picture-in-picture\"></iframe></div></div>"
+          }
+        }
+      }
+    },
+    "museu-slogan": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "slogan": {
+          "type": "code",
+          "settings": {
+            "code": "<p class=\"mf-slogan\">Sua hora com a arte. <strong>Borde um museu.</strong></p>"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "museu-slogan",
+    "page_content",
+    "museu-video"
+  ]
+}

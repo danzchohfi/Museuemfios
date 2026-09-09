@@ -1,6 +1,40 @@
 # Museu em Fios — o que já está no ar
 
-Atualizado em 31/07/2026.
+Atualizado em 09/09/2026.
+
+---
+
+## Experimento de conversão (09/09)
+
+A pedido do Daniel e do William, quatro coisas saíram da tela — nenhuma foi
+apagada, e cada uma volta com uma linha:
+
+1. **Breadcrumb** ("Início > Kits de Bordado > nome") na página de produto —
+   repetia o menu e o título. O breadcrumb que o Google lê (JSON-LD) continua.
+2. **SKU** ("SKU: KIT-007") na página de produto — código interno. Saiu pelo
+   setting nativo *Mostrar SKU*; dá pra religar em *Personalizar → Página de
+   produto*.
+3. **"Opções para sua compra se adicionar este produto"** — aviso do calculador
+   de frete quando já há item no carrinho.
+4. **"A experiência / Imersão na arte, no seu tempo"** na home — a seção ficou
+   *desativada*: continua no editor, com os quatro passos e os textos, só não
+   aparece na página.
+
+Como medir: a Nuvemshop não tem teste A/B, então é antes/depois. Duas semanas
+a partir de 09/09 **sem outra mudança na loja**, comparando produto → carrinho
+→ checkout em *Estatísticas* com as duas semanas anteriores. Se piorar, cada
+item volta sozinho.
+
+Sugestões leves pra depois, na mesma linha: a página de produto diz "Última
+peça! Restam 2" e "2 disponíveis" (a mesma coisa duas vezes — deixar só a de
+urgência); o selo "Devoluções grátis até 30 dias" precisa bater com a página
+de Trocas e Devoluções; e o nível de dificuldade em todos os kits, não só no
+Nu Bleu II.
+
+**Sobre o clique nos cards da coleção:** o Daniel tinha razão — funcionava.
+O relato de que falhava era erro de medição nosso. O ajuste que subiu (o link
+cobrindo o card inteiro) fica só como melhoria de acessibilidade: o foco do
+teclado aparece e a área de toque é o quadro todo.
 
 ---
 
@@ -33,6 +67,13 @@ de texto do card. A palavra é editável ali mesmo (pode virar "Oferta",
 ---
 
 ## Já resolvido
+
+**O Femme à l'ombrelle abriu a vitrine da home.** Com o kit publicado, o card
+entrou como primeiro dos seis — obra do Monet, foto do bordado no hover e
+R$ 189 — e o destaque dele no topo da página também passou a abrir o produto.
+Um detalhe pra quem for subir foto: as três fotos novas desse produto vieram
+com nome de arquivo "le-pont" (engano de exportação) e em PNG — funcionam,
+mas o PNG pesa ~10x mais que o JPG na página do produto.
 
 **Os kits do Matisse estão no azul que a Isabella mandou.** O tom exato do
 swatch (#475DCA), nos dois cards — La Gerbe e Nu Bleu II — com a ficha em

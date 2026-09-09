@@ -71,6 +71,16 @@ SECOES = [
 # Fora por decisão: mf-insta (grade decorativa, exige mais 6 imagens hospedadas) e mf-news
 # (o rodapé já tem newsletter nativa funcionando, com o cupom).
 
+# EXPERIMENTO DE CONVERSÃO (09/09/2026, pedido do Daniel/William): seções que
+# ficam montadas e publicadas no home.json, mas com `"disabled": true` — o
+# tema não as renderiza, e elas continuam no editor (ocultas), com os blocks e
+# textos intactos. É o "remover, mas manter o backup no código": pra voltar,
+# basta tirar o nome daqui e remontar (ou religar a seção no editor).
+# - museu-passos: "A experiência / Imersão na arte, no seu tempo" (os 4 passos).
+#   Hipótese: é texto institucional entre a vitrine e o kit; sem ele, quem
+#   rola a home chega antes ao "O que vem no kit" e ao CTA de compra.
+DESATIVADAS = {"museu-passos"}
+
 # Vitrine de kits: a demo traz 6 cards com preços de outra época. Os dados
 # abaixo vieram da API em 29/07/2026 — preço real, link real, e só produto
 # PUBLICADO (femme e le-chevalier caem fora até serem publicados).
@@ -169,6 +179,29 @@ def atualizar_iniciante(markup: str) -> str:
 # ficha na base e a barra "Ver o kit →" subindo no hover. O que o skin precisa
 # resolver é só o que a estrutura do tema muda de lugar.
 VITRINE_CARDS = [
+    # PRIMEIRO por pedido do Daniel (18/08): "no início da coleção
+    # permanente", no mesmo dia em que o Renoir abriu o hero — os dois
+    # concordam em qual kit vem primeiro. Turquesa = o mesmo #2e8c9c do
+    # hero. A foto do hover é a pos1 da galeria —
+    # de novo um produto com as fotos batizadas "le-pont" por engano de
+    # exportação (é a 3ª vez; vale um aviso à cliente), mas o PIXEL é o
+    # bordado do casal dançando, conferido visualmente.
+    {"id": "renoir", "artista": "Renoir", "obra": "Danse à Bougival",
+     "preco": "R$ 199", "cor": "#2e8c9c",
+     "href": "/produtos/kit-para-bordar-danse-a-bougival-pierre-auguste-renoir-1p296/",
+     "img": "obra-original-renoir-danse-bougival-sq-2cc89860d13c110f3917870663946388",
+     "foto": "le-pont-46d81ae0e3623b39f417868192948981"},
+    # Primeiro por pedido do Daniel (11/08): o kit voltou ao catálogo e abre a
+    # vitrine. A cor é o --azul que a demo reservou pra ele (#6a9cc3) — o azul
+    # forte #475dca ficou sendo a assinatura dos Matisse. A foto do bordado é
+    # a pos1 da galeria nova, que subiu com NOME de "le-pont" por engano de
+    # exportação, mas É a mulher com sombrinha bordada (conferido no pixel);
+    # o webp 640 dela responde 200 mesmo com o original em PNG.
+    {"id": "femme", "artista": "Monet", "obra": "Femme à l'ombrelle",
+     "preco": "R$ 189", "cor": "#6a9cc3",
+     "href": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
+     "img": "obra-original-monet-femme-ombrelle-sq-fc8ce679db908f9ab817853430538197",
+     "foto": "le-pont-a6f163a7fa8542229217858582167772"},
     {"id": "lepont", "artista": "Monet", "obra": "Le Pont Japonais",
      "preco": "R$ 189", "cor": "#9cad4e",
      "href": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
@@ -196,14 +229,17 @@ VITRINE_CARDS = [
      "href": "/produtos/kit-para-bordado-la-gerbe-henri-matisse-pko6p/",
      "img": "obra-original-matisse-la-gerbe-sq-e2052deae3c1306d8417853522411805",
      "foto": "kit-para-bordar-la-gerbe-henri-matisse-1-2430600b61db54733417854169294364"},
-    # Publicado em 30/07 e com a obra subida pela cliente na posição 4.
     # O selo é o obra-card__selo da demo (o mesmo do "Pré-venda") — pedido
     # da cliente em 31/07: marcar o kit de entrada na home.
+    # A obra era a foto crua da cliente (pôster com margem de papel, 1018x1280,
+    # única fora do padrão sq) — o Daniel apontou em 11/08. Recortada a área
+    # da pintura, quadrada, e SUBSTITUÍDA na pos4 da galeria (mesmo id; bytes
+    # originais em backup-imagem-nubleu-obra.json + scratchpad).
     {"id": "nubleu", "artista": "Matisse", "obra": "Nu Bleu II",
      "preco": "R$ 149", "cor": "#475dca", "texto": "#fbfaf6",
      "selo": "Iniciante",
      "href": INICIANTE_URL,
-     "img": "nu-d881b9500f7785b21017855220489403",
+     "img": "obra-original-matisse-nu-bleu-ii-sq-6f732580cb091c2e7117864442416896",
      "foto": "kit-para-bordar-matisse-para-quem-nunca-bordou-n-1-02844faa3edde686a017854169153819"},
 ]
 
@@ -301,9 +337,11 @@ def melhorar_hero(markup: str) -> str:
 
     - o descritor vira <h2>: o h1 do tema é invisível e a página ficava sem
       heading com palavra-chave no topo;
-    - a imagem da obra vira link pro mesmo destino do "Ver o kit" do slide —
+    - a imagem da obra vira link pro mesmo destino do "Acessar kit" do slide —
       antes o único clicável era um link de texto de 15px;
     - no slide sem produto publicado o rótulo diz a verdade: "Ver a coleção".
+      Com os três produtos publicados isso não pega hoje; fica pro dia em que
+      entrar obra nova antes do kit dela.
 
     As variantes de imagem saíram daqui: agora é otimizar_imagens(), que vale
     pra TODAS as seções, não só o hero.
@@ -324,7 +362,7 @@ def melhorar_hero(markup: str) -> str:
         palcos[i] = chunk
     markup = "".join(palcos)
 
-    markup = re.sub(r'(href="/kits-de-bordado/"[^>]*>)Ver o kit<',
+    markup = re.sub(r'(href="/kits-de-bordado/"[^>]*>)Acessar kit<',
                     r'\g<1>Ver a coleção<', markup)
     return markup
 
@@ -450,13 +488,14 @@ LINKS_GLOBAIS = {
 # certo depende de QUAL obra. A âncora vem depois da imagem no markup, então
 # a imagem `obra-original-…` mais próxima ANTES do href identifica o produto.
 PRODUTO_POR_IMAGEM = {
-    # O produto do Femme existe (id 302470130, handle
-    # kit-de-bordado-femme-a-lombrelle-claude-monet) mas está DESPUBLICADO na
-    # loja (published: false, conferido em 29/07/2026) — a URL dele responde
-    # 404. Até ser publicado, o slide manda pra categoria; depois, é só
-    # devolver "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/"
-    # aqui e remontar.
-    "obra-original-monet-femme-ombrelle": "/kits-de-bordado/",
+    # O Renoir (id 361045247) entrou no lugar do Femme no primeiro slide, a
+    # pedido da Isabella (18/08). O handle tem o sufixo -1p296 que a Nuvemshop
+    # gerou; conferido no ar antes de entrar aqui.
+    "obra-original-renoir-danse-bougival":
+        "/produtos/kit-para-bordar-danse-a-bougival-pierre-auguste-renoir-1p296/",
+    # O Femme saiu do hero mas o mapa fica: ele segue na vitrine, e a chave
+    # volta a valer se a obra dele reaparecer em algum slide.
+    "obra-original-monet-femme-ombrelle": "/produtos/kit-de-bordado-femme-a-lombrelle-claude-monet/",
     "obra-original-klimt-die-umarmung": "/produtos/pre-venda-kit-de-bordado-die-umarmung-gustav-klimt/",
     "obra-original-monet-ponte-japonesa": "/produtos/kit-de-bordado-le-pont-japonais-claude-monet/",
 }
@@ -797,6 +836,15 @@ def main() -> int:
     )
     sections["museu-motion"] = secao_custom({"js": bloco_code(js)})
     ordem.append("museu-motion")
+
+    # Desativa sem apagar: a seção segue no JSON e no editor, só não renderiza
+    # (mesmo mecanismo do `product_description` no product.json do Ipanema).
+    for nome in sorted(DESATIVADAS):
+        if nome in sections:
+            sections[nome]["disabled"] = True
+            print(f"  {nome:18}    DESATIVADA (fica no editor, não renderiza)")
+        else:
+            print(f"  AVISO: {nome} está em DESATIVADAS mas não foi montada")
 
     home = {"sections": sections, "order": ordem}
     destino = BUILD / "templates" / "pages" / "home.json"

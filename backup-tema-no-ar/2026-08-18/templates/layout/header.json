@@ -1,0 +1,89 @@
+{
+  "type": "header",
+  "name": "Cabeçalho",
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "disabled": false,
+      "settings": {
+        "animation": "slider",
+        "section_width": "full",
+        "vertical_padding": 8,
+        "horizontal_padding": 0,
+        "background_color": "#F2C440",
+        "text_color": "#1D1D1B"
+      },
+      "blocks": {
+        "cupom": {
+          "type": "announcement",
+          "settings": {
+            "text": "Cupom de primeira compra: PRIMEIROPONTO"
+          }
+        },
+        "frete": {
+          "type": "announcement",
+          "settings": {
+            "text": "Frete grátis acima de R$ 300 — envios para todo o Brasil"
+          }
+        }
+      },
+      "block_order": [
+        "cupom",
+        "frete"
+      ]
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "logo": {
+          "type": "header-logo",
+          "settings": {
+            "height": 50,
+            "use_different_mobile_height": true,
+            "height_mobile": 64
+          }
+        },
+        "utilities": {
+          "type": "header-utilities",
+          "settings": {
+            "format": "icons",
+            "cart_icon": "bag"
+          }
+        },
+        "navigation": {
+          "type": "header-navigation",
+          "settings": {
+            "nav_uppercase": true,
+            "vertical_padding": 16,
+            "show_categories_link": false,
+            "show_mobile_categories": true,
+            "show_secondary_menu": false,
+            "menu": "navigation"
+          }
+        }
+      },
+      "block_order": [
+        "logo",
+        "utilities",
+        "navigation"
+      ],
+      "settings": {
+        "head_fix_desktop": true,
+        "logo_position_mobile": "center",
+        "logo_position_desktop": "center",
+        "section_width": "full",
+        "vertical_padding": 20,
+        "horizontal_padding": 40,
+        "background_color": "#FBFAF6",
+        "text_color": "#000000",
+        "use_different_mobile_padding": true,
+        "vertical_padding_mobile": 12,
+        "horizontal_padding_mobile": 20
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "header"
+  ]
+}

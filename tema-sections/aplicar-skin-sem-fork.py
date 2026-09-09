@@ -88,6 +88,14 @@ AJUSTES = {
     "font_rest": '"Roboto Serif", serif',
     "headings_bold": True,
 
+    # EXPERIMENTO DE CONVERSÃO (09/09/2026, pedido do Daniel/William): o
+    # "SKU: KIT-007" sai da página de produto — código interno, não ajuda a
+    # decidir. É o setting nativo "Mostrar SKU" do Ipanema, então a Isabella
+    # religa no editor se quiser (ou volte aqui pra True). Os demais toggles
+    # da PDP ficam como estão: "+40 vendidos" e "Restam 2" são prova social e
+    # urgência de verdade, e o parcelamento é decisão de compra.
+    "product_sku": False,
+
     # Cores base: papel, tinta e o amarelo pinçado do Klimt
     "background_color": "#FBFAF6",
     "text_color": "#1D1D1B",
