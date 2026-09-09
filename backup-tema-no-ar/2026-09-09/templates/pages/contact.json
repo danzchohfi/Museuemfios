@@ -1,0 +1,35 @@
+{
+  "sections": {
+    "heading": {
+      "type": "page-header"
+    },
+    "contact_form": {
+      "type": "main-contact",
+      "settings": []
+    },
+    "museu-slogan": {
+      "type": "custom",
+      "settings": {
+        "section_width": "full",
+        "direction": "column",
+        "mobile_direction_enabled": false,
+        "gap": 0,
+        "vertical_padding": 0,
+        "horizontal_padding": 0
+      },
+      "blocks": {
+        "slogan": {
+          "type": "code",
+          "settings": {
+            "code": "<p class=\"mf-slogan\">Sua hora com a arte. <strong>Borde um museu.</strong></p>"
+          }
+        }
+      }
+    }
+  },
+  "order": [
+    "heading",
+    "museu-slogan",
+    "contact_form"
+  ]
+}
