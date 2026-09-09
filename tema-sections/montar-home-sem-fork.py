@@ -71,6 +71,16 @@ SECOES = [
 # Fora por decisão: mf-insta (grade decorativa, exige mais 6 imagens hospedadas) e mf-news
 # (o rodapé já tem newsletter nativa funcionando, com o cupom).
 
+# EXPERIMENTO DE CONVERSÃO (09/09/2026, pedido do Daniel/William): seções que
+# ficam montadas e publicadas no home.json, mas com `"disabled": true` — o
+# tema não as renderiza, e elas continuam no editor (ocultas), com os blocks e
+# textos intactos. É o "remover, mas manter o backup no código": pra voltar,
+# basta tirar o nome daqui e remontar (ou religar a seção no editor).
+# - museu-passos: "A experiência / Imersão na arte, no seu tempo" (os 4 passos).
+#   Hipótese: é texto institucional entre a vitrine e o kit; sem ele, quem
+#   rola a home chega antes ao "O que vem no kit" e ao CTA de compra.
+DESATIVADAS = {"museu-passos"}
+
 # Vitrine de kits: a demo traz 6 cards com preços de outra época. Os dados
 # abaixo vieram da API em 29/07/2026 — preço real, link real, e só produto
 # PUBLICADO (femme e le-chevalier caem fora até serem publicados).
@@ -826,6 +836,15 @@ def main() -> int:
     )
     sections["museu-motion"] = secao_custom({"js": bloco_code(js)})
     ordem.append("museu-motion")
+
+    # Desativa sem apagar: a seção segue no JSON e no editor, só não renderiza
+    # (mesmo mecanismo do `product_description` no product.json do Ipanema).
+    for nome in sorted(DESATIVADAS):
+        if nome in sections:
+            sections[nome]["disabled"] = True
+            print(f"  {nome:18}    DESATIVADA (fica no editor, não renderiza)")
+        else:
+            print(f"  AVISO: {nome} está em DESATIVADAS mas não foi montada")
 
     home = {"sections": sections, "order": ordem}
     destino = BUILD / "templates" / "pages" / "home.json"

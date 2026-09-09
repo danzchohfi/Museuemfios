@@ -72,6 +72,20 @@ h1, h2, h3, .product-name, .footer-menu-title {
 }
 
 /* --------------------------------------------------- página de produto -- */
+/* EXPERIMENTO DE CONVERSÃO (09/09/2026, pedido do Daniel/William): tirar da
+   página de produto o que não ajuda a decidir a compra. Tudo aqui é
+   reversível apagando este bloco; o estilo original das migalhas segue logo
+   abaixo, intacto, pra quando voltar.
+   1. Migalhas "Início > Kits de Bordado > nome" — repetem o menu e o H1. O
+      breadcrumb do JSON-LD (SEO) continua no HTML; só some da tela.
+   2. "Opções para sua compra se adicionar este produto." — aviso do
+      calculador de frete quando já há item no carrinho; texto de sistema
+      que não muda nada pra quem está comprando.
+   3. O SKU sai pelo setting nativo `product_sku: false` (aplicar-skin), não
+      por CSS — assim a Isabella religa no editor se quiser. */
+.section-main-product .breadcrumbs { display: none; }
+.shipping-add-product-notice { display: none !important; }
+
 /* Migalhas viram o "eyebrow" da série (Monet em Fios · Coleção permanente) */
 .section-main-product .breadcrumbs {
   font-family: var(--f-titulo);
@@ -1225,20 +1239,21 @@ body.mf-com-barra .js-notification-private {
 
 /* GERAL — card de produto nas páginas de coleção (/kits-de-bordado/,
    /produtos-digitais/, e o carrossel "Outras obras" da própria PDP): o link
-   nativo do Ipanema (`.js-product-item-image-link-private`) existe no HTML
-   com o href certo, mas fica vazio de conteúdo — a foto e o título são
-   irmãos dele, não filhos — e o navegador colapsa um <a> vazio pra 0×0.
-   A navegação real dependia só de um script que arma o clique DEPOIS que a
-   página carrega; num toque rápido ou numa conexão lenta, o script podia
-   não ter terminado ainda, e o clique não ia a lugar nenhum — medido: 1 em
-   3 tentativas, mesmo card, mesmo método (06/09).
-   O conserto é o mesmo link esticado já usado nos cards da vitrine da
-   home: o pai (`.js-product-item-image-container-private`) já é
-   `position: relative` nativamente, então só precisa o link cobrir os
-   100% dele. Com o <a> por cima, o clique volta a ser nativo — não depende
-   mais de script nenhum ter terminado de carregar. Testado ao vivo antes
-   de subir: a troca de foto no hover (obra → bordado) continua igual, e o
-   clique passou a navegar de forma consistente. */
+   nativo do Ipanema (`.js-product-item-image-link-private`) tem o href certo
+   e as fotos são FILHAS dele (img → slide → swiper → <a>), então o clique na
+   foto sempre navegou nativamente, sem depender de script. ERRATA (09/09):
+   a versão anterior deste comentário dizia que o link era vazio e que o
+   clique falhava "1 em 3" por corrida com um script — a medição de 06/09
+   era ruído do ambiente de teste (proxy lento contra uma janela de 1,2 s),
+   não da loja. Reverificado no DOM ao vivo e com contagem correta: 3/3 no
+   desktop e 3/3 no iPhone, com e sem esta regra.
+   O que a regra faz, então: como as fotos são `position: absolute`, o <a>
+   em si media 0×0 — caixa nenhuma. Com o link esticado sobre o contêiner
+   (que já é `position: relative` nativo), ele ganha a caixa do card
+   inteiro: o anel de foco do teclado aparece, a área de toque é o quadro
+   todo e o alvo não depende de a foto ter carregado. Verificado ao vivo
+   depois de subir: hover obra → bordado igual, setas do carrossel ainda
+   recebem o clique, selos por cima. */
 .js-product-item-image-link-private {
   position: absolute;
   inset: 0;
